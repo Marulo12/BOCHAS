@@ -19,10 +19,24 @@ namespace BOCHAS.Controllers
         }
 
         // GET: Personas
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var Empleado = (from p in _context.Persona
+                            join d in _context.Domicilio on p.Id_Domicilio equals d.Id
+                            join e in _context.Empleado on p.Id equals e.IdPersona
+                            join l in _context.Localidad on d.IdLocalidad equals l.Id
+                            join b in _context.Barrio on d.IdBarrio equals b.Id
+                            select new
+                            {
+                            Id=p.Id,
+                              Mail = p.Mail,
+                               Nombre =  p.nombre,
+                               Apellido = p.Apellido,
+                                Documento = p.NroDocumento
 
-            return View();
+                            }).ToListAsync();
+
+            return View( await Empleado);
         }
         public IActionResult RegistrarEmpleado()
         {
@@ -130,6 +144,7 @@ namespace BOCHAS.Controllers
 
         public JsonResult MostrarBarrios(string IdLocalidad)
         {
+
             var barrios = (from b in _context.Barrio where b.IdLocalidad == Convert.ToInt32(IdLocalidad) select b).ToList();
 
             return Json(barrios);
