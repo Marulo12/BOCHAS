@@ -3,6 +3,12 @@
 
 
 $(document).ready(function () {
+    
+        
+
+    $("#Nombre").focus(function () {
+        MostrarTipoDocumento(); MostrarLocalidades(); MostrarCargos();
+    });
 
     $("#Localidad").change(function () {
         MostrarBarrio();
