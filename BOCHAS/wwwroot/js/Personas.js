@@ -3,10 +3,13 @@
 
 
 $(document).ready(function () {
+    
+        
 
-    MostrarTipoDocumento();
-    MostrarLocalidades();
-    MostrarCargos();
+    $("#Nombre").focus(function () {
+        MostrarTipoDocumento(); MostrarLocalidades(); MostrarCargos();
+    });
+
     $("#Localidad").change(function () {
         MostrarBarrio();
     });
@@ -150,10 +153,9 @@ function New() {
                 if (response === "OK") {
                     $("#DivCarga img").attr("src", "../images/ok.png");
                     $("#DivCarga img").attr("width", "250");
-                    $("#DivCarga .ok").append('<p><input id="Continuar" type="button" onclick="LimpiarCampos()" class="btn btn-success"  style="margin-left:10%;" value="Continuar"/></p>');                                                        
+                    $("#DivCarga .ok").append('<p><input id="Continuar" type="button" onclick="LimpiarCampos()" class="btn btn-success"  style="margin-left:10%;" value="Continuar"/></p>');
                 }
-                if (response == "ERROR")
-                {
+                if (response == "ERROR") {
                     $("#Error").html("Ocurrio un Error en la carga");
                     $("#DivCarga").css("display", "none");
                     $("#PanelEmpleados").css("display", "inline");
@@ -166,20 +168,20 @@ function New() {
 
             },
             failure: function (response) {
-                
+
                 $("#DivCarga").css("display", "none");
                 $("#PanelEmpleados").css("display", "inline");
                 $("#Error").html("Ocurrio un Error en la carga");
             }
         });
     }
-    
+
 
 }
 function ComprobarCampos() {
     if ($("#Nombre").val() == "") {
         $("#Error").html("No cargo el Nombre");
-        
+
         return false
     }
     if ($("#Apellido").val() == "") {
