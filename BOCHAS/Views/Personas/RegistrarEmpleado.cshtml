@@ -3,15 +3,13 @@
     <div class="panel panel-primary">
         <div class="panel-heading" style="padding-bottom:0px;">
             <img class="img-responsive" width="40" src="~/images/usuarioSinfond.png" />    <h3>Empleados</h3>
-            <ol class="breadcrumb text-capitalize">
-                <li><a asp-action="Index" asp-controller="Personas">Empleados</a></li>
-                <li><a asp-action="RegistrarEmpleado" asp-controller="Personas">Alta</a></li>
-            </ol>
+          
         </div>
         <div class="panel-body">
             <div id="DivCarga" style="display:none;">
                 <div class="row">
-                    <div  class="col-sm-12 ok" style="padding-left:40%;">
+                   
+                    <div class="col-sm-12 ok" style="padding-left:40%;">
                         <img src="~/images/carga.gif" alt="" width="200" />
                     </div>
                 </div>
@@ -20,7 +18,12 @@
             <form id="PanelEmpleados" class="form-group"  >
 
                 <div class="row">
-
+                    <ul class="nav nav-tabs ">
+                        <li role="presentation"><a href="#">Home</a></li>
+                        <li role="presentation" class="active"> <a asp-action="RegistrarEmpleado" asp-controller="Personas">Alta</a></li>
+                        <li role="presentation"><a asp-action="Index" asp-controller="Personas">Consulta</a></li>
+                    </ul>
+                    <br />
                     <div class="col-sm-3"><label>Nombre:</label><input id="Nombre" ng-model="Nombre" type="text" class="form-control" required /></div>
                     <div class="col-sm-3"><label>Apellido:</label><input id="Apellido" ng-model="Apellido" type="text" class="form-control" required /></div>
                     <div class="col-sm-2">
