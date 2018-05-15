@@ -3,8 +3,8 @@
 
 
 $(document).ready(function () {
-    
-        
+
+    MostrarPersona();
 
     $("#Nombre").focus(function () {
         MostrarTipoDocumento(); MostrarLocalidades(); MostrarCargos();
@@ -23,7 +23,35 @@ $(document).ready(function () {
         window.location("/Personas/RegistrarEmpleado");
     });
 });
+function MostrarPersona() {
+    $.ajax({
+        type: "GET",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        url: "/Personas/MostrarEmpleados",
 
+        success: function (response) {
+
+           
+            var dvItems = $("#CEmpleados");
+            
+            var Table = '<table class="table table-responsive table-hover"><thead class="bg-danger" style="font-size:17px;"><tr><td>Nombre</td><td>Apellido</td><td>Documento</td><td>Mail</td><td>Cargo</td><td></td></tr></thead>';
+            for (var i = 0; i < response.length; i++) {
+                Table += '<tr><td style="display:none">' + response[i].id + '</td><td>' + response[i].nombre + '</td>' + '<td>' + response[i].apellido + '</td>' + '<td>' + response[i].documento + '</td>' + '<td>' + response[i].mail + '</td>' + '<td>' + response[i].cargo + '</td> <td><input class="btn" type="button" value="D"/>/<input class="btn" type="button" value="M"/>/<input class="btn" type="button" value="E"/></td></tr>';
+                
+
+            }
+            Table += "</table>";
+            dvItems.append(Table);
+
+        },
+        failure: function (response) {
+            alert(response);
+        }
+
+    });
+
+}
 function MostrarCargos() {
     $.ajax({
         type: "GET",
