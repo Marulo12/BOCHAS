@@ -31,7 +31,7 @@ namespace BOCHAS.Controllers
                            from e in _context.Empleado
                            from c in _context.Cargo
 
-                           where p.Id == e.IdPersona && e.IdCargo == c.Id
+                           where p.Id == e.IdPersona && e.IdCargo == c.Id && p.Tipo.Contains("EMPLEADO")
                             select new 
                             {
                                 Id = p.Id,

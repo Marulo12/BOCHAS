@@ -4,12 +4,14 @@
 
 $(document).ready(function () {
 
-    MostrarPersona();
+   
 
-    $("#Nombre").focus(function () {
+    $("#altaEmpleado").after(function () {
         MostrarTipoDocumento(); MostrarLocalidades(); MostrarCargos();
     });
-
+    $("#ConsultaEmpleado").after(function () {
+        MostrarPersona();
+    });
     $("#Localidad").change(function () {
         MostrarBarrio();
     });
@@ -35,7 +37,7 @@ function MostrarPersona() {
            
             var dvItems = $("#CEmpleados");
             
-            var Table = '<table class="table table-responsive table-hover"><thead class="bg-danger" style="font-size:17px;"><tr><td>Nombre</td><td>Apellido</td><td>Documento</td><td>Mail</td><td>Cargo</td><td></td></tr></thead>';
+            var Table = '<table class="table table-responsive table-hover"><thead  style="background-color: rgba(215, 40, 40, 0.9);color:white;font-size:17px;"><tr><td>Nombre</td><td>Apellido</td><td>Documento</td><td>Mail</td><td>Cargo</td><td></td></tr></thead>';
             for (var i = 0; i < response.length; i++) {
                 Table += '<tr><td style="display:none">' + response[i].id + '</td><td>' + response[i].nombre + '</td>' + '<td>' + response[i].apellido + '</td>' + '<td>' + response[i].documento + '</td>' + '<td>' + response[i].mail + '</td>' + '<td>' + response[i].cargo + '</td> <td><input class="btn" type="button" value="D"/>/<input class="btn" type="button" value="M"/>/<input class="btn" type="button" value="E"/></td></tr>';
                 
