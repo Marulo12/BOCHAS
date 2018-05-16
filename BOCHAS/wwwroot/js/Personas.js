@@ -5,7 +5,7 @@
 $(document).ready(function () {
 
    
-
+   
     $("#altaEmpleado").after(function () {
         MostrarTipoDocumento(); MostrarLocalidades(); MostrarCargos();
     });
@@ -31,17 +31,9 @@ $(document).ready(function () {
     });
 
 
-    $(".boton").click(function () {
-
-        var valores = "";
-
-        // Obtenemos todos los valores contenidos en los <td> de la fila
-        // seleccionada
-        $(this).parents("tr").find("td").each(function () {
-            valores += $(this).html() + "\n";
-        });
-
-       window.alert(valores);
+    $('#TablaEmpleados tbody').on('click', 'tr', function () {
+        var data = table.row(this).data();
+        alert('You clicked on ' + data[0] + '\'s row');
     });
 
    
@@ -60,14 +52,14 @@ function MostrarPersona(filtro) {
            
             var dvItems = $("#CEmpleados");
             dvItems.empty();
-            var Table = '<table id="TablaEmpleados" class="table table-responsive table-hover"><thead  style="background-color: rgba(215, 40, 40, 0.9);color:white;font-size:17px;"><tr><td>Nombre</td><td>Apellido</td><td>Documento</td><td>Mail</td><td>Cargo</td><td></td></tr></thead>';
+            var Table = '<table id="TablaEmpleados" class="table table-responsive table-hover"><thead  style="background-color: rgba(215, 40, 40, 0.9);color:white;font-size:17px;"><tr><th></th><th>Nombre</th><th>Apellido</th><th>Documento</th><th>Mail</th><th>Cargo</th><th></th></tr></thead><tbody>';
             for (var i = 0; i < response.length; i++) {
-                Table += '<tr><td style="display:none">' + response[i].id + '</td><td>' + response[i].nombre + '</td>' + '<td>' + response[i].apellido + '</td>' + '<td>' + response[i].documento + '</td>' + '<td>' + response[i].mail + '</td>' + '<td>' + response[i].cargo + '</td> <td class="btn-group boton"> <button class=" btn btn-sm btn-success " name="' +  response[i].nombre + '" onclick="ConocerDomicilio(' + response[i].id + ');" ><i class="far fa-address-card"></i></button><button class=" btn btn-sm btn-warning"><i class="fas fa-pencil-alt"></i></button><button class=" btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button></td></tr>';
+                Table += '<tr><td style="">' + response[i].id + '</td><td>' + response[i].nombre + '</td>' + '<td>' + response[i].apellido + '</td>' + '<td>' + response[i].documento + '</td>' + '<td>' + response[i].mail + '</td>' + '<td>' + response[i].cargo + '</td> <td class="btn-group boton"> <button class=" btn btn-sm btn-success " name="' +  response[i].nombre + '" onclick="ConocerDomicilio(' + response[i].id + ');" ><i class="far fa-address-card"></i></button><button class=" btn btn-sm btn-warning"><i class="fas fa-pencil-alt"></i></button><button class=" btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button></td></tr>';
                 
 
             }
-            Table += "</table>";
-            
+            Table += "</tbody><tfoot></tfoot></table>";
+            $("#TablaEmpleados").DataTable();
             dvItems.append(Table);
            
         },
