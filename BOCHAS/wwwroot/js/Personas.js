@@ -3,13 +3,20 @@
 
 
 $(document).ready(function () {
-    
-        
 
-    $("#Nombre").focus(function () {
+   
+
+    $("#altaEmpleado").after(function () {
         MostrarTipoDocumento(); MostrarLocalidades(); MostrarCargos();
     });
+    $("#ConsultaEmpleado").after(function () {
+        MostrarPersona("");
+    });
+    $("#BtnBuscarEmp").click(function () {
+       
+        MostrarPersona($("#FiltroEmp").val());
 
+    });
     $("#Localidad").change(function () {
         MostrarBarrio();
     });
@@ -23,7 +30,37 @@ $(document).ready(function () {
         window.location("/Personas/RegistrarEmpleado");
     });
 });
+function MostrarPersona(filtro) {
+    $.ajax({
+        type: "GET",
+        url: "/Personas/MostrarEmpleados",
+        data: { filtro },
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+       
 
+        success: function (response) {
+
+           
+            var dvItems = $("#CEmpleados");
+            dvItems.empty();
+            var Table = '<table class="table table-responsive table-hover"><thead  style="background-color: rgba(215, 40, 40, 0.9);color:white;font-size:17px;"><tr><td>Nombre</td><td>Apellido</td><td>Documento</td><td>Mail</td><td>Cargo</td><td></td></tr></thead>';
+            for (var i = 0; i < response.length; i++) {
+                Table += '<tr><td style="display:none">' + response[i].id + '</td><td>' + response[i].nombre + '</td>' + '<td>' + response[i].apellido + '</td>' + '<td>' + response[i].documento + '</td>' + '<td>' + response[i].mail + '</td>' + '<td>' + response[i].cargo + '</td> <td class="btn-group"> <button class=" btn btn-sm btn-success"><i class="far fa-address-card"></i></button><button class=" btn btn-sm btn-warning"><i class="fas fa-pencil-alt"></i></button><button class=" btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button></td></tr>';
+                
+
+            }
+            Table += "</table>";
+            dvItems.append(Table);
+
+        },
+        failure: function (response) {
+            alert(response);
+        }
+
+    });
+
+}
 function MostrarCargos() {
     $.ajax({
         type: "GET",
@@ -155,12 +192,12 @@ function New() {
                     $("#DivCarga img").attr("width", "250");
                     $("#DivCarga .ok").append('<p><input id="Continuar" type="button" onclick="LimpiarCampos()" class="btn btn-success"  style="margin-left:10%;" value="Continuar"/></p>');
                 }
-                if (response == "ERROR") {
+                if (response === "ERROR") {
                     $("#Error").html("Ocurrio un Error en la carga");
                     $("#DivCarga").css("display", "none");
                     $("#PanelEmpleados").css("display", "inline");
                 }
-                if (response == "EXISTE") {
+                if (response === "EXISTE") {
                     $("#Error").html("Ese empleado ya existe!!");
                     $("#DivCarga").css("display", "none");
                     $("#PanelEmpleados").css("display", "inline");
@@ -179,38 +216,38 @@ function New() {
 
 }
 function ComprobarCampos() {
-    if ($("#Nombre").val() == "") {
+    if ($("#Nombre").val() === "") {
         $("#Error").html("No cargo el Nombre");
 
-        return false
+        return false;
     }
-    if ($("#Apellido").val() == "") {
+    if ($("#Apellido").val() === "") {
         $("#Error").html("No cargo el Apellido");
-        return false
+        return false;
     }
-    if ($("#Numero").val() == "") {
+    if ($("#Numero").val() === "") {
         $("#Error").html("No cargo el Numero");
-        return false
+        return false;
     }
-    if ($("#Mail").val() == "") {
+    if ($("#Mail").val() === "") {
         $("#Error").html("No cargo el Mail");
-        return false
+        return false;
     }
-    if ($("#Telefono").val() == "") {
+    if ($("#Telefono").val() === "") {
         $("#Error").html("No cargo el Telefono");
-        return false
+        return false;
     }
-    if ($("#Usuario").val() == "") {
+    if ($("#Usuario").val() === "") {
         $("#Error").html("No cargo el Usuario");
-        return false
+        return false;
     }
-    if ($("#Contra").val() == "") {
+    if ($("#Contra").val() === "") {
         $("#Error").html("No cargo La Contraseña");
-        return false
+        return false;
     }
-    if ($("#Calle").val() == "") {
+    if ($("#Calle").val() === "") {
         $("#Error").html("No cargo la Calle");
-        return false
+        return false;
     }
 
     return true;
