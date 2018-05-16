@@ -29,6 +29,8 @@ $(document).ready(function () {
     $("#Continuar").click(function () {
         window.location("/Personas/RegistrarEmpleado");
     });
+   
+    
 });
 function MostrarPersona(filtro) {
     $.ajax({
@@ -44,9 +46,9 @@ function MostrarPersona(filtro) {
            
             var dvItems = $("#CEmpleados");
             dvItems.empty();
-            var Table = '<table class="table table-responsive table-hover"><thead  style="background-color: rgba(215, 40, 40, 0.9);color:white;font-size:17px;"><tr><td>Nombre</td><td>Apellido</td><td>Documento</td><td>Mail</td><td>Cargo</td><td></td></tr></thead>';
+            var Table = '<table id="TablaEmpleados" class="table table-responsive table-hover"><thead  style="background-color: rgba(215, 40, 40, 0.9);color:white;font-size:17px;"><tr><td>Nombre</td><td>Apellido</td><td>Documento</td><td>Mail</td><td>Cargo</td><td></td></tr></thead>';
             for (var i = 0; i < response.length; i++) {
-                Table += '<tr><td style="display:none">' + response[i].id + '</td><td>' + response[i].nombre + '</td>' + '<td>' + response[i].apellido + '</td>' + '<td>' + response[i].documento + '</td>' + '<td>' + response[i].mail + '</td>' + '<td>' + response[i].cargo + '</td> <td class="btn-group"> <button class=" btn btn-sm btn-success"><i class="far fa-address-card"></i></button><button class=" btn btn-sm btn-warning"><i class="fas fa-pencil-alt"></i></button><button class=" btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button></td></tr>';
+                Table += '<tr><td style="display:none">' + response[i].id + '</td><td>' + response[i].nombre + '</td>' + '<td>' + response[i].apellido + '</td>' + '<td>' + response[i].documento + '</td>' + '<td>' + response[i].mail + '</td>' + '<td>' + response[i].cargo + '</td> <td class="btn-group"> <button id="BtnDomicilio" onclick="ConocerDomicilio(' + response[i].id + ');" class=" btn btn-sm btn-success" data-toggle="modal" data-target="#ModalDomicilio"><i class="far fa-address-card"></i></button><button class=" btn btn-sm btn-warning"><i class="fas fa-pencil-alt"></i></button><button class=" btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button></td></tr>';
                 
 
             }
@@ -61,6 +63,44 @@ function MostrarPersona(filtro) {
     });
 
 }
+
+function ConocerDomicilio(id) {
+   
+    $.ajax({
+        type: "GET",
+        url: "/Personas/ConocerDomicilio",
+        data: {id},
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+      
+
+        success: function (response) {
+
+            var rows;
+            var dvItems = $("#ModalBodyDomicilio");
+            $("#ModalCalle").val();
+            $("#ModalNumero").val();
+            $("#ModalLocalidad").val();
+            $("#ModalBarrio").val();
+            for (var i = 0; i < response.length; i++) {
+                $("#ModalCalle").val(response[i].calle);
+                $("#ModalNumero").val(response[i].numero);
+                $("#ModalLocalidad").val(response[i].localidad);
+                $("#ModalBarrio").val(response[i].barrio);
+
+            }
+         
+
+        },
+        failure: function (response) {
+            alert(response);
+        }
+    });
+}
+
+
+
+
 function MostrarCargos() {
     $.ajax({
         type: "GET",

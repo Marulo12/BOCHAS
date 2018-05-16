@@ -135,6 +135,16 @@ namespace BOCHAS.Controllers
             return false;
         }
 
+        public async Task<JsonResult> ConocerDomicilio(string IdPersona)
+        {
+            var IdDomicilio = (from p in _context.Persona where p.Id == Convert.ToInt32(IdPersona) select new { IdDomicilio = p.Id_Domicilio }).ToString();
+
+            var Domicilio = (from d in _context.Domicilio join l in _context.Localidad on d.IdLocalidad equals l.Id join b in _context.Barrio on d.IdBarrio equals b.Id select new { barrio = b.Nombre, localidad = l.Nombre, numero = d.Numero, calle = d.Calle });
+            return Json(await Domicilio.ToListAsync());
+        }
+
+
+
         // GET: Personas/Details/5
         public async Task<IActionResult> Details(int? id)
         {
