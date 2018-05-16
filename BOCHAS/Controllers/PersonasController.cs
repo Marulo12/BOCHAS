@@ -21,12 +21,11 @@ namespace BOCHAS.Controllers
         // GET: Personas
         public IActionResult Index()
         {
-           
-
             return View();
         }
-        public async Task<JsonResult> MostrarEmpleados()
+        public async Task<JsonResult> MostrarEmpleados(string filtro)
         {
+
             var Empleado = (from p in _context.Persona
                            from e in _context.Empleado
                            from c in _context.Cargo
@@ -41,8 +40,14 @@ namespace BOCHAS.Controllers
                                 Documento = p.NroDocumento,
                                 Cargo = c.Nombre
 
-                            }).ToListAsync();
-            return Json( await Empleado);
+                            });
+
+            if (!string.IsNullOrEmpty(filtro))
+            {
+                Empleado = Empleado.Where(p => p.Nombre.Contains(filtro) || p.Apellido.Contains(filtro));
+            }
+
+            return Json( await Empleado.ToListAsync());
         }
         public IActionResult RegistrarEmpleado()
         {

@@ -10,16 +10,19 @@
            
             <div class="row">
                 <ul class="nav nav-tabs ">
-                    <li role="presentation"><a href="#">Home</a></li>
+                   
                     <li role="presentation"> <a asp-action="RegistrarEmpleado" asp-controller="Personas">Alta</a></li>
                     <li role="presentation" class="active"><a id="ConsultaEmpleado" asp-action="Index" asp-controller="Personas">Consulta</a></li>
                 </ul>
                 <br />
-               
+                <div class="col-sm-12">
+                    <form class="form-group form-inline">
+                        <input id="FiltroEmp" type="text"  class="form-control" placeholder="Filtro(Nombre o Apellido)" /><button id="BtnBuscarEmp" class="btn btn-sm btn-info"><span class="glyphicon glyphicon-search"></span></button>
+                    </form>
+                </div>
                 <div id="CEmpleados" class="col-sm-12">
-                    <input type="text" placeholder="Ingrese Filtro" /><button class="btn btn-sm btn-info"><span class="glyphicon glyphicon-search"></span></button>
-                    <br />
-                    <br />
+                    
+                 
                 </div>
 
             </div>
