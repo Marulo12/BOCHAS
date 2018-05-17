@@ -27,7 +27,7 @@ $(document).ready(function () {
         LimpiarCampos();
     });
     $("#Continuar").click(function () {
-        window.location("/Personas/RegistrarEmpleado");
+        window.location = "/Personas/RegistrarEmpleado";
     });
 
    
@@ -47,9 +47,9 @@ function MostrarPersona(filtro) {
            
             var dvItems = $("#CEmpleados");
             dvItems.empty();
-            var Table = '<table id="TablaEmpleados" class="table"><thead style="background-color:red;color:white"><tr><th></th><th>Nombre</th><th>Apellido</th><th>Documento</th><th>Mail</th><th>Cargo</th><th></th></tr></thead><tbody>';
+            var Table = '<table id="TablaEmpleados" class="table display"><thead style="background-color: rgba(215, 40, 40, 0.9);color:white"><tr><th style="display:none;"></th><th>Nombre</th><th>Apellido</th><th>Documento</th><th>Mail</th><th>Cargo</th><th ></th></tr></thead><tbody>';
             for (var i = 0; i < response.length; i++) {
-                Table += '<tr><td >' + response[i].id + '</td><td>' + response[i].nombre + '</td>' + '<td>' + response[i].apellido + '</td>' + '<td>' + response[i].documento + '</td>' + '<td>' + response[i].mail + '</td>' + '<td>' + response[i].cargo + '</td> <td class="btn-group boton"> <button class=" btn btn-sm btn-success "  onclick="ConocerDomicilio(' + response[i].id + ');"><i class="far fa-address-card"></i></button><button class=" btn btn-sm btn-warning"><i class="fas fa-pencil-alt"></i></button><button class=" btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button></td></tr>';
+                Table += '<tr><td style="display:none;">' + response[i].id + '</td><td>' + response[i].nombre + '</td>' + '<td>' + response[i].apellido + '</td>' + '<td>' + response[i].documento + '</td>' + '<td>' + response[i].mail + '</td>' + '<td>' + response[i].cargo + '</td> <td class="btn-group"> <button class=" btn btn-sm btn-success " data-toggle="tooltip" title="Informacion adicional" data-placement="bottom"  onclick="ConocerDomicilio(' + response[i].id + ');"><i class="far fa-address-card"></i></button><button class=" btn btn-sm btn-warning" data-toggle="tooltip" title="Modificar" data-placement="bottom" ><i class="fas fa-pencil-alt"></i></button><button class=" btn btn-sm btn-danger" data-toggle="tooltip" title="Informacion adicional" data-placement="bottom"><i class="fas fa-trash-alt"></i></button></td></tr>';
                 
 
             }
@@ -60,6 +60,7 @@ function MostrarPersona(filtro) {
 
             dvItems.append(Table);
             $("#TablaEmpleados").DataTable();
+            $('[data-toggle="tooltip"]').tooltip(); 
         },
         failure: function (response) {
             alert(response);
@@ -228,13 +229,14 @@ function New() {
         var usuario = $("#Usuario").val();
         var contra = $("#Contra").val();
         var calle = $("#Calle").val();
+        var ncalle = $("#NCalle").val();
         var cargo = $("#Cargo option:selected").val();
         $("#PanelEmpleados").css("display", "none");
         $("#DivCarga").css("display", "inline");
         $.ajax({
             type: "POST",
             url: "/Personas/New",
-            data: { nombre, apellido, tipodoc, numero, mail, telefono, localidad, barrio, usuario, contra, calle, cargo },
+            data: { nombre, apellido, tipodoc, numero, mail, telefono, localidad, barrio, usuario, contra, calle, cargo , ncalle},
             success: function (response) {
                 if (response === "OK") {
                     $("#DivCarga img").attr("src", "../images/ok.png");
@@ -298,10 +300,14 @@ function ComprobarCampos() {
         $("#Error").html("No cargo la Calle");
         return false;
     }
+    if ($("#NCalle").val() === "") {
+        $("#Error").html("No cargo el numero de la calle");
+        return false;
+    }
 
     return true;
 }
 
 function LimpiarCampos() {
-    window.location("/Personas/RegistrarEmpleado");
+    window.location="/Personas/RegistrarEmpleado";
 }

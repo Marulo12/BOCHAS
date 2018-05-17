@@ -29,30 +29,43 @@
 
     </div>
 </div>
-<div id="ModalDomicilio" class="modal fade" role="dialog">
-    <div class="modal-dialog">
+<div id="ModalDomicilio" class="modal fade " role="dialog">
+    <div class="modal-dialog ">
 
         <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
+        <div class="modal-content ">
+            <div class="modal-header bg-primary">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Domicilio</h4>
+                <h4 class="modal-title">Informacion Adicional</h4>
             </div>
             <div id="ModalBodyDomicilio" class="modal-body">
                 <form class="form-group">
-
                     <div class="row">
-                        <div class="col-sm-6"><label>Calle:</label><input id="ModalCalle" type="text" class="form-control" /></div>
-                        <div class="col-sm-6"><label>Numero:</label><input id="ModalNumero" type="text" class="form-control" /></div>
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-sm-6"><label>Calle:</label><input id="ModalCalle" type="text" class="form-control" /></div>
+                                <div class="col-sm-6"><label>Numero:</label><input id="ModalNumero" type="text" class="form-control" /></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6"><label>Localidad:</label><input id="ModalLocalidad" type="text" class="form-control" /></div>
+                                <div class="col-sm-6"><label>Barrio:</label><input id="ModalBarrio" type="text" class="form-control" /></div>
+                            </div>
+                        </div>
                     </div>
+                    <hr />
                     <div class="row">
-                        <div class="col-sm-6"><label>Localidad:</label><input id="ModalLocalidad" type="text" class="form-control" /></div>
-                        <div class="col-sm-6"><label>Barrio:</label><input id="ModalBarrio" type="text" class="form-control" /></div>
+                        <div class="col-lg-12">
+                        
+                            <div class="row">
+                                <div class="col-sm-6"><label>Usuario:</label><input id="ModalUsuario" type="text" class="form-control" /></div>
+                                <div class="col-sm-6"><label>Contraseña:</label><input id="ModalContra" type="password" class="form-control" /></div>
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
 
@@ -62,7 +75,7 @@
 @section Scripts {
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script src="~/js/Personas.js"></script>
-    
+
 
 }
 

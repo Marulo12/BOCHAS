@@ -55,7 +55,7 @@ namespace BOCHAS.Controllers
             return View();
         }
         [HttpPost]
-        public JsonResult New(string Nombre, string Apellido,string TipoDoc, string Numero,string Mail, string Telefono,string Localidad, string Barrio,string usuario,string Contra,string Calle, string Cargo)
+        public JsonResult New(string Nombre, string Apellido,string TipoDoc, string Numero,string Mail, string Telefono,string Localidad, string Barrio,string usuario,string Contra,string Calle, string Cargo, string ncalle )
         {
             try
             {
@@ -65,7 +65,7 @@ namespace BOCHAS.Controllers
                     // crea domicilio
                     Domicilio dom = new Domicilio();
                     dom.IdBarrio = Convert.ToInt32(Barrio);
-                    dom.Numero = Convert.ToInt32(Numero);
+                    dom.Numero = Convert.ToInt32(ncalle);
                     dom.IdLocalidad = Convert.ToInt32(Localidad);
                     dom.Calle = Calle;
                     _context.Domicilio.Add(dom);
