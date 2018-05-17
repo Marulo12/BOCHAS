@@ -137,9 +137,9 @@ namespace BOCHAS.Controllers
 
         public async Task<JsonResult> ConocerDomicilio(string IdPersona)
         {
-            var IdDomicilio = (from p in _context.Persona where p.Id == Convert.ToInt32(IdPersona) select new { IdDomicilio = p.Id_Domicilio }).ToString();
+            var IdDomicilio = (from p in _context.Persona where p.Id == Convert.ToInt32(IdPersona) select new { IdDomicilio = p.Id_Domicilio }).ToList() ;
 
-            var Domicilio = (from d in _context.Domicilio join l in _context.Localidad on d.IdLocalidad equals l.Id join b in _context.Barrio on d.IdBarrio equals b.Id select new { barrio = b.Nombre, localidad = l.Nombre, numero = d.Numero, calle = d.Calle });
+            var Domicilio = (from d in _context.Domicilio join l in _context.Localidad on d.IdLocalidad equals l.Id join b in _context.Barrio on d.IdBarrio equals b.Id  where d.Id == Convert.ToInt32(IdDomicilio[0].IdDomicilio) select new { barrio = b.Nombre, localidad = l.Nombre, numero = d.Numero, calle = d.Calle });
             return Json(await Domicilio.ToListAsync());
         }
 

@@ -4,25 +4,24 @@
     <div class="panel panel-primary">
         <div class="panel-heading" style="padding-bottom:0px;">
             <img class="img-responsive" width="40" src="~/images/usuarioSinfond.png" />  <h3>Empleados</h3>
-           
+
         </div>
         <div class="panel-body">
-           
+
             <div class="row">
                 <ul class="nav nav-tabs ">
-                   
                     <li role="presentation"> <a asp-action="RegistrarEmpleado" asp-controller="Personas">Alta</a></li>
                     <li role="presentation" class="active"><a id="ConsultaEmpleado" asp-action="Index" asp-controller="Personas">Consulta</a></li>
                 </ul>
                 <br />
                 <div class="col-sm-12">
                     <form class="form-group form-inline">
-                        <input id="FiltroEmp" type="text"  class="form-control" placeholder="Filtro(Nombre o Apellido)" /><button id="BtnBuscarEmp" class="btn btn-sm btn-info"><span class="glyphicon glyphicon-search"></span></button>
+                        <input id="FiltroEmp" type="text" class="form-control" placeholder="Filtro(Nombre o Apellido)" /><button id="BtnBuscarEmp" class="btn btn-sm btn-info"><span class="glyphicon glyphicon-search"></span></button>
                     </form>
                 </div>
                 <div id="CEmpleados" class="col-sm-12">
-                    
-                 
+
+
                 </div>
 
             </div>
@@ -61,8 +60,9 @@
 </div>
 
 @section Scripts {
-    <script src="~/js/Personas.js"></script>
-
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="~/js/Personas.js"></script>
+    
+
 }
 

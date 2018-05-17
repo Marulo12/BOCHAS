@@ -30,12 +30,7 @@ $(document).ready(function () {
         window.location("/Personas/RegistrarEmpleado");
     });
 
-
-    $('#TablaEmpleados tbody').on('click', 'tr', function () {
-        var data = table.row(this).data();
-        alert('You clicked on ' + data[0] + '\'s row');
-    });
-
+   
    
 });
 function MostrarPersona(filtro) {
@@ -52,16 +47,19 @@ function MostrarPersona(filtro) {
            
             var dvItems = $("#CEmpleados");
             dvItems.empty();
-            var Table = '<table id="TablaEmpleados" class="table table-responsive table-hover"><thead  style="background-color: rgba(215, 40, 40, 0.9);color:white;font-size:17px;"><tr><th></th><th>Nombre</th><th>Apellido</th><th>Documento</th><th>Mail</th><th>Cargo</th><th></th></tr></thead><tbody>';
+            var Table = '<table id="TablaEmpleados" class="table"><thead style="background-color:red;color:white"><tr><th></th><th>Nombre</th><th>Apellido</th><th>Documento</th><th>Mail</th><th>Cargo</th><th></th></tr></thead><tbody>';
             for (var i = 0; i < response.length; i++) {
-                Table += '<tr><td style="">' + response[i].id + '</td><td>' + response[i].nombre + '</td>' + '<td>' + response[i].apellido + '</td>' + '<td>' + response[i].documento + '</td>' + '<td>' + response[i].mail + '</td>' + '<td>' + response[i].cargo + '</td> <td class="btn-group boton"> <button class=" btn btn-sm btn-success " name="' +  response[i].nombre + '" onclick="ConocerDomicilio(' + response[i].id + ');" ><i class="far fa-address-card"></i></button><button class=" btn btn-sm btn-warning"><i class="fas fa-pencil-alt"></i></button><button class=" btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button></td></tr>';
+                Table += '<tr><td >' + response[i].id + '</td><td>' + response[i].nombre + '</td>' + '<td>' + response[i].apellido + '</td>' + '<td>' + response[i].documento + '</td>' + '<td>' + response[i].mail + '</td>' + '<td>' + response[i].cargo + '</td> <td class="btn-group boton"> <button class=" btn btn-sm btn-success "  onclick="ConocerDomicilio(' + response[i].id + ');"><i class="far fa-address-card"></i></button><button class=" btn btn-sm btn-warning"><i class="fas fa-pencil-alt"></i></button><button class=" btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button></td></tr>';
                 
 
             }
             Table += "</tbody><tfoot></tfoot></table>";
-            $("#TablaEmpleados").DataTable();
-            dvItems.append(Table);
            
+               
+            
+
+            dvItems.append(Table);
+            $("#TablaEmpleados").DataTable();
         },
         failure: function (response) {
             alert(response);
@@ -71,18 +69,20 @@ function MostrarPersona(filtro) {
 
 }
 
+
+
 function ConocerDomicilio(id) {
-   
+    
     $.ajax({
         type: "GET",
         url: "/Personas/ConocerDomicilio",
-        data: {id},
+        data: {IdPersona: id },
         contentType: "application/json; charset=utf-8",
         dataType: "json",
       
 
         success: function (response) {
-          
+
             
             var rows;
             var dvItems = $("#ModalBodyDomicilio");
@@ -97,7 +97,7 @@ function ConocerDomicilio(id) {
                 $("#ModalBarrio").val(response[i].barrio);
 
             }
-            
+          
             $('#ModalDomicilio').modal();
            
         },
