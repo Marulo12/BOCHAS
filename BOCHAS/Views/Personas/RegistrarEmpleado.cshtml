@@ -41,18 +41,26 @@
                 <hr />
 
                 <div class="row">
-                    <div class="col-sm-2">
+                    <div class="col-sm-3">
                         <label for="Localidad">Localidad:</label>&nbsp;<select id="Localidad" class="btn btn-danger form-control"></select>
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-sm-3">
                         <label for="Barrio">Barrio:</label>&nbsp; <select id="Barrio" class="btn btn-danger form-control"></select>
 
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-sm-4">
                         <label for="Calle">Calle:</label>&nbsp; <input id="Calle" type="text" class="form-control" required />
 
                     </div>
-                    <div class="col-sm-6 " style="border-left:1px solid red">
+                    <div class="col-sm-1">
+                        <label for="NCalle">N°:</label>&nbsp; <input id="NCalle" type="text" class="form-control" required />
+
+                    </div>
+                   
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-sm-6 " style="border-top:inset 1px #961c1c;">
                         <h4><i class="glyphicon glyphicon-user"></i> &nbsp; Usuario para el sistema</h4>
                         <div class="row">
 
@@ -61,13 +69,11 @@
                             <div class="col-sm-6"><input id="Contra" type="password" placeholder="Contraseña" class="form-control" required /></div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-3 btn-group" style="margin-top:3%;">
-                        <span id="Error" class="label label-warning form-control" style="font-size:20px;"></span>
+                    <div class="col-sm-4" style="margin-top:4%;align-content:center">
+                        <span id="Error" class="  label label-warning form-control" style="font-size:20px;"></span>
                     </div>
-                    <div class="col-sm-2 btn-group" style="margin-top:3%;float:right">
-                        <input id="Registrar" type="button" class="btn  btn-primary" value="Registrar" />
+                    <div class="col-sm-2 btn-group" style="margin-top:4%;float:right">
+                        <input id="Registrar" type="button" class="btn   btn-primary" value="Registrar" />
                         <input id="Limpiar" type="button" class="btn  btn-primary" value="Limpiar" />
 
                     </div>
