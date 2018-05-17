@@ -1,11 +1,4 @@
-﻿
-
-
-
-$(document).ready(function () {
-
-   
-   
+﻿$(document).ready(function () {
     $("#altaEmpleado").after(function () {
         MostrarTipoDocumento(); MostrarLocalidades(); MostrarCargos();
     });
@@ -13,9 +6,7 @@ $(document).ready(function () {
         MostrarPersona("");
     });
     $("#BtnBuscarEmp").click(function () {
-       
         MostrarPersona($("#FiltroEmp").val());
-
     });
     $("#Localidad").change(function () {
         MostrarBarrio();
@@ -29,9 +20,6 @@ $(document).ready(function () {
     $("#Continuar").click(function () {
         window.location = "/Personas/RegistrarEmpleado";
     });
-
-   
-   
 });
 function MostrarPersona(filtro) {
     $.ajax({
@@ -40,27 +28,17 @@ function MostrarPersona(filtro) {
         data: { filtro },
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-       
-
         success: function (response) {
-
-           
             var dvItems = $("#CEmpleados");
             dvItems.empty();
-            var Table = '<table id="TablaEmpleados" class="table display"><thead style="background-color: rgba(215, 40, 40, 0.9);color:white"><tr><th style="display:none;"></th><th>Nombre</th><th>Apellido</th><th>Documento</th><th>Mail</th><th>Cargo</th><th ></th></tr></thead><tbody>';
+            var Table = '<table id="TablaEmpleados" class="table table-striped  display" ><thead style="background-color: rgba(215, 40, 40, 0.9);color:white"><tr><th >Id</th><th>Nombre</th><th>Apellido</th><th>Documento</th><th>Mail</th><th>Cargo</th><th ></th></tr></thead><tbody>';
             for (var i = 0; i < response.length; i++) {
-                Table += '<tr><td style="display:none;">' + response[i].id + '</td><td>' + response[i].nombre + '</td>' + '<td>' + response[i].apellido + '</td>' + '<td>' + response[i].documento + '</td>' + '<td>' + response[i].mail + '</td>' + '<td>' + response[i].cargo + '</td> <td class="btn-group"> <button class=" btn btn-sm btn-success " data-toggle="tooltip" title="Informacion adicional" data-placement="bottom"  onclick="ConocerDomicilio(' + response[i].id + ');"><i class="far fa-address-card"></i></button><button class=" btn btn-sm btn-warning" data-toggle="tooltip" title="Modificar" data-placement="bottom" ><i class="fas fa-pencil-alt"></i></button><button class=" btn btn-sm btn-danger" data-toggle="tooltip" title="Informacion adicional" data-placement="bottom"><i class="fas fa-trash-alt"></i></button></td></tr>';
-                
-
+                Table += '<tr><td>' + response[i].id + '</td><td>' + response[i].nombre + '</td>' + '<td>' + response[i].apellido + '</td>' + '<td>' + response[i].documento + '</td>' + '<td>' + response[i].mail + '</td>' + '<td>' + response[i].cargo + '</td> <td><div class="btn-group" style="padding-left:17%;"> <button class=" btn btn-sm btn-primary " data-toggle="tooltip" title="Informacion adicional" data-placement="bottom"  onclick="ConocerDomicilio(' + response[i].id + ');"><i class="far fa-address-card"></i></button><button class=" btn btn-sm " data-toggle="tooltip" title="Modificar" data-placement="bottom" ><i class="fas fa-pencil-alt"></i></button><button class=" btn btn-sm btn-danger" data-toggle="tooltip" title="Eliminar" data-placement="bottom"><i class="fas fa-trash-alt"></i></button></div></td></tr>';
             }
             Table += "</tbody><tfoot></tfoot></table>";
-           
-               
-            
-
             dvItems.append(Table);
             $("#TablaEmpleados").DataTable();
-            $('[data-toggle="tooltip"]').tooltip(); 
+            $('[data-toggle="tooltip"]').tooltip();
         },
         failure: function (response) {
             alert(response);
@@ -69,66 +47,51 @@ function MostrarPersona(filtro) {
     });
 
 }
-
-
-
 function ConocerDomicilio(id) {
-    
     $.ajax({
         type: "GET",
         url: "/Personas/ConocerDomicilio",
-        data: {IdPersona: id },
+        data: { IdPersona: id },
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-      
-
         success: function (response) {
-
-            
-            var rows;
+            var rows;            
             var dvItems = $("#ModalBodyDomicilio");
             $("#ModalCalle").val();
             $("#ModalNumero").val();
             $("#ModalLocalidad").val();
             $("#ModalBarrio").val();
+            $("#ModalUsuario").val();
+            $("#ModalContra").val();
             for (var i = 0; i < response.length; i++) {
                 $("#ModalCalle").val(response[i].calle);
                 $("#ModalNumero").val(response[i].numero);
                 $("#ModalLocalidad").val(response[i].localidad);
                 $("#ModalBarrio").val(response[i].barrio);
-
+                $("#ModalUsuario").val(response[i].usuario);
+                $("#ModalContra").val(response[i].contra);
             }
-          
             $('#ModalDomicilio').modal();
-           
         },
         failure: function (response) {
             alert(response);
         }
     });
 }
-
-
-
-
 function MostrarCargos() {
     $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         url: "/Personas/MostrarCargos",
-
         success: function (response) {
-
             var rows;
             var dvItems = $("#Cargo");
             dvItems.empty();
             for (var i = 0; i < response.length; i++) {
                 rows += '<option value="' + response[i].id + '">' + response[i].nombre + '</option>';
-
             }
             $('#Cargo').append(rows);
-
         },
         failure: function (response) {
             alert(response);
@@ -142,18 +105,14 @@ function MostrarTipoDocumento() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         url: "/Personas/MostrarTipoDocumento",
-
         success: function (response) {
-
             var rows;
             var dvItems = $("#TipoDoc");
             dvItems.empty();
             for (var i = 0; i < response.length; i++) {
                 rows += '<option value="' + response[i].id + '">' + response[i].nombre + '</option>';
-
             }
             $('#TipoDoc').append(rows);
-
         },
         failure: function (response) {
             alert(response);
@@ -168,15 +127,12 @@ function MostrarBarrio() {
         data: { IdLocalidad: + $("#Localidad option:selected").val() },
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-
         success: function (response) {
-
             var rows;
             var dvItems = $("#Barrio");
             dvItems.empty();
             for (var i = 0; i < response.length; i++) {
                 rows += '<option value="' + response[i].id + '">' + response[i].nombre + '</option>';
-
             }
             $('#Barrio').append(rows);
 
@@ -194,15 +150,12 @@ function MostrarLocalidades() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         url: "/Personas/MostrarLocalidades",
-
         success: function (response) {
-
             var rows;
             var dvItems = $("#Localidad");
             dvItems.empty();
             for (var i = 0; i < response.length; i++) {
                 rows += '<option value="' + response[i].id + '">' + response[i].nombre + '</option>';
-
             }
             $('#Localidad').append(rows);
             MostrarBarrio();
@@ -211,13 +164,10 @@ function MostrarLocalidades() {
             alert(response);
         }
     });
-
-
 }
 
 function New() {
     if (ComprobarCampos()) {
-
         var nombre = $("#Nombre").val();
         var apellido = $("#Apellido").val();
         var tipodoc = $("#TipoDoc option:selected").val();
@@ -236,7 +186,7 @@ function New() {
         $.ajax({
             type: "POST",
             url: "/Personas/New",
-            data: { nombre, apellido, tipodoc, numero, mail, telefono, localidad, barrio, usuario, contra, calle, cargo , ncalle},
+            data: { nombre, apellido, tipodoc, numero, mail, telefono, localidad, barrio, usuario, contra, calle, cargo, ncalle },
             success: function (response) {
                 if (response === "OK") {
                     $("#DivCarga img").attr("src", "../images/ok.png");
@@ -307,7 +257,6 @@ function ComprobarCampos() {
 
     return true;
 }
-
 function LimpiarCampos() {
-    window.location="/Personas/RegistrarEmpleado";
+    window.location = "/Personas/RegistrarEmpleado";
 }
