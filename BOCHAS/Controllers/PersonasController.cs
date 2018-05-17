@@ -27,11 +27,11 @@ namespace BOCHAS.Controllers
         {
 
             var Empleado = (from p in _context.Persona
-                           from e in _context.Empleado
-                           from c in _context.Cargo
+                            from e in _context.Empleado
+                            from c in _context.Cargo
 
-                           where p.Id == e.IdPersona && e.IdCargo == c.Id && p.Tipo.Contains("EMPLEADO")
-                            select new 
+                            where p.Id == e.IdPersona && e.IdCargo == c.Id && p.Tipo.Contains("EMPLEADO")
+                            select new
                             {
                                 Id = p.Id,
                                 Mail = p.Mail,
@@ -47,7 +47,7 @@ namespace BOCHAS.Controllers
                 Empleado = Empleado.Where(p => p.Nombre.Contains(filtro) || p.Apellido.Contains(filtro));
             }
 
-            return Json( await Empleado.ToListAsync());
+            return Json(await Empleado.ToListAsync());
         }
         public IActionResult RegistrarEmpleado()
         {
@@ -55,7 +55,7 @@ namespace BOCHAS.Controllers
             return View();
         }
         [HttpPost]
-        public JsonResult New(string Nombre, string Apellido,string TipoDoc, string Numero,string Mail, string Telefono,string Localidad, string Barrio,string usuario,string Contra,string Calle, string Cargo)
+        public JsonResult New(string Nombre, string Apellido, string TipoDoc, string Numero, string Mail, string Telefono, string Localidad, string Barrio, string usuario, string Contra, string Calle, string Cargo, string ncalle)
         {
             try
             {
@@ -65,7 +65,7 @@ namespace BOCHAS.Controllers
                     // crea domicilio
                     Domicilio dom = new Domicilio();
                     dom.IdBarrio = Convert.ToInt32(Barrio);
-                    dom.Numero = Convert.ToInt32(Numero);
+                    dom.Numero = Convert.ToInt32(ncalle);
                     dom.IdLocalidad = Convert.ToInt32(Localidad);
                     dom.Calle = Calle;
                     _context.Domicilio.Add(dom);
@@ -135,6 +135,16 @@ namespace BOCHAS.Controllers
             return false;
         }
 
+        public async Task<JsonResult> ConocerDomicilio(string IdPersona)
+        {
+            var IdDomicilio = (from p in _context.Persona where p.Id == Convert.ToInt32(IdPersona) select new { IdDomicilio = p.Id_Domicilio }).ToList();
+
+            var Domicilio = (from d in _context.Domicilio join l in _context.Localidad on d.IdLocalidad equals l.Id join b in _context.Barrio on d.IdBarrio equals b.Id join p in _context.Persona on d.Id equals p.Id_Domicilio join u in _context.Usuario on p.Id_Usuario equals u.Id where d.Id == Convert.ToInt32(IdDomicilio[0].IdDomicilio) select new { barrio = b.Nombre, localidad = l.Nombre, numero = d.Numero, calle = d.Calle , usuario = u.Nombre , contra = u.Contraseña });
+            return Json(await Domicilio.ToListAsync());
+        }
+
+
+
         // GET: Personas/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -170,8 +180,8 @@ namespace BOCHAS.Controllers
 
         public async Task<JsonResult> MostrarTipoDocumento()
         {
-           
-            return Json( await _context.TipoDocumento.ToListAsync());
+
+            return Json(await _context.TipoDocumento.ToListAsync());
 
         }
         public async Task<JsonResult> MostrarCargos()
