@@ -14,11 +14,14 @@
                     <li role="presentation" class="active"><a id="ConsultaEmpleado" asp-action="Index" asp-controller="Personas">Consulta</a></li>
                 </ul>
                 <br />
-                <div class="col-sm-12">
-                    <form class="form-group form-inline">
-                        <input id="FiltroEmp" type="text" class="form-control" placeholder="Filtro(Nombre o Apellido)" /><button id="BtnBuscarEmp" class="btn btn-sm btn-info"><span class="glyphicon glyphicon-search"></span></button>
-                    </form>
+                <div class="col-sm-3">
+                    <form class=" form-inline input-group">
+                        <input id="FiltroEmp" type="text" class="form-control" placeholder="Filtro(Nombre o Apellido)" /> <span class="input-group-btn"> <button id="BtnBuscarEmp" class="btn btn-sm btn-info form-control"><span class="glyphicon glyphicon-search"></span> </button> </span>
+                     </form>
                 </div>
+               
+                </div>
+            <br />
                 <div id="CEmpleados" class="col-sm-12">
 
 
