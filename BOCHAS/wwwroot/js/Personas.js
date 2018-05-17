@@ -31,13 +31,36 @@ function MostrarPersona(filtro) {
         success: function (response) {
             var dvItems = $("#CEmpleados");
             dvItems.empty();
-            var Table = '<table id="TablaEmpleados" class="table table-striped  display" ><thead style="background-color: rgba(158, 44, 44, 0.9);color:white"><tr><th >Id</th><th>Nombre</th><th>Apellido</th><th>Documento</th><th>Mail</th><th>Cargo</th><th ></th></tr></thead><tbody>';
+            var Table = '<table id="TablaEmpleados" class="table table-striped  display" style="width:100%;" ><thead style="background-color: rgba(158, 44, 44, 0.9);color:white"><tr><th style="display:none;">Id</th><th>Nombre</th><th>Apellido</th><th>Documento</th><th>Mail</th><th>Cargo</th><th ></th></tr></thead><tbody>';
             for (var i = 0; i < response.length; i++) {
-                Table += '<tr><td>' + response[i].id + '</td><td>' + response[i].nombre + '</td>' + '<td>' + response[i].apellido + '</td>' + '<td>' + response[i].documento + '</td>' + '<td>' + response[i].mail + '</td>' + '<td>' + response[i].cargo + '</td> <td><div class="btn-group" style="padding-left:17%;"> <button class=" btn btn-sm btn-primary " data-toggle="tooltip" title="Informacion adicional" data-placement="bottom"  onclick="ConocerDomicilio(' + response[i].id + ');"><i class="far fa-address-card"></i></button><button class=" btn btn-sm " data-toggle="tooltip" title="Modificar" data-placement="bottom" ><i class="fas fa-pencil-alt"></i></button><button class=" btn btn-sm btn-danger" data-toggle="tooltip" title="Eliminar" data-placement="bottom"><i class="fas fa-trash-alt"></i></button></div></td></tr>';
+                Table += '<tr ><td style="display:none;">' + response[i].id + '</td><td>' + response[i].nombre + '</td>' + '<td>' + response[i].apellido + '</td>' + '<td>' + response[i].documento + '</td>' + '<td>' + response[i].mail + '</td>' + '<td>' + response[i].cargo + '</td> <td><div class="btn-group" style="padding-left:17%;"> <button class=" btn btn-sm btn-primary " data-toggle="tooltip" title="Informacion adicional" data-placement="bottom"  onclick="ConocerDomicilio(' + response[i].id + ');"><i class="far fa-address-card"></i></button><button class=" btn btn-sm " data-toggle="tooltip" title="Modificar" data-placement="bottom" ><i class="fas fa-pencil-alt"></i></button><button class=" btn btn-sm btn-danger" data-toggle="tooltip" title="Eliminar" data-placement="bottom"><i class="fas fa-trash-alt"></i></button></div></td></tr>';
             }
             Table += "</tbody><tfoot></tfoot></table>";
             dvItems.append(Table);
-            $("#TablaEmpleados").DataTable();
+            $("#TablaEmpleados").DataTable({
+                searching: false,
+                "scrollX": true,
+                responsive: true,
+               
+                language: {
+                    processing: "Procesando",
+                    search: "Filtro&nbsp;:",
+                    info: "",
+                    infoEmpty: "",
+                    lengthMenu: "Mostrar _MENU_ registros",
+                    infoPostFix: "",
+                    loadingRecords: "Cargando...",
+                    emptyTable: "No hay registros",
+                    paginate: {
+                        first: "Primero",
+                        previous: "Anterior",
+                        next: "Siguiente",
+                        last: "Ultimo"
+                    }
+                }
+                    });
+
+
             $('[data-toggle="tooltip"]').tooltip();
         },
         failure: function (response) {
