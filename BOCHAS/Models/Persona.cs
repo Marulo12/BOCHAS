@@ -29,7 +29,7 @@ namespace BOCHAS.Models
         public int Id_Domicilio { set; get; }
         
         public int Id_Usuario { set; get; }
-        public DateTime Fecha_Baja { set; get; }
+        public DateTime? Fecha_Baja { set; get; }
 
     }
     

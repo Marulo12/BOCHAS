@@ -30,3 +30,4 @@ C:\Users\CLIENTE\Documents\GitHub\BOCHAS\BOCHAS\obj\Debug\netcoreapp2.0\BOCHAS.A
 C:\Users\CLIENTE\Documents\GitHub\BOCHAS\BOCHAS\obj\Debug\netcoreapp2.0\BOCHAS.AssemblyInfo.cs
 C:\Users\CLIENTE\Documents\GitHub\BOCHAS\BOCHAS\obj\Debug\netcoreapp2.0\BOCHAS.dll
 C:\Users\CLIENTE\Documents\GitHub\BOCHAS\BOCHAS\obj\Debug\netcoreapp2.0\BOCHAS.pdb
+C:\Users\mboscatto\Desktop\BOCHAS\BOCHAS\obj\Debug\netcoreapp2.0\BOCHAS.csprojResolveAssemblyReference.cache
