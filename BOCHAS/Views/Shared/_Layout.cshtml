@@ -13,6 +13,21 @@
         <link href="~/lib/DataTables/DataTables-1.10.16/css/dataTables.bootstrap.css" rel="stylesheet" />
         <link href="~/lib/Alertify/alertify.core.css" rel="stylesheet" />
         <link href="~/lib/Alertify/alertify.default.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/metismenu/dist/metisMenu.min.css">
+        <link rel="stylesheet" href="~/Menu/assets/vendor/jqvmap/jqvmap.css">
+        <link rel="stylesheet" href="~/Menu/assets/vendor/dragula/dragula.css">
+        <link rel="stylesheet" href="~/Menu/assets/vendor/perfect-scrollbar/perfect-scrollbar.css">
+        <!-- END: plugin stylesheet files -->
+        <!-- Theme main stlesheet files. REQUIRED -->
+        <link rel="stylesheet" href="~/Menu/assets/css/chl.css">
+        <link id="theme-list" rel="stylesheet" href="~/Menu/assets/css/theme-peter-river.css">
+        <!-- END: theme main stylesheet files -->
+        <!-- begin pace.js  -->
+        <link rel="stylesheet" href="~/Menu/assets/vendor/pace/themes/blue/pace-theme-minimal.css">
+        <script src="~/Menu/assets/vendor/pace/pace.js"></script>
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/metisMenu/2.7.7/metisMenu.min.css">
+        <!-- OR -->
+
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -20,68 +35,691 @@
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-        <link href="~/lib/DataTables/datatables.min.css" rel="stylesheet" />
-       
+        <link href="~/lib/DataTables/datatables.min.css" rel="stylesheet" />       
     </environment>
 </head>
-<body>
-    <nav class="navbar navbar-fixed-top " style="background:-webkit-gradient(linear, 100% 80%, 0% 0%, from(#008587), to(#0047A0));">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar" style="color:white"></span>
-                    <span class="icon-bar" style="color:white"></span>
-                    <span class="icon-bar" style="color:white"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand" style="color:white">BOCHAS</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index" style="color:white">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About" style="color:white">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact" style="color:white">Contact</a></li>
-                    <li><a asp-area="" asp-controller="Personas" asp-action="RegistrarEmpleado" style="color:white">Empleados</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer></footer>
-    </div>
+    
+    <body>
+        <!-- begin .app -->
+       
+            <!-- begin .app-wrap -->
+           
+                <!-- begin .app-heading -->
+                <header class="app-heading">
+                  
+                    <!-- begin .navbar -->
+                    <nav class="navbar navbar-default navbar-static-top shadow-2dp " style="background:-webkit-gradient(linear, 100% 0%, 0% 100%, from(#4A6060), to(#346998));">
+                        <!-- begin .navbar-header -->
+                        <div class="navbar-header">
+                            <!-- begin .navbar-header-left with image -->
+                            <div class="navbar-header-left ">
+                                <!--begin logo-->
+                                <a class="logo" href="~/Menu/index.html">
+                                    <span class="logo-xs visible-xs">
+                                        <img src="~/Menu/assets/img/logo_xs.svg" alt="logo-xs" >
+                                    </span>
+                                    <span class="logo-lg hidden-xs">
+                                        <img src="~/Menu/assets/img/logo_lg.svg" alt="logo-lg" >
+                                    </span>
+                                </a>
+                                <!--end logo-->
+                            </div>
+                            <!-- END: .navbar-header-left with image -->
+                            <nav class="nav navbar-header-nav">
+                                <a class="visible-xs " href="#" data-side=collapse>
+                                    <i class="fa fa-fw fa-bars"></i>
+                                </a>
+                                <a class="hidden-xs " href="#" data-side=mini>
+                                    <i class="fa fa-fw fa-bars"></i>
+                                </a>
+                                <form class="navbar-form hidden-xs ">
+                                    <div class="icon-after-input">
+                                        <input type="text" class="form-control" placeholder="Search">
+                                        <div class="icon">
+                                            <a href="#">
+                                                <i class="fa fa-fw fa-search"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </form>
+                            </nav>
+                            <ul class="nav navbar-header-nav m-l-a">
+                                <li class="visible-xs b-l">
+                                    <a href="#top-search" data-toggle="canvas">
+                                        <i class="fa fa-fw fa-search"></i>
+                                    </a>
+                                </li>
+                                <li class="dropdown ">
+                                    <a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                        <span class="b-wisteria fa fa-address-book u-posRelative"></span>
+                                        <span class="label label-primary b-orange">
+                                            8
+                                            <span class="waves"></span>
+                                        </span>
+                                    </a>
+                                    <ul class="dropdown-menu animated fadeInDown w-sm pull-right">
+                                        <li class="b-b">
+                                            <div class="media">
+                                                <div class="media-left">
+                                                    <a class="profile-pic" href="#">
+                                                        <img class="media-object" src="~/Menu/assets/img/w2.svg" alt="...">
+                                                    </a>
+                                                </div>
+                                                <div class="media-body">
+                                                    <h5 class="media-heading">
+                                                        <small class="pull-right">12 hours ago</small>
+                                                        <b>Leanne Graham</b>
+                                                    </h5>
+                                                    started following
+                                                    <strong>Ervin Howell </strong>
+                                                    <p class="text-muted">3 days ago at 7:12 pm - 10.12.2016</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="b-b">
+                                            <div class="media">
+                                                <div class="media-left">
+                                                    <a class="profile-pic" href="#">
+                                                        <img class="media-object" src="~/Menu/assets/img/m2.svg" alt="...">
+                                                    </a>
+                                                </div>
+                                                <div class="media-body">
+                                                    <h5 class="media-heading">
+                                                        <small class="pull-right">12 hours ago</small>
+                                                        <b>Leanne Graham</b>
+                                                    </h5>
+                                                    started following
+                                                    <strong>Ervin Howell </strong>
+                                                    <p class="text-muted">3 days ago at 7:12 pm - 10.12.2016</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <a class="text-center u-block text-asbestos" href="app-mail-inbox.html">
+                                                <i class="fa fa-envelope"></i> Read All Messages
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown ">
+                                    <a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa fa-fw fa-bell"></i>
+                                        <span class="point bg-carrot b-peter-river">
+                                            <span class="waves"></span>
+                                        </span>
+                                    </a>
+                                    <ul class="dropdown-menu pull-right w-sm animated fadeInUp">
+                                        <li class="p-a-15">
+                                            <a href="app-mail-inbox.html">
+                                                <div class="clearfix">
+                                                    <span class="pull-right text-muted small">4 minutes ago</span>
+                                                    <i class="fa fa-envelope fa-fw"></i>
+                                                    <small>12 messages</small>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li class="p-a-15">
+                                            <a href="app-mail-inbox.html">
+                                                <div class="clearfix">
+                                                    <span class="pull-right text-muted small">3 minutes ago</span>
+                                                    <i class="fa fa-twitter fa-fw"></i>
+                                                    <small>4 follower</small>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li role="separator" class="divider"></li>
+                                        <li class="text-right">
+                                            <a class="text-wisteria" href="#">
+                                                See all notification
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown ">
+                                    <a class="dropdown-toggle profile-pic" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                        <img class="img-circle" src="~/Menu/assets/img/w1.svg" alt="Jane Doe">
+                                        <b class="hidden-xs hidden-sm">Jane Doe</b>
+                                    </a>
+                                    <ul class="dropdown-menu animated flipInY pull-right">
+                                        <li>
+                                            <a href="#">Profile</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Contacts</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Mail Box</a>
+                                        </li>
+                                        <li role="separator" class="divider"></li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-fw fa-sign-out"></i>
+                                                Logout
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <!-- begin mega-menu -->
+                                <li class="dropdown u-posStatic hidden-xs b-l">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                        Mega
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu nav-full-item">
+                                        <li>
+                                            <div class="container-fluid">
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <h1 class="text-muted">Heading 1</h1>
+                                                        <h2 class="text-primary">Heading 2</h2>
+                                                        <h3 class="text-warning">Heading 3</h3>
+                                                        <h4 class="text-danger">Heading 4</h4>
+                                                        <h5 class="text-success">Heading 5</h5>
+                                                        <h6 class="text-info">Heading 6</h6>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <p>Default paragraph</p>
+                                                        <p class="lead">lead paragraph</p>
+                                                        <p class="text-muted">Muted paragraph</p>
+                                                        <p class="text-warning">warning paragraph</p>
+                                                        <p class="text-primary">primary paragraph</p>
+                                                        <p class="text-info">info paragraph</p>
+                                                        <p class="text-success">success paragraph</p>
+                                                        <p class="text-danger">danger paragraph</p>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <img class="img-responsive" src="~/Menu/assets/img/p1.svg" alt="" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <!-- END: mega-menu -->
+                            </ul>
+                        </div>
+                        <!-- END: .navbar-header -->
+                    </nav>
+                    <!-- END: .navbar -->
+                </header>
+                <!-- END:  .app-heading -->
+                <!-- begin .app-container -->
+                <div class="app-container">
+                    <!-- begin .app-side -->
+                    <aside class="app-side">
+                        <!-- begin .side-content -->
+                        <div class="side-content">
+                            <!-- begin user-panel -->
+                            <div class="user-panel">
+                                <div class="user-image">
+                                    <a href="#">
+                                        <img class="img-circle" src="~/Menu/assets/img/m1.svg" alt="John Doe">
+                                    </a>
+                                </div>
+                                <div class="user-info">
+                                    <h5>John Doe</h5>
+                                    <ul class="nav">
+                                        <li class="dropdown">
+                                            <a href="#" class="text-turquoise small dropdown-toggle bg-transparent" data-toggle="dropdown">
+                                                <i class="fa fa-fw fa-circle">
+                                                </i> Online
+                                            </a>
+                                            <ul class="dropdown-menu animated flipInY pull-right">
+                                                <li>
+                                                    <a href="#">Profile</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Contacts</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Mail Box</a>
+                                                </li>
+                                                <li role="separator" class="divider"></li>
+                                                <li>
+                                                    <a href="#">
+                                                        <i class="fa fa-fw fa-sign-out"></i> Logout
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- END: user-panel -->
+                            <!-- begin .side-nav -->
+                            <nav class="side-nav">
+                                <!-- BEGIN: nav-content -->
+                                <ul class="metismenu nav nav-inverse nav-bordered nav-stacked" data-plugin="metismenu">
+                                    <li class="nav-header">MAIN</li>
+                                    <li>
+                                        <a class="active" href="index.html">
+                                            <span class="nav-icon">
+                                                <i class="fa fa-fw fa-cogs"></i>
+                                            </span>
+                                            <span class="nav-title">Dashboard</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-divider"></li>
+                                    <li class="nav-header">Components</li>
+                                    <!-- BEGIN: chart -->
+                                  
+                                    <!-- END: chart -->
+                                    <!-- BEGIN: maps -->
+                                    <li>
+                                        <a href="javascript:;">
+                                            <span class="nav-icon">
+                                                <i class="fa fa-fw fa-map"></i>
+                                            </span>
+                                            <span class="nav-title">Maps</span>
+                                            <span class="nav-tools">
+                                                <i class="fa fa-fw arrow"></i>
+                                            </span>
+                                        </a>
+                                        <ul class="nav nav-sub nav-stacked">
+                                            <li>
+                                                <a href="map-google.html">Google Maps</a>
+                                            </li>
+                                            <li>
+                                                <a href="map-vector.html">Vector Maps</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <!-- END: maps -->
+                                    <!-- BEGIN: ui -->
+                                    <li>
+                                        <a href="javascript:;">
+                                            <span class="nav-icon">
+                                                <i class="fa  fa-adjust"></i>
+                                            </span>
+                                            <span class="nav-title">UI</span>
+                                            <span class="nav-tools">
+                                                <i class="fa fa-fw arrow"></i>
+                                            </span>
+                                        </a>
+                                        <ul class="nav nav-sub nav-stacked">
+                                            <li>
+                                                <a href="ui-general.html">General</a>
+                                            </li>
+                                            <li>
+                                                <a href="ui-font.html">Font</a>
+                                            </li>
+                                            <li>
+                                                <a href="ui-widgets.html">Widgets</a>
+                                            </li>
+                                            <li>
+                                                <a href="ui-loaders.html">Loaders</a>
+                                            </li>
+                                            <li>
+                                                <a href="ui-momentum.html">Momentum</a>
+                                            </li>
+                                            <li>
+                                                <a href="ui-nav.html">Nav</a>
+                                            </li>
+                                            <li>
+                                                <a href="ui-todo.html">Todo</a>
+                                            </li>
+                                            <li>
+                                                <a href="ui-mega.html">Mega Menu</a>
+                                            </li>
+                                            <li>
+                                                <a href="ui-tab.html">Tab</a>
+                                            </li>
+                                            <li>
+                                                <a href="ui-color.html">Colors</a>
+                                            </li>
+                                            <li>
+                                                <a href="ui-button.html">Buttons</a>
+                                            </li>
+                                            <li>
+                                                <a href="ui-canvas.html">Canvas</a>
+                                            </li>
+                                            <li>
+                                                <a href="ui-slider.html">Slider</a>
+                                            </li>
+                                            <li>
+                                                <a href="ui-timeline.html">Timeline</a>
+                                            </li>
+                                            <!-- BEGIN: icon -->
+                                            <li>
+                                                <a href="javascript:;">
+                                                    <span class="nav-title">Icons</span>
+                                                    <span class="nav-tools">
+                                                        <i class="fa fa-fw arrow"></i>
+                                                    </span>
+                                                </a>
+                                                <ul class="nav nav-sub nav-stacked">
+                                                    <li>
+                                                        <a href="ui-icon-awesome.html">
+                                                            <span class="nav-icon">
+                                                                <i class="fa fa-fw fa-font-awesome"></i>
+                                                            </span>
+                                                            <span class="nav-title">Font Awesome</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="ui-icon-glyphicon.html">
+                                                            <span class="nav-icon">
+                                                                <i class="glyphicon glyphicon-fire"></i>
+                                                            </span>
+                                                            <span class="nav-title">Glyphicons</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <!-- END: icon -->
+                                        </ul>
+                                    </li>
+                                    <!-- END: ui -->
+                                    <!-- BEGIN: forms -->
+                                    <li>
+                                        <a href="javascript:;">
+                                            <span class="nav-icon">
+                                                <i class="fa fa-fw fa-edit"></i>
+                                            </span>
+                                            <span class="nav-title">Forms</span>
+                                            <span class="nav-tools">
+                                                <i class="fa fa-fw arrow"></i>
+                                            </span>
+                                        </a>
+                                        <ul class="nav nav-sub nav-stacked">
+                                            <li>
+                                                <a href="form-basic.html">Basic</a>
+                                            </li>
+                                            <li>
+                                                <a href="form-advanced.html">Advanced</a>
+                                            </li>
+                                            <li>
+                                                <a href="form-wizard.html">Wizard</a>
+                                            </li>
+                                            <li>
+                                                <a href="form-upload.html">File Upload</a>
+                                            </li>
+                                            <li>
+                                                <a href="form-editor.html">Text Editor</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <!-- END: forms -->
+                                    <!-- BEGIN: table -->
+                                    <li>
+                                        <a href="javascript:;">
+                                            <span class="nav-icon">
+                                                <i class="fa fa-fw fa-table"></i>
+                                            </span>
+                                            <span class="nav-title">Table</span>
+                                            <span class="nav-tools">
+                                                <i class="fa fa-fw arrow"></i>
+                                            </span>
+                                        </a>
+                                        <ul class="nav nav-sub nav-stacked">
+                                            <li>
+                                                <a href="table-basic.html">Basic</a>
+                                            </li>
+                                            <li>
+                                                <a href="table-sortable.html">Sortable</a>
+                                            </li>
+                                            <li>
+                                                <a href="table-datatable.html">Datatables</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <!-- END: table -->
+                                    <!-- BEGIN: apps -->
+                                    <li>
+                                        <a href="javascript:;">
+                                            <span class="nav-icon">
+                                                <i class="fa fa-fw fa-pagelines"></i>
+                                            </span>
+                                            <span class="nav-title">App</span>
+                                            <span class="nav-tools">
+                                                <i class="fa fa-fw arrow"></i>
+                                            </span>
+                                        </a>
+                                        <ul class="nav nav-sub nav-stacked">
+                                            <li>
+                                                <a href="app-calendar.html">Calendar</a>
+                                            </li>
+                                            <li>
+                                                <a href="app-gallery.html">Gallery</a>
+                                            </li>
+                                            <li>
+                                                <a href="app-login.html">Login</a>
+                                            </li>
+                                            <li>
+                                                <a href="app-register.html">Register</a>
+                                            </li>
+                                            <li>
+                                                <a href="app-forgot.html">Forgot</a>
+                                            </li>
+                                            <li>
+                                                <a href="app-404.html">404</a>
+                                            </li>
+                                            <li>
+                                                <a href="app-500.html">500</a>
+                                            </li>
+                                            <!-- BEGIN: mail -->
+                                            <li>
+                                                <a href="javascript:;">
+                                                    <span class="nav-icon">
+                                                        <i class="fa fa-fw fa-envelope-o"></i>
+                                                    </span>
+                                                    <span class="nav-title">Mail</span>
+                                                    <span class="nav-tools">
+                                                        <i class="fa fa-fw arrow"></i>
+                                                    </span>
+                                                </a>
+                                                <ul class="nav nav-sub nav-stacked">
+                                                    <li>
+                                                        <a href="app-mail-inbox.html">Inbox</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="app-mail-compose.html">Compose</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="app-mail-read.html">Read</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <!-- END: mail -->
+                                        </ul>
+                                    </li>
+                                    <!-- BEGIN: apps -->
+                                    <!-- BEGIN: blank pages -->
+                                  
+                                    <!-- END: blank pages -->
+                                    <li class="nav-divider"></li>
+                                    <!-- BEGIN: utility -->
+                                    <li>
+                                        <a href="javascript:;">
+                                            <span class="nav-icon">
+                                                <i class="fa fa-fw fa-wrench"></i>
+                                            </span>
+                                            <span class="nav-title">Utility</span>
+                                            <span class="nav-tools">
+                                                <i class="fa fa-fw arrow"></i>
+                                            </span>
+                                        </a>
+                                        <ul class="nav nav-sub nav-stacked">
+                                            <li>
+                                                <a href="u-spacing.html">Spacing</a>
+                                            </li>
+                                            <li>
+                                                <a href="u-border.html">Border</a>
+                                            </li>
+                                            <li>
+                                                <a href="u-overflow.html">Overflow</a>
+                                            </li>
+                                            <li>
+                                                <a href="u-display.html">Display</a>
+                                            </li>
+                                            <li>
+                                                <a href="u-flex.html">Flexbox</a>
+                                            </li>
+                                            <li>
+                                                <a href="u-shadow.html">Shadow</a>
+                                            </li>
+                                            <li>
+                                                <a href="u-waves.html">Waves Effect</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <!-- BEGIN: utility -->
+                                    <li>
+                                        <a href="javascript:;">
+                                            <span class="nav-icon">
+                                                <i class="fa fa-fw fa-code"></i>
+                                            </span>
+                                            <span class="nav-title">Multilevel</span>
+                                            <span class="nav-tools">
+                                                <i class="fa fa-fw arrow"></i>
+                                            </span>
+                                        </a>
+                                        <ul class="nav nav-sub">
+                                            <li>
+                                                <a href="javascript:;">
+                                                    <span class="nav-title">Level 1</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:;">
+                                                    <span class="nav-title">Level 1</span>
+                                                    <span class="nav-tools">
+                                                        <i class="fa fa-fw arrow"></i>
+                                                    </span>
+                                                </a>
+                                                <ul class="nav nav-sub">
+                                                    <li>
+                                                        <a href="javascript:;">
+                                                            <span class="nav-title">Level 2</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="javascript:;">
+                                                            <span class="nav-title">Level 2</span>
+                                                            <span class="nav-tools">
+                                                                <i class="fa fa-fw arrow"></i>
+                                                            </span>
+                                                        </a>
+                                                        <ul class="nav nav-sub">
+                                                            <li>
+                                                                <a href="javascript:;">
+                                                                    <span class="nav-title">Level 3</span>
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="javascript:;">
+                                                                    <span class="nav-title">Level 3</span>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:;">
+                                                    <span class="nav-title">Level 1</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-divider"></li>
+                                    <li>
+                                        <a href="document.html">
+                                            <span class="nav-icon">
+                                                <i class="fa fa-fw fa-book text-alizarin"></i>
+                                            </span>
+                                            <span class="nav-title">Document</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="../firstrtl/index.html">
+                                            <span class="nav-icon">
+                                                <i class="fa fa-fw fa-angle-double-left text-emerland"></i>
+                                            </span>
+                                            <span class="nav-title">RTL</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <!-- END: nav-content -->
+                            </nav>
+                            <!-- END: .side-nav -->
+                        </div>
+                        <!-- END: .side-content -->
+                        <!-- begin .side-footer -->
+                        <footer class="side-footer p-h-15 p-t-15 p-b-10">
+                            <div class="progress is-xs">
+                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                                    <span class="sr-only">60% Complete</span>
+                                </div>
+                            </div>
+                            <div class="progress is-xs">
+                                <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 40%;">
+                                    <span class="sr-only">40% Complete</span>
+                                </div>
+                            </div>
+                        </footer>
+                        <!-- END: .side-footer -->
+                    </aside>
+                    <!-- END: .app-side -->
+                    <!-- begin side-collapse-visible bar -->
+                  
+                    <!-- begin side-collapse-visible bar -->
+                    <!-- begin .app-main -->
+                  
+                        <!-- begin .main-heading -->
+                    
+                        <!-- END: .main-heading -->
+                        <!-- begin .main-content -->
+                        <div class="container-fluid">
+                            @RenderBody();
+                        </div>
+                               
+
     
 
-   
+        <environment include="Development">
+            <script src="~/lib/jquery/dist/jquery.js"></script>
+            <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+            <script src="~/js/site.js" asp-append-version="true"></script>
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+            <script src="~/lib/Alertify/alertify.js"></script>
+            <script src="~/lib/DataTables/datatables.js"></script>
+            <script src="~/lib/DataTables/DataTables-1.10.16/js/dataTables.bootstrap.js"></script>
 
-    <environment include="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
-        <script src="~/lib/Alertify/alertify.js"></script>
-        <script src="~/lib/DataTables/datatables.js"></script>
-        <script src="~/lib/DataTables/DataTables-1.10.16/js/dataTables.bootstrap.js"></script>
-    </environment>
-    <environment exclude="Development">
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
-                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                asp-fallback-test="window.jQuery"
-                crossorigin="anonymous"
-                integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
-        </script>
-        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
-                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-                crossorigin="anonymous"
-                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
-        </script>
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
-        <script src="~/lib/DataTables/datatables.min.js"></script>
-    </environment>
+            <script src="//cdnjs.cloudflare.com/ajax/libs/metisMenu/2.7.7/metisMenu.min.js"></script>
+            <!-- OR -->
+            <script src="https://cdn.jsdelivr.net/npm/metismenu"></script>
+            <script src="~/Menu/assets/vendor/waypoints/jquery.waypoints.js"></script>
+            <script src="~/Menu/assets/vendor/counterup/jquery.counterup.js"></script>
+            <script src="~/Menu/assets/vendor/jqvmap/jquery.vmap.js"></script>
+            <script src="~/Menu/assets/vendor/jqvmap/jquery.vmap.sampledata.js"></script>
+            <script src="~/Menu/assets/vendor/jqvmap/maps/jquery.vmap.usa.js"></script>
+            <script src="~/Menu/assets/vendor/perfect-scrollbar/perfect-scrollbar.jquery.js"></script>
+            <script src="~/Menu/assets/vendor/dragula/dragula.js"></script>
+            <script src="~/Menu/assets/vendor/chart.js/Chart.js"></script>
+            <script src="~/Menu/assets/vendor/tablesorter/js/jquery.tablesorter.js"></script>
 
-    @RenderSection("Scripts", required: false)
-</body>
+            <script src="~/Menu/assets/js/chl.js"></script>
+            <script src="~/Menu/assets/js/chl-demo.js"></script>
+        </environment>
+        <environment exclude="Development">
+            <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                    asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                    asp-fallback-test="window.jQuery"
+                    crossorigin="anonymous"
+                    integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
+            </script>
+            <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                    asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                    asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                    crossorigin="anonymous"
+                    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+            </script>
+            <script src="~/js/site.min.js" asp-append-version="true"></script>
+            <script src="~/lib/DataTables/datatables.min.js"></script>
+        </environment>
+
+        @RenderSection("Scripts", required: false)
+    </body>
 </html>
