@@ -33,7 +33,7 @@ function MostrarPersona(filtro) {
             dvItems.empty();
             var Table = '<table id="TablaEmpleados" class="table table-striped  display" style="width:100%;" ><thead style="background-color: rgba(158, 44, 44, 0.9);color:white"><tr><th>Nombre</th><th>Apellido</th><th>Documento</th><th>Mail</th><th>Cargo</th><th ></th></tr></thead><tbody>';
             for (var i = 0; i < response.length; i++) {
-                Table += '<tr ><td>' + response[i].nombre + '</td>' + '<td>' + response[i].apellido + '</td>' + '<td>' + response[i].documento + '</td>' + '<td>' + response[i].mail + '</td>' + '<td>' + response[i].cargo + '</td> <td><div class="btn-group" style="padding-left:17%;"> <button class=" btn btn-sm btn-primary " data-toggle="tooltip" title="Informacion adicional" data-placement="top"  onclick="ConocerDomicilio(' + response[i].id + ');"><i class="far fa-address-card"></i></button><button class=" btn btn-sm " data-toggle="tooltip" title="Modificar" data-placement="top" ><i class="fas fa-pencil-alt"></i></button><button class=" btn btn-sm btn-danger" data-toggle="tooltip" title="Eliminar" data-placement="top"><i class="fas fa-trash-alt"></i></button></div></td></tr>';
+                Table += '<tr ><td>' + response[i].nombre + '</td>' + '<td>' + response[i].apellido + '</td>' + '<td>' + response[i].documento + '</td>' + '<td>' + response[i].mail + '</td>' + '<td>' + response[i].cargo + '</td> <td><div class="btn-group" style="padding-left:17%;"> <button class=" btn btn-sm btn-primary " data-toggle="tooltip" title="Informacion adicional" data-placement="top"  onclick="ConocerDomicilio(' + response[i].id + ');"><i class="far fa-address-card"></i></button><button class=" btn btn-sm " data-toggle="tooltip" title="Modificar" data-placement="top" ><i class="fas fa-pencil-alt"></i></button><button class="btn btn-sm btn-danger" data-toggle="tooltip" title="Baja" data-placement="top" onclick="confirmarBaja(' + response[i].id + ');"><i class="fas fa-trash-alt"></i></button></div></td></tr>';
             }
             Table += "</tbody><tfoot></tfoot></table>";
             dvItems.append(Table);
@@ -71,6 +71,11 @@ function MostrarPersona(filtro) {
     });
 
 }
+
+
+
+
+
 function ConocerDomicilio(id) {
     $.ajax({
         type: "GET",
@@ -188,6 +193,27 @@ function MostrarLocalidades() {
             alert(response);
         }
     });
+}
+
+function confirmarBaja(id) {   
+    alertify.confirm("Confirmar baja de empleado", function (e) {
+        if (e) {           
+            alertify.success("Baja de empleado dada con exito");
+                $.ajax({
+                    type: "POST",
+                    url: "/Personas/Baja",
+                    data: { id: id },
+                    success: function (response) {
+                      
+                        window.location = "/Personas/Index";
+                       
+                    }
+                });                      
+        } else {
+            alertify.error("Baja Cancelada");
+        }
+    });
+    return false
 }
 
 function New() {
