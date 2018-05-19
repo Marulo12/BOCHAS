@@ -157,8 +157,14 @@ namespace BOCHAS.Controllers
 
             return RedirectToAction("Index","Personas","");
         }
-    
 
+
+        public IActionResult EditarEmpleado(int id)
+        {
+            var per = _context.Persona.Include(d => d.IdDomicilioNavigation).Include(u => u.IdUsuarioNavigation).Include(t => t.IdTipoDocumentoNavigation).Include(d => d.IdDomicilioNavigation.IdLocalidadNavigation).Include(d => d.IdDomicilioNavigation.IdBarrioNavigation).SingleOrDefault(p => p.Id == id);
+
+            return PartialView(per);
+        }
         public JsonResult MostrarBarrios(string IdLocalidad)
         {
             int IdL = Convert.ToInt32(IdLocalidad);
@@ -294,7 +300,7 @@ namespace BOCHAS.Controllers
         {
             return _context.Persona.Any(e => e.Id == id);
         }
-     
+       
     }
    
 }
