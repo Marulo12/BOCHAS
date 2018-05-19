@@ -30,7 +30,7 @@ namespace BOCHAS.Controllers
                             from e in _context.Empleado
                             from c in _context.Cargo
 
-                            where p.Id == e.IdPersona && e.IdCargo == c.Id && p.Tipo.Contains("EMPLEADO")
+                            where p.Id == e.IdPersona && e.IdCargo == c.Id && p.Tipo.Contains("EMPLEADO") && p.Fecha_Baja == null
                             select new
                             {
                                 Id = p.Id,
@@ -85,7 +85,7 @@ namespace BOCHAS.Controllers
                         return Json("ERROR");
                     }
                     var IdUs = _context.Usuario.Max(i => i.Id);
-
+                     
                     // crear persona
                     Persona per = new Persona();
                     per.IdTipoDocumento = Convert.ToInt32(TipoDoc);
@@ -97,6 +97,7 @@ namespace BOCHAS.Controllers
                     per.Telefono = Telefono;
                     per.Tipo = "EMPLEADO";
                     per.Apellido = Apellido;
+                    
                     _context.Persona.Add(per);
                     if (_context.SaveChanges() == 0)
                     {
@@ -139,29 +140,23 @@ namespace BOCHAS.Controllers
         {
             var IdDomicilio = (from p in _context.Persona where p.Id == Convert.ToInt32(IdPersona) select new { IdDomicilio = p.Id_Domicilio }).ToList();
 
-            var Domicilio = (from d in _context.Domicilio join l in _context.Localidad on d.IdLocalidad equals l.Id join b in _context.Barrio on d.IdBarrio equals b.Id join p in _context.Persona on d.Id equals p.Id_Domicilio join u in _context.Usuario on p.Id_Usuario equals u.Id where d.Id == Convert.ToInt32(IdDomicilio[0].IdDomicilio) select new { barrio = b.Nombre, localidad = l.Nombre, numero = d.Numero, calle = d.Calle , usuario = u.Nombre , contra = u.Contraseña });
+            var Domicilio = (from d in _context.Domicilio join l in _context.Localidad on d.IdLocalidad equals l.Id join b in _context.Barrio on d.IdBarrio equals b.Id join p in _context.Persona on d.Id equals p.Id_Domicilio join u in _context.Usuario on p.Id_Usuario equals u.Id where d.Id == Convert.ToInt32(IdDomicilio[0].IdDomicilio) select new { barrio = b.Nombre, localidad = l.Nombre, numero = d.Numero, calle = d.Calle, usuario = u.Nombre, contra = u.Contraseña });
             return Json(await Domicilio.ToListAsync());
         }
 
+        [HttpPost]
 
-
-        // GET: Personas/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async  Task<IActionResult> Baja(string id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            var persona = await _context.Persona.SingleOrDefaultAsync(m => m.Id == Convert.ToInt32(id));
+            persona.Fecha_Baja = DateTime.Now;
 
-            var persona = await _context.Persona
-                .SingleOrDefaultAsync(m => m.Id == id);
-            if (persona == null)
-            {
-                return NotFound();
-            }
+            _context.Persona.Update(persona);
+            await _context.SaveChangesAsync();
 
-            return View(persona);
+            return RedirectToAction("Index","Personas","");
         }
+    
 
         public JsonResult MostrarBarrios(string IdLocalidad)
         {
