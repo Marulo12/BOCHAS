@@ -30,12 +30,12 @@ namespace BOCHAS.Controllers
                             from e in _context.Empleado
                             from c in _context.Cargo
 
-                            where p.Id == e.IdPersona && e.IdCargo == c.Id && p.Tipo.Contains("EMPLEADO") && p.Fecha_Baja == null
+                            where p.Id == e.IdPersona && e.IdCargo == c.Id && p.Tipo.Contains("EMPLEADO") && p.FechaBaja == null
                             select new
                             {
                                 Id = p.Id,
                                 Mail = p.Mail,
-                                Nombre = p.nombre,
+                                Nombre = p.Nombre,
                                 Apellido = p.Apellido,
                                 Documento = p.NroDocumento,
                                 Cargo = c.Nombre
@@ -89,10 +89,10 @@ namespace BOCHAS.Controllers
                     // crear persona
                     Persona per = new Persona();
                     per.IdTipoDocumento = Convert.ToInt32(TipoDoc);
-                    per.Id_Domicilio = IdDom;
-                    per.Id_Usuario = IdUs;
+                    per.IdDomicilio = IdDom;
+                    per.IdUsuario = IdUs;
                     per.Mail = Mail;
-                    per.nombre = Nombre;
+                    per.Nombre = Nombre;
                     per.NroDocumento = Convert.ToInt32(Numero);
                     per.Telefono = Telefono;
                     per.Tipo = "EMPLEADO";
@@ -138,18 +138,19 @@ namespace BOCHAS.Controllers
 
         public async Task<JsonResult> ConocerDomicilio(string IdPersona)
         {
-            var IdDomicilio = (from p in _context.Persona where p.Id == Convert.ToInt32(IdPersona) select new { IdDomicilio = p.Id_Domicilio }).ToList();
+            int idP = Convert.ToInt32(IdPersona);
+            var IdDomicilio = (from p in _context.Persona where p.Id == idP select new { IdDomicilio = p.IdDomicilio }).ToList();
 
-            var Domicilio = (from d in _context.Domicilio join l in _context.Localidad on d.IdLocalidad equals l.Id join b in _context.Barrio on d.IdBarrio equals b.Id join p in _context.Persona on d.Id equals p.Id_Domicilio join u in _context.Usuario on p.Id_Usuario equals u.Id where d.Id == Convert.ToInt32(IdDomicilio[0].IdDomicilio) select new { barrio = b.Nombre, localidad = l.Nombre, numero = d.Numero, calle = d.Calle, usuario = u.Nombre, contra = u.Contraseña });
+            var Domicilio = (from d in _context.Domicilio join l in _context.Localidad on d.IdLocalidad equals l.Id join b in _context.Barrio on d.IdBarrio equals b.Id join p in _context.Persona on d.Id equals p.IdDomicilio join u in _context.Usuario on p.IdUsuario equals u.Id where d.Id == Convert.ToInt32(IdDomicilio[0].IdDomicilio) select new { barrio = b.Nombre, localidad = l.Nombre, numero = d.Numero, calle = d.Calle, usuario = u.Nombre, contra = u.Contraseña });
             return Json(await Domicilio.ToListAsync());
         }
 
         [HttpPost]
 
         public async  Task<IActionResult> Baja(string id)
-        {
-            var persona = await _context.Persona.SingleOrDefaultAsync(m => m.Id == Convert.ToInt32(id));
-            persona.Fecha_Baja = DateTime.Now;
+        { int Id = Convert.ToInt32(id);
+            var persona = await _context.Persona.SingleOrDefaultAsync(m => m.Id == Id );
+            persona.FechaBaja = DateTime.Now;
 
             _context.Persona.Update(persona);
             await _context.SaveChangesAsync();
@@ -160,8 +161,8 @@ namespace BOCHAS.Controllers
 
         public JsonResult MostrarBarrios(string IdLocalidad)
         {
-
-            var barrios = (from b in _context.Barrio where b.IdLocalidad == Convert.ToInt32(IdLocalidad) select b).ToList();
+            int IdL = Convert.ToInt32(IdLocalidad);
+            var barrios = (from b in _context.Barrio where b.IdLocalidad == IdL select b).ToList();
 
             return Json(barrios);
 
@@ -293,5 +294,7 @@ namespace BOCHAS.Controllers
         {
             return _context.Persona.Any(e => e.Id == id);
         }
+     
     }
+   
 }

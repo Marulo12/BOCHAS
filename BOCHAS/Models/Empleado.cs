@@ -1,19 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BOCHAS.Models
 {
-    public class Empleado
+    public partial class Empleado
     {
-        [Key]
-        public int IdPersona { set; get; }
-        [Required]
-        public int IdCargo { set; get; }
-        public bool Activo { set; get; }
-        [Required]
-        public DateTime FechaComienzo { set; get; }
+        public int IdPersona { get; set; }
+        public int IdCargo { get; set; }
+        public bool Activo { get; set; }
+        public DateTime FechaComienzo { get; set; }
+
+        public Cargo IdCargoNavigation { get; set; }
+        public Persona IdPersonaNavigation { get; set; }
     }
 }

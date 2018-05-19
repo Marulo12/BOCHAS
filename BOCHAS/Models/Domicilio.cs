@@ -1,23 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BOCHAS.Models
 {
-    public class Domicilio
+    public partial class Domicilio
     {
-        public int Id { set; get; }
-        
-        [Required(ErrorMessage = "No cargo el Barrio")]
-        public int IdBarrio { set; get; }
-        [Required(ErrorMessage = "No cargo el Numero ")]
-        
-        public int Numero { set; get; }
-        [Required(ErrorMessage = "No cargo la Calle ")]
-        public string Calle { set; get; }
-        [Required(ErrorMessage = "No cargo la Localidad ")]
-        public int IdLocalidad { set; get; }
+        public Domicilio()
+        {
+            Persona = new HashSet<Persona>();
+        }
+
+        public int Id { get; set; }
+        public int IdBarrio { get; set; }
+        public int Numero { get; set; }
+        public string Calle { get; set; }
+        public int IdLocalidad { get; set; }
+
+        public Barrio IdBarrioNavigation { get; set; }
+        public Localidad IdLocalidadNavigation { get; set; }
+        public ICollection<Persona> Persona { get; set; }
     }
 }
