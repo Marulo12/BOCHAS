@@ -48,31 +48,37 @@
                 <header class="app-heading">
                   
                     <!-- begin .navbar -->
-                    <nav class="navbar navbar-default navbar-static-top shadow-2dp " style="background:-webkit-gradient(linear, 100% 0%, 0% 100%, from(#4A6060), to(#346998));">
+                    <nav class="navbar navbar-default navbar-static-top shadow-2dp " style="background:-webkit-gradient(linear, 38% 52%, 0% 100%, from(#0071B0), to(#FFFFFF));">
                         <!-- begin .navbar-header -->
                         <div class="navbar-header">
                             <!-- begin .navbar-header-left with image -->
                             <div class="navbar-header-left ">
                                 <!--begin logo-->
-                                <a class="logo" href="~/Menu/index.html">
-                                    <span class="logo-xs visible-xs">
-                                        <img src="~/Menu/assets/img/logo_xs.svg" alt="logo-xs" >
-                                    </span>
-                                    <span class="logo-lg hidden-xs">
-                                        <img src="~/Menu/assets/img/logo_lg.svg" alt="logo-lg" >
-                                    </span>
-                                </a>
+                                <div class="col-sm-5">
+                                    <a class="logo" href="~/Menu/index.html">
+                                        <span class="logo-xs visible-xs">
+                                            <img src="~/images/LogoBochas.png" alt="logo-xs">
+                                        </span>
+                                        <span class="logo-lg hidden-xs">
+                                            <img src="~/images/LogoBochas.png" alt="logo-lg">
+                                        </span>
+                                    </a>
+                                </div>
+                                <div class="col-sm-1 " style="margin-top:15%;padding:0px;">
+                                    <a class="visible-xs " href="#" data-side=collapse style="float:left;">
+                                        <i class="fa fa-fw fa-bars"></i>
+                                    </a>
+                                    <a class="hidden-xs " href="#" data-side=mini style="float:left;">
+                                        <i class="fa fa-fw fa-bars"></i>
+                                    </a>
+                                </div>
+                                
                                 <!--end logo-->
                             </div>
                             <!-- END: .navbar-header-left with image -->
                             <nav class="nav navbar-header-nav">
-                                <a class="visible-xs " href="#" data-side=collapse>
-                                    <i class="fa fa-fw fa-bars"></i>
-                                </a>
-                                <a class="hidden-xs " href="#" data-side=mini>
-                                    <i class="fa fa-fw fa-bars"></i>
-                                </a>
-                                <form class="navbar-form hidden-xs ">
+                                
+                                <form class="navbar-form hidden-xs " style="display:none;">
                                     <div class="icon-after-input">
                                         <input type="text" class="form-control" placeholder="Search">
                                         <div class="icon">
@@ -91,7 +97,7 @@
                                 </li>
                                 <li class="dropdown ">
                                     <a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <span class="b-wisteria fa fa-address-book u-posRelative"></span>
+                                        <span class="b-wisteria fa fa-2x fa-address-book u-posRelative bg-primary"></span>
                                         <span class="label label-primary b-orange">
                                             8
                                             <span class="waves"></span>
@@ -143,7 +149,7 @@
                                 </li>
                                 <li class="dropdown ">
                                     <a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fa fa-fw fa-bell"></i>
+                                        <i class="fa fa-fw fa-2x fa-bell" style="color:white;"></i>
                                         <span class="point bg-carrot b-peter-river">
                                             <span class="waves"></span>
                                         </span>
@@ -176,9 +182,9 @@
                                     </ul>
                                 </li>
                                 <li class="dropdown ">
-                                    <a class="dropdown-toggle profile-pic" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                    <a class="dropdown-toggle profile-pic" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="color:white;">
                                         <img class="img-circle" src="~/Menu/assets/img/w1.svg" alt="Jane Doe">
-                                        <b class="hidden-xs hidden-sm">Jane Doe</b>
+                                        <b class="hidden-xs hidden-sm" >Usuario</b>
                                     </a>
                                     <ul class="dropdown-menu animated flipInY pull-right">
                                         <li>
@@ -200,7 +206,7 @@
                                     </ul>
                                 </li>
                                 <!-- begin mega-menu -->
-                                <li class="dropdown u-posStatic hidden-xs b-l">
+                                <li class="dropdown u-posStatic hidden-xs b-l" style="display:none;">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                         Mega
                                         <span class="caret"></span>
@@ -250,57 +256,23 @@
                         <!-- begin .side-content -->
                         <div class="side-content">
                             <!-- begin user-panel -->
-                            <div class="user-panel">
-                                <div class="user-image">
-                                    <a href="#">
-                                        <img class="img-circle" src="~/Menu/assets/img/m1.svg" alt="John Doe">
-                                    </a>
-                                </div>
-                                <div class="user-info">
-                                    <h5>John Doe</h5>
-                                    <ul class="nav">
-                                        <li class="dropdown">
-                                            <a href="#" class="text-turquoise small dropdown-toggle bg-transparent" data-toggle="dropdown">
-                                                <i class="fa fa-fw fa-circle">
-                                                </i> Online
-                                            </a>
-                                            <ul class="dropdown-menu animated flipInY pull-right">
-                                                <li>
-                                                    <a href="#">Profile</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Contacts</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Mail Box</a>
-                                                </li>
-                                                <li role="separator" class="divider"></li>
-                                                <li>
-                                                    <a href="#">
-                                                        <i class="fa fa-fw fa-sign-out"></i> Logout
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+                            
                             <!-- END: user-panel -->
                             <!-- begin .side-nav -->
                             <nav class="side-nav">
                                 <!-- BEGIN: nav-content -->
                                 <ul class="metismenu nav nav-inverse nav-bordered nav-stacked" data-plugin="metismenu">
-                                    <li class="nav-header">MAIN</li>
+                                    <li class="nav-header"></li>
                                     <li>
                                         <a class="active" href="index.html">
                                             <span class="nav-icon">
                                                 <i class="fa fa-fw fa-cogs"></i>
                                             </span>
-                                            <span class="nav-title">Dashboard</span>
+                                            <span class="nav-title">Escritorio</span>
                                         </a>
                                     </li>
                                     <li class="nav-divider"></li>
-                                    <li class="nav-header">Components</li>
+                                    <li class="nav-header">Opciones</li>
                                     <!-- BEGIN: chart -->
                                   
                                     <!-- END: chart -->
@@ -323,6 +295,15 @@
                                                 <a href="map-vector.html">Vector Maps</a>
                                             </li>
                                         </ul>
+                                    </li>
+                                    <li>
+                                        <a  asp-action="RegistrarEmpleado" asp-controller="Personas">
+                                            <span class="nav-icon">
+                                                <i class="fa fa-fw fa-user"></i>
+                                            </span>
+                                            <span class="nav-title">Empleados</span>
+                                           
+                                        </a>
                                     </li>
                                     <!-- END: maps -->
                                     <!-- BEGIN: ui -->
@@ -671,7 +652,7 @@
                         <!-- END: .main-heading -->
                         <!-- begin .main-content -->
                         <div class="container-fluid">
-                            @RenderBody();
+                            @RenderBody()
                         </div>
                                
 
