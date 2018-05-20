@@ -216,28 +216,10 @@ namespace BOCHAS.Controllers
             return View(persona);
         }
 
-        // GET: Personas/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var persona = await _context.Persona.SingleOrDefaultAsync(m => m.Id == id);
-            if (persona == null)
-            {
-                return NotFound();
-            }
-            return View(persona);
-        }
-
-        // POST: Personas/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+      
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,nombre,Apellido,Mail,Telefono,NumeroDocumento,Tipo,IdTipoDocumento,Id_Domicilio,Id_Usuario,Fecha_Baja")] Persona persona)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Apellido,Mail,Telefono,NumeroDocumento,Tipo,IdTipoDocumento,Id_Domicilio,Id_Usuario,FechaBaja")] Persona persona)
         {
             if (id != persona.Id)
             {

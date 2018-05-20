@@ -111,7 +111,7 @@ function ConocerDomicilio(id) {
                 $("#ModalLocalidad").val(response[i].localidad);
                 $("#ModalBarrio").val(response[i].barrio);
                 $("#ModalUsuario").val(response[i].usuario);
-                $("#ModalContra").val(response[i].contra);
+               
             }
             $('#ModalDomicilio').modal();
         },
