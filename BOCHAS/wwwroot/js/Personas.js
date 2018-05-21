@@ -113,14 +113,14 @@ function ConocerDomicilio(id) {
                 $("#ModalLocalidad").val(response[i].localidad);
                 $("#ModalBarrio").val(response[i].barrio);
                 $("#ModalUsuario").val(response[i].usuario);
-                if (response[i].dpto == "0") {
-                    $("#ModalDpto").val("");
+                if (response[i].piso == "0") {
+                    $("#ModalPiso").val("");
                 }
                 else {
-                    $("#ModalDpto").val(response[i].dpto);
+                    $("#ModalPiso").val(response[i].dpto);
                 }
               
-                    $("#ModalPiso").val(response[i].piso);
+                    $("#ModalDpto").val(response[i].piso);
                 
                 
                
@@ -263,7 +263,8 @@ function ComprobarUsuario() {
     return result;
 }
 function New() {
-    if (ComprobarCampos()) {
+   
+    if (ComprobarCampos() ) {
         var nombre = $("#Nombre").val();
         var apellido = $("#Apellido").val();
         var tipodoc = $("#TipoDoc option:selected").val();
