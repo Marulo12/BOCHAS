@@ -21,8 +21,8 @@
 }
 .alertify {
 	position: fixed; z-index: 99999;
-	top: 50px; left: 50%;
-	width: 550px;
+	top: 50px; left: 60%;
+	width: 300px;
 	margin-left: -275px;
 }
 	.alertify-hidden {

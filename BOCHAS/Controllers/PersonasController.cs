@@ -69,11 +69,12 @@ namespace BOCHAS.Controllers
                     dom.Numero = Convert.ToInt32(ncalle);
                     dom.IdLocalidad = Convert.ToInt32(Localidad);
                     dom.Calle = Calle;
-                    if (!string.IsNullOrEmpty(dpto))
+                    
+                        dom.departamento = dpto;
+                    if (!string.IsNullOrEmpty(piso))
                     {
-                        dom.departamento = Convert.ToInt32(dpto);
+                        dom.piso = Convert.ToInt32(piso);
                     }
-                    dom.piso = piso;
                     _context.Domicilio.Add(dom);
                     if (_context.SaveChanges() == 0)
                     {
@@ -203,7 +204,7 @@ namespace BOCHAS.Controllers
 
         public JsonResult ValidarUsuario(string usuario)
         {
-            var Usuario = _context.Usuario.Where(u => u.Nombre == usuario).Count();
+            var Usuario = _context.Usuario.Where(u => u.Nombre == usuario ).Count();
             if (Usuario > 0)
             {
                 return Json("False");
