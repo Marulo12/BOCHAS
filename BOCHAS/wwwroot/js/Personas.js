@@ -240,9 +240,10 @@ function confirmarBaja(id) {
     });
     return false
 }
+var usuarioExiste = false;
 function ComprobarUsuario() {
     var usuario = $("#Usuario").val();
-    var result = false;
+  
     $.ajax({
         type: "GET",
         url: "/Personas/ValidarUsuario",
@@ -252,19 +253,22 @@ function ComprobarUsuario() {
                
             
                 alertify.error('El nombre de usuario ya esta en uso');
-                result =false;
+                usuarioExiste = false;
             }
-            else { result = true; }
+            else {
+                usuarioExiste = true;
+            }
 
-        }
+        },
+        failure: function (response) { window.alert(response); }
     });
 
 
-    return result;
+    
 }
 function New() {
-   
-    if (ComprobarCampos() ) {
+
+    if (ComprobarCampos()) {
         var nombre = $("#Nombre").val();
         var apellido = $("#Apellido").val();
         var tipodoc = $("#TipoDoc option:selected").val();
