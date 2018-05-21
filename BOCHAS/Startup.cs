@@ -25,8 +25,7 @@ namespace BOCHAS
         {
             services.AddMvc();
 
-            services.AddDbContext<BOCHASContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("BOCHASContext")));
+            services.AddDbContext<BOCHASContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

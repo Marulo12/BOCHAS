@@ -31,9 +31,9 @@ function MostrarPersona(filtro) {
         success: function (response) {
             var dvItems = $("#CEmpleados");
             dvItems.empty();
-            var Table = '<table id="TablaEmpleados" class="table table-striped  display" style="width:100%;" ><thead style="background-color: rgba(158, 44, 44, 0.9);color:white"><tr><th>Nombre</th><th>Apellido</th><th>Documento</th><th>Mail</th><th>Cargo</th><th ></th></tr></thead><tbody>';
+            var Table = '<table id="TablaEmpleados" class="table table-striped  display" style="width:100%;" ><thead style="background-color: rgba(158, 44, 44, 0.9);color:white"><tr><th>Nombre</th><th>Apellido</th><th>Documento</th><th>Telefono</th><th>Mail</th><th>Cargo</th><th ></th></tr></thead><tbody>';
             for (var i = 0; i < response.length; i++) {
-                Table += '<tr ><td>' + response[i].nombre + '</td>' + '<td>' + response[i].apellido + '</td>' + '<td>' + response[i].documento + '</td>' + '<td>' + response[i].mail + '</td>' + '<td>' + response[i].cargo + '</td> <td><div class="btn-group" style="padding-left:17%;"> <button class=" btn btn-sm btn-primary " data-toggle="tooltip" title="Informacion adicional" data-placement="top"  onclick="ConocerDomicilio(' + response[i].id + ');"><i class="far fa-address-card"></i></button><button class=" btn btn-sm " data-toggle="tooltip" title="Modificar" data-placement="top" ><i class="fas fa-pencil-alt"></i></button><button class="btn btn-sm btn-danger" data-toggle="tooltip" title="Baja" data-placement="top" onclick="confirmarBaja(' + response[i].id + ');"><i class="fas fa-trash-alt"></i></button></div></td></tr>';
+                Table += '<tr ><td>' + response[i].nombre + '</td>' + '<td>' + response[i].apellido + '</td>' + '<td>' + response[i].documento + '</td>' + '<td>' + response[i].telefono + '</td>' + '<td>' + response[i].mail + '</td>' + '<td>' + response[i].cargo + '</td> <td><div class="btn-group" style="padding-left:17%;"> <button class=" btn btn-sm btn-primary " data-toggle="tooltip" title="Informacion adicional" data-placement="top"  onclick="ConocerDomicilio(' + response[i].id + ');"><i class="far fa-address-card"></i></button><button class=" btn btn-sm " data-toggle="tooltip" title="Modificar"  onclick="EditarEmpleado(' + response[i].id + ');" data-placement="top" ><i class="fas fa-pencil-alt"></i></button><button class="btn btn-sm btn-danger" data-toggle="tooltip" title="Baja" data-placement="top" onclick="confirmarBaja(' + response[i].id + ');"><i class="fas fa-trash-alt"></i></button></div></td></tr>';
             }
             Table += "</tbody><tfoot></tfoot></table>";
             dvItems.append(Table);
@@ -74,7 +74,20 @@ function MostrarPersona(filtro) {
 
 
 
+function EditarEmpleado(id) {
+    $.ajax({
+        type: "GET",
+        url: "/Personas/EditarEmpleado",
+        data: { id: id },
+        success: function (response) {
+            $("#ModalBodyEdicion").html(response);
+            $('#ModalEdicion').modal();
+        }
+    });
+        
 
+
+}
 
 function ConocerDomicilio(id) {
     $.ajax({
@@ -92,13 +105,25 @@ function ConocerDomicilio(id) {
             $("#ModalBarrio").val();
             $("#ModalUsuario").val();
             $("#ModalContra").val();
+            $("#ModalDpto").val();
+            $("#ModalPiso").val();
             for (var i = 0; i < response.length; i++) {
                 $("#ModalCalle").val(response[i].calle);
                 $("#ModalNumero").val(response[i].numero);
                 $("#ModalLocalidad").val(response[i].localidad);
                 $("#ModalBarrio").val(response[i].barrio);
                 $("#ModalUsuario").val(response[i].usuario);
-                $("#ModalContra").val(response[i].contra);
+                if (response[i].dpto == "0") {
+                    $("#ModalDpto").val("");
+                }
+                else {
+                    $("#ModalDpto").val(response[i].dpto);
+                }
+              
+                    $("#ModalPiso").val(response[i].piso);
+                
+                
+               
             }
             $('#ModalDomicilio').modal();
         },
@@ -215,7 +240,28 @@ function confirmarBaja(id) {
     });
     return false
 }
+function ComprobarUsuario() {
+    var usuario = $("#Usuario").val();
+    var result = false;
+    $.ajax({
+        type: "GET",
+        url: "/Personas/ValidarUsuario",
+        data: { usuario:usuario },
+        success: function (response) {
+            if (response === "False") {
+               
+            
+                alertify.error('El nombre de usuario ya esta en uso');
+                result =false;
+            }
+            else { result = true; }
 
+        }
+    });
+
+
+    return result;
+}
 function New() {
     if (ComprobarCampos()) {
         var nombre = $("#Nombre").val();
@@ -231,12 +277,14 @@ function New() {
         var calle = $("#Calle").val();
         var ncalle = $("#NCalle").val();
         var cargo = $("#Cargo option:selected").val();
+        var dpto = $("#Dpto").val();
+        var piso = $("#Piso").val();
         $("#PanelEmpleados").css("display", "none");
         $("#DivCarga").css("display", "inline");
         $.ajax({
             type: "POST",
             url: "/Personas/New",
-            data: { nombre, apellido, tipodoc, numero, mail, telefono, localidad, barrio, usuario, contra, calle, cargo, ncalle },
+            data: { nombre, apellido, tipodoc, numero, mail, telefono, localidad, barrio, usuario, contra, calle, cargo, ncalle , dpto, piso },
             success: function (response) {
                 if (response === "OK") {
                     $("#DivCarga img").attr("src", "../images/ok.png");
@@ -268,40 +316,40 @@ function New() {
 }
 function ComprobarCampos() {
     if ($("#Nombre").val() === "") {
-        $("#Error").html("No cargo el Nombre");
-
+       
+        alertify.error('No cargo el Nombre');
         return false;
     }
     if ($("#Apellido").val() === "") {
-        $("#Error").html("No cargo el Apellido");
+        alertify.error('No cargo el Apellido');
         return false;
     }
     if ($("#Numero").val() === "") {
-        $("#Error").html("No cargo el Numero");
+        alertify.error('No cargo el Numero de Documento');
         return false;
     }
     if ($("#Mail").val() === "") {
-        $("#Error").html("No cargo el Mail");
+        alertify.error('No cargo el Mail');
         return false;
     }
     if ($("#Telefono").val() === "") {
-        $("#Error").html("No cargo el Telefono");
+        alertify.error('No cargo el Telefono');
         return false;
     }
     if ($("#Usuario").val() === "") {
-        $("#Error").html("No cargo el Usuario");
+        alertify.error('No cargo el Nombre de Usuario');
         return false;
     }
     if ($("#Contra").val() === "") {
-        $("#Error").html("No cargo La Contraseña");
+        alertify.error('No cargo la Contraeña');
         return false;
     }
     if ($("#Calle").val() === "") {
-        $("#Error").html("No cargo la Calle");
+        alertify.error('No cargo la Calle');;
         return false;
     }
     if ($("#NCalle").val() === "") {
-        $("#Error").html("No cargo el numero de la calle");
+        alertify.error('No cargo el Numero de Calle');
         return false;
     }
 
