@@ -38,7 +38,8 @@ namespace BOCHAS.Controllers
                                 Nombre = p.Nombre,
                                 Apellido = p.Apellido,
                                 Documento = p.NroDocumento,
-                                Cargo = c.Nombre
+                                Cargo = c.Nombre,
+                                Telefono = p.Telefono
 
                             });
 
@@ -151,7 +152,9 @@ namespace BOCHAS.Controllers
         { int Id = Convert.ToInt32(id);
             var persona = await _context.Persona.SingleOrDefaultAsync(m => m.Id == Id );
             persona.FechaBaja = DateTime.Now;
-
+            var empleado = await _context.Empleado.SingleOrDefaultAsync(m => m.IdPersona == Id);
+            empleado.Activo = false;
+            _context.Empleado.Update(empleado);
             _context.Persona.Update(persona);
             await _context.SaveChangesAsync();
 
@@ -192,31 +195,20 @@ namespace BOCHAS.Controllers
             return Json(await _context.Cargo.ToListAsync());
 
         }
-        // GET: Personas/Create
-        public IActionResult Create()
+
+        public JsonResult ValidarUsuario(string usuario)
         {
-
-
-            return View();
-        }
-
-        // POST: Personas/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,nombre,Apellido,Mail,Telefono,NumeroDocumento,Tipo,IdTipoDocumento,Id_Domicilio,Id_Usuario,Fecha_Baja")] Persona persona)
-        {
-            if (ModelState.IsValid)
+            var Usuario = _context.Usuario.Where(u => u.Nombre == usuario).Count();
+            if (Usuario > 0)
             {
-                _context.Add(persona);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(persona);
-        }
+                return Json("False");
 
-      
+            }
+            else
+            {
+                return Json("OK");
+            }
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int? id)
