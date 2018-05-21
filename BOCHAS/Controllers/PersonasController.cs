@@ -219,34 +219,36 @@ namespace BOCHAS.Controllers
       
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Apellido,Mail,Telefono,NumeroDocumento,Tipo,IdTipoDocumento,Id_Domicilio,Id_Usuario,FechaBaja")] Persona persona)
+        public async Task<IActionResult> Edit(int? id)
         {
-            if (id != persona.Id)
+            if (id == null)
             {
                 return NotFound();
             }
-
-            if (ModelState.IsValid)
+            var PersonaToUpdate = await _context.Persona
+        .Include(i => i.IdDomicilioNavigation)
+        .Include(i => i.IdUsuarioNavigation)                    
+        .SingleOrDefaultAsync(m => m.Id == id);
+            
+            if (await TryUpdateModelAsync<Persona>(
+                PersonaToUpdate))
             {
+               
                 try
                 {
-                    _context.Update(persona);
                     await _context.SaveChangesAsync();
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateException /* ex */)
                 {
-                    if (!PersonaExists(persona.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    //Log the error (uncomment ex variable name and write a log.)
+                    ModelState.AddModelError("", "Unable to save changes. " +
+                        "Try again, and if the problem persists, " +
+                        "see your system administrator.");
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(persona);
+           
+            return Redirect("Index");
         }
 
         // GET: Personas/Delete/5
