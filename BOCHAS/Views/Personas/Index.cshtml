@@ -14,11 +14,14 @@
                     <li role="presentation" class="active"><a id="ConsultaEmpleado" asp-action="Index" asp-controller="Personas">Consulta</a></li>
                 </ul>
                 <br />
-                <div class="col-sm-12">
-                    <form class="form-group form-inline">
-                        <input id="FiltroEmp" type="text" class="form-control" placeholder="Filtro(Nombre o Apellido)" /><button id="BtnBuscarEmp" class="btn btn-sm btn-info"><span class="glyphicon glyphicon-search"></span></button>
-                    </form>
+                <div class="col-sm-3">
+                    <form class=" form-inline input-group">
+                        <input id="FiltroEmp" type="text" class="form-control" placeholder="Filtro(Nombre o Apellido)" /> <span class="input-group-btn"> <button id="BtnBuscarEmp" class="btn btn-sm btn-info form-control"><span class="glyphicon glyphicon-search"></span> </button> </span>
+                     </form>
                 </div>
+               
+                </div>
+            <br />
                 <div id="CEmpleados" class="col-sm-12">
 
 
@@ -28,7 +31,7 @@
         </div>
 
     </div>
-</div>
+
 <div id="ModalDomicilio" class="modal fade " role="dialog">
     <div class="modal-dialog ">
 
@@ -43,22 +46,30 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="row ">
-                                <div class="col-sm-6"><label>Calle:</label><input id="ModalCalle" type="text" class="form-control" /></div>
-                                <div class="col-sm-6"><label>Numero:</label><input id="ModalNumero" type="text" class="form-control" /></div>
+                                <p class="alert alert-info" style="text-align:center;font-size:18px;padding:0px;"><i class="fa fa-home" aria-hidden="true"></i><b>Domicilio</b></p>
+                                <div class="col-sm-6"><label>Calle</label><input id="ModalCalle" type="text" class="form-control" /></div>
+                                <div class="col-sm-6"><label>Numero</label><input id="ModalNumero" type="text" class="form-control" /></div>
                             </div>
                             <div class="row ">
-                                <div class="col-sm-6"><label>Localidad:</label><input id="ModalLocalidad" type="text" class="form-control" /></div>
-                                <div class="col-sm-6"><label>Barrio:</label><input id="ModalBarrio" type="text" class="form-control" /></div>
+                                <br />
+                                <div class="col-sm-6"><label>Localidad</label><input id="ModalLocalidad" type="text" class="form-control" /></div>
+                                <div class="col-sm-6"><label>Barrio</label><input id="ModalBarrio" type="text" class="form-control" /></div>
+                            </div>
+                            <div class="row ">
+                                <br />
+                                <div class="col-sm-6"><label>Dpto</label><input id="ModalDpto" type="text" class="form-control" /></div>
+                                <div class="col-sm-6"><label>Piso</label><input id="ModalPiso" type="text" class="form-control" /></div>
                             </div>
                         </div>
                     </div>
-                    <hr />
+                   <br />
                     <div class="row">
                         <div class="col-lg-12">
                         
                             <div class="row">
-                                <div class="col-sm-6"><label>Usuario:</label><input id="ModalUsuario" type="text" class="form-control" /></div>
-                                <div class="col-sm-6"><label>Contraseña:</label><input id="ModalContra" type="password" class="form-control" /></div>
+                                <p class="alert alert-info" style="text-align:center;font-size:18px;padding:0px;"><i class="fa fa-user" aria-hidden="true"></i><b>Usuario</b></p>
+                                <div class="col-sm-6"><label>Usuario</label><input id="ModalUsuario" type="text" class="form-control" /></div>
+                                
                             </div>
                         </div>
                     </div>
@@ -67,6 +78,26 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
             </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="ModalEdicion" class="modal fade " role="dialog">
+    <div class="modal-dialog ">
+
+        <!-- Modal content-->
+        <div class="modal-content ">
+            <div class="modal-header" style="background:-webkit-gradient(linear, 96% 73%, 0% 0%, from(#AD9085), to(#CE2029));padding-bottom:0px;">
+
+                <h3 style="color:white;"><i class="fas fa-pencil-alt"></i> Editar Empleado</h3>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div id="ModalBodyEdicion" class="modal-body">
+               
+            </div>
+          
         </div>
 
     </div>

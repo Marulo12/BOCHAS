@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BOCHAS.Models
 {
-    public class Usuario
+    public partial class Usuario
     {
-        public int Id { set; get; }
-        [Required(ErrorMessage = "No cargo el Usuario ")]
-        public string Nombre { set; get; }
-        [Required(ErrorMessage = "No cargo la contraseña ")]
-        [StringLength(7), DataType(DataType.Password)]
-        public string Contraseña { set; get; }
+        public Usuario()
+        {
+            Persona = new HashSet<Persona>();
+            Session = new HashSet<Session>();
+        }
+
+        public int Id { get; set; }
+        public string Nombre { get; set; }
+        public string Contraseña { get; set; }
+
+        public ICollection<Persona> Persona { get; set; }
+        public ICollection<Session> Session { get; set; }
     }
 }

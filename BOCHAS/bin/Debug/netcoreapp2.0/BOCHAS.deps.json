@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "9bd68e12f18b00da486bb8fe1ac04e5c905fb0c4"
+    "signature": "963a5d95576c05fd9e84033627610a7309cb9cfb"
   },
   "compilationOptions": {
     "defines": [
@@ -25,6 +25,7 @@
         "dependencies": {
           "Microsoft.AspNetCore.All": "2.0.6",
           "Microsoft.EntityFrameworkCore.SqlServer": "2.0.3",
+          "Microsoft.EntityFrameworkCore.Tools": "2.0.3",
           "Microsoft.NETCore.App": "2.0.0",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.0.3"
         },
@@ -235,13 +236,13 @@
           "Microsoft.Data.Sqlite": "2.0.1",
           "Microsoft.Data.Sqlite.Core": "2.0.1",
           "Microsoft.EntityFrameworkCore": "2.0.3",
-          "Microsoft.EntityFrameworkCore.Design": "2.0.2",
+          "Microsoft.EntityFrameworkCore.Design": "2.0.3",
           "Microsoft.EntityFrameworkCore.InMemory": "2.0.2",
           "Microsoft.EntityFrameworkCore.Relational": "2.0.3",
           "Microsoft.EntityFrameworkCore.SqlServer": "2.0.3",
           "Microsoft.EntityFrameworkCore.Sqlite": "2.0.2",
           "Microsoft.EntityFrameworkCore.Sqlite.Core": "2.0.2",
-          "Microsoft.EntityFrameworkCore.Tools": "2.0.2",
+          "Microsoft.EntityFrameworkCore.Tools": "2.0.3",
           "Microsoft.Extensions.Caching.Abstractions": "2.0.2",
           "Microsoft.Extensions.Caching.Memory": "2.0.2",
           "Microsoft.Extensions.Caching.Redis": "2.0.1",
@@ -1620,7 +1621,7 @@
           "lib/netstandard2.0/Microsoft.EntityFrameworkCore.dll": {}
         }
       },
-      "Microsoft.EntityFrameworkCore.Design/2.0.2": {
+      "Microsoft.EntityFrameworkCore.Design/2.0.3": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore.Relational": "2.0.3"
         },
@@ -1685,9 +1686,9 @@
           "lib/netstandard2.0/Microsoft.EntityFrameworkCore.SqlServer.dll": {}
         }
       },
-      "Microsoft.EntityFrameworkCore.Tools/2.0.2": {
+      "Microsoft.EntityFrameworkCore.Tools/2.0.3": {
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Design": "2.0.2"
+          "Microsoft.EntityFrameworkCore.Design": "2.0.3"
         }
       },
       "Microsoft.Extensions.Caching.Abstractions/2.0.2": {
@@ -4952,12 +4953,12 @@
       "path": "microsoft.entityframeworkcore/2.0.3",
       "hashPath": "microsoft.entityframeworkcore.2.0.3.nupkg.sha512"
     },
-    "Microsoft.EntityFrameworkCore.Design/2.0.2": {
+    "Microsoft.EntityFrameworkCore.Design/2.0.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-cEqvei8LTLxJavvOH5OwQRjtfAlJF6RhnUyetv3M7hByXktkpedvhykH0TeJS0IQMfP3pU+9qclQpyrq9Ej4lQ==",
-      "path": "microsoft.entityframeworkcore.design/2.0.2",
-      "hashPath": "microsoft.entityframeworkcore.design.2.0.2.nupkg.sha512"
+      "sha512": "sha512-hWmbmZg0BhXD3/zuR/w3tCfLyPHpQ52GRPKt80vSmnFOnqaa+/Di7v0zOfPQMmn9gXiZ0hAtx5ywvwRNCTCzBg==",
+      "path": "microsoft.entityframeworkcore.design/2.0.3",
+      "hashPath": "microsoft.entityframeworkcore.design.2.0.3.nupkg.sha512"
     },
     "Microsoft.EntityFrameworkCore.InMemory/2.0.2": {
       "type": "package",
@@ -4994,12 +4995,12 @@
       "path": "microsoft.entityframeworkcore.sqlserver/2.0.3",
       "hashPath": "microsoft.entityframeworkcore.sqlserver.2.0.3.nupkg.sha512"
     },
-    "Microsoft.EntityFrameworkCore.Tools/2.0.2": {
+    "Microsoft.EntityFrameworkCore.Tools/2.0.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-GBgyVDSZhYwja4cy+muVBocjlgbLhV5m29J3tHHf02utM8zo1jDSuarDGKV0O+kj5d3bgBuHe+0/Tf78GanTHQ==",
-      "path": "microsoft.entityframeworkcore.tools/2.0.2",
-      "hashPath": "microsoft.entityframeworkcore.tools.2.0.2.nupkg.sha512"
+      "sha512": "sha512-KOkhbzPTFJa/NEduIdT8o1vOKUZAVvcfyR5rFIKUvFGSSEU2tkmEkJ0ZFxZzpbltD7cj03DlvMlB83RTyYraPg==",
+      "path": "microsoft.entityframeworkcore.tools/2.0.3",
+      "hashPath": "microsoft.entityframeworkcore.tools.2.0.3.nupkg.sha512"
     },
     "Microsoft.Extensions.Caching.Abstractions/2.0.2": {
       "type": "package",

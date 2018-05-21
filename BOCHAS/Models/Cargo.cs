@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BOCHAS.Models
 {
-    public class Cargo
+    public partial class Cargo
     {
-        public int Id { set; get; }
-        [Required]
-        public string Nombre { set; get; }
-        public string Descripcion { set; get; }
+        public Cargo()
+        {
+            Empleado = new HashSet<Empleado>();
+        }
+
+        public int Id { get; set; }
+        public string Nombre { get; set; }
+        public string Descripcion { get; set; }
+
+        public ICollection<Empleado> Empleado { get; set; }
     }
 }
