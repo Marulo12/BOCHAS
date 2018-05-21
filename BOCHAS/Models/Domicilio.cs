@@ -15,7 +15,8 @@ namespace BOCHAS.Models
         public int Numero { get; set; }
         public string Calle { get; set; }
         public int IdLocalidad { get; set; }
-
+        public string piso{ get; set; }
+        public int departamento { get; set; }
         public Barrio IdBarrioNavigation { get; set; }
         public Localidad IdLocalidadNavigation { get; set; }
         public ICollection<Persona> Persona { get; set; }

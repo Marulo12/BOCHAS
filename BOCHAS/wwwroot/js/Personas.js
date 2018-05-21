@@ -105,12 +105,24 @@ function ConocerDomicilio(id) {
             $("#ModalBarrio").val();
             $("#ModalUsuario").val();
             $("#ModalContra").val();
+            $("#ModalDpto").val();
+            $("#ModalPiso").val();
             for (var i = 0; i < response.length; i++) {
                 $("#ModalCalle").val(response[i].calle);
                 $("#ModalNumero").val(response[i].numero);
                 $("#ModalLocalidad").val(response[i].localidad);
                 $("#ModalBarrio").val(response[i].barrio);
                 $("#ModalUsuario").val(response[i].usuario);
+                if (response[i].dpto == "0") {
+                    $("#ModalDpto").val("");
+                }
+                else {
+                    $("#ModalDpto").val(response[i].dpto);
+                }
+              
+                    $("#ModalPiso").val(response[i].piso);
+                
+                
                
             }
             $('#ModalDomicilio').modal();
@@ -230,7 +242,7 @@ function confirmarBaja(id) {
 }
 function ComprobarUsuario() {
     var usuario = $("#Usuario").val();
-   
+    var result = false;
     $.ajax({
         type: "GET",
         url: "/Personas/ValidarUsuario",
@@ -238,20 +250,20 @@ function ComprobarUsuario() {
         success: function (response) {
             if (response === "False") {
                
-             //   $("#Error").html("El nombre de usuario ya esta en uso");
+            
                 alertify.error('El nombre de usuario ya esta en uso');
-                return false;
+                result =false;
             }
-            else { return true; }
+            else { result = true; }
 
         }
     });
 
-   
 
+    return result;
 }
 function New() {
-    if (ComprobarCampos() && ComprobarUsuario()) {
+    if (ComprobarCampos()) {
         var nombre = $("#Nombre").val();
         var apellido = $("#Apellido").val();
         var tipodoc = $("#TipoDoc option:selected").val();
@@ -265,12 +277,14 @@ function New() {
         var calle = $("#Calle").val();
         var ncalle = $("#NCalle").val();
         var cargo = $("#Cargo option:selected").val();
+        var dpto = $("#Dpto").val();
+        var piso = $("#Piso").val();
         $("#PanelEmpleados").css("display", "none");
         $("#DivCarga").css("display", "inline");
         $.ajax({
             type: "POST",
             url: "/Personas/New",
-            data: { nombre, apellido, tipodoc, numero, mail, telefono, localidad, barrio, usuario, contra, calle, cargo, ncalle },
+            data: { nombre, apellido, tipodoc, numero, mail, telefono, localidad, barrio, usuario, contra, calle, cargo, ncalle , dpto, piso },
             success: function (response) {
                 if (response === "OK") {
                     $("#DivCarga img").attr("src", "../images/ok.png");
