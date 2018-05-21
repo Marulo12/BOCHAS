@@ -263,7 +263,8 @@ function ComprobarUsuario() {
     return result;
 }
 function New() {
-    if (ComprobarCampos()) {
+   
+    if (ComprobarCampos() && ComprobarUsuario() === true) {
         var nombre = $("#Nombre").val();
         var apellido = $("#Apellido").val();
         var tipodoc = $("#TipoDoc option:selected").val();

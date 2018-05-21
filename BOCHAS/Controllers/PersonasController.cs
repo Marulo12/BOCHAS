@@ -203,7 +203,7 @@ namespace BOCHAS.Controllers
 
         public JsonResult ValidarUsuario(string usuario)
         {
-            var Usuario = _context.Usuario.Where(u => u.Nombre == usuario).Count();
+            var Usuario = _context.Usuario.Where(u => u.Nombre == usuario ).Count();
             if (Usuario > 0)
             {
                 return Json("False");

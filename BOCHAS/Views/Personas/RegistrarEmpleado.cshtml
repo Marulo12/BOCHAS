@@ -3,25 +3,25 @@
     <div class="panel panel-primary">
         <div class="panel-heading" style="padding-bottom:0px;">
             <img class="img-responsive" width="40" src="~/images/usuarioSinfond.png" />    <h3>Empleados</h3>
-          
+
         </div>
         <div class="panel-body">
             <div id="DivCarga" style="display:none;">
                 <div class="row">
-                   
+
                     <div class="col-sm-12 ok" style="padding-left:40%;">
                         <img src="~/images/carga.gif" alt="" width="200" />
                     </div>
                 </div>
             </div>
 
-            <form id="PanelEmpleados" class="form-group"  >
+            <form id="PanelEmpleados" class="form-group">
 
                 <div class="row">
                     <ul class="nav nav-tabs ">
-                        
+
                         <li role="presentation" class="active"> <a id="altaEmpleado" asp-action="RegistrarEmpleado" asp-controller="Personas">Alta</a></li>
-                        <li role="presentation"><a asp-action="Index"  asp-controller="Personas">Consulta</a></li>
+                        <li role="presentation"><a asp-action="Index" asp-controller="Personas">Consulta</a></li>
                     </ul>
                     <br />
                     <div class="col-sm-3"><label>Nombre</label><input id="Nombre" ng-model="Nombre" type="text" class="form-control" required /></div>
@@ -57,11 +57,11 @@
 
                     </div>
                     <div class="col-sm-1">
-                        <label for="Dpto">Dpto</label>&nbsp; <input id="Dpto" type="text" class="form-control"  />
+                        <label for="Dpto">Dpto</label>&nbsp; <input id="Dpto" type="text" class="form-control" />
 
                     </div>
                     <div class="col-sm-1">
-                        <label for="Piso">Piso</label>&nbsp; <input id="Piso" type="text" class="form-control"  />
+                        <label for="Piso">Piso</label>&nbsp; <input id="Piso" type="text" class="form-control" />
 
                     </div>
 
