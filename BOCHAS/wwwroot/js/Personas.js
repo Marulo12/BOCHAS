@@ -12,7 +12,7 @@
         MostrarBarrio();
     });
     $("#Registrar").click(function () {
-        New();
+        ComprobarUsuario();
     });
     $("#Limpiar").click(function () {
         LimpiarCampos();
@@ -238,7 +238,7 @@ function confirmarBaja(id) {
             alertify.error("Baja Cancelada");
         }
     });
-    return false
+    
 }
 var usuarioExiste = false;
 function ComprobarUsuario() {
@@ -253,10 +253,11 @@ function ComprobarUsuario() {
                
             
                 alertify.error('El nombre de usuario ya esta en uso');
-                usuarioExiste = false;
+                
             }
-            else {
-                usuarioExiste = true;
+            if (response === "OK") { 
+                New();
+
             }
 
         },
