@@ -176,10 +176,17 @@ namespace BOCHAS.Controllers
         }
         public JsonResult MostrarBarrios(string IdLocalidad)
         {
-            int IdL = Convert.ToInt32(IdLocalidad);
-            var barrios = (from b in _context.Barrio where b.IdLocalidad == IdL select b).ToList();
-
-            return Json(barrios);
+            try
+            {
+                int IdL = Convert.ToInt32(IdLocalidad);
+                var barrios = (from b in _context.Barrio where b.IdLocalidad == IdL select b).ToList();
+                return Json(barrios);
+            }
+            catch
+            {
+                return Json("");
+            }
+            
 
         }
         public async Task<JsonResult> MostrarLocalidades()
