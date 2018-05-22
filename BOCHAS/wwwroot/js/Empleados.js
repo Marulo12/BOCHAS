@@ -25,15 +25,26 @@
     $("#TablaEmpladosBaja").after(function () {
         $("#TablaEmpladosBaja").DataTable({
             searching: true,
-
             "scrollX": true,
             responsive: true,
-
+            dom: 'Bfrtip',          
+            buttons: [
+               
+                'excel',
+                'pdf',
+                {
+                    extend: 'print',
+                    text: 'Imprimir'
+                   
+                }
+            ],
             language: {
                 processing: "Procesando",
                 search: "Filtro&nbsp;:",
                 info: "",
                 infoEmpty: "",
+                infoFiltered: "(Filtrado de _MAX_ total de registros)",
+                zeroRecords: "Ningun registro coincide",
                 lengthMenu: "Mostrar _MENU_ registros",
                 infoPostFix: "",
                 loadingRecords: "Cargando...",
@@ -46,6 +57,8 @@
                 }
             }
         });
+       
+       
     });
 });
 
@@ -67,16 +80,18 @@ function MostrarEmpleado(filtro) {
             Table += "</tbody><tfoot></tfoot></table>";
             dvItems.append(Table);
             $("#TablaEmpleados").DataTable({
-                searching: false,
-              
+                searching: true,             
                 "scrollX": true,
                 responsive: true,
-               
+                search: "Filtro&nbsp;:",
                 language: {
                     processing: "Procesando",
                     search: "Filtro&nbsp;:",
+
                     info: "",
                     infoEmpty: "",
+                    zeroRecords: "Ningun registro coincide",
+                    infoFiltered: "(Filtrado de _MAX_ total de registros)",
                     lengthMenu: "Mostrar _MENU_ registros",
                     infoPostFix: "",
                     loadingRecords: "Cargando...",

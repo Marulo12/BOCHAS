@@ -23,7 +23,7 @@ namespace BOCHAS.Controllers
         {
             return View();
         }
-        public async Task<JsonResult> MostrarEmpleados(string filtro)
+        public async Task<JsonResult> MostrarEmpleados()
         {
 
             var Empleado = (from p in _context.Persona
@@ -42,12 +42,7 @@ namespace BOCHAS.Controllers
                                 Telefono = p.Telefono
 
                             });
-
-            if (!string.IsNullOrEmpty(filtro))
-            {
-                Empleado = Empleado.Where(p => p.Nombre.Contains(filtro) || p.Apellido.Contains(filtro));
-            }
-
+            
             return Json(await Empleado.ToListAsync());
         }
         public IActionResult RegistrarEmpleado()
