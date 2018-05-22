@@ -3,16 +3,17 @@
         MostrarTipoDocumento(); MostrarLocalidades(); MostrarCargos();
     });
     $("#ConsultaEmpleado").after(function () {
-        MostrarPersona("");
+        MostrarEmpleado("");
     });
     $("#BtnBuscarEmp").click(function () {
-        MostrarPersona($("#FiltroEmp").val());
+        MostrarEmpleado($("#FiltroEmp").val());
     });
+    
     $("#Localidad").change(function () {
         MostrarBarrio();
     });
     $("#Registrar").click(function () {
-        New();
+        ComprobarUsuario();
     });
     $("#Limpiar").click(function () {
         LimpiarCampos();
@@ -20,8 +21,36 @@
     $("#Continuar").click(function () {
         window.location = "/Personas/RegistrarEmpleado";
     });
+    
+    $("#TablaEmpladosBaja").after(function () {
+        $("#TablaEmpladosBaja").DataTable({
+            searching: true,
+
+            "scrollX": true,
+            responsive: true,
+
+            language: {
+                processing: "Procesando",
+                search: "Filtro&nbsp;:",
+                info: "",
+                infoEmpty: "",
+                lengthMenu: "Mostrar _MENU_ registros",
+                infoPostFix: "",
+                loadingRecords: "Cargando...",
+                emptyTable: "No hay registros",
+                paginate: {
+                    first: "Primero",
+                    previous: "Anterior",
+                    next: "Siguiente",
+                    last: "Ultimo"
+                }
+            }
+        });
+    });
 });
-function MostrarPersona(filtro) {
+
+
+function MostrarEmpleado(filtro) {
     $.ajax({
         type: "GET",
         url: "/Personas/MostrarEmpleados",
@@ -33,7 +62,7 @@ function MostrarPersona(filtro) {
             dvItems.empty();
             var Table = '<table id="TablaEmpleados" class="table table-striped  display" style="width:100%;" ><thead style="background-color: rgba(158, 44, 44, 0.9);color:white"><tr><th>Nombre</th><th>Apellido</th><th>Documento</th><th>Telefono</th><th>Mail</th><th>Cargo</th><th ></th></tr></thead><tbody>';
             for (var i = 0; i < response.length; i++) {
-                Table += '<tr ><td>' + response[i].nombre + '</td>' + '<td>' + response[i].apellido + '</td>' + '<td>' + response[i].documento + '</td>' + '<td>' + response[i].telefono + '</td>' + '<td>' + response[i].mail + '</td>' + '<td>' + response[i].cargo + '</td> <td><div class="btn-group" style="padding-left:17%;"> <button class=" btn btn-sm btn-primary " data-toggle="tooltip" title="Informacion adicional" data-placement="top"  onclick="ConocerDomicilio(' + response[i].id + ');"><i class="far fa-address-card"></i></button><button class=" btn btn-sm " data-toggle="tooltip" title="Modificar"  onclick="EditarEmpleado(' + response[i].id + ');" data-placement="top" ><i class="fas fa-pencil-alt"></i></button><button class="btn btn-sm btn-danger" data-toggle="tooltip" title="Baja" data-placement="top" onclick="confirmarBaja(' + response[i].id + ');"><i class="fas fa-trash-alt"></i></button></div></td></tr>';
+                Table += '<tr ><td>' + response[i].nombre + '</td>' + '<td>' + response[i].apellido + '</td>' + '<td>' + response[i].documento + '</td>' + '<td>' + response[i].telefono + '</td>' + '<td>' + response[i].mail + '</td>' + '<td>' + response[i].cargo + '</td> <td><div class="btn-group" style="padding-left:17%;"> <button class=" btn btn-sm btn-primary " data-toggle="tooltip" title="Informacion adicional" data-placement="top"  onclick="ConocerDomicilio(' + response[i].id + ');"><i class="far fa-address-card"></i></button><button  class=" btn btn-sm BtnEditar" data-toggle="tooltip" title="Modificar"  onclick="EditarEmpleado(' + response[i].id + ');" data-placement="top" ><i class="fas fa-pencil-alt"></i></button><button class="btn btn-sm btn-danger" data-toggle="tooltip" title="Baja" data-placement="top" onclick="confirmarBaja(' + response[i].id + ');"><i class="fas fa-trash-alt"></i></button></div></td></tr>';
             }
             Table += "</tbody><tfoot></tfoot></table>";
             dvItems.append(Table);
@@ -90,6 +119,7 @@ function EditarEmpleado(id) {
 }
 
 function ConocerDomicilio(id) {
+   
     $.ajax({
         type: "GET",
         url: "/Personas/ConocerDomicilio",
@@ -230,7 +260,7 @@ function confirmarBaja(id) {
                     data: { id: id },
                     success: function (response) {
                       
-                        window.location = "/Personas/Index";
+                        window.location = "/Personas/Consulta";
                        
                     }
                 });                      
@@ -238,11 +268,12 @@ function confirmarBaja(id) {
             alertify.error("Baja Cancelada");
         }
     });
-    return false
+    
 }
+var usuarioExiste = false;
 function ComprobarUsuario() {
     var usuario = $("#Usuario").val();
-    var result = false;
+  
     $.ajax({
         type: "GET",
         url: "/Personas/ValidarUsuario",
@@ -252,19 +283,23 @@ function ComprobarUsuario() {
                
             
                 alertify.error('El nombre de usuario ya esta en uso');
-                result =false;
+                
             }
-            else { result = true; }
+            if (response === "OK") { 
+                New();
 
-        }
+            }
+
+        },
+        failure: function (response) { window.alert(response); }
     });
 
 
-    return result;
+    
 }
 function New() {
-   
-    if (ComprobarCampos() ) {
+
+    if (ComprobarCampos()) {
         var nombre = $("#Nombre").val();
         var apellido = $("#Apellido").val();
         var tipodoc = $("#TipoDoc option:selected").val();
@@ -284,7 +319,7 @@ function New() {
         $("#DivCarga").css("display", "inline");
         $.ajax({
             type: "POST",
-            url: "/Personas/New",
+            url: "/Personas/NewEmpleado",
             data: { nombre, apellido, tipodoc, numero, mail, telefono, localidad, barrio, usuario, contra, calle, cargo, ncalle , dpto, piso },
             success: function (response) {
                 if (response === "OK") {
