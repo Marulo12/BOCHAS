@@ -42,12 +42,12 @@
             <div class="col-sm-6">
                 <div class="form-group">
                     <label class="control-label">Localidad</label>
-                    <select id="Localidad" asp-for="IdDomicilioNavigation.IdLocalidad" class="form-control btn btn-danger" onchange="MostrarBarrio();" asp-items="@(new SelectList(bd.Localidad.ToList(),"Id","Nombre"))"></select>
+                    <select id="Localidad" asp-for="IdDomicilioNavigation.IdLocalidad" class="form-control btn btn-danger" onclick="MostrarBarrio();" asp-items="@(new SelectList(bd.Localidad.ToList(),"Id","Nombre"))"></select>
                     <span asp-validation-for="IdDomicilio" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Barrio</label>
-                    <select id="Barrio" asp-for="IdDomicilioNavigation.IdBarrio" class="form-control btn btn-danger" asp-items="@(new SelectList(bd.Barrio.ToList(),"Id","Nombre"))"></select>
+                    <select id="Barrio" asp-for="IdDomicilioNavigation.IdBarrio" class="form-control btn btn-danger"  asp-items="@(new SelectList(bd.Barrio.ToList(),"Id","Nombre")) "></select>
                     <span asp-validation-for="IdDomicilio" class="text-danger"></span>
                 </div>
             </div>
@@ -69,14 +69,14 @@
                 <div class="col-sm-6">
                     <div class="form-group">
                        
-                        <label asp-for="IdDomicilioNavigation.piso" class="control-label"></label>
+                        <label  class="control-label">Piso</label>
                         <input asp-for="IdDomicilioNavigation.piso" style="border-top:0px;border-right:0px;border-left:0px;" class="form-control" />
                         <span asp-validation-for="IdDomicilioNavigation.piso" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label asp-for="IdDomicilioNavigation.departamento" class="control-label"></label>
+                        <label  class="control-label">Dpto</label>
                         <input asp-for="IdDomicilioNavigation.departamento" style="border-top:0px;border-right:0px;border-left:0px;" class="form-control" required />
                         <span asp-validation-for="IdDomicilioNavigation.departamento" class="text-danger"></span>
                     </div>
