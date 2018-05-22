@@ -20,7 +20,35 @@
     $("#Continuar").click(function () {
         window.location = "/Personas/RegistrarEmpleado";
     });
+
+    $("#TablaEmpladosBaja").after(function () {
+        $("#TablaEmpladosBaja").DataTable({
+            searching: true,
+
+            "scrollX": true,
+            responsive: true,
+
+            language: {
+                processing: "Procesando",
+                search: "Filtro&nbsp;:",
+                info: "",
+                infoEmpty: "",
+                lengthMenu: "Mostrar _MENU_ registros",
+                infoPostFix: "",
+                loadingRecords: "Cargando...",
+                emptyTable: "No hay registros",
+                paginate: {
+                    first: "Primero",
+                    previous: "Anterior",
+                    next: "Siguiente",
+                    last: "Ultimo"
+                }
+            }
+        });
+    });
 });
+
+
 function MostrarEmpleado(filtro) {
     $.ajax({
         type: "GET",
@@ -230,7 +258,7 @@ function confirmarBaja(id) {
                     data: { id: id },
                     success: function (response) {
                       
-                        window.location = "/Personas/Index";
+                        window.location = "/Personas/Consulta";
                        
                     }
                 });                      

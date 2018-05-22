@@ -2,7 +2,7 @@
 <div id="containerEmpleadoAlta" ng-app="" class="container" style="margin-top:20px;">
     <div class="panel panel-primary">
         <div class="panel-heading" style="padding-bottom:0px;">
-            <img class="img-responsive" width="40" src="~/images/usuarioSinfond.png" />    <h3>Empleados</h3>
+            <h3><i class="fas fa-user-tie fa-2x"></i> Empleados</h3>
 
         </div>
         <div class="panel-body">
@@ -22,6 +22,7 @@
 
                         <li role="presentation" class="active"> <a id="altaEmpleado" asp-action="RegistrarEmpleado" asp-controller="Personas">Alta</a></li>
                         <li role="presentation"><a asp-action="Consulta" asp-controller="Personas">Consulta</a></li>
+                   
                     </ul>
                     <br />
                     <div class="col-sm-3"><label>Nombre</label><input id="Nombre" ng-model="Nombre" type="text" class="form-control" required /></div>
