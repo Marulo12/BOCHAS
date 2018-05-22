@@ -297,13 +297,42 @@
                                         </ul>
                                     </li>
                                     <li>
-                                        <a  asp-action="RegistrarEmpleado" asp-controller="Personas">
+                                        <a href="javascript:;">
                                             <span class="nav-icon">
                                                 <i class="fa fa-fw fa-user"></i>
                                             </span>
                                             <span class="nav-title">Empleados</span>
-                                           
+                                            <span class="nav-tools">
+                                                <i class="fa fa-fw arrow"></i>
+                                            </span>
                                         </a>
+                                        <ul class="nav nav-sub nav-stacked">
+                                            <li>
+                                                <a asp-action="RegistrarEmpleado" asp-controller="Personas">
+                                                    <span class="nav-icon">
+                                                        <i class="fas fa-user-plus"></i>
+                                                    </span>
+                                                    <span class="nav-title">Registrar nuevo</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a asp-controller="Personas" asp-action="Consulta">
+                                                    <span class="nav-icon">
+                                                        <i class="fas fa-user-edit"></i>
+                                                    </span>
+                                                    <span class="nav-title">Consultar</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a asp-controller="Personas" asp-action="MostrarEmpleadoBajas">
+                                                    <span class="nav-icon">
+                                                        <i class="fas fa-user-times"></i>
+                                                    </span>
+                                                    <span class="nav-title">Consultar Bajas</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                       
                                     </li>
                                     <!-- END: maps -->
                                     <!-- BEGIN: ui -->

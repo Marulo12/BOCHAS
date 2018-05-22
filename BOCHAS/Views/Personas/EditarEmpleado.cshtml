@@ -4,8 +4,6 @@
     ViewData["Title"] = "Editar Empleado";
 }
 
-
-<hr />
 <div class="row">
     <div class="col-sm-12">
         <form asp-action="Edit" method="post">
@@ -104,7 +102,7 @@
                 </div>
 
                 <div class="col-sm-12" style=" padding:0px;">
-                    <div class="form-group">
+                    <div class="form-group" style=" padding:0px;">
                         <div class="modal-footer">
                             <input type="submit" value="Modificar" class="btn btn-info" />
 
@@ -118,6 +116,6 @@
 
 
 @section Scripts {
-    <script src="~/js/Personas.js"></script>
+<script src="~/js/Empleados.js"></script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

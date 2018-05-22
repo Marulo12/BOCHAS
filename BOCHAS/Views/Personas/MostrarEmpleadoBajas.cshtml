@@ -1,0 +1,54 @@
+﻿@model IEnumerable<BOCHAS.Models.Empleado>
+
+@{
+    ViewData["Title"] = "Baja de Empleados";
+}
+<div class="container">
+    <h2>Baja de Empleados</h2>
+
+    <table class="table table-striped  display" >
+        <thead style="background-color: rgba(158, 44, 44, 0.9);color:white;">
+            <tr>
+                <th>
+                    Usuario
+                </th>
+                <th>
+                    Nombre
+                </th>
+                <th>
+                    Apellido
+                </th>
+                <th>
+                    Fecha de Comienzo
+                </th>
+
+                <th>
+                    Localidad
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdPersonaNavigation.IdUsuarioNavigation.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdPersonaNavigation.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdPersonaNavigation.Apellido)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaComienzo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdPersonaNavigation.IdDomicilioNavigation.IdLocalidadNavigation.Nombre)
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

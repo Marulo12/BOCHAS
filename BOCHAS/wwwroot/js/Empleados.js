@@ -3,10 +3,10 @@
         MostrarTipoDocumento(); MostrarLocalidades(); MostrarCargos();
     });
     $("#ConsultaEmpleado").after(function () {
-        MostrarPersona("");
+        MostrarEmpleado("");
     });
     $("#BtnBuscarEmp").click(function () {
-        MostrarPersona($("#FiltroEmp").val());
+        MostrarEmpleado($("#FiltroEmp").val());
     });
     $("#Localidad").change(function () {
         MostrarBarrio();
@@ -21,7 +21,7 @@
         window.location = "/Personas/RegistrarEmpleado";
     });
 });
-function MostrarPersona(filtro) {
+function MostrarEmpleado(filtro) {
     $.ajax({
         type: "GET",
         url: "/Personas/MostrarEmpleados",
@@ -289,7 +289,7 @@ function New() {
         $("#DivCarga").css("display", "inline");
         $.ajax({
             type: "POST",
-            url: "/Personas/New",
+            url: "/Personas/NewEmpleado",
             data: { nombre, apellido, tipodoc, numero, mail, telefono, localidad, barrio, usuario, contra, calle, cargo, ncalle , dpto, piso },
             success: function (response) {
                 if (response === "OK") {
