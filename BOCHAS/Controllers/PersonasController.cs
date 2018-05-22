@@ -19,7 +19,7 @@ namespace BOCHAS.Controllers
         }
 
         // GET: Personas
-        public IActionResult Index()
+        public IActionResult Consulta()
         {
             return View();
         }
@@ -56,7 +56,7 @@ namespace BOCHAS.Controllers
             return View();
         }
         [HttpPost]
-        public JsonResult New(string Nombre, string Apellido, string TipoDoc, string Numero, string Mail, string Telefono, string Localidad, string Barrio, string usuario, string Contra, string Calle, string Cargo, string ncalle , string dpto , string piso)
+        public JsonResult NewEmpleado(string Nombre, string Apellido, string TipoDoc, string Numero, string Mail, string Telefono, string Localidad, string Barrio, string usuario, string Contra, string Calle, string Cargo, string ncalle , string dpto , string piso)
         {
             try
             {
@@ -164,7 +164,7 @@ namespace BOCHAS.Controllers
             _context.Persona.Update(persona);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("Index","Personas","");
+            return RedirectToAction("Consulta","Personas","");
         }
 
 
@@ -176,10 +176,17 @@ namespace BOCHAS.Controllers
         }
         public JsonResult MostrarBarrios(string IdLocalidad)
         {
-            int IdL = Convert.ToInt32(IdLocalidad);
-            var barrios = (from b in _context.Barrio where b.IdLocalidad == IdL select b).ToList();
-
-            return Json(barrios);
+            try
+            {
+                int IdL = Convert.ToInt32(IdLocalidad);
+                var barrios = (from b in _context.Barrio where b.IdLocalidad == IdL select b).ToList();
+                return Json(barrios);
+            }
+            catch
+            {
+                return Json("");
+            }
+            
 
         }
         public async Task<JsonResult> MostrarLocalidades()
@@ -239,14 +246,12 @@ namespace BOCHAS.Controllers
                 catch (DbUpdateException /* ex */)
                 {
                     //Log the error (uncomment ex variable name and write a log.)
-                    ModelState.AddModelError("", "Unable to save changes. " +
-                        "Try again, and if the problem persists, " +
-                        "see your system administrator.");
+                    ModelState.AddModelError("", "No se pudo guardar los cambios, verifique los datos..");
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Consulta));
             }
            
-            return Redirect("Index");
+            return Redirect("Consulta");
         }
 
         // GET: Personas/Delete/5
@@ -267,6 +272,14 @@ namespace BOCHAS.Controllers
             return View(persona);
         }
 
+        public async Task<IActionResult> MostrarEmpleadoBajas()
+        {
+
+            var Empleado = _context.Empleado.Include(p => p.IdPersonaNavigation).Include(p => p.IdPersonaNavigation.IdDomicilioNavigation).Include(d => d.IdPersonaNavigation.IdDomicilioNavigation.IdBarrioNavigation).Include(d => d.IdPersonaNavigation.IdDomicilioNavigation.IdLocalidadNavigation).Include(u => u.IdPersonaNavigation.IdUsuarioNavigation).Where(e => e.Activo == false && e.IdPersonaNavigation.Tipo =="EMPLEADO");
+
+            return View(await Empleado.ToListAsync());
+        }
+
         // POST: Personas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -275,7 +288,7 @@ namespace BOCHAS.Controllers
             var persona = await _context.Persona.SingleOrDefaultAsync(m => m.Id == id);
             _context.Persona.Remove(persona);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Consulta));
         }
 
         private bool PersonaExists(int id)
