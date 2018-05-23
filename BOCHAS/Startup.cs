@@ -47,7 +47,7 @@ namespace BOCHAS
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Usuarios}/{action=Index}/{id?}");
             });
         }
     }
