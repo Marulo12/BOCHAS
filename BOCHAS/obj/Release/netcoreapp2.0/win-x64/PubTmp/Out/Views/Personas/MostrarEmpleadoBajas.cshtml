@@ -1,0 +1,91 @@
+﻿@model IEnumerable<BOCHAS.Models.Empleado>
+
+@{
+    ViewData["Title"] = "Baja de Empleados";
+}
+
+<div class="container">
+    <div class="panel panel-primary" style="margin-top:2%;">
+        <div class="panel-heading" style="padding-bottom:0px;">
+            <h3><i class="fas fa-user-tie fa-2x"></i> Baja de Empleados</h3>
+
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <ul class="nav nav-tabs ">
+
+                    <li role="presentation" > <a id="altaEmpleado" asp-action="RegistrarEmpleado" asp-controller="Personas">Alta</a></li>
+                    <li role="presentation"><a asp-action="Consulta" asp-controller="Personas">Consulta</a></li>
+                    <li role="presentation" class="active"><a asp-action="MostrarEmpleadoBajas" asp-controller="Personas">Consulta Bajas</a></li>
+                </ul>
+                <br />
+                <div class="row">
+                    <div class="col-sm-12" style="padding:3%;padding-top:0%;">
+                        <table id="TablaEmpladosBaja" class="table table-striped  display" style="width:100%;">
+                            <thead style="background-color: rgba(158, 44, 44, 0.9);color:white;">
+                                <tr>
+                                    <th>
+                                        Usuario
+                                    </th>
+                                    <th>
+                                        Nombre
+                                    </th>
+                                    <th>
+                                        Apellido
+                                    </th>
+                                    <th>
+                                        Fecha de Comienzo
+                                    </th>
+                                    <th>
+                                        Fecha de Baja
+                                    </th>
+                                    <th>
+                                        Localidad
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.IdPersonaNavigation.IdUsuarioNavigation.Nombre)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.IdPersonaNavigation.Nombre)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.IdPersonaNavigation.Apellido)
+                                        </td>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.FechaComienzo)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.IdPersonaNavigation.FechaBaja)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.IdPersonaNavigation.IdDomicilioNavigation.IdLocalidadNavigation.Nombre)
+                                        </td>
+
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                <br />
+                <div id="CEmpleados" class="col-sm-12">
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="~/js/Empleados.js"></script>
+
+}

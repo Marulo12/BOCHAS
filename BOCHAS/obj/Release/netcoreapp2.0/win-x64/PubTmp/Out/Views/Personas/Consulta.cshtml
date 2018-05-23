@@ -1,0 +1,110 @@
+﻿
+
+<div id="containerEmpleadoAlta" ng-app="" class="container" style="margin-top:20px;">
+    <div class="panel panel-primary">
+        <div class="panel-heading" style="padding-bottom:0px;">
+            <h3><i class="fas fa-user-tie fa-2x"></i> Empleados</h3>
+
+        </div>
+        <div class="panel-body">
+
+            <div class="row">
+                <ul class="nav nav-tabs ">
+                    <li role="presentation"> <a asp-action="RegistrarEmpleado" asp-controller="Personas">Alta</a></li>
+                    <li role="presentation" class="active"><a id="ConsultaEmpleado" asp-action="Consulta" asp-controller="Personas">Consulta</a></li>
+                    <li role="presentation"><a asp-action="MostrarEmpleadoBajas" asp-controller="Personas">Consulta Bajas</a></li>
+                </ul>
+                <br />
+
+            </div>
+            <br />
+            <div id="CEmpleados" class="col-sm-12">
+
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<div id="ModalDomicilio" class="modal fade " role="dialog">
+    <div class="modal-dialog ">
+
+        <!-- Modal content-->
+        <div class="modal-content ">
+            <div class="modal-header" style="background:-webkit-gradient(linear, 96% 73%, 0% 0%, from(#AD9085), to(#CE2029));">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title" style="color:white"><i class="far fa-address-card"></i> Informacion Adicional</h3>
+            </div>
+            <div id="ModalBodyDomicilio" class="modal-body">
+                <form class="form-group ">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <p class="alert alert-info" style="text-align:center;font-size:18px;padding:0px;"><i class="fa fa-home" aria-hidden="true"></i><b>Domicilio</b></p>
+                            <div class="row ">
+
+                                <div class="col-sm-6"><label>Calle</label><input id="ModalCalle" type="text" class="form-control" style="border-top:0px;border-right:0px;border-left:0px;" /></div>
+                                <div class="col-sm-6"><label>Numero</label><input id="ModalNumero" type="text" class="form-control" style="border-top:0px;border-right:0px;border-left:0px;" /></div>
+                            </div>
+                            <div class="row ">
+                                <br />
+                                <div class="col-sm-6"><label>Localidad</label><input id="ModalLocalidad" type="text" class="form-control" style="border-top:0px;border-right:0px;border-left:0px;" /></div>
+                                <div class="col-sm-6"><label>Barrio</label><input id="ModalBarrio" type="text" class="form-control" style="border-top:0px;border-right:0px;border-left:0px;" /></div>
+                            </div>
+                            <div class="row ">
+                                <br />
+
+                                <div class="col-sm-6"><label>Piso</label><input id="ModalPiso" type="text" class="form-control" style="border-top:0px;border-right:0px;border-left:0px;" /></div>
+                                <div class="col-sm-6"><label>Dpto</label><input id="ModalDpto" type="text" class="form-control" style="border-top:0px;border-right:0px;border-left:0px;" /></div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-12">
+
+
+                            <p class="alert alert-info" style="text-align:center;font-size:18px;padding:0px;"><i class="fa fa-user" aria-hidden="true"></i><b>Usuario</b></p>
+                            <div class="col-sm-6 form-inline"><label>Usuario</label> <input id="ModalUsuario" type="text" class="form-control" style="border-top:0px;border-right:0px;border-left:0px;" /></div>
+
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="ModalEdicion" class="modal fade " role="dialog">
+    <div class="modal-dialog ">
+
+        <!-- Modal content-->
+        <div class="modal-content ">
+            <div class="modal-header" style="background:-webkit-gradient(linear, 96% 73%, 0% 0%, from(#AD9085), to(#CE2029));padding-bottom:0px;">
+
+                <h3 style="color:white;"><i class="fas fa-pencil-alt"></i> Editar Empleado</h3>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div id="ModalBodyEdicion" class="modal-body">
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="~/js/Empleados.js"></script>
+
+
+}
+
