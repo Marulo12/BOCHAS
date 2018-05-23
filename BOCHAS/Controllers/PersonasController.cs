@@ -19,11 +19,11 @@ namespace BOCHAS.Controllers
         }
 
         // GET: Personas
-        public IActionResult Consulta()
+        public IActionResult ConsultarEmpleado()
         {
             return View();
         }
-        public async Task<JsonResult> MostrarEmpleados(string filtro)
+        public async Task<JsonResult> MostrarEmpleados()
         {
 
             var Empleado = (from p in _context.Persona
@@ -42,12 +42,7 @@ namespace BOCHAS.Controllers
                                 Telefono = p.Telefono
 
                             });
-
-            if (!string.IsNullOrEmpty(filtro))
-            {
-                Empleado = Empleado.Where(p => p.Nombre.Contains(filtro) || p.Apellido.Contains(filtro));
-            }
-
+            
             return Json(await Empleado.ToListAsync());
         }
         public IActionResult RegistrarEmpleado()
@@ -248,7 +243,7 @@ namespace BOCHAS.Controllers
                     //Log the error (uncomment ex variable name and write a log.)
                     ModelState.AddModelError("", "No se pudo guardar los cambios, verifique los datos..");
                 }
-                return RedirectToAction(nameof(Consulta));
+                return RedirectToAction(nameof(ConsultarEmpleado));
             }
            
             return Redirect("Consulta");
@@ -288,7 +283,7 @@ namespace BOCHAS.Controllers
             var persona = await _context.Persona.SingleOrDefaultAsync(m => m.Id == id);
             _context.Persona.Remove(persona);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Consulta));
+            return RedirectToAction(nameof(ConsultarEmpleado));
         }
 
         private bool PersonaExists(int id)
