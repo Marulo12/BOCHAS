@@ -8,3 +8,4 @@ C:\Users\mboscatto\Desktop\BOCHAS\BOCHAS\obj\Release\netcoreapp2.0\BOCHAS.Assemb
 C:\Users\mboscatto\Desktop\BOCHAS\BOCHAS\obj\Release\netcoreapp2.0\BOCHAS.AssemblyInfo.cs
 C:\Users\mboscatto\Desktop\BOCHAS\BOCHAS\obj\Release\netcoreapp2.0\BOCHAS.dll
 C:\Users\mboscatto\Desktop\BOCHAS\BOCHAS\obj\Release\netcoreapp2.0\BOCHAS.pdb
+C:\Users\mboscatto\Desktop\BOCHAS\BOCHAS\obj\Release\netcoreapp2.0\BOCHAS.csprojAssemblyReference.cache
