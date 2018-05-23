@@ -1,0 +1,11 @@
+C:\Users\mboscatto\Desktop\BOCHAS\BOCHAS\bin\Release\netcoreapp2.0\BOCHAS.deps.json
+C:\Users\mboscatto\Desktop\BOCHAS\BOCHAS\bin\Release\netcoreapp2.0\BOCHAS.runtimeconfig.json
+C:\Users\mboscatto\Desktop\BOCHAS\BOCHAS\bin\Release\netcoreapp2.0\BOCHAS.runtimeconfig.dev.json
+C:\Users\mboscatto\Desktop\BOCHAS\BOCHAS\bin\Release\netcoreapp2.0\BOCHAS.dll
+C:\Users\mboscatto\Desktop\BOCHAS\BOCHAS\bin\Release\netcoreapp2.0\BOCHAS.pdb
+C:\Users\mboscatto\Desktop\BOCHAS\BOCHAS\obj\Release\netcoreapp2.0\BOCHAS.csproj.CoreCompileInputs.cache
+C:\Users\mboscatto\Desktop\BOCHAS\BOCHAS\obj\Release\netcoreapp2.0\BOCHAS.AssemblyInfoInputs.cache
+C:\Users\mboscatto\Desktop\BOCHAS\BOCHAS\obj\Release\netcoreapp2.0\BOCHAS.AssemblyInfo.cs
+C:\Users\mboscatto\Desktop\BOCHAS\BOCHAS\obj\Release\netcoreapp2.0\BOCHAS.dll
+C:\Users\mboscatto\Desktop\BOCHAS\BOCHAS\obj\Release\netcoreapp2.0\BOCHAS.pdb
+C:\Users\mboscatto\Desktop\BOCHAS\BOCHAS\obj\Release\netcoreapp2.0\BOCHAS.csprojAssemblyReference.cache
