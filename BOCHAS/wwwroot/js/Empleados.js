@@ -162,10 +162,10 @@ function ConocerDomicilio(id) {
                     $("#ModalPiso").val("");
                 }
                 else {
-                    $("#ModalPiso").val(response[i].dpto);
+                    $("#ModalPiso").val(response[i].piso);
                 }
               
-                    $("#ModalDpto").val(response[i].piso);
+                    $("#ModalDpto").val(response[i].dpto);
                 
                 
                
@@ -275,7 +275,7 @@ function confirmarBaja(id) {
                     data: { id: id },
                     success: function (response) {
                       
-                        window.location = "/Personas/Consulta";
+                        window.location = "/Personas/ConsultarEmpleado";
                        
                     }
                 });                      
