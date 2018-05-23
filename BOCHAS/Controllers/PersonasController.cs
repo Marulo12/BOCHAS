@@ -159,7 +159,7 @@ namespace BOCHAS.Controllers
             _context.Persona.Update(persona);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("Consulta","Personas","");
+            return RedirectToAction("ConsultarEmpleado", "Personas","");
         }
 
 
@@ -206,7 +206,7 @@ namespace BOCHAS.Controllers
 
         public JsonResult ValidarUsuario(string usuario)
         {
-            var Usuario = _context.Usuario.Where(u => u.Nombre == usuario ).Count();
+            var Usuario = _context.Persona.Include(p => p.IdUsuarioNavigation).Where(u => u.IdUsuarioNavigation.Nombre == usuario && u.FechaBaja == null).Count();
             if (Usuario > 0)
             {
                 return Json("False");

@@ -42,6 +42,7 @@ namespace BOCHAS.Controllers
             }
             else
             {
+                TempData["Mensaje"] = "Usuario Incorrecto";
                 return RedirectToAction("Index");
             }
         }
