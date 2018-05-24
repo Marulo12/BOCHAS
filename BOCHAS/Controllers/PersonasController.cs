@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BOCHAS.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BOCHAS.Controllers
 {
+    [Authorize]
     public class PersonasController : Controller
     {
         private readonly BOCHASContext _context;

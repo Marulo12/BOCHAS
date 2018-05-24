@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BOCHAS.Models;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 
 namespace BOCHAS.Controllers
 {
@@ -24,16 +27,35 @@ namespace BOCHAS.Controllers
             return View();
         }
 
-        public IActionResult ValidarUsuario(string Usuario , string Contra)
+        public async Task<IActionResult> ValidarUsuario(string Usuario, string Contra)
         {
             var usuario = _context.Usuario.Where(u => u.Nombre == Usuario && u.Contraseña == Contra).ToList();
 
             if (usuario.Count >= 1)
             {
+                var claims = new List<Claim>
+              { 
+               new Claim(ClaimTypes.Name,Usuario)
+
+              };
+
+                var claimsIdentity = new ClaimsIdentity(
+                    claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                var authProperties = new AuthenticationProperties
+                {
+                  //  ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10),
+                    IsPersistent = true,
+                    //IssuedUtc = <DateTimeOffset>
+                    // The time at which the authentication ticket was issued.
+                };
+
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
+
                 var persona = _context.Persona.Where(p => p.IdUsuario == usuario[0].Id).ToList();
                 if (persona[0].Tipo == "EMPLEADO")
                 {
-                    return RedirectToAction("Index", "Home","");
+                    return RedirectToAction("Index", "Home", "");
                 }
                 else
                 {
@@ -45,6 +67,12 @@ namespace BOCHAS.Controllers
                 TempData["Mensaje"] = "Usuario Incorrecto";
                 return RedirectToAction("Index");
             }
+        }
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(
+    CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Index","Usuarios","");
         }
 
         // GET: Usuarios/Details/5
