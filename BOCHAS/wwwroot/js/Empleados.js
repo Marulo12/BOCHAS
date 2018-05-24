@@ -199,7 +199,7 @@ function MostrarCargos() {
 }
 
 function MostrarTipoDocumento() {
-    $.ajax({
+        $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
