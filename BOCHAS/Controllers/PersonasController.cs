@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BOCHAS.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BOCHAS.Controllers
 {
+    [Authorize]
     public class PersonasController : Controller
     {
         private readonly BOCHASContext _context;
@@ -159,7 +161,7 @@ namespace BOCHAS.Controllers
             _context.Persona.Update(persona);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("Consulta","Personas","");
+            return RedirectToAction("ConsultarEmpleado", "Personas","");
         }
 
 
@@ -206,7 +208,7 @@ namespace BOCHAS.Controllers
 
         public JsonResult ValidarUsuario(string usuario)
         {
-            var Usuario = _context.Usuario.Where(u => u.Nombre == usuario ).Count();
+            var Usuario = _context.Persona.Include(p => p.IdUsuarioNavigation).Where(u => u.IdUsuarioNavigation.Nombre == usuario && u.FechaBaja == null).Count();
             if (Usuario > 0)
             {
                 return Json("False");
