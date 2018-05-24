@@ -248,7 +248,7 @@ namespace BOCHAS.Controllers
                 return RedirectToAction(nameof(ConsultarEmpleado));
             }
            
-            return Redirect("Consulta");
+            return Redirect("ConsultarEmpleado");
         }
 
         // GET: Personas/Delete/5
