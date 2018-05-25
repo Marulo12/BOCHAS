@@ -16,6 +16,6 @@ namespace BOCHAS.Models
         public string Contraseña { get; set; }
 
         public ICollection<Persona> Persona { get; set; }
-        public ICollection<Session> Session { get; set; }
+      public ICollection<Session> Session { get; set; }
     }
 }
