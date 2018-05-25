@@ -97,26 +97,37 @@ namespace BOCHAS.Controllers
             _context.SaveChanges();
         }
 
-        // GET: Usuarios/Details/5
-        public async Task<IActionResult> Details(int? id)
+      public JsonResult VerificarContraseña(string contraactual)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            var Usuario = _context.Usuario.Where(u => u.Nombre == HttpContext.User.Identity.Name && u.Contraseña == contraactual).ToList().Count();
 
-            var usuario = await _context.Usuario
-                .SingleOrDefaultAsync(m => m.Id == id);
-            if (usuario == null)
+            if (Usuario > 0)
             {
-                return NotFound();
+                return Json("OK");
             }
-
-            return View(usuario);
+            else
+            {
+                return Json("False");
+            }
         }
 
-      
+        public JsonResult CambiarContraseña(string contraactual,string contranueva)
+        {
+            var Usuario = _context.Usuario.Where(u => u.Nombre == HttpContext.User.Identity.Name && u.Contraseña == contraactual).SingleOrDefault();
 
-      
+            Usuario.Contraseña = contranueva;
+            _context.Update(Usuario);
+            if (_context.SaveChanges()==1)
+            {
+                return Json("OK");
+            }
+            else
+            {
+                return Json("False");
+            }
+        }
+
+
+
     }
 }
