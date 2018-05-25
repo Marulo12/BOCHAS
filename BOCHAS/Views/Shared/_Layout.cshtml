@@ -7,7 +7,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - BOCHAS</title>
-
+    <style>
+        .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
+            background-color: transparent !important;
+            border-color: #337ab7;
+        }
+    </style>
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
@@ -86,7 +91,7 @@
                     <!--end logo-->
                 </div>
                 <!-- END: .navbar-header-left with image -->
-                <nav class="nav navbar-header-nav">
+                <nav class="nav navbar-header-nav" >
 
                     <form class="navbar-form hidden-xs " style="display:none;">
                         <div class="icon-after-input">
@@ -99,7 +104,7 @@
                         </div>
                     </form>
                 </nav>
-                <ul class="nav navbar-header-nav m-l-a">
+                <ul id="ull" class="nav navbar-header-nav m-l-a" style="background-color: transparent;">
                     <li class="visible-xs b-l">
                         <a href="#top-search" data-toggle="canvas">
                             <i class="fa fa-fw fa-search"></i>
@@ -548,38 +553,16 @@
                         <li class="nav-divider"></li>
                         <!-- BEGIN: utility -->
                         <li>
-                            <a href="javascript:;">
+                            <a asp-action="Index" asp-controller="Sessions">
                                 <span class="nav-icon">
-                                    <i class="fa fa-fw fa-wrench"></i>
+                                    <i class="fab fa-algolia"></i>
                                 </span>
-                                <span class="nav-title">Utility</span>
+                                <span class="nav-title">Sessiones</span>
                                 <span class="nav-tools">
                                     <i class="fa fa-fw arrow"></i>
                                 </span>
                             </a>
-                            <ul class="nav nav-sub nav-stacked">
-                                <li>
-                                    <a href="u-spacing.html">Spacing</a>
-                                </li>
-                                <li>
-                                    <a href="u-border.html">Border</a>
-                                </li>
-                                <li>
-                                    <a href="u-overflow.html">Overflow</a>
-                                </li>
-                                <li>
-                                    <a href="u-display.html">Display</a>
-                                </li>
-                                <li>
-                                    <a href="u-flex.html">Flexbox</a>
-                                </li>
-                                <li>
-                                    <a href="u-shadow.html">Shadow</a>
-                                </li>
-                                <li>
-                                    <a href="u-waves.html">Waves Effect</a>
-                                </li>
-                            </ul>
+                         
                         </li>
                         <!-- BEGIN: utility -->
                         <li>
