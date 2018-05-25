@@ -24,12 +24,12 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/metismenu/dist/metisMenu.min.css">
         <link rel="stylesheet" href="~/Menu/assets/vendor/jqvmap/jqvmap.css">
         <link rel="stylesheet" href="~/Menu/assets/vendor/dragula/dragula.css">
-        <link rel="stylesheet" href="~/Menu/assets/vendor/perfect-scrollbar/perfect-scrollbar.css">      
+        <link rel="stylesheet" href="~/Menu/assets/vendor/perfect-scrollbar/perfect-scrollbar.css">
         <link rel="stylesheet" href="~/Menu/assets/css/chl.css">
-        <link id="theme-list" rel="stylesheet" href="~/Menu/assets/css/theme-peter-river.css">      
+        <link id="theme-list" rel="stylesheet" href="~/Menu/assets/css/theme-peter-river.css">
         <link rel="stylesheet" href="~/Menu/assets/vendor/pace/themes/blue/pace-theme-minimal.css">
         <script src="~/Menu/assets/vendor/pace/pace.js"></script>
-        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/metisMenu/2.7.7/metisMenu.min.css">      
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/metisMenu/2.7.7/metisMenu.min.css">
 
     </environment>
     <environment exclude="Development">
@@ -57,18 +57,16 @@
 </head>
 
 <body>
-    <!-- begin .app -->
-    <!-- begin .app-wrap -->
-    <!-- begin .app-heading -->
+
     <header class="app-heading">
 
-        <!-- begin .navbar -->
+
         <nav class="navbar navbar-default navbar-static-top shadow-2dp " style="background:-webkit-gradient(linear, 38% 52%, 0% 100%, from(#0071B0), to(#FFFFFF));">
-            <!-- begin .navbar-header -->
+
             <div class="navbar-header">
-                <!-- begin .navbar-header-left with image -->
+
                 <div class="navbar-header-left ">
-                    <!--begin logo-->
+
                     <div class="col-sm-5">
                         <a class="logo" href="~/Menu/index.html">
                             <span class="logo-xs visible-xs">
@@ -88,10 +86,10 @@
                         </a>
                     </div>
 
-                    <!--end logo-->
+
                 </div>
-                <!-- END: .navbar-header-left with image -->
-                <nav class="nav navbar-header-nav" >
+
+                <nav class="nav navbar-header-nav">
 
                     <form class="navbar-form hidden-xs " style="display:none;">
                         <div class="icon-after-input">
@@ -197,31 +195,31 @@
                         </ul>
                     </li>
                     <li class="dropdown ">
-                        <a class="dropdown-toggle profile-pic" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >
+                        <a class="dropdown-toggle profile-pic" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                             <img class="img-circle" src="~/images/images.png" alt="Usuario">
                             @if (User.Identity.IsAuthenticated)
                             {
-                            <b class="hidden-xs hidden-sm" style="color:white;"> @User.Identity.Name</b>
+                                <b class="hidden-xs hidden-sm" style="color:white;"> @User.Identity.Name</b>
                             }
-                            </a>
+                        </a>
                         <ul class="dropdown-menu animated flipInY pull-right d-flex align-content-lg-center justify-content-center">
                             <li>
                                 <a href="#"><i class="fa fa-address-card"></i>&nbsp;Perfil</a>
                             </li>
-                            
+
                             <li>
-                                <a href="#"><i class="fas fa-at"></i>&nbsp; Mail</a>
+                                <a data-toggle="modal" data-target="#ModalContraseña" href="#"><i class="fas fa-key"></i>&nbsp;Cambiar Contraseña</a>
                             </li>
                             <li role="separator" class="divider"></li>
                             <li>
-                                <a  asp-action="Logout" asp-controller="Usuarios">
+                                <a asp-action="Logout" asp-controller="Usuarios">
                                     <i class="fas fa-sign-out-alt"></i>
                                     Logout
                                 </a>
                             </li>
                         </ul>
                     </li>
-                    <!-- begin mega-menu -->
+
                     <li class="dropdown u-posStatic hidden-xs b-l" style="display:none;">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                             Mega
@@ -257,25 +255,22 @@
                             </li>
                         </ul>
                     </li>
-                    <!-- END: mega-menu -->
+
                 </ul>
             </div>
-            <!-- END: .navbar-header -->
+
         </nav>
-        <!-- END: .navbar -->
+
     </header>
-    <!-- END:  .app-heading -->
-    <!-- begin .app-container -->
+
     <div class="app-container">
-        <!-- begin .app-side -->
+
         <aside class="app-side">
-            <!-- begin .side-content -->
+
             <div class="side-content">
-                <!-- begin user-panel -->
-                <!-- END: user-panel -->
-                <!-- begin .side-nav -->
+
                 <nav class="side-nav">
-                    <!-- BEGIN: nav-content -->
+
                     <ul class="metismenu nav nav-inverse nav-bordered nav-stacked" data-plugin="metismenu">
                         <li class="nav-header"></li>
                         <li>
@@ -288,9 +283,7 @@
                         </li>
                         <li class="nav-divider"></li>
                         <li class="nav-header">Opciones</li>
-                        <!-- BEGIN: chart -->
-                        <!-- END: chart -->
-                        <!-- BEGIN: maps -->
+
                         <li>
                             <a href="javascript:;">
                                 <span class="nav-icon">
@@ -348,8 +341,7 @@
                             </ul>
 
                         </li>
-                        <!-- END: maps -->
-                        <!-- BEGIN: ui -->
+
                         <li>
                             <a href="javascript:;">
                                 <span class="nav-icon">
@@ -403,7 +395,7 @@
                                 <li>
                                     <a href="ui-timeline.html">Timeline</a>
                                 </li>
-                                <!-- BEGIN: icon -->
+
                                 <li>
                                     <a href="javascript:;">
                                         <span class="nav-title">Icons</span>
@@ -430,11 +422,10 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <!-- END: icon -->
+
                             </ul>
                         </li>
-                        <!-- END: ui -->
-                        <!-- BEGIN: forms -->
+
                         <li>
                             <a href="javascript:;">
                                 <span class="nav-icon">
@@ -463,8 +454,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <!-- END: forms -->
-                        <!-- BEGIN: table -->
+
                         <li>
                             <a href="javascript:;">
                                 <span class="nav-icon">
@@ -487,8 +477,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <!-- END: table -->
-                        <!-- BEGIN: apps -->
+
                         <li>
                             <a href="javascript:;">
                                 <span class="nav-icon">
@@ -544,14 +533,12 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <!-- END: mail -->
+
                             </ul>
                         </li>
-                        <!-- BEGIN: apps -->
-                        <!-- BEGIN: blank pages -->
-                        <!-- END: blank pages -->
+
                         <li class="nav-divider"></li>
-                        <!-- BEGIN: utility -->
+
                         <li>
                             <a asp-action="Index" asp-controller="Sessions">
                                 <span class="nav-icon">
@@ -562,9 +549,9 @@
                                     <i class="fa fa-fw arrow"></i>
                                 </span>
                             </a>
-                         
+
                         </li>
-                        <!-- BEGIN: utility -->
+
                         <li>
                             <a href="javascript:;">
                                 <span class="nav-icon">
@@ -641,12 +628,11 @@
                             </a>
                         </li>
                     </ul>
-                    <!-- END: nav-content -->
+
                 </nav>
-                <!-- END: .side-nav -->
+
             </div>
-            <!-- END: .side-content -->
-            <!-- begin .side-footer -->
+
             <footer class="side-footer p-h-15 p-t-15 p-b-10">
                 <div class="progress is-xs">
                     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
@@ -661,80 +647,106 @@
             </footer>
             <!-- END: .side-footer -->
         </aside>
-        <!-- END: .app-side -->
-        <!-- begin side-collapse-visible bar -->
-        <!-- begin side-collapse-visible bar -->
-        <!-- begin .app-main -->
-        <!-- begin .main-heading -->
-        <!-- END: .main-heading -->
-        <!-- begin .main-content -->
+
         <div class="container-fluid" style="position: relative;">
+
             @RenderBody()
         </div>
+    </div>
+
+    <div id="ModalContraseña" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+
+            <div class="modal-content">
+                <div class="modal-header " style="background: linear-gradient(to right, rgba(69,117,214,1) 0%, rgba(55,119,219,1) 2%, rgba(21,123,232,1) 7%, rgba(228,238,240,1) 94%, rgba(228,238,240,1) 100%);">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" style="color:white;"><i class="fas fa-key"></i>   Cambiar contraseña</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-sm-4"><label>Contraseña actual:</label></div><div class="col-sm-7"><input id="PassActual" type="password" class="form-control" style="float:left" /></div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-4"><label>Nueva Contraseña:</label></div><div class="col-sm-7"><input id="PassNuevo" type="password" class="form-control" style="float:left" /></div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-4"><label>Confirmar Contraseña:</label></div><div class="col-sm-7"><input id="PassConfirma" type="password" class="form-control" style="float:left" /></div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <input id="BtnCambiaContra" type="button" class="btn btn-info" value="Aceptar" />
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
 
 
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+        <script src="~/lib/Alertify/alertify.js"></script>
+        <script src="~/lib/DataTables/datatables.js"></script>
+        <script src="~/lib/DataTables/DataTables-1.10.16/js/dataTables.bootstrap.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/metisMenu/2.7.7/metisMenu.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/metismenu"></script>
+        <script src="~/Menu/assets/vendor/waypoints/jquery.waypoints.js"></script>
+        <script src="~/Menu/assets/vendor/counterup/jquery.counterup.js"></script>
+        <script src="~/Menu/assets/vendor/jqvmap/jquery.vmap.js"></script>
+        <script src="~/Menu/assets/vendor/jqvmap/jquery.vmap.sampledata.js"></script>
+        <script src="~/Menu/assets/vendor/jqvmap/maps/jquery.vmap.usa.js"></script>
+        <script src="~/Menu/assets/vendor/perfect-scrollbar/perfect-scrollbar.jquery.js"></script>
+        <script src="~/Menu/assets/vendor/dragula/dragula.js"></script>
+        <script src="~/Menu/assets/vendor/chart.js/Chart.js"></script>
+        <script src="~/Menu/assets/vendor/tablesorter/js/jquery.tablesorter.js"></script>
+        <script src="~/Menu/assets/js/chl.js"></script>
+        <script src="~/Menu/assets/js/chl-demo.js"></script>
+        <script src="~/js/Usuarios.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+        </script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+        <script src="~/lib/DataTables/datatables.min.js"></script>
+        <script src="~/lib/DataTables/DataTables-1.10.16/js/dataTables.bootstrap.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/metisMenu/2.7.7/metisMenu.min.js"></script>
+        <!-- OR -->
+        <script src="https://cdn.jsdelivr.net/npm/metismenu"></script>
+        <script src="~/Menu/assets/vendor/waypoints/jquery.waypoints.js"></script>
+        <script src="~/Menu/assets/vendor/counterup/jquery.counterup.js"></script>
+        <script src="~/Menu/assets/vendor/jqvmap/jquery.vmap.js"></script>
+        <script src="~/Menu/assets/vendor/jqvmap/jquery.vmap.sampledata.js"></script>
+        <script src="~/Menu/assets/vendor/jqvmap/maps/jquery.vmap.usa.js"></script>
+        <script src="~/Menu/assets/vendor/perfect-scrollbar/perfect-scrollbar.jquery.js"></script>
+        <script src="~/Menu/assets/vendor/dragula/dragula.js"></script>
+        <script src="~/Menu/assets/vendor/chart.js/Chart.js"></script>
+        <script src="~/Menu/assets/vendor/tablesorter/js/jquery.tablesorter.js"></script>
+        <script src="~/lib/Alertify/alertify.js"></script>
+        <script src="~/Menu/assets/js/chl.js"></script>
+        <script src="~/Menu/assets/js/chl-demo.js"></script>
+        <script src="~/js/Usuarios.js"></script>
+    </environment>
 
-        <environment include="Development">
-            <script src="~/lib/jquery/dist/jquery.js"></script>
-            <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-            <script src="~/js/site.js" asp-append-version="true"></script>
-            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
-            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
-            <script src="~/lib/Alertify/alertify.js"></script>
-            <script src="~/lib/DataTables/datatables.js"></script>
-            <script src="~/lib/DataTables/DataTables-1.10.16/js/dataTables.bootstrap.js"></script>
-
-            <script src="//cdnjs.cloudflare.com/ajax/libs/metisMenu/2.7.7/metisMenu.min.js"></script>
-            <!-- OR -->
-            <script src="https://cdn.jsdelivr.net/npm/metismenu"></script>
-            <script src="~/Menu/assets/vendor/waypoints/jquery.waypoints.js"></script>
-            <script src="~/Menu/assets/vendor/counterup/jquery.counterup.js"></script>
-            <script src="~/Menu/assets/vendor/jqvmap/jquery.vmap.js"></script>
-            <script src="~/Menu/assets/vendor/jqvmap/jquery.vmap.sampledata.js"></script>
-            <script src="~/Menu/assets/vendor/jqvmap/maps/jquery.vmap.usa.js"></script>
-            <script src="~/Menu/assets/vendor/perfect-scrollbar/perfect-scrollbar.jquery.js"></script>
-            <script src="~/Menu/assets/vendor/dragula/dragula.js"></script>
-            <script src="~/Menu/assets/vendor/chart.js/Chart.js"></script>
-            <script src="~/Menu/assets/vendor/tablesorter/js/jquery.tablesorter.js"></script>
-
-            <script src="~/Menu/assets/js/chl.js"></script>
-            <script src="~/Menu/assets/js/chl-demo.js"></script>
-        </environment>
-        <environment exclude="Development">
-            <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
-                    asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                    asp-fallback-test="window.jQuery"
-                    crossorigin="anonymous"
-                    integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
-            </script>
-            <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
-                    asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                    asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-                    crossorigin="anonymous"
-                    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
-            </script>
-            <script src="~/js/site.min.js" asp-append-version="true"></script>
-            <script src="~/lib/DataTables/datatables.min.js"></script>
-            <script src="~/lib/DataTables/DataTables-1.10.16/js/dataTables.bootstrap.js"></script>
-
-            <script src="//cdnjs.cloudflare.com/ajax/libs/metisMenu/2.7.7/metisMenu.min.js"></script>
-            <!-- OR -->
-            <script src="https://cdn.jsdelivr.net/npm/metismenu"></script>
-            <script src="~/Menu/assets/vendor/waypoints/jquery.waypoints.js"></script>
-            <script src="~/Menu/assets/vendor/counterup/jquery.counterup.js"></script>
-            <script src="~/Menu/assets/vendor/jqvmap/jquery.vmap.js"></script>
-            <script src="~/Menu/assets/vendor/jqvmap/jquery.vmap.sampledata.js"></script>
-            <script src="~/Menu/assets/vendor/jqvmap/maps/jquery.vmap.usa.js"></script>
-            <script src="~/Menu/assets/vendor/perfect-scrollbar/perfect-scrollbar.jquery.js"></script>
-            <script src="~/Menu/assets/vendor/dragula/dragula.js"></script>
-            <script src="~/Menu/assets/vendor/chart.js/Chart.js"></script>
-            <script src="~/Menu/assets/vendor/tablesorter/js/jquery.tablesorter.js"></script>
-            <script src="~/lib/Alertify/alertify.js"></script>
-            <script src="~/Menu/assets/js/chl.js"></script>
-            <script src="~/Menu/assets/js/chl-demo.js"></script>
-        </environment>
-
-        @RenderSection("Scripts", required: false)
+    @RenderSection("Scripts", required: false)
 </body>
 </html>
