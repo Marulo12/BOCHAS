@@ -10,6 +10,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 
+
 namespace BOCHAS.Controllers
 {
     public class UsuariosController : Controller
@@ -53,8 +54,10 @@ namespace BOCHAS.Controllers
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
 
                 var persona = _context.Persona.Where(p => p.IdUsuario == usuario[0].Id).ToList();
+                RegistrarIngresoSession( Convert.ToInt32( persona[0].IdUsuario));
                 if (persona[0].Tipo == "EMPLEADO")
                 {
+                    
                     return RedirectToAction("Index", "Home", "");
                 }
                 else
@@ -68,11 +71,33 @@ namespace BOCHAS.Controllers
                 return RedirectToAction("Index");
             }
         }
+
+        public  void RegistrarIngresoSession(int IdUsuario)
+        {
+            Session Entrada = new Session();
+            Entrada.IdUsuario = IdUsuario;
+            Entrada.FechaInicio = DateTime.Now.Date;
+            Entrada.HoraInicio = (TimeSpan) DateTime.Now.TimeOfDay;                      
+            _context.Add(Entrada);
+          _context.SaveChanges();
+        }
+
         public async Task<IActionResult> Logout()
         {
+            
+            RegistrarSalidaSession(HttpContext.User.Identity.Name);
             await HttpContext.SignOutAsync(
     CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index","Usuarios","");
+        }
+
+        public  void RegistrarSalidaSession( string Usuario)
+        {
+            var Salida = (from p in _context.Session join u in _context.Usuario on p.IdUsuario equals u.Id where u.Nombre == Usuario && p.Id == _context.Session.Max(s => s.Id) select p).ToList() ;
+            Salida[0].HoraFin =(TimeSpan) DateTime.Now.TimeOfDay;
+            Salida[0].FechaFin = DateTime.Now.Date;
+            _context.Session.Update(Salida[0]);
+              _context.SaveChanges();
         }
 
         // GET: Usuarios/Details/5

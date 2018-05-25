@@ -22,7 +22,7 @@ namespace BOCHAS.Models
             {
 
                //    optionsBuilder.UseSqlServer(@"Data Source=BOCHASBD.mssql.somee.com;Initial Catalog=BOCHASBD;persist security info=False;user id=fgonzalez_SQLLogin_2;pwd=7jlascoceb");
-                optionsBuilder.UseSqlServer(@"Data Source=SISTEMAS04;Initial Catalog=BOCHAS;Persist Security Info=True;User ID=BSP;Password=bochas");
+                optionsBuilder.UseSqlServer(@"Data Source=BOCHASBD.mssql.somee.com;Initial Catalog=BOCHASBD;persist security info=False;user id=fgonzalez_SQLLogin_2;pwd=7jlascoceb");
             }
         }
 
