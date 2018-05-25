@@ -43,7 +43,7 @@ namespace BOCHAS.Controllers
                                 Cargo = c.Nombre,
                                 Telefono = p.Telefono
 
-                            });
+                            }).OrderBy(u=>u.Nombre).OrderBy(u=>u.Apellido);
             
             return Json(await Empleado.ToListAsync());
         }

@@ -40,7 +40,8 @@ function CambiaContraseña(contraactual) {
 }
 
 function  VerificarContraseña() {
-    
+
+    if (ComprobarCampos()) {
     var contraactual = $("#PassActual").val();
     $.ajax({
         type: "GET",
@@ -56,7 +57,7 @@ function  VerificarContraseña() {
             }
         }
     });
-
+    }
    
 }
 
@@ -69,4 +70,23 @@ function ValidarContraseñas(contranueva, contraconfirma) {
         alertify.error("Las contraseñas no coinciden");
         return false;
     }
+}
+
+function ComprobarCampos() {
+    if ($("#PassActual").val() === "") {
+
+        alertify.error('Ingrese la contraseña actual');
+        return false;
+    }
+    if ($("#PassNuevo").val() === "") {
+        alertify.error('Ingrese la nueva contraseña');
+        return false;
+    }
+    if ($("#PassConfirma").val() === "") {
+        alertify.error('Ingrese la confirmacion de la contraseña');
+        return false;
+    }
+   
+
+    return true;
 }
