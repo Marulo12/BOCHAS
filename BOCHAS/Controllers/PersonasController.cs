@@ -67,10 +67,10 @@ namespace BOCHAS.Controllers
                     dom.IdLocalidad = Convert.ToInt32(Localidad);
                     dom.Calle = Calle;
                     
-                        dom.departamento = dpto;
+                        dom.Departamento = dpto;
                     if (!string.IsNullOrEmpty(piso))
                     {
-                        dom.piso = Convert.ToInt32(piso);
+                        dom.Piso = Convert.ToInt32(piso);
                     }
                     _context.Domicilio.Add(dom);
                     if (_context.SaveChanges() == 0)
@@ -145,7 +145,7 @@ namespace BOCHAS.Controllers
             int idP = Convert.ToInt32(IdPersona);
             var IdDomicilio = (from p in _context.Persona where p.Id == idP select new { IdDomicilio = p.IdDomicilio }).ToList();
 
-            var Domicilio = (from d in _context.Domicilio join l in _context.Localidad on d.IdLocalidad equals l.Id join b in _context.Barrio on d.IdBarrio equals b.Id join p in _context.Persona on d.Id equals p.IdDomicilio join u in _context.Usuario on p.IdUsuario equals u.Id where d.Id == Convert.ToInt32(IdDomicilio[0].IdDomicilio) select new { barrio = b.Nombre, localidad = l.Nombre, numero = d.Numero, calle = d.Calle, usuario = u.Nombre, contra = u.Contraseña , Dpto = d.departamento , Piso = d.piso});
+            var Domicilio = (from d in _context.Domicilio join l in _context.Localidad on d.IdLocalidad equals l.Id join b in _context.Barrio on d.IdBarrio equals b.Id join p in _context.Persona on d.Id equals p.IdDomicilio join u in _context.Usuario on p.IdUsuario equals u.Id where d.Id == Convert.ToInt32(IdDomicilio[0].IdDomicilio) select new { barrio = b.Nombre, localidad = l.Nombre, numero = d.Numero, calle = d.Calle, usuario = u.Nombre, contra = u.Contraseña , Dpto = d.Departamento , Piso = d.Piso});
             return Json(await Domicilio.ToListAsync());
         }
 
