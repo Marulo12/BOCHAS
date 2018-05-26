@@ -25,8 +25,8 @@
     $("#TablaEmpladosBaja").after(function () {
         $("#TablaEmpladosBaja").DataTable({
             searching: true,
-            "scrollX": true,
-            responsive: true,
+            responsive:true,
+            colReorder: true,
             dom: 'Bfrtip',          
             buttons: [
                
