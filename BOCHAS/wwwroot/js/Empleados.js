@@ -25,7 +25,7 @@
     $("#TablaEmpladosBaja").after(function () {
         $("#TablaEmpladosBaja").DataTable({
             responsive: true,   
-            "scrollY": 200,
+           
             "scrollX": true,
             searching: true,
            
