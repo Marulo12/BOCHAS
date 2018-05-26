@@ -7,12 +7,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - BOCHAS</title>
-    <style>
-        .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
-            background-color: transparent !important;
-            border-color: #337ab7;
-        }
-    </style>
+  
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
@@ -21,17 +16,16 @@
         <link href="~/lib/DataTables/DataTables-1.10.16/css/dataTables.bootstrap.css" rel="stylesheet" />
         <link href="~/lib/Alertify/alertify.core.css" rel="stylesheet" />
         <link href="~/lib/Alertify/alertify.default.css" rel="stylesheet" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/metismenu/dist/metisMenu.min.css">
-        <link rel="stylesheet" href="~/Menu/assets/vendor/jqvmap/jqvmap.css">
-        <link rel="stylesheet" href="~/Menu/assets/vendor/dragula/dragula.css">
-        <link rel="stylesheet" href="~/Menu/assets/vendor/perfect-scrollbar/perfect-scrollbar.css">
-        <link rel="stylesheet" href="~/Menu/assets/css/chl.css">
-        <link id="theme-list" rel="stylesheet" href="~/Menu/assets/css/theme-peter-river.css">
-      
-        <link href="~/Menu/assets/vendor/pace/themes/red/pace-theme-minimal.css" rel="stylesheet" />
-        <script src="~/Menu/assets/vendor/pace/pace.js"></script>
-        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/metisMenu/2.7.7/metisMenu.min.css">
 
+
+       
+
+
+
+        <link href="~/Menu/assets/css/light-bootstrap-dashboard.css?v=1.4.0" rel="stylesheet" />
+        <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+        <!--  CSS for Demo Purpose, don't include it in your project     -->
+        <link href="~/Menu/assets/css/demo.css" rel="stylesheet" />
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -57,638 +51,184 @@
     </environment>
 </head>
 
-<body style="padding-bottom:0px;">
+<body>
+    <div class="wrapper">
+        <div class="sidebar" data-color="white" data-image="/Menu/assets/img/sidebar-5.jpg">
+            <!--
 
-    <header class="app-heading">
+                Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
+                Tip 2: you can also add an image using data-image tag
 
-
-        <nav class="navbar navbar-default navbar-static-top shadow-2dp " style="background:-webkit-gradient(linear, 38% 52%, 0% 100%, from(#0071B0), to(#FFFFFF));">
-
-            <div class="navbar-header">
-
-                <div class="navbar-header-left ">
-
-                    <div class="col-sm-5">
-                        <a class="logo" href="~/Menu/index.html">
-                            <span class="logo-xs visible-xs">
-                                <img src="~/images/LogoBochas.png" alt="logo-xs">
-                            </span>
-                            <span class="logo-lg hidden-xs">
-                                <img src="~/images/LogoBochas.png" alt="logo-lg">
-                            </span>
-                        </a>
-                    </div>
-                    <div class="col-sm-1 " style="margin-top:15%;padding:0px;">
-                        <a class="visible-xs " href="#" data-side=collapse style="float:left;">
-                            <i class="fa fa-fw fa-bars"></i>
-                        </a>
-                        <a class="hidden-xs " href="#" data-side=mini style="float:left;">
-                            <i class="fa fa-fw fa-bars"></i>
-                        </a>
-                    </div>
-
-
+            -->
+            <div class="sidebar-wrapper">
+                <div class="logo" style="background-color:white;">
+                    <a href="http://www.creative-tim.com" class="simple-text">
+                        Creative Tim
+                    </a>
                 </div>
-
-                <nav class="nav navbar-header-nav">
-
-                    <form class="navbar-form hidden-xs " style="display:none;">
-                        <div class="icon-after-input">
-                            <input type="text" class="form-control" placeholder="Search">
-                            <div class="icon">
-                                <a href="#">
-                                    <i class="fa fa-fw fa-search"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </form>
-                </nav>
-                <ul id="ull" class="nav navbar-header-nav m-l-a" style="background-color: transparent;">
-                    <li class="visible-xs b-l">
-                        <a href="#top-search" data-toggle="canvas">
-                            <i class="fa fa-fw fa-search"></i>
+                <ul class="nav">
+                    <li class="active">
+                        <a href="dashboard.html">
+                            <i class="pe-7s-graph"></i>
+                            <p>Dashboard</p>
                         </a>
                     </li>
-                    <li class="dropdown ">
-                        <a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                            <span class="b-wisteria fa fa-2x fa-address-book u-posRelative bg-primary"></span>
-                            <span class="label label-primary b-orange">
-                                8
-                                <span class="waves"></span>
-                            </span>
+                    <li>
+                        <a href="user.html">
+                            <i class="pe-7s-user"></i>
+                            <p>User Profile</p>
                         </a>
-                        <ul class="dropdown-menu animated fadeInDown w-sm pull-right">
-                            <li class="b-b">
-                                <div class="media">
-                                    <div class="media-left">
-                                        <a class="profile-pic" href="#">
-                                            <img class="media-object" src="~/Menu/assets/img/w2.svg" alt="...">
-                                        </a>
-                                    </div>
-                                    <div class="media-body">
-                                        <h5 class="media-heading">
-                                            <small class="pull-right">12 hours ago</small>
-                                            <b>Leanne Graham</b>
-                                        </h5>
-                                        started following
-                                        <strong>Ervin Howell </strong>
-                                        <p class="text-muted">3 days ago at 7:12 pm - 10.12.2016</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="b-b">
-                                <div class="media">
-                                    <div class="media-left">
-                                        <a class="profile-pic" href="#">
-                                            <img class="media-object" src="~/Menu/assets/img/m2.svg" alt="...">
-                                        </a>
-                                    </div>
-                                    <div class="media-body">
-                                        <h5 class="media-heading">
-                                            <small class="pull-right">12 hours ago</small>
-                                            <b>Leanne Graham</b>
-                                        </h5>
-                                        started following
-                                        <strong>Ervin Howell </strong>
-                                        <p class="text-muted">3 days ago at 7:12 pm - 10.12.2016</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <a class="text-center u-block text-asbestos" href="app-mail-inbox.html">
-                                    <i class="fa fa-envelope"></i> Read All Messages
-                                </a>
-                            </li>
-                        </ul>
                     </li>
-                    <li class="dropdown ">
-                        <a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-fw fa-2x fa-bell" style="color:white;"></i>
-                            <span class="point bg-carrot b-peter-river">
-                                <span class="waves"></span>
-                            </span>
+                    <li>
+                        <a href="table.html">
+                            <i class="pe-7s-note2"></i>
+                            <p>Table List</p>
                         </a>
-                        <ul class="dropdown-menu pull-right w-sm animated fadeInUp">
-                            <li class="p-a-15">
-                                <a href="app-mail-inbox.html">
-                                    <div class="clearfix">
-                                        <span class="pull-right text-muted small">4 minutes ago</span>
-                                        <i class="fa fa-envelope fa-fw"></i>
-                                        <small>12 messages</small>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="p-a-15">
-                                <a href="app-mail-inbox.html">
-                                    <div class="clearfix">
-                                        <span class="pull-right text-muted small">3 minutes ago</span>
-                                        <i class="fa fa-twitter fa-fw"></i>
-                                        <small>4 follower</small>
-                                    </div>
-                                </a>
-                            </li>
-                            <li role="separator" class="divider"></li>
-                            <li class="text-right">
-                                <a class="text-wisteria" href="#">
-                                    See all notification
-                                </a>
-                            </li>
-                        </ul>
                     </li>
-                    <li class="dropdown ">
-                        <a class="dropdown-toggle profile-pic" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                            <img class="img-circle" src="~/images/images.png" alt="Usuario">
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                <b class="hidden-xs hidden-sm" style="color:white;"> @User.Identity.Name</b>
-                            }
+                    <li>
+                        <a href="typography.html">
+                            <i class="pe-7s-news-paper"></i>
+                            <p>Typography</p>
                         </a>
-                        <ul class="dropdown-menu animated flipInY pull-right d-flex align-content-lg-center justify-content-center">
-                            <li>
-                                <a href="#"><i class="fa fa-address-card"></i>&nbsp;Perfil</a>
-                            </li>
-
-                            <li>
-                                <a data-toggle="modal" data-target="#ModalContraseña" href="#"><i class="fas fa-key"></i>&nbsp;Cambiar Contraseña</a>
-                            </li>
-                            <li role="separator" class="divider"></li>
-                            <li>
-                                <a asp-action="Logout" asp-controller="Usuarios">
-                                    <i class="fas fa-sign-out-alt"></i>
-                                    Logout
-                                </a>
-                            </li>
-                        </ul>
                     </li>
-
-                    <li class="dropdown u-posStatic hidden-xs b-l" style="display:none;">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                            Mega
-                            <span class="caret"></span>
+                    <li>
+                        <a href="icons.html">
+                            <i class="pe-7s-science"></i>
+                            <p>Icons</p>
                         </a>
-                        <ul class="dropdown-menu nav-full-item">
-                            <li>
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-sm-4">
-                                            <h1 class="text-muted">Heading 1</h1>
-                                            <h2 class="text-primary">Heading 2</h2>
-                                            <h3 class="text-warning">Heading 3</h3>
-                                            <h4 class="text-danger">Heading 4</h4>
-                                            <h5 class="text-success">Heading 5</h5>
-                                            <h6 class="text-info">Heading 6</h6>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <p>Default paragraph</p>
-                                            <p class="lead">lead paragraph</p>
-                                            <p class="text-muted">Muted paragraph</p>
-                                            <p class="text-warning">warning paragraph</p>
-                                            <p class="text-primary">primary paragraph</p>
-                                            <p class="text-info">info paragraph</p>
-                                            <p class="text-success">success paragraph</p>
-                                            <p class="text-danger">danger paragraph</p>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <img class="img-responsive" src="~/Menu/assets/img/p1.svg" alt="" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
                     </li>
-
+                    <li>
+                        <a href="maps.html">
+                            <i class="pe-7s-map-marker"></i>
+                            <p>Maps</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="notifications.html">
+                            <i class="pe-7s-bell"></i>
+                            <p>Notifications</p>
+                        </a>
+                    </li>
+                  
                 </ul>
             </div>
-
-        </nav>
-
-    </header>
-
-    <div class="app-container">
-
-        <aside class="app-side">
-
-            <div class="side-content">
-
-                <nav class="side-nav">
-
-                    <ul class="metismenu nav nav-inverse nav-bordered nav-stacked" data-plugin="metismenu">
-                        <li class="nav-header"></li>
-                        <li>
-                            <a class="active" asp-action="Index" asp-controller="Home">
-                                <span class="nav-icon">
-                                    <i class="fa fa-fw  fa-home"></i>
-                                </span>
-                                <span class="nav-title">Escritorio</span>
-                            </a>
-                        </li>
-                        <li class="nav-divider"></li>
-                        <li class="nav-header">Opciones</li>
-
-                        <li>
-                            <a href="javascript:;">
-                                <span class="nav-icon">
-                                    <i class="fas fa-user-shield"></i>
-                                </span>
-                                <span class="nav-title">Jugadores</span>
-                                <span class="nav-tools">
-                                    <i class="fa fa-fw arrow"></i>
-                                </span>
-                            </a>
-                            <ul class="nav nav-sub nav-stacked">
-                                <li>
-                                    <a href="map-google.html">
-                                        <span class="nav-icon">
-                                            <i class="fas fa-user-plus"></i>
-                                        </span>
-                                        <span class="nav-title">Registrar nuevo</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a asp-controller="Personas" asp-action="ConsultarEmpleado">
-                                        <span class="nav-icon">
-                                            <i class="fas fa-user-edit"></i>
-                                        </span>
-                                        <span class="nav-title">Consultar</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a asp-controller="Personas" asp-action="MostrarEmpleadoBajas">
-                                        <span class="nav-icon">
-                                            <i class="fas fa-user-times"></i>
-                                        </span>
-                                        <span class="nav-title">Consultar Bajas</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="javascript:;">
-                                <span class="nav-icon">
-                                    <i class="fa fa-fw fa-user-tie"></i>
-                                </span>
-                                <span class="nav-title">Empleados</span>
-                                <span class="nav-tools">
-                                    <i class="fa fa-fw arrow"></i>
-                                </span>
-                            </a>
-                            <ul class="nav nav-sub nav-stacked">
-                                <li>
-                                    <a asp-action="RegistrarEmpleado" asp-controller="Personas">
-                                        <span class="nav-icon">
-                                            <i class="fas fa-user-plus"></i>
-                                        </span>
-                                        <span class="nav-title">Registrar nuevo</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a asp-controller="Personas" asp-action="ConsultarEmpleado">
-                                        <span class="nav-icon">
-                                            <i class="fas fa-user-edit"></i>
-                                        </span>
-                                        <span class="nav-title">Consultar</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a asp-controller="Personas" asp-action="MostrarEmpleadoBajas">
-                                        <span class="nav-icon">
-                                            <i class="fas fa-user-times"></i>
-                                        </span>
-                                        <span class="nav-title">Consultar Bajas</span>
-                                    </a>
-                                </li>
-                            </ul>
-
-                        </li>
-
-                        <li>
-                            <a href="javascript:;">
-                                <span class="nav-icon">
-                                    <i class="fa  fa-adjust"></i>
-                                </span>
-                                <span class="nav-title">UI</span>
-                                <span class="nav-tools">
-                                    <i class="fa fa-fw arrow"></i>
-                                </span>
-                            </a>
-                            <ul class="nav nav-sub nav-stacked">
-                                <li>
-                                    <a href="ui-general.html">General</a>
-                                </li>
-                                <li>
-                                    <a href="ui-font.html">Font</a>
-                                </li>
-                                <li>
-                                    <a href="ui-widgets.html">Widgets</a>
-                                </li>
-                                <li>
-                                    <a href="ui-loaders.html">Loaders</a>
-                                </li>
-                                <li>
-                                    <a href="ui-momentum.html">Momentum</a>
-                                </li>
-                                <li>
-                                    <a href="ui-nav.html">Nav</a>
-                                </li>
-                                <li>
-                                    <a href="ui-todo.html">Todo</a>
-                                </li>
-                                <li>
-                                    <a href="ui-mega.html">Mega Menu</a>
-                                </li>
-                                <li>
-                                    <a href="ui-tab.html">Tab</a>
-                                </li>
-                                <li>
-                                    <a href="ui-color.html">Colors</a>
-                                </li>
-                                <li>
-                                    <a href="ui-button.html">Buttons</a>
-                                </li>
-                                <li>
-                                    <a href="ui-canvas.html">Canvas</a>
-                                </li>
-                                <li>
-                                    <a href="ui-slider.html">Slider</a>
-                                </li>
-                                <li>
-                                    <a href="ui-timeline.html">Timeline</a>
-                                </li>
-
-                                <li>
-                                    <a href="javascript:;">
-                                        <span class="nav-title">Icons</span>
-                                        <span class="nav-tools">
-                                            <i class="fa fa-fw arrow"></i>
-                                        </span>
-                                    </a>
-                                    <ul class="nav nav-sub nav-stacked">
-                                        <li>
-                                            <a href="ui-icon-awesome.html">
-                                                <span class="nav-icon">
-                                                    <i class="fa fa-fw fa-font-awesome"></i>
-                                                </span>
-                                                <span class="nav-title">Font Awesome</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="ui-icon-glyphicon.html">
-                                                <span class="nav-icon">
-                                                    <i class="glyphicon glyphicon-fire"></i>
-                                                </span>
-                                                <span class="nav-title">Glyphicons</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                            </ul>
-                        </li>
-
-                        <li>
-                            <a href="javascript:;">
-                                <span class="nav-icon">
-                                    <i class="fa fa-fw fa-edit"></i>
-                                </span>
-                                <span class="nav-title">Forms</span>
-                                <span class="nav-tools">
-                                    <i class="fa fa-fw arrow"></i>
-                                </span>
-                            </a>
-                            <ul class="nav nav-sub nav-stacked">
-                                <li>
-                                    <a href="form-basic.html">Basic</a>
-                                </li>
-                                <li>
-                                    <a href="form-advanced.html">Advanced</a>
-                                </li>
-                                <li>
-                                    <a href="form-wizard.html">Wizard</a>
-                                </li>
-                                <li>
-                                    <a href="form-upload.html">File Upload</a>
-                                </li>
-                                <li>
-                                    <a href="form-editor.html">Text Editor</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li>
-                            <a href="javascript:;">
-                                <span class="nav-icon">
-                                    <i class="fa fa-fw fa-table"></i>
-                                </span>
-                                <span class="nav-title">Table</span>
-                                <span class="nav-tools">
-                                    <i class="fa fa-fw arrow"></i>
-                                </span>
-                            </a>
-                            <ul class="nav nav-sub nav-stacked">
-                                <li>
-                                    <a href="table-basic.html">Basic</a>
-                                </li>
-                                <li>
-                                    <a href="table-sortable.html">Sortable</a>
-                                </li>
-                                <li>
-                                    <a href="table-datatable.html">Datatables</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li>
-                            <a href="javascript:;">
-                                <span class="nav-icon">
-                                    <i class="fa fa-fw fa-address-card"></i>
-                                </span>
-                                <span class="nav-title">App</span>
-                                <span class="nav-tools">
-                                    <i class="fa fa-fw arrow"></i>
-                                </span>
-                            </a>
-                            <ul class="nav nav-sub nav-stacked">
-                                <li>
-                                    <a href="app-calendar.html">Calendar</a>
-                                </li>
-                                <li>
-                                    <a href="app-gallery.html">Gallery</a>
-                                </li>
-                                <li>
-                                    <a href="app-login.html">Login</a>
-                                </li>
-                                <li>
-                                    <a href="app-register.html">Register</a>
-                                </li>
-                                <li>
-                                    <a href="app-forgot.html">Forgot</a>
-                                </li>
-                                <li>
-                                    <a href="app-404.html">404</a>
-                                </li>
-                                <li>
-                                    <a href="app-500.html">500</a>
-                                </li>
-                                <!-- BEGIN: mail -->
-                                <li>
-                                    <a href="javascript:;">
-                                        <span class="nav-icon">
-                                            <i class="fa fa-fw fa-envelope-o"></i>
-                                        </span>
-                                        <span class="nav-title">Mail</span>
-                                        <span class="nav-tools">
-                                            <i class="fa fa-fw arrow"></i>
-                                        </span>
-                                    </a>
-                                    <ul class="nav nav-sub nav-stacked">
-                                        <li>
-                                            <a href="app-mail-inbox.html">Inbox</a>
-                                        </li>
-                                        <li>
-                                            <a href="app-mail-compose.html">Compose</a>
-                                        </li>
-                                        <li>
-                                            <a href="app-mail-read.html">Read</a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                            </ul>
-                        </li>
-
-                        <li class="nav-divider"></li>
-
-                        <li>
-                            <a asp-action="Index" asp-controller="Sessions">
-                                <span class="nav-icon">
-                                    <i class="fab fa-algolia"></i>
-                                </span>
-                                <span class="nav-title">Sessiones</span>
-                                
-                            </a>
-
-                        </li>
-
-                        <li>
-                            <a href="javascript:;">
-                                <span class="nav-icon">
-                                    <i class="fa fa-fw fa-code"></i>
-                                </span>
-                                <span class="nav-title">Multilevel</span>
-                                <span class="nav-tools">
-                                    <i class="fa fa-fw arrow"></i>
-                                </span>
-                            </a>
-                            <ul class="nav nav-sub">
-                                <li>
-                                    <a href="javascript:;">
-                                        <span class="nav-title">Level 1</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:;">
-                                        <span class="nav-title">Level 1</span>
-                                        <span class="nav-tools">
-                                            <i class="fa fa-fw arrow"></i>
-                                        </span>
-                                    </a>
-                                    <ul class="nav nav-sub">
-                                        <li>
-                                            <a href="javascript:;">
-                                                <span class="nav-title">Level 2</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:;">
-                                                <span class="nav-title">Level 2</span>
-                                                <span class="nav-tools">
-                                                    <i class="fa fa-fw arrow"></i>
-                                                </span>
-                                            </a>
-                                            <ul class="nav nav-sub">
-                                                <li>
-                                                    <a href="javascript:;">
-                                                        <span class="nav-title">Level 3</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:;">
-                                                        <span class="nav-title">Level 3</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="javascript:;">
-                                        <span class="nav-title">Level 1</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-divider"></li>
-                        <li>
-                            <a href="document.html">
-                                <span class="nav-icon">
-                                    <i class="fa fa-fw fa-book text-alizarin"></i>
-                                </span>
-                                <span class="nav-title">Document</span>
-                            </a>
-                        </li>
-                      
-                    </ul>
-
-                </nav>
-
-            </div>
-           <br />
-            
-           <br />
-          
-            <!-- END: .side-footer -->
-        </aside>
-
-        <div class="main-content">
-            <div class="container">
-                @RenderBody()
-                
-            </div>
         </div>
-
-    <div id="ModalContraseña" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-
-
-            <div class="modal-content">
-                <div class="modal-header " style="background: linear-gradient(to right, rgba(69,117,214,1) 0%, rgba(55,119,219,1) 2%, rgba(21,123,232,1) 7%, rgba(228,238,240,1) 94%, rgba(228,238,240,1) 100%);">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title" style="color:white;"><i class="fas fa-key"></i>   Cambiar contraseña</h4>
-                </div>
-                <div class="modal-body">
-
-                    <div class="row">
-                        <div class="col-sm-4"><label>Contraseña actual:</label></div><div class="col-sm-7"><input id="PassActual" type="password" class="form-control" style="float:left" /></div>
+        <div class="main-panel">
+            <nav class="navbar navbar-default navbar-fixed" style="background:-webkit-gradient(linear, 38% 52%, 0% 100%, from(#0071B0), to(#FFFFFF));">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">Dashboard</a>
                     </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-sm-4"><label>Nueva Contraseña:</label></div><div class="col-sm-7"><input id="PassNuevo" type="password" class="form-control" style="float:left" /></div>
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav navbar-left">
+                            <li>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-dashboard"></i>
+                                    <p class="hidden-lg hidden-md">Dashboard</p>
+                                </a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-globe"></i>
+                                    <b class="caret hidden-lg hidden-md"></b>
+                                    <p class="hidden-lg hidden-md">
+                                        5 Notifications
+                                        <b class="caret"></b>
+                                    </p>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Notification 1</a></li>
+                                    <li><a href="#">Notification 2</a></li>
+                                    <li><a href="#">Notification 3</a></li>
+                                    <li><a href="#">Notification 4</a></li>
+                                    <li><a href="#">Another notification</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <i class="fa fa-search"></i>
+                                    <p class="hidden-lg hidden-md">Search</p>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a href="">
+                                    <p>Account</p>
+                                </a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <p>
+                                        Dropdown
+                                        <b class="caret"></b>
+                                    </p>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Action</a></li>
+                                    <li><a href="#">Another action</a></li>
+                                    <li><a href="#">Something</a></li>
+                                    <li><a href="#">Another action</a></li>
+                                    <li><a href="#">Something</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">Separated link</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <p>Log out</p>
+                                </a>
+                            </li>
+                            <li class="separator hidden-lg"></li>
+                        </ul>
                     </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-sm-4"><label>Confirmar Contraseña:</label></div><div class="col-sm-7"><input id="PassConfirma" type="password" class="form-control" style="float:left" /></div>
-                    </div>
+                </div>
+            </nav>
 
-                </div>
-                <div class="modal-footer">
-                    <input id="BtnCambiaContra" type="button" class="btn btn-info" value="Aceptar" />
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                </div>
+            <div class="content">
+               @RenderBody()
             </div>
 
+            <footer class="footer">
+                <div class="container-fluid">
+                    <nav class="pull-left">
+                        <ul>
+                            <li>
+                                <a href="#">
+                                    Home
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    Company
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    Portfolio
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    Blog
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <p class="copyright pull-right">
+                        &copy;
+                        <script>document.write(new Date().getFullYear())</script> <a href="http://www.creative-tim.com">Creative Tim</a>, made with love for a better web
+                    </p>
+                </div>
+            </footer>
         </div>
     </div>
-        </div>
 
 
     <environment include="Development">
@@ -700,19 +240,33 @@
         <script src="~/lib/Alertify/alertify.js"></script>
         <script src="~/lib/DataTables/datatables.js"></script>
         <script src="~/lib/DataTables/DataTables-1.10.16/js/dataTables.bootstrap.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/metisMenu/2.7.7/metisMenu.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/metismenu"></script>
-        <script src="~/Menu/assets/vendor/waypoints/jquery.waypoints.js"></script>
-        <script src="~/Menu/assets/vendor/counterup/jquery.counterup.js"></script>
-        <script src="~/Menu/assets/vendor/jqvmap/jquery.vmap.js"></script>
-        <script src="~/Menu/assets/vendor/jqvmap/jquery.vmap.sampledata.js"></script>
-        <script src="~/Menu/assets/vendor/jqvmap/maps/jquery.vmap.usa.js"></script>
-        <script src="~/Menu/assets/vendor/perfect-scrollbar/perfect-scrollbar.jquery.js"></script>
-        <script src="~/Menu/assets/vendor/dragula/dragula.js"></script>
-        <script src="~/Menu/assets/vendor/chart.js/Chart.js"></script>
-        <script src="~/Menu/assets/vendor/tablesorter/js/jquery.tablesorter.js"></script>
-        <script src="~/Menu/assets/js/chl.js"></script>
-        <script src="~/Menu/assets/js/chl-demo.js"></script>
+        <script src="~/Menu/assets/js/chartist.min.js"></script>
+        <!--  Notifications Plugin    -->
+       
+        <script src="~/Menu/assets/js/bootstrap-notify.js"></script>
+        <!--  Google Maps Plugin    -->
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+        <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
+        <script src="~/Menu/assets/js/light-bootstrap-dashboard.js?v=1.4.0"></script>
+        <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
+        <script src="~/Menu/assets/js/demo.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+                demo.initChartist();
+
+                $.notify({
+                    icon: 'pe-7s-gift',
+                    message: "Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for every web developer."
+
+                }, {
+                        type: 'info',
+                        timer: 4000
+                    });
+
+            });
+        </script>
+
         <script src="~/js/Usuarios.js"></script>
     </environment>
     <environment exclude="Development">
