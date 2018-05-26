@@ -288,26 +288,44 @@
                         <li>
                             <a href="javascript:;">
                                 <span class="nav-icon">
-                                    <i class="fa fa-fw fa-map"></i>
+                                    <i class="fas fa-user-shield"></i>
                                 </span>
-                                <span class="nav-title">Maps</span>
+                                <span class="nav-title">Jugadores</span>
                                 <span class="nav-tools">
                                     <i class="fa fa-fw arrow"></i>
                                 </span>
                             </a>
                             <ul class="nav nav-sub nav-stacked">
                                 <li>
-                                    <a href="map-google.html">Google Maps</a>
+                                    <a href="map-google.html">
+                                        <span class="nav-icon">
+                                            <i class="fas fa-user-plus"></i>
+                                        </span>
+                                        <span class="nav-title">Registrar nuevo</span>
+                                    </a>
                                 </li>
                                 <li>
-                                    <a href="map-vector.html">Vector Maps</a>
+                                    <a asp-controller="Personas" asp-action="ConsultarEmpleado">
+                                        <span class="nav-icon">
+                                            <i class="fas fa-user-edit"></i>
+                                        </span>
+                                        <span class="nav-title">Consultar</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Personas" asp-action="MostrarEmpleadoBajas">
+                                        <span class="nav-icon">
+                                            <i class="fas fa-user-times"></i>
+                                        </span>
+                                        <span class="nav-title">Consultar Bajas</span>
+                                    </a>
                                 </li>
                             </ul>
                         </li>
                         <li>
                             <a href="javascript:;">
                                 <span class="nav-icon">
-                                    <i class="fa fa-fw fa-user"></i>
+                                    <i class="fa fa-fw fa-user-tie"></i>
                                 </span>
                                 <span class="nav-title">Empleados</span>
                                 <span class="nav-tools">

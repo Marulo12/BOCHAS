@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
     $("#altaEmpleado").after(function () {
-        MostrarTipoDocumento(); MostrarLocalidades(); MostrarCargos();
+        MostrarTipoDocumento(); MostrarLocalidades(); MostrarTipoJugador();
     });
     $("#ConsultaEmpleado").after(function () {
         MostrarEmpleado("");
@@ -8,7 +8,7 @@
     $("#BtnBuscarEmp").click(function () {
         MostrarEmpleado($("#FiltroEmp").val());
     });
-    
+
     $("#Localidad").change(function () {
         MostrarBarrio();
     });
@@ -21,23 +21,23 @@
     $("#Continuar").click(function () {
         window.location = "/Personas/RegistrarEmpleado";
     });
-    
+
     $("#TablaEmpladosBaja").after(function () {
         $("#TablaEmpladosBaja").DataTable({
-            responsive: true,   
+            responsive: true,
             "scrollY": 200,
             "scrollX": true,
             searching: true,
-           
-            dom: 'Bfrtip',  
+
+            dom: 'Bfrtip',
             buttons: [
-               
+
                 'excel',
                 'pdf',
                 {
                     extend: 'print',
                     text: 'Imprimir'
-                   
+
                 }
             ],
             language: {
@@ -59,8 +59,8 @@
                 }
             }
         });
-       
-       
+
+
     });
 });
 
@@ -82,7 +82,7 @@ function MostrarEmpleado(filtro) {
             Table += "</tbody><tfoot></tfoot></table>";
             dvItems.append(Table);
             $("#TablaEmpleados").DataTable({
-                searching: true,             
+                searching: true,
                 "scrollX": true,
                 responsive: true,
                 search: "Filtro&nbsp;:",
@@ -105,7 +105,7 @@ function MostrarEmpleado(filtro) {
                         last: "Ultimo"
                     }
                 }
-                    });
+            });
 
 
             $('[data-toggle="tooltip"]').tooltip();
@@ -130,13 +130,13 @@ function EditarEmpleado(id) {
             $('#ModalEdicion').modal();
         }
     });
-        
+
 
 
 }
 
 function ConocerDomicilio(id) {
-   
+
     $.ajax({
         type: "GET",
         url: "/Personas/ConocerDomicilio",
@@ -144,7 +144,7 @@ function ConocerDomicilio(id) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            var rows;            
+            var rows;
             var dvItems = $("#ModalBodyDomicilio");
             $("#ModalCalle").val();
             $("#ModalNumero").val();
@@ -166,11 +166,11 @@ function ConocerDomicilio(id) {
                 else {
                     $("#ModalPiso").val(response[i].piso);
                 }
-              
-                    $("#ModalDpto").val(response[i].dpto);
-                
-                
-               
+
+                $("#ModalDpto").val(response[i].dpto);
+
+
+
             }
             $('#ModalDomicilio').modal();
         },
@@ -179,12 +179,12 @@ function ConocerDomicilio(id) {
         }
     });
 }
-function MostrarCargos() {
+function MostrarTipoJugador() {
     $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        url: "/Personas/MostrarCargos",
+        url: "/Personas/MostrarTipoJugador",
         success: function (response) {
             var rows;
             var dvItems = $("#Cargo");
@@ -201,7 +201,7 @@ function MostrarCargos() {
 }
 
 function MostrarTipoDocumento() {
-        $.ajax({
+    $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -267,42 +267,42 @@ function MostrarLocalidades() {
     });
 }
 
-function confirmarBaja(id) {   
+function confirmarBaja(id) {
     alertify.confirm("Confirmar baja de empleado", function (e) {
-        if (e) {           
+        if (e) {
             alertify.success("Baja de empleado dada con exito");
-                $.ajax({
-                    type: "POST",
-                    url: "/Personas/Baja",
-                    data: { id: id },
-                    success: function (response) {
-                      
-                        window.location = "/Personas/ConsultarEmpleado";
-                       
-                    }
-                });                      
+            $.ajax({
+                type: "POST",
+                url: "/Personas/Baja",
+                data: { id: id },
+                success: function (response) {
+
+                    window.location = "/Personas/ConsultarEmpleado";
+
+                }
+            });
         } else {
             alertify.error("Baja Cancelada");
         }
     });
-    
+
 }
 var usuarioExiste = false;
 function ComprobarUsuario() {
     var usuario = $("#Usuario").val();
-  
+
     $.ajax({
         type: "GET",
         url: "/Personas/ValidarUsuario",
-        data: { usuario:usuario },
+        data: { usuario: usuario },
         success: function (response) {
             if (response === "False") {
-               
-            
+
+
                 alertify.error('El nombre de usuario ya esta en uso');
-                
+
             }
-            if (response === "OK") { 
+            if (response === "OK") {
                 New();
 
             }
@@ -312,7 +312,7 @@ function ComprobarUsuario() {
     });
 
 
-    
+
 }
 function New() {
 
@@ -337,7 +337,7 @@ function New() {
         $.ajax({
             type: "POST",
             url: "/Personas/NewEmpleado",
-            data: { nombre, apellido, tipodoc, numero, mail, telefono, localidad, barrio, usuario, contra, calle, cargo, ncalle , dpto, piso },
+            data: { nombre, apellido, tipodoc, numero, mail, telefono, localidad, barrio, usuario, contra, calle, cargo, ncalle, dpto, piso },
             success: function (response) {
                 if (response === "OK") {
                     $("#DivCarga img").attr("src", "../images/ok.png");
@@ -369,7 +369,7 @@ function New() {
 }
 function ComprobarCampos() {
     if ($("#Nombre").val() === "") {
-       
+
         alertify.error('No cargo el Nombre');
         return false;
     }
