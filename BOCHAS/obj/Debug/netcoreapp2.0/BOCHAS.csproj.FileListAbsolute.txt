@@ -53,3 +53,14 @@ C:\Users\mlb\Desktop\BOCHAS\BOCHAS\obj\Debug\netcoreapp2.0\BOCHAS.AssemblyInfo.c
 C:\Users\mlb\Desktop\BOCHAS\BOCHAS\obj\Debug\netcoreapp2.0\BOCHAS.dll
 C:\Users\mlb\Desktop\BOCHAS\BOCHAS\obj\Debug\netcoreapp2.0\BOCHAS.pdb
 C:\Users\mboscatto\Desktop\BOCHAS\BOCHAS\obj\Debug\netcoreapp2.0\BOCHAS.csprojAssemblyReference.cache
+C:\Users\HPINTERFILE\Documents\GitHub\BOCHAS\BOCHAS\obj\Debug\netcoreapp2.0\BOCHAS.dll
+C:\Users\HPINTERFILE\Documents\GitHub\BOCHAS\BOCHAS\obj\Debug\netcoreapp2.0\BOCHAS.pdb
+C:\Users\HPINTERFILE\Documents\GitHub\BOCHAS\BOCHAS\bin\Debug\netcoreapp2.0\BOCHAS.deps.json
+C:\Users\HPINTERFILE\Documents\GitHub\BOCHAS\BOCHAS\bin\Debug\netcoreapp2.0\BOCHAS.runtimeconfig.json
+C:\Users\HPINTERFILE\Documents\GitHub\BOCHAS\BOCHAS\bin\Debug\netcoreapp2.0\BOCHAS.runtimeconfig.dev.json
+C:\Users\HPINTERFILE\Documents\GitHub\BOCHAS\BOCHAS\bin\Debug\netcoreapp2.0\BOCHAS.dll
+C:\Users\HPINTERFILE\Documents\GitHub\BOCHAS\BOCHAS\bin\Debug\netcoreapp2.0\BOCHAS.pdb
+C:\Users\HPINTERFILE\Documents\GitHub\BOCHAS\BOCHAS\obj\Debug\netcoreapp2.0\BOCHAS.csprojAssemblyReference.cache
+C:\Users\HPINTERFILE\Documents\GitHub\BOCHAS\BOCHAS\obj\Debug\netcoreapp2.0\BOCHAS.csproj.CoreCompileInputs.cache
+C:\Users\HPINTERFILE\Documents\GitHub\BOCHAS\BOCHAS\obj\Debug\netcoreapp2.0\BOCHAS.AssemblyInfoInputs.cache
+C:\Users\HPINTERFILE\Documents\GitHub\BOCHAS\BOCHAS\obj\Debug\netcoreapp2.0\BOCHAS.AssemblyInfo.cs

@@ -1,8 +1,8 @@
 ﻿
-<div id="containerEmpleadoAlta" ng-app="" class="container" style="margin-top:20px;">
-    <div class="panel panel-primary">
+<div id="containerEmpleadoAlta" ng-app=""  >
+    <div class="panel panel-primary" >
         <div class="panel-heading" style="padding-bottom:0px;">
-            <h3><i class="fas fa-user-tie fa-2x"></i> Empleados</h3>
+            <h3><i class="fas fa-user-tie "></i> Empleados</h3>
 
         </div>
         <div class="panel-body">
@@ -28,7 +28,7 @@
                     <div class="col-sm-3"><label>Nombre</label><input id="Nombre" ng-model="Nombre" type="text" class="form-control " required /></div>
                     <div class="col-sm-3"><label>Apellido</label><input id="Apellido" ng-model="Apellido" type="text" class="form-control" required /></div>
                     <div class="col-sm-2">
-                        <label for="TipoDoc">Tipo Documento</label>  <select id="TipoDoc" class= "btn btn-danger form-control">
+                        <label for="TipoDoc">Tipo Documento</label>  <select id="TipoDoc" class= "form-control" style="background-color: rgba(172, 44, 44, 0.9);color:white;">
                        <option> Cargando..</option>
                         </select>
                     </div>
@@ -38,7 +38,7 @@
                     <div class="col-sm-4"><label>Mail</label><input id="Mail" type="email" class="form-control" required /></div>
                     <div class="col-sm-4"><label>Telefono</label><input id="Telefono" type="tel" class="form-control" required /></div>
                     <div class="col-sm-4">
-                        <label for="Cargo">Cargo</label> <select id="Cargo" class="btn btn-danger form-control">
+                        <label for="Cargo">Cargo</label> <select id="Cargo" class="form-control"  style="background-color: rgba(172, 44, 44, 0.9);color:white;">
                                                              <option> Cargando..</option></select>
                     </div>
                 </div>
@@ -46,11 +46,11 @@
 
                 <div class="row">
                     <div class="col-sm-3">
-                        <label for="Localidad">Localidad</label>&nbsp;<select id="Localidad" class="btn btn-danger form-control">
+                        <label for="Localidad">Localidad</label>&nbsp;<select id="Localidad" class= "form-control" style="background-color: rgba(172, 44, 44, 0.9);color:white;">
                                                                           <option> Cargando..</option></select>
                     </div>
                     <div class="col-sm-3">
-                        <label for="Barrio">Barrio</label>&nbsp; <select id="Barrio" class="btn btn-danger form-control">
+                        <label for="Barrio">Barrio</label>&nbsp; <select id="Barrio" class= "form-control" style="background-color: rgba(172, 44, 44, 0.9);color:white;">
                                                                      <option> Cargando..</option></select>
 
                     </div>
@@ -83,10 +83,8 @@
                             <div class="col-sm-6"><input id="Contra" type="password" placeholder="Contraseña" class="form-control" required /></div>
                         </div>
                     </div>
-                    <div class="col-sm-4" style="margin-top:4%;align-content:center">
-                        <span id="Error" class="  label label-warning form-control" style="font-size:20px;"></span>
-                    </div>
-                    <div class="col-sm-2 btn-group" style="margin-top:4%;float:right">
+                    
+                    <div class="col-sm-3 btn-group" style="margin-top:4%;float:right">
                         <input id="Registrar" type="button" class="btn   btn-primary" value="Registrar" />
                         <input id="Limpiar" type="button" class="btn  btn-primary" value="Limpiar" />
 

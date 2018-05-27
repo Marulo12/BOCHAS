@@ -34,7 +34,7 @@ namespace BOCHAS.Controllers
                 return NotFound();
             }
 
-            var session = await _context.Session.Include(s => s.IdUsuarioNavigation).Where(s =>s.FechaInicio >= Convert.ToDateTime(fechadesde) && s.FechaInicio <= Convert.ToDateTime(fechahasta)).ToListAsync();
+            var session = await _context.Session.Include(s => s.IdUsuarioNavigation).Where(s =>s.FechaInicio >= Convert.ToDateTime(fechadesde) && s.FechaInicio <= Convert.ToDateTime(fechahasta)).OrderByDescending(u=>u.FechaInicio).OrderByDescending(u=>u.HoraInicio).ToListAsync();
             if (session == null)
             {
                 return NotFound();

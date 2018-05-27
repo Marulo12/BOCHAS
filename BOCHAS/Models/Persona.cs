@@ -5,6 +5,11 @@ namespace BOCHAS.Models
 {
     public partial class Persona
     {
+        public Persona()
+        {
+            Jugador = new HashSet<Jugador>();
+        }
+
         public int Id { get; set; }
         public int NroDocumento { get; set; }
         public int IdTipoDocumento { get; set; }
@@ -21,5 +26,6 @@ namespace BOCHAS.Models
         public TipoDocumento IdTipoDocumentoNavigation { get; set; }
         public Usuario IdUsuarioNavigation { get; set; }
         public Empleado Empleado { get; set; }
+        public ICollection<Jugador> Jugador { get; set; }
     }
 }
