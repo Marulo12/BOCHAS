@@ -1,0 +1,110 @@
+﻿
+<div id="containerEmpleadoAlta" ng-app=""  style="margin-top:2%;">
+    <div class="panel panel-primary">
+        <div class="panel-heading" style="padding-bottom:0px;padding-top:0px;">
+            <h3><i class="fas fa-user fa-2x"></i> Jugadores</h3>
+        </div>
+        <div class="panel-body">
+            <div id="DivCarga" style="display:none;">
+                <div class="row">
+
+                    <div class="col-sm-12 ok" style="padding-left:40%;">
+                        <img src="~/images/carga.gif" alt="" width="200" />
+                    </div>
+                </div>
+            </div>
+
+            <form id="PanelEmpleados" class="form-group">
+
+                <div class="row">
+                    <ul class="nav nav-tabs ">
+
+                        <li role="presentation" class="active"> <a id="altaEmpleado" asp-action="RegistrarJugador" asp-controller="Personas">Alta</a></li>
+                        <li role="presentation"><a asp-action="ConsultarJugador" asp-controller="Personas">Consulta</a></li>
+                        <li role="presentation"><a asp-action="MostrarJugadorBajas" asp-controller="Personas">Consulta Bajas</a></li>
+                    </ul>
+                    <br />
+                    <div class="col-sm-3"><label>Nombre</label><input id="Nombre" ng-model="Nombre" type="text" class="form-control " required /></div>
+                    <div class="col-sm-3"><label>Apellido</label><input id="Apellido" ng-model="Apellido" type="text" class="form-control" required /></div>
+                    <div class="col-sm-2">
+                        <label for="TipoDoc">Tipo Documento</label>  <select id="TipoDoc" class="btn btn-danger form-control">
+                            <option> Cargando..</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3" style="float:left;"><label>Numero</label><input id="Numero" type="text" class="form-control" required /></div>
+                </div>
+                <div class="row" style="margin-top:10px;">
+                    <div class="col-sm-4"><label>Mail</label><input id="Mail" type="email" class="form-control" required /></div>
+                    <div class="col-sm-4"><label>Telefono</label><input id="Telefono" type="tel" class="form-control" required /></div>
+                    <div class="col-sm-4">
+                        <label for="TipoJugador">TipoJugador</label> <select id="TipoJugador" class="btn btn-danger form-control">
+                            <option> Cargando..</option>
+                        </select>
+                    </div>
+                </div>
+                <hr />
+
+                <div class="row">
+                    <div class="col-sm-3">
+                        <label for="Localidad">Localidad</label>&nbsp;<select id="Localidad" class="btn btn-danger form-control">
+                            <option> Cargando..</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3">
+                        <label for="Barrio">Barrio</label>&nbsp; <select id="Barrio" class="btn btn-danger form-control">
+                            <option> Cargando..</option>
+                        </select>
+
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="Calle">Calle</label>&nbsp; <input id="Calle" type="text" class="form-control" required />
+
+                    </div>
+                    <div class="col-sm-1">
+                        <label for="NCalle">N°</label>&nbsp; <input id="NCalle" type="text" class="form-control" required />
+
+                    </div>
+                    <div class="col-sm-1">
+                        <label for="Piso">Piso</label>&nbsp; <input id="Piso" type="text" class="form-control" />
+
+                    </div>
+                    <div class="col-sm-1">
+
+                        <label for="Dpto">Dpto</label>&nbsp; <input id="Dpto" type="text" class="form-control" />
+                    </div>
+
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-sm-6 " style="border-top:inset 1px #961c1c;">
+                        <h4><i class="glyphicon glyphicon-user"></i> &nbsp; Usuario para el sistema</h4>
+                        <div class="row">
+
+                            <div class="col-sm-6"><input type="text" id="Usuario" value="{{Nombre.charAt(0) + Apellido}}" placeholder="Usuario" class="form-control" required /></div>
+
+                            <div class="col-sm-6"><input id="Contra" type="password" placeholder="Contraseña" class="form-control" required /></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4" style="margin-top:4%;align-content:center">
+                        <span id="Error" class="  label label-warning form-control" style="font-size:20px;"></span>
+                    </div>
+                    <div class="col-sm-2 btn-group" style="margin-top:4%;float:right">
+                        <input id="Registrar" type="button" class="btn   btn-primary" value="Registrar" />
+                        <input id="Limpiar" type="button" class="btn  btn-primary" value="Limpiar" />
+
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+
+    <script src="~/js/Empleados.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+}
+
