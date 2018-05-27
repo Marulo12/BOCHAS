@@ -76,23 +76,13 @@ footer {
   #wrapper .main {
     padding-top: 130px; } }
 
+.layout-fullwidth #wrapper .sidebar {
+  left: -260px;
 
-
-.layout-fullwidth #wrapper .sidebar .nav > li > a[data-toggle="collapse"] .icon-submenu, .layout-fullwidth #wrapper .sidebar ul li label{
-    display: none;
-}
-.layout-fullwidth #wrapper .sidebar .nav {
-width:55px !important;
-}
-.layout-fullwidth #wrapper .sidebar ul li, .layout-fullwidth #wrapper #sidebar-nav, .layout-fullwidth .sidebar .nav .nav > li > a {
-    width: 50px !important;
-    align-content: center;
-    justify-content:center;
-    font-size: 0px;
 }
 
 .layout-fullwidth #wrapper .main {
-  width: 95%; }
+  width: 100%; }
 
 .layout-fullwidth #wrapper .navbar {
   left: 0 !important; }
