@@ -1,12 +1,12 @@
 ﻿$(document).ready(function () {
-    $("#altaEmpleado").after(function () {
+    $("#altaJugador").after(function () {
         MostrarTipoDocumento(); MostrarLocalidades(); MostrarTipoJugador();
     });
-    $("#ConsultaEmpleado").after(function () {
-        MostrarEmpleado("");
+    $("#ConsultaJugador").after(function () {
+        MostrarJugador("");
     });
-    $("#BtnBuscarEmp").click(function () {
-        MostrarEmpleado($("#FiltroEmp").val());
+    $("#BtnBuscarJu").click(function () {
+        MostrarJugador($("#FiltroJu").val());
     });
 
     $("#Localidad").change(function () {
@@ -19,11 +19,11 @@
         LimpiarCampos();
     });
     $("#Continuar").click(function () {
-        window.location = "/Personas/RegistrarEmpleado";
+        window.location = "/Personas/RegistrarJugador";
     });
 
-    $("#TablaEmpladosBaja").after(function () {
-        $("#TablaEmpladosBaja").DataTable({
+    $("#TablaJugadoresBaja").after(function () {
+        $("#TablaJugadoresBaja").DataTable({
             responsive: true,
             "scrollY": 200,
             "scrollX": true,
@@ -65,23 +65,23 @@
 });
 
 
-function MostrarEmpleado(filtro) {
+function MostrarJugador(filtro) {
     $.ajax({
         type: "GET",
-        url: "/Personas/MostrarEmpleados",
+        url: "/Personas/MostrarJugadores",
         data: { filtro },
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            var dvItems = $("#CEmpleados");
+            var dvItems = $("#CJugadores");
             dvItems.empty();
-            var Table = '<table id="TablaEmpleados" class="table table-striped  display" style="width:100%;" ><thead style="background-color: rgba(158, 44, 44, 0.9);color:white"><tr><th>Nombre</th><th>Apellido</th><th>Documento</th><th>Telefono</th><th>Mail</th><th>Cargo</th><th ></th></tr></thead><tbody>';
+            var Table = '<table id="TablaJugadores" class="table table-striped  display" style="width:100%;" ><thead style="background-color: rgba(158, 44, 44, 0.9);color:white"><tr><th>Nombre</th><th>Apellido</th><th>Documento</th><th>Telefono</th><th>Mail</th><th>Tipo</th><th ></th></tr></thead><tbody>';
             for (var i = 0; i < response.length; i++) {
-                Table += '<tr ><td>' + response[i].nombre + '</td>' + '<td>' + response[i].apellido + '</td>' + '<td>' + response[i].documento + '</td>' + '<td>' + response[i].telefono + '</td>' + '<td>' + response[i].mail + '</td>' + '<td>' + response[i].cargo + '</td> <td><div class="btn-group" style="padding-left:17%;"> <button class=" btn btn-sm btn-primary " data-toggle="tooltip" title="Informacion adicional" data-placement="top"  onclick="ConocerDomicilio(' + response[i].id + ');"><i class="far fa-address-card"></i></button><button  class=" btn btn-sm BtnEditar" data-toggle="tooltip" title="Modificar"  onclick="EditarEmpleado(' + response[i].id + ');" data-placement="top" ><i class="fas fa-pencil-alt"></i></button><button class="btn btn-sm btn-danger" data-toggle="tooltip" title="Baja" data-placement="top" onclick="confirmarBaja(' + response[i].id + ');"><i class="fas fa-trash-alt"></i></button></div></td></tr>';
+                Table += '<tr ><td>' + response[i].nombre + '</td>' + '<td>' + response[i].apellido + '</td>' + '<td>' + response[i].documento + '</td>' + '<td>' + response[i].telefono + '</td>' + '<td>' + response[i].mail + '</td>' + '<td>' + response[i].tipo + '</td> <td><div class="btn-group" style="padding-left:17%;"> <button class=" btn btn-sm btn-primary " data-toggle="tooltip" title="Informacion adicional" data-placement="top"  onclick="ConocerDomicilio(' + response[i].id + ');"><i class="far fa-address-card"></i></button><button  class=" btn btn-sm BtnEditar" data-toggle="tooltip" title="Modificar"  onclick="EditarJugador(' + response[i].id + ');" data-placement="top" ><i class="fas fa-pencil-alt"></i></button><button class="btn btn-sm btn-danger" data-toggle="tooltip" title="Baja" data-placement="top" onclick="confirmarBaja(' + response[i].id + ');"><i class="fas fa-trash-alt"></i></button></div></td></tr>';
             }
             Table += "</tbody><tfoot></tfoot></table>";
             dvItems.append(Table);
-            $("#TablaEmpleados").DataTable({
+            $("#TablaJugadores").DataTable({
                 searching: true,
                 "scrollX": true,
                 responsive: true,
@@ -120,10 +120,10 @@ function MostrarEmpleado(filtro) {
 
 
 
-function EditarEmpleado(id) {
+function EditarJugador(id) {
     $.ajax({
         type: "GET",
-        url: "/Personas/EditarEmpleado",
+        url: "/Personas/EditarJugador",
         data: { id: id },
         success: function (response) {
             $("#ModalBodyEdicion").html(response);
@@ -187,19 +187,18 @@ function MostrarTipoJugador() {
         url: "/Personas/MostrarTipoJugador",
         success: function (response) {
             var rows;
-            var dvItems = $("#Cargo");
+            var dvItems = $("#TipoJugador");
             dvItems.empty();
             for (var i = 0; i < response.length; i++) {
                 rows += '<option value="' + response[i].id + '">' + response[i].nombre + '</option>';
             }
-            $('#Cargo').append(rows);
+            $('#TipoJugador').append(rows);
         },
         failure: function (response) {
             alert(response);
         }
     });
 }
-
 function MostrarTipoDocumento() {
     $.ajax({
         type: "GET",
@@ -266,18 +265,17 @@ function MostrarLocalidades() {
         }
     });
 }
-
 function confirmarBaja(id) {
-    alertify.confirm("Confirmar baja de empleado", function (e) {
+    alertify.confirm("Confirmar baja de Jugador", function (e) {
         if (e) {
-            alertify.success("Baja de empleado dada con exito");
+            alertify.success("Baja de Jugador dada con exito");
             $.ajax({
                 type: "POST",
-                url: "/Personas/Baja",
+                url: "/Personas/BajaJugador",
                 data: { id: id },
                 success: function (response) {
 
-                    window.location = "/Personas/ConsultarEmpleado";
+                    window.location = "/Personas/ConsultarJugador";
 
                 }
             });
@@ -329,15 +327,15 @@ function New() {
         var contra = $("#Contra").val();
         var calle = $("#Calle").val();
         var ncalle = $("#NCalle").val();
-        var cargo = $("#Cargo option:selected").val();
+        var tipojugador = $("#TipoJugador option:selected").val();
         var dpto = $("#Dpto").val();
         var piso = $("#Piso").val();
-        $("#PanelEmpleados").css("display", "none");
+        $("#PanelJugadores").css("display", "none");
         $("#DivCarga").css("display", "inline");
         $.ajax({
             type: "POST",
-            url: "/Personas/NewEmpleado",
-            data: { nombre, apellido, tipodoc, numero, mail, telefono, localidad, barrio, usuario, contra, calle, cargo, ncalle, dpto, piso },
+            url: "/Personas/NewJugador",
+            data: { nombre, apellido, tipodoc, numero, mail, telefono, localidad, barrio, usuario, contra, calle, tipojugador, ncalle, dpto, piso },
             success: function (response) {
                 if (response === "OK") {
                     $("#DivCarga img").attr("src", "../images/ok.png");
@@ -347,19 +345,19 @@ function New() {
                 if (response === "ERROR") {
                     $("#Error").html("Ocurrio un Error en la carga");
                     $("#DivCarga").css("display", "none");
-                    $("#PanelEmpleados").css("display", "inline");
+                    $("#PanelJugadores").css("display", "inline");
                 }
                 if (response === "EXISTE") {
-                    $("#Error").html("Ese empleado ya existe!!");
+                    $("#Error").html("Ese Jugador ya existe!!");
                     $("#DivCarga").css("display", "none");
-                    $("#PanelEmpleados").css("display", "inline");
+                    $("#PanelJugadores").css("display", "inline");
                 }
 
             },
             failure: function (response) {
 
                 $("#DivCarga").css("display", "none");
-                $("#PanelEmpleados").css("display", "inline");
+                $("#PanelJugadores").css("display", "inline");
                 $("#Error").html("Ocurrio un Error en la carga");
             }
         });
@@ -409,5 +407,5 @@ function ComprobarCampos() {
     return true;
 }
 function LimpiarCampos() {
-    window.location = "/Personas/RegistrarEmpleado";
+    window.location = "/Personas/RegistrarJugador";
 }

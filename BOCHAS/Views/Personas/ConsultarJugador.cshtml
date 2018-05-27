@@ -1,24 +1,24 @@
 ﻿
 
-<div id="containerEmpleadoAlta" ng-app=""   >
+<div id="containerJugadorAlta" ng-app=""   >
     <div class="panel panel-primary" >
         <div class="panel-heading" style="padding-bottom:0px;">
-            <h3><i class="fas fa-user-tie"></i> Empleados</h3>
+            <h3><i class="fas fa-user-shield"></i> Jugadores</h3>
 
         </div>
         <div class="panel-body">
 
             <div class="row">
                 <ul class="nav nav-tabs ">
-                    <li role="presentation"> <a asp-action="RegistrarEmpleado" asp-controller="Personas">Alta</a></li>
-                    <li role="presentation" class="active"><a id="ConsultaEmpleado" asp-action="ConsultarEmpleado" asp-controller="Personas">Consulta</a></li>
-                    <li role="presentation"><a asp-action="MostrarEmpleadoBajas" asp-controller="Personas">Consulta Bajas</a></li>
+                    <li role="presentation"> <a asp-action="RegistrarJugador" asp-controller="Personas">Alta</a></li>
+                    <li role="presentation" class="active"><a id="ConsultaJugador" asp-action="ConsultarEmpleado" asp-controller="Personas">Consulta</a></li>
+                    <li role="presentation"><a asp-action="MostrarJugadorBajas" asp-controller="Personas">Consulta Bajas</a></li>
                 </ul>
                 <br />
 
             </div>
             <br />
-            <div id="CEmpleados" class="col-sm-12" style="padding:0px;">
+            <div id="CJugadores" class="col-sm-12" style="padding:0px;">
 
 
             </div>
@@ -88,7 +88,7 @@
         <div class="modal-content ">
             <div class="modal-header" style="background:-webkit-gradient(linear, 96% 73%, 0% 0%, from(#AD9085), to(#CE2029));padding-bottom:0px;">
 
-                <h3 style="color:white;"><i class="fas fa-pencil-alt"></i> Editar Empleado</h3>
+                <h3 style="color:white;"><i class="fas fa-pencil-alt"></i> Editar Jugador</h3>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
 
             </div>
@@ -103,7 +103,7 @@
 
 @section Scripts {
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-    <script src="~/js/Empleados.js"></script>
+    <script src="~/js/Jugadores.js"></script>
 
 
 }

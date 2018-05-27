@@ -1,25 +1,25 @@
-﻿@model IEnumerable<BOCHAS.Models.Empleado>
+﻿@model IEnumerable<BOCHAS.Models.Jugador>
 
 
 
 
     <div class="panel panel-primary" >
         <div class="panel-heading" style="padding-bottom:0px;">
-            <h3><i class="fas fa-user-tie "></i>  Empleados</h3>
+            <h3><i class="fas fa-user-shield"></i> Jugadores</h3>
 
         </div>
         <div class="panel-body">
             <div class="row">
                 <ul class="nav nav-tabs ">
 
-                    <li role="presentation" > <a id="altaEmpleado" asp-action="RegistrarEmpleado" asp-controller="Personas">Alta</a></li>
-                    <li role="presentation"><a asp-action="ConsultarEmpleado" asp-controller="Personas">Consulta</a></li>
-                    <li role="presentation" class="active"><a asp-action="MostrarEmpleadoBajas" asp-controller="Personas">Consulta Bajas</a></li>
+                    <li role="presentation" > <a id="altaEmpleado" asp-action="RegistrarJugador" asp-controller="Personas">Alta</a></li>
+                    <li role="presentation"><a asp-action="ConsultarJugador" asp-controller="Personas">Consulta</a></li>
+                    <li role="presentation" class="active"><a asp-action="MostrarJugadorBajas" asp-controller="Personas">Consulta Bajas</a></li>
                 </ul>
                 <br />
                
                     <div class="col-lg-12 " style="padding:2%;">
-                        <table id="TablaEmpladosBaja" class=" table dt-responsive display nowrap"  style="width:100%;">
+                        <table id="TablaJugadoresBaja" class=" table dt-responsive display nowrap"  style="width:100%;">
                             <thead style="background-color: rgba(158, 44, 44, 0.9);color:white;">
                                 <tr>
                                     <th>
@@ -31,9 +31,7 @@
                                     <th>
                                         Apellido
                                     </th>
-                                    <th>
-                                        Fecha de Comienzo
-                                    </th>
+                                   
                                     <th>
                                         Fecha de Baja
                                     </th>
@@ -54,12 +52,8 @@
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.IdPersonaNavigation.Apellido)
-                                        </td>
-
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.FechaComienzo)
-                                        </td>
-                                        <td>
+                                        </td>                                                                                  
+                                         <td>
                                             @Html.DisplayFor(modelItem => item.IdPersonaNavigation.FechaBaja)
                                         </td>
                                         <td>
@@ -81,6 +75,6 @@
     </div>
 
 @section Scripts {
-    <script src="~/js/Empleados.js"></script>
+    <script src="~/js/Jugadores.js"></script>
 
 }

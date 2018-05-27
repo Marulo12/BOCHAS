@@ -20,8 +20,12 @@ namespace BOCHAS.Controllers
             _context = context;
         }
 
-        // GET: Personas
+        
         public IActionResult ConsultarEmpleado()
+        {
+            return View();
+        }
+        public IActionResult ConsultarJugador()
         {
             return View();
         }
@@ -47,7 +51,34 @@ namespace BOCHAS.Controllers
             
             return Json(await Empleado.ToListAsync());
         }
+        public async Task<JsonResult> MostrarJugadores()
+        {
+
+            var Jugador = (from p in _context.Persona
+                            from j in _context.Jugador
+                            from t in _context.TipoJugador
+
+                            where p.Id == j.IdPersona && j.IdTipoJugador == t.Id && p.Tipo.Contains("JUGADOR") && p.FechaBaja == null
+                            select new
+                            {
+                                Id = p.Id,
+                                Mail = p.Mail,
+                                Nombre = p.Nombre,
+                                Apellido = p.Apellido,
+                                Documento = p.NroDocumento,
+                                TIPO = t.Nombre,
+                                Telefono = p.Telefono
+
+                            }).OrderBy(u => u.Nombre).OrderBy(u => u.Apellido);
+
+            return Json(await Jugador.ToListAsync());
+        }
         public IActionResult RegistrarEmpleado()
+        {
+
+            return View();
+        }
+        public IActionResult RegistrarJugador()
         {
 
             return View();
@@ -130,7 +161,83 @@ namespace BOCHAS.Controllers
             }
             catch { return Json("ERROR"); }
         }
+        [HttpPost]
+        public JsonResult NewJugador(string Nombre, string Apellido, string TipoDoc, string Numero, string Mail, string Telefono, string Localidad, string Barrio, string usuario, string Contra, string Calle, string TipoJugador, string ncalle, string dpto, string piso)
+        {
+            try
+            {
+                //Verificar si existe esa persona
+                if (ExistePersona(Numero) == false)
+                {
+                    // crea domicilio
+                    Domicilio dom = new Domicilio();
+                    dom.IdBarrio = Convert.ToInt32(Barrio);
+                    dom.Numero = Convert.ToInt32(ncalle);
+                    dom.IdLocalidad = Convert.ToInt32(Localidad);
+                    dom.Calle = Calle;
 
+                    dom.Departamento = dpto;
+                    if (!string.IsNullOrEmpty(piso))
+                    {
+                        dom.Piso = Convert.ToInt32(piso);
+                    }
+                    _context.Domicilio.Add(dom);
+                    if (_context.SaveChanges() == 0)
+                    {
+                        return Json("ERROR");
+                    }
+                    var IdDom = _context.Domicilio.Max(i => i.Id);
+
+                    //crea usuario
+                    Usuario us = new Usuario();
+                    us.Nombre = usuario;
+                    us.Contraseña = Contra;
+                    _context.Usuario.Add(us);
+                    if (_context.SaveChanges() == 0)
+                    {
+                        return Json("ERROR");
+                    }
+                    var IdUs = _context.Usuario.Max(i => i.Id);
+
+                    // crea persona
+                    Persona per = new Persona();
+                    per.IdTipoDocumento = Convert.ToInt32(TipoDoc);
+                    per.IdDomicilio = IdDom;
+                    per.IdUsuario = IdUs;
+                    per.Mail = Mail;
+                    per.Nombre = Nombre;
+                    per.NroDocumento = Convert.ToInt32(Numero);
+                    per.Telefono = Telefono;
+                    per.Tipo = "JUGADOR";
+                    per.Apellido = Apellido;
+
+                    _context.Persona.Add(per);
+                    if (_context.SaveChanges() == 0)
+                    {
+                        return Json("ERROR");
+                    }
+                    var IdPer = _context.Persona.Max(i => i.Id);
+
+                    //Crea Jugador
+                    Jugador ju = new Jugador();
+                    
+                    ju.IdPersona = IdPer;
+                    ju.IdTipoJugador = Convert.ToInt32(TipoJugador);
+                    _context.Jugador.Add(ju);
+                    if (_context.SaveChanges() == 0)
+                    {
+                        return Json("ERROR");
+                    }
+
+                    return Json("OK");
+                }
+                else
+                {
+                    return Json("EXISTE");
+                }
+            }
+            catch { return Json("ERROR"); }
+        }
         public bool ExistePersona(string documento)
         {
             if (_context.Persona.Where(p => p.NroDocumento == Convert.ToInt32(documento) && p.FechaBaja == null).Count() >= 1 )
@@ -151,7 +258,7 @@ namespace BOCHAS.Controllers
 
         [HttpPost]
 
-        public async  Task<IActionResult> Baja(string id)
+        public async  Task<IActionResult> BajaEmpleado(string id)
         { int Id = Convert.ToInt32(id);
             var persona = await _context.Persona.SingleOrDefaultAsync(m => m.Id == Id );
             persona.FechaBaja = DateTime.Now;
@@ -163,9 +270,25 @@ namespace BOCHAS.Controllers
 
             return RedirectToAction("ConsultarEmpleado", "Personas","");
         }
+        public async Task<IActionResult> BajaJugador(string id)
+        {
+            int Id = Convert.ToInt32(id);
+            var persona = await _context.Persona.SingleOrDefaultAsync(m => m.Id == Id);
+            persona.FechaBaja = DateTime.Now;
+            
+            _context.Persona.Update(persona);
+            await _context.SaveChangesAsync();
 
+            return RedirectToAction("ConsultarJugador", "Personas", "");
+        }
 
         public IActionResult EditarEmpleado(int id)
+        {
+            var per = _context.Persona.Include(d => d.IdDomicilioNavigation).Include(u => u.IdUsuarioNavigation).Include(t => t.IdTipoDocumentoNavigation).Include(d => d.IdDomicilioNavigation.IdLocalidadNavigation).Include(d => d.IdDomicilioNavigation.IdBarrioNavigation).SingleOrDefault(p => p.Id == id);
+
+            return PartialView(per);
+        }
+        public IActionResult EditarJugador(int id)
         {
             var per = _context.Persona.Include(d => d.IdDomicilioNavigation).Include(u => u.IdUsuarioNavigation).Include(t => t.IdTipoDocumentoNavigation).Include(d => d.IdDomicilioNavigation.IdLocalidadNavigation).Include(d => d.IdDomicilioNavigation.IdBarrioNavigation).SingleOrDefault(p => p.Id == id);
 
@@ -221,7 +344,7 @@ namespace BOCHAS.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> EditJugador(int? id)
         {
             if (id == null)
             {
@@ -245,13 +368,41 @@ namespace BOCHAS.Controllers
                     //Log the error (uncomment ex variable name and write a log.)
                     ModelState.AddModelError("", "No se pudo guardar los cambios, verifique los datos..");
                 }
-                return RedirectToAction(nameof(ConsultarEmpleado));
+                return RedirectToAction(nameof(ConsultarJugador));
             }
            
-            return Redirect("ConsultarEmpleado");
+            return Redirect("ConsultarJugador");
         }
 
-        // GET: Personas/Delete/5
+        public async Task<IActionResult> EditEmpleado(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var PersonaToUpdate = await _context.Persona
+        .Include(i => i.IdDomicilioNavigation)
+        .Include(i => i.IdUsuarioNavigation)
+        .SingleOrDefaultAsync(m => m.Id == id);
+
+            if (await TryUpdateModelAsync<Persona>(
+                PersonaToUpdate))
+            {
+
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateException /* ex */)
+                {
+                    //Log the error (uncomment ex variable name and write a log.)
+                    ModelState.AddModelError("", "No se pudo guardar los cambios, verifique los datos..");
+                }
+                return RedirectToAction(nameof(ConsultarEmpleado));
+            }
+
+            return Redirect("ConsultarEmpleado");
+        }
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -268,7 +419,12 @@ namespace BOCHAS.Controllers
 
             return View(persona);
         }
+        public JsonResult MostrarTipoJugador()
+        {
+            var tipo = _context.TipoJugador.ToList();
+            return Json(tipo);
 
+        }
         public async Task<IActionResult> MostrarEmpleadoBajas()
         {
 
@@ -277,7 +433,13 @@ namespace BOCHAS.Controllers
             return View(await Empleado.ToListAsync());
         }
 
-        // POST: Personas/Delete/5
+        public async Task<IActionResult> MostrarJugadorBajas()
+        {
+
+            var Jugador = _context.Jugador.Include(p => p.IdPersonaNavigation).Include(p => p.IdPersonaNavigation.IdDomicilioNavigation).Include(d => d.IdPersonaNavigation.IdDomicilioNavigation.IdBarrioNavigation).Include(d => d.IdPersonaNavigation.IdDomicilioNavigation.IdLocalidadNavigation).Include(u => u.IdPersonaNavigation.IdUsuarioNavigation).Where( e => e.IdPersonaNavigation.Tipo == "JUGADOR" && e.IdPersonaNavigation.FechaBaja != null);
+
+            return View(await Jugador.ToListAsync());
+        }
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

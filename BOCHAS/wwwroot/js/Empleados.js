@@ -273,7 +273,7 @@ function confirmarBaja(id) {
             alertify.success("Baja de empleado dada con exito");
                 $.ajax({
                     type: "POST",
-                    url: "/Personas/Baja",
+                    url: "/Personas/BajaEmpleado",
                     data: { id: id },
                     success: function (response) {
                       

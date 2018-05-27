@@ -1,12 +1,12 @@
 ﻿@model BOCHAS.Models.Persona
 
 @{
-    ViewData["Title"] = "Editar Empleado";
+    ViewData["Title"] = "Editar Jugador";
 }
 
 <div class="row ">
     <div class="col-sm-12">
-        <form asp-action="EditEmpleado" method="post">
+        <form asp-action="EditJugador" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <input type="hidden" asp-for="FechaBaja" />
@@ -116,6 +116,6 @@
 
 
 @section Scripts {
-<script src="~/js/Empleados.js"></script>
+<script src="~/js/Jugadores.js"></script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
