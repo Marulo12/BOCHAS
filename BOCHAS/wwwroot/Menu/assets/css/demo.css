@@ -1,67 +1,18 @@
-@media (min-width: 992px){
-    .typo-line{
-        padding-left: 140px;
-        margin-bottom: 40px;
-        position: relative;
-    }
+/* All styles created for demo purposes only, you may not need this for your project */
+.demo-button button {
+  margin-bottom: 5px; }
 
-    .typo-line .category{
-        transform: translateY(-50%);
-        top: 50%;
-        left: 0px;
-        position: absolute;
-    }
-}
+.demo-icons li {
+  margin-bottom: 50px;
+  text-align: center; }
 
-.all-icons [class*="pe-"]{
-    font-size: 40px;
-}
-.all-icons input{
-    border: 0;
-}
-.all-icons .font-icon-detail{
-    text-align: center;
-    padding: 45px 0px 30px;
-    border: 1px solid #e5e5e5;
-    border-radius: 6px;
-    margin: 15px 0;
-}
-.all-icons .font-icon-detail input{
-    margin: 25px auto 0;
-    width: 100%;
-    text-align: center;
-    display: block;
-    color: #aaa;
-    font-size: 13px;
-}
+.demo-icons .lnr,
+.demo-icons .fa {
+  font-size: 28px; }
 
-#map{
-    position:relative;
-    width:100%;
-    height: calc(100% - 60px);
-}
+.demo-icons .cssclass {
+  display: block;
+  margin-top: 5px;
+  margin-left: 5px; }
 
-.places-buttons .btn{
-    margin-bottom: 30px
-}
-.sidebar .nav > li.active-pro{
-    position: absolute;
-    width: 100%;
-    bottom: 10px;
-}
-.sidebar .nav > li.active-pro a{
-    background: rgba(255, 255, 255, 0.14);
-    opacity: 1;
-    color: #FFFFFF;
-}
-
-.table-upgrade td:nth-child(2),
-.table-upgrade td:nth-child(3){
-    text-align: center;
-}
-
-@media all and (max-width: 991px)  {
-    .sidebar .nav > li.active-pro{
-        position: initial;
-    }
-}
+/*# sourceMappingURL=demo.css.map */

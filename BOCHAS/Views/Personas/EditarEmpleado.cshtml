@@ -4,7 +4,7 @@
     ViewData["Title"] = "Editar Empleado";
 }
 
-<div class="row">
+<div class="row ">
     <div class="col-sm-12">
         <form asp-action="Edit" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -35,19 +35,19 @@
                     @{
                         BOCHASContext bd = new BOCHASContext();
                     }
-                    <select asp-for="IdTipoDocumento" class="form-control btn btn-danger" asp-items="@(new SelectList(bd.TipoDocumento.ToList(),"Id","Nombre"))"></select>
+                    <select asp-for="IdTipoDocumento" class= "form-control" style="background-color: rgba(172, 44, 44, 0.9);color:white;" asp-items="@(new SelectList(bd.TipoDocumento.ToList(),"Id","Nombre"))"></select>
                     <span asp-validation-for="IdTipoDocumento" class="text-danger"></span>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
                     <label class="control-label">Localidad</label>
-                    <select id="Localidad" asp-for="IdDomicilioNavigation.IdLocalidad" class="form-control btn btn-danger" onchange="MostrarBarrio();" asp-items="@(new SelectList(bd.Localidad.ToList(),"Id","Nombre"))"></select>
+                    <select id="Localidad" asp-for="IdDomicilioNavigation.IdLocalidad" class= "form-control" style="background-color: rgba(172, 44, 44, 0.9);color:white;" onchange="MostrarBarrio();" asp-items="@(new SelectList(bd.Localidad.ToList(),"Id","Nombre"))"></select>
                     <span asp-validation-for="IdDomicilio" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Barrio</label>
-                    <select id="Barrio" asp-for="IdDomicilioNavigation.IdBarrio" class="form-control btn btn-danger"  asp-items="@(new SelectList(bd.Barrio.Where(b => b.IdLocalidad == Model.IdDomicilioNavigation.IdLocalidad).ToList(),"Id","Nombre")) "></select>
+                    <select id="Barrio" asp-for="IdDomicilioNavigation.IdBarrio" class= "form-control" style="background-color: rgba(172, 44, 44, 0.9);color:white;"  asp-items="@(new SelectList(bd.Barrio.Where(b => b.IdLocalidad == Model.IdDomicilioNavigation.IdLocalidad).ToList(),"Id","Nombre")) "></select>
                     <span asp-validation-for="IdDomicilio" class="text-danger"></span>
                 </div>
             </div>
