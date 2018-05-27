@@ -362,8 +362,7 @@ ul.notifications > li {
             font-size: 14px;
         }
     .sidebar .nav > li > a:focus, .sidebar .nav > li > a:hover {
-        border-left: 5px solid rgba(20, 168, 255, 0.6);
-        
+        border-left: 5px solid rgba(215, 40, 40, 0.9);
     }
     .sidebar .nav > li > a[data-toggle="collapse"] .icon-submenu {
       display: inline-block;

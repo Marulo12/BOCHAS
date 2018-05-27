@@ -64,7 +64,7 @@
 
     <div id="wrapper">
         <!-- NAVBAR -->
-        <nav class="navbar navbar-default navbar-fixed-top" style="background:-webkit-gradient(linear, 51% 13%, 16% 100%, from(#0093FF), to(#FFFFFF));">
+        <nav class="navbar navbar-default navbar-fixed-top" style="background: linear-gradient(148deg, rgba(249,246,246,1) 0%, rgba(11,115,180,1) 43%);">
             <div class="navbar-brand">
                 <img src="~/images/LogoBochas.png" alt="Klorofil Logo" class="img-responsive logo" width="56">
             </div>
@@ -107,7 +107,7 @@
                         <li class="dropdown">
                             @if (User.Identity.IsAuthenticated)
                             {
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img src="~/images/images.png" class="img-circle" alt="Avatar" width="40"><span style="color:white;"> @User.Identity.Name</span> </a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img src="~/images/user.jpg" class="img-circle" alt="Avatar" width="40"><span style="color:white;font-size:20px;"> @User.Identity.Name</span> </a>
                             }
                             <ul class="dropdown-menu">
                                 <li><a href="#"><i class="lnr lnr-user"></i> <span>Mi Perfil</span></a></li>
@@ -123,7 +123,7 @@
         </nav>
         <!-- END NAVBAR -->
         <!-- LEFT SIDEBAR -->
-        <div id="sidebar-nav" class="sidebar" style="width:160px;background-position:top;background-repeat:no-repeat;background-size:cover;background:linear-gradient(148deg, rgba(134,0,0,1) 0%, rgba(13,8,0,1) 95%);">
+        <div id="sidebar-nav" class="sidebar" style="width:160px;background-position:top;background-repeat:no-repeat;background-size:cover;background:linear-gradient(148deg, rgba(168,168,168,1) 0%, rgba(13,8,0,1) 95%);">
             <div class="sidebar-scroll">
                 <nav>
                     <ul class="nav">
@@ -188,8 +188,11 @@
                         </li>
                         <li><a asp-action="Index" asp-controller="Sessions"><i class="fab fa-algolia"></i> <span>Sessiones</span></a></li>
                         <li><a href="icons.html" class=""><i class="fas fa-file-alt"></i><span>Reportes</span></a></li>
+                        <li><a href="icons.html" class=""><i class="fas fa-book"></i><span>Ayuda</span></a></li>
                     </ul>
+
                 </nav>
+                <img src="~/images/extras/IsoAPC_400x400.png" width="140" style="margin-bottom:0px;margin-top:50%;" />
             </div>
         </div>
 
