@@ -342,7 +342,7 @@ function New() {
                 if (response === "OK") {
                     $("#DivCarga img").attr("src", "../images/ok.png");
                     $("#DivCarga img").attr("width", "250");
-                    $("#DivCarga .ok").append('<p><input id="Continuar" type="button" onclick="LimpiarCampos()" class="btn btn-outline-success"  style="margin-left:10%;" value="Continuar"/></p>');
+                    $("#DivCarga .ok").append('<p><input id="Continuar" type="button" onclick="LimpiarCampos()" class="btn btn-success"  style="margin-left:10%;" value="Continuar"/></p>');
                 }
                 if (response === "ERROR") {
                     $("#Error").html("Ocurrio un Error en la carga");

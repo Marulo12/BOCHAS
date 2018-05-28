@@ -54,23 +54,21 @@ namespace BOCHAS.Controllers
         public async Task<JsonResult> MostrarJugadores()
         {
 
-            var Jugador = (from p in _context.Persona
-                            from j in _context.Jugador
-                            from t in _context.TipoJugador
-
-                            where p.Id == j.IdPersona && j.IdTipoJugador == t.Id && p.Tipo.Contains("JUGADOR") && p.FechaBaja == null
-                            select new
+            var Jugador = (from p in _context.Persona                                                 
+                            where  p.Tipo.Contains("JUGADOR") && p.FechaBaja == null 
+                            select  new 
                             {
+                                
                                 Id = p.Id,
                                 Mail = p.Mail,
                                 Nombre = p.Nombre,
                                 Apellido = p.Apellido,
                                 Documento = p.NroDocumento,
-                                TIPO = t.Nombre,
+                               
                                 Telefono = p.Telefono
 
                             }).OrderBy(u => u.Nombre).OrderBy(u => u.Apellido);
-
+            
             return Json(await Jugador.ToListAsync());
         }
         public IActionResult RegistrarEmpleado()
@@ -454,7 +452,11 @@ namespace BOCHAS.Controllers
         {
             return _context.Persona.Any(e => e.Id == id);
         }
-       
+        public async Task<JsonResult> ConocerTipoJugador(string id)
+        {
+            var tipoJugador = (from p in _context.Persona join j in _context.Jugador on p.Id equals j.IdPersona join tj in _context.TipoJugador on j.IdTipoJugador equals tj.Id where p.Id == Convert.ToInt32(id) select new { Nombre = tj.Nombre });
+            return Json( await tipoJugador.ToListAsync());
+        }
     }
    
 }
