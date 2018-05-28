@@ -54,23 +54,21 @@ namespace BOCHAS.Controllers
         public async Task<JsonResult> MostrarJugadores()
         {
 
-            var Jugador = (from p in _context.Persona
-                            from j in _context.Jugador
-                            from t in _context.TipoJugador
-
-                            where p.Id == j.IdPersona && j.IdTipoJugador == t.Id && p.Tipo.Contains("JUGADOR") && p.FechaBaja == null
-                            select new
+            var Jugador = (from p in _context.Persona                                                 
+                            where  p.Tipo.Contains("JUGADOR") && p.FechaBaja == null 
+                            select  new 
                             {
+                                
                                 Id = p.Id,
                                 Mail = p.Mail,
                                 Nombre = p.Nombre,
                                 Apellido = p.Apellido,
                                 Documento = p.NroDocumento,
-                                TIPO = t.Nombre,
+                               
                                 Telefono = p.Telefono
 
                             }).OrderBy(u => u.Nombre).OrderBy(u => u.Apellido);
-
+            
             return Json(await Jugador.ToListAsync());
         }
         public IActionResult RegistrarEmpleado()

@@ -193,7 +193,7 @@ function ConocerTipoJugador(id) {
         success: function (response) {
             var li = "";
             for (var i = 0; i < response.length; i++) {
-                li += '<li style="width:100%;align-items:center;">' + response[i].nombre + '</li>';
+                li += '<li style="width:100%;"><i class="fas fa-angle-right"></i>' + response[i].nombre + '</li>';
             }
             $("#ListActividades").html(li);
         }
