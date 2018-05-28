@@ -75,9 +75,9 @@ function MostrarJugador(filtro) {
         success: function (response) {
             var dvItems = $("#CJugadores");
             dvItems.empty();
-            var Table = '<table id="TablaJugadores" class="table table-striped  display" style="width:100%;" ><thead style="background-color: rgba(158, 44, 44, 0.9);color:white"><tr><th>Nombre</th><th>Apellido</th><th>Documento</th><th>Telefono</th><th>Mail</th><th>Tipo</th><th ></th></tr></thead><tbody>';
+            var Table = '<table id="TablaJugadores" class="table table-striped  display" style="width:100%;" ><thead style="background-color: rgba(158, 44, 44, 0.9);color:white"><tr><th>Nombre</th><th>Apellido</th><th>Documento</th><th>Telefono</th><th>Mail</th><th ></th></tr></thead><tbody>';
             for (var i = 0; i < response.length; i++) {
-                Table += '<tr ><td>' + response[i].nombre + '</td>' + '<td>' + response[i].apellido + '</td>' + '<td>' + response[i].documento + '</td>' + '<td>' + response[i].telefono + '</td>' + '<td>' + response[i].mail + '</td>' + '<td>' + response[i].tipo + '</td> <td><div class="btn-group" style="padding-left:17%;"> <button class=" btn btn-sm btn-primary " data-toggle="tooltip" title="Informacion adicional" data-placement="top"  onclick="ConocerDomicilio(' + response[i].id + ');"><i class="far fa-address-card"></i></button><button  class=" btn btn-sm BtnEditar" data-toggle="tooltip" title="Modificar"  onclick="EditarJugador(' + response[i].id + ');" data-placement="top" ><i class="fas fa-pencil-alt"></i></button><button class="btn btn-sm btn-danger" data-toggle="tooltip" title="Baja" data-placement="top" onclick="confirmarBaja(' + response[i].id + ');"><i class="fas fa-trash-alt"></i></button></div></td></tr>';
+                Table += '<tr ><td>' + response[i].nombre + '</td>' + '<td>' + response[i].apellido + '</td>' + '<td>' + response[i].documento + '</td>' + '<td>' + response[i].telefono + '</td>' + '<td>' + response[i].mail + '</td>'  + '</td> <td><div class="btn-group" style="padding-left:17%;"> <button class=" btn btn-sm btn-primary " data-toggle="tooltip" title="Informacion adicional" data-placement="top"  onclick="ConocerDomicilio(' + response[i].id + ');"><i class="far fa-address-card"></i></button><button  class=" btn btn-sm BtnEditar" data-toggle="tooltip" title="Modificar"  onclick="EditarJugador(' + response[i].id + ');" data-placement="top" ><i class="fas fa-pencil-alt"></i></button><button class="btn btn-sm btn-danger" data-toggle="tooltip" title="Baja" data-placement="top" onclick="confirmarBaja(' + response[i].id + ');"><i class="fas fa-trash-alt"></i></button></div></td></tr>';
             }
             Table += "</tbody><tfoot></tfoot></table>";
             dvItems.append(Table);
@@ -136,7 +136,7 @@ function EditarJugador(id) {
 }
 
 function ConocerDomicilio(id) {
-
+    var idP = id;
     $.ajax({
         type: "GET",
         url: "/Personas/ConocerDomicilio",
@@ -154,6 +154,7 @@ function ConocerDomicilio(id) {
             $("#ModalContra").val();
             $("#ModalDpto").val();
             $("#ModalPiso").val();
+            ConocerTipoJugador(idP);
             for (var i = 0; i < response.length; i++) {
                 $("#ModalCalle").val(response[i].calle);
                 $("#ModalNumero").val(response[i].numero);
@@ -179,6 +180,28 @@ function ConocerDomicilio(id) {
         }
     });
 }
+
+function ConocerTipoJugador(id) {
+
+    $.ajax({
+
+        type: "GET",
+        url: "/Personas/ConocerTipoJugador",
+        data: { id },
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            var li = "";
+            for (var i = 0; i < response.length; i++) {
+                li += '<li style="width:100%;align-items:center;">' + response[i].nombre + '</li>';
+            }
+            $("#ListActividades").html(li);
+        }
+
+    });
+
+}
+
 function MostrarTipoJugador() {
     $.ajax({
         type: "GET",

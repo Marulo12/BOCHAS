@@ -454,7 +454,11 @@ namespace BOCHAS.Controllers
         {
             return _context.Persona.Any(e => e.Id == id);
         }
-       
+        public async Task<JsonResult> ConocerTipoJugador(string id)
+        {
+            var tipoJugador = (from p in _context.Persona join j in _context.Jugador on p.Id equals j.IdPersona join tj in _context.TipoJugador on j.IdTipoJugador equals tj.Id where p.Id == Convert.ToInt32(id) select new { Nombre = tj.Nombre });
+            return Json( await tipoJugador.ToListAsync());
+        }
     }
    
 }
