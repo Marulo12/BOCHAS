@@ -16,12 +16,7 @@
         <link href="~/lib/DataTables/DataTables-1.10.16/css/dataTables.bootstrap.css" rel="stylesheet" />
         <link href="~/lib/Alertify/alertify.core.css" rel="stylesheet" />
         <link href="~/lib/Alertify/alertify.default.css" rel="stylesheet" />
-
-
-
-
-
-
+        <link href="~/Menu/assets/vendor/pace/themes/red/pace-theme-minimal.css" rel="stylesheet" />
         <link rel="stylesheet" href="~/Menu/assets/vendor/linearicons/style.css">
         <link rel="stylesheet" href="~/Menu/assets/vendor/chartist/css/chartist-custom.css">
         <!-- MAIN CSS -->
@@ -34,7 +29,7 @@
         <link rel="apple-touch-icon" sizes="76x76" href="~/images/LogoBochas.png">
         <link rel="icon" type="image/png" sizes="96x96" href="~/images/LogoBochas.png">
         <!--  CSS for Demo Purpose, don't include it in your project     -->
-     
+
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -77,8 +72,8 @@
     <div id="wrapper">
         <!-- NAVBAR -->
         <nav class="navbar navbar-default navbar-fixed-top" style="background: linear-gradient(148deg, rgba(249,246,246,1) 0%, rgba(11,115,180,1) 43%);">
-            <div class="navbar-brand">
-                <img src="~/images/LogoBochas.png" alt="Klorofil Logo" class="img-responsive logo" width="56">
+            <div class="navbar-brand" style="padding:10px;">
+                <img src="~/images/LogoBochas.png" alt="Klorofil Logo" class="img-responsive logo" width="43">
             </div>
             <div class="container-fluid">
                 <div class="navbar-btn">
@@ -119,7 +114,7 @@
                         <li class="dropdown">
                             @if (User.Identity.IsAuthenticated)
                             {
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img src="~/images/user.jpg" class="img-circle" alt="Avatar" width="40"><span style="color:white;font-size:20px;"> @User.Identity.Name</span> </a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img src="~/images/user.jpg" class="img-circle" alt="Avatar" width="25"><span style="color:white;font-size:15px;"> @User.Identity.Name</span> </a>
                             }
                             <ul class="dropdown-menu">
                                 <li><a href="#"><i class="lnr lnr-user"></i> <span>Mi Perfil</span></a></li>
@@ -140,8 +135,8 @@
                 <nav>
                     <ul class="nav">
 
-                       
-                        <li style="margin-top:12px;border-bottom:1px solid white;"><a asp-action="Index" asp-controller="Home" class="active"><i class="lnr lnr-home"></i> <span>Escritorio</span></a></li>
+                        <li><a href="#" class=""><img  src="~/images/extras/baf01fb517749ccf4e1215d7576fe262-pelota-de-tenis-by-vexels.png" width="40"/><span>Menu</span></a></li>
+                        <li style="margin-top:0px;border-bottom:1px solid white;"><a asp-action="Index" asp-controller="Home" class="active"><i class="lnr lnr-home"></i> <span>Escritorio</span></a></li>
                         <li><a href="charts.html" class=""><i class="far fa-calendar-alt"></i><span>Agenda</span></a></li>
 
                         <li>
@@ -213,7 +208,7 @@
         <div class="main">
             <!-- MAIN CONTENT -->
             <div class="main-content">
-                <div class="container-fluid" style="margin-top:0.5%;">
+                <div class="container-fluid" >
                     <!-- OVERVIEW -->
                     @RenderBody()
 
@@ -266,7 +261,7 @@
         <script src="~/lib/Alertify/alertify.js"></script>
         <script src="~/lib/DataTables/datatables.js"></script>
         <script src="~/lib/DataTables/DataTables-1.10.16/js/dataTables.bootstrap.js"></script>
-
+        <script src="~/Menu/assets/vendor/pace/pace.js"></script>
 
         <script src="~/Menu/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
         <script src="~/Menu/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>

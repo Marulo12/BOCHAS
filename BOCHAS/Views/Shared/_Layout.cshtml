@@ -73,7 +73,7 @@
         <!-- NAVBAR -->
         <nav class="navbar navbar-default navbar-fixed-top" style="background: linear-gradient(148deg, rgba(249,246,246,1) 0%, rgba(11,115,180,1) 43%);">
             <div class="navbar-brand" style="padding:10px;">
-                <img src="~/images/LogoBochas.png" alt="Klorofil Logo" class="img-responsive logo" width="43">
+                <img src="~/images/LogoBochas.png" alt="Klorofil Logo" class="img-responsive logo" width="48">
             </div>
             <div class="container-fluid">
                 <div class="navbar-btn">
@@ -86,7 +86,7 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
                                 <i class="lnr lnr-alarm" style="color:white;"></i>
-                                <span class="badge bg-danger">5</span>
+                                <span class="badge bg-danger">5<span class="waves"></span></span>
                             </a>
                             <ul class="dropdown-menu notifications">
                                 <li><a href="#" class="notification-item"><span class="dot bg-warning"></span>System space is almost full</a></li>
@@ -100,7 +100,7 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
                                 <i class="lnr lnr-inbox" style="color:white;"></i>
-                                <span class="badge bg-danger">14</span>
+                                <span class="badge bg-danger">14  <span class="waves"></span></span>
                             </a>
                             <ul class="dropdown-menu notifications">
                                 <li><a href="#" class="notification-item"><span class="dot bg-warning"></span>System space is almost full</a></li>
@@ -114,7 +114,7 @@
                         <li class="dropdown">
                             @if (User.Identity.IsAuthenticated)
                             {
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img src="~/images/user.jpg" class="img-circle" alt="Avatar" width="25"><span style="color:white;font-size:15px;"> @User.Identity.Name</span> </a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img src="~/images/usuarioSinfond.png" class="img-circle" alt="Avatar" width="25"><span style="color:white;font-size:15px;"> @User.Identity.Name</span> </a>
                             }
                             <ul class="dropdown-menu">
                                 <li><a href="#"><i class="lnr lnr-user"></i> <span>Mi Perfil</span></a></li>
@@ -135,8 +135,8 @@
                 <nav>
                     <ul class="nav">
 
-                        <li><a href="#" class=""><img  src="~/images/extras/baf01fb517749ccf4e1215d7576fe262-pelota-de-tenis-by-vexels.png" width="40"/><span>Menu</span></a></li>
-                        <li style="margin-top:0px;border-bottom:1px solid white;"><a asp-action="Index" asp-controller="Home" class="active"><i class="lnr lnr-home"></i> <span>Escritorio</span></a></li>
+                        <li><a href="#" class=""><img  src="~/images/extras/baf01fb517749ccf4e1215d7576fe262-pelota-de-tenis-by-vexels.png" width="50"/><span>MENU</span></a></li>
+                        <li style="margin-top:0px;border-bottom:1px solid white;border-top:1px solid white;"><a asp-action="Index" asp-controller="Home" class="active"><i class="lnr lnr-home"></i> <span>Escritorio</span></a></li>
                         <li><a href="charts.html" class=""><i class="far fa-calendar-alt"></i><span>Agenda</span></a></li>
 
                         <li>
