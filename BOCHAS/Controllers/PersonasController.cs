@@ -457,6 +457,26 @@ namespace BOCHAS.Controllers
             var tipoJugador = (from p in _context.Persona join j in _context.Jugador on p.Id equals j.IdPersona join tj in _context.TipoJugador on j.IdTipoJugador equals tj.Id where p.Id == Convert.ToInt32(id) select new { Nombre = tj.Nombre });
             return Json( await tipoJugador.ToListAsync());
         }
+        [HttpPost]
+        public JsonResult AgregarTipoJugador(string IdPersona , string tipoJugador)
+        {
+            var existeJugadorxTipo = _context.Jugador.Where(j => j.IdPersona == Convert.ToInt32(IdPersona) && j.IdTipoJugador == Convert.ToInt32(tipoJugador)).ToList().Count();
+            if (existeJugadorxTipo > 0)
+            {
+                return Json("False");
+            }
+            else
+            {
+                Jugador jugador = new Jugador();
+                jugador.IdPersona = Convert.ToInt32(IdPersona);
+                jugador.IdTipoJugador = Convert.ToInt32(tipoJugador);
+                _context.Jugador.Add(jugador);
+                _context.SaveChanges(); 
+                return Json("OK");
+            }
+           
+
+        }
     }
    
 }
