@@ -32,20 +32,29 @@
             dom: 'Bfrtip',  
             buttons: [
                
-                'excel',
-                'pdf',
+                {
+                    extend: 'excel',
+                    text: 'excel',
+                    title: 'Empleados Activos'
+                },
+                {
+                    extend: 'pdfHtml5',
+                    text: 'PDF',
+                    title: 'Empleados Activos'
+                },
                 {
                     extend: 'print',
-                    text: 'Imprimir'
-                   
+                    text: 'Imprimir',
+                    title: 'Empleados Activos'
+
                 }
             ],
             language: {
                 processing: "Procesando",
                 search: "Filtro&nbsp;:",
-                info: "",
+                info: "Pagina _PAGE_ de _PAGES_  / <b>Total de Registros: _MAX_</b> " ,
                 infoEmpty: "",
-                infoFiltered: "(Filtrado de _MAX_ total de registros)",
+                infoFiltered: "",
                 zeroRecords: "Ningun registro coincide",
                 lengthMenu: "Mostrar _MENU_ registros",
                 infoPostFix: "",
@@ -86,14 +95,37 @@ function MostrarEmpleado(filtro) {
                 "scrollX": true,
                 responsive: true,
                 search: "Filtro&nbsp;:",
+                dom: 'Bfrtip',
+                buttons: [
+
+                    {
+                        extend: 'excel',
+                        text: 'excel',
+                        title: 'Empleados Activos'
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        text: 'PDF',
+                        title: 'Empleados Activos',
+                        messageTop: 'raro che' 
+                        
+                    },
+                    {
+                        extend: 'print',
+                        text: 'Imprimir',
+                        title:'Empleados Activos'
+
+                    }
+                    
+                ],
                 language: {
                     processing: "Procesando",
                     search: "Filtro&nbsp;:",
-
-                    info: "",
+                    lengthMenu: "Show _MENU_ entries",
+                    info: "Pagina _PAGE_ de _PAGES_  / <b>Total de Registros: _MAX_</b> ",
                     infoEmpty: "",
                     zeroRecords: "Ningun registro coincide",
-                    infoFiltered: "(Filtrado de _MAX_ total de registros)",
+                    infoFiltered: "",
                     lengthMenu: "Mostrar _MENU_ registros",
                     infoPostFix: "",
                     loadingRecords: "Cargando...",
