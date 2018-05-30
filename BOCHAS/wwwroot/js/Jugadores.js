@@ -257,14 +257,15 @@ function MostrarTipoJugador() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         url: "/Personas/MostrarTipoJugador",
-        success: function (response) {
-            var rows;
+        success: function (response) {           
             var dvItems = $("#TipoJugador");
-            dvItems.empty();
+            var rows = '<div class="checkbox">';
             for (var i = 0; i < response.length; i++) {
-                rows += '<option value="' + response[i].id + '">' + response[i].nombre + '</option>';
+                rows += '<label><input type="checkbox" value="' + response[i].id + '">' + response[i].nombre + '</label>&nbsp;';
+                          
             }
-            $('#TipoJugador').append(rows);
+            rows += "</div>";
+            dvItems.html(rows);
         },
         failure: function (response) {
             alert(response);

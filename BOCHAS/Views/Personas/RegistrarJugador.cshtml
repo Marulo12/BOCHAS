@@ -7,18 +7,14 @@
         <div class="panel-body">
             <div id="DivCarga" style="display:none;">
                 <div class="row">
-
                     <div class="col-sm-12 ok" style="padding-left:40%;">
                         <img src="~/images/carga.gif" alt="" width="200" />
                     </div>
                 </div>
             </div>
-
             <form id="PanelJugadores" class="form-group">
-
                 <div class="row">
                     <ul class="nav nav-tabs ">
-
                         <li role="presentation" class="active"> <a id="altaJugador" asp-action="RegistrarJugador" asp-controller="Personas">Alta</a></li>
                         <li role="presentation"><a asp-action="ConsultarJugador" asp-controller="Personas">Consulta</a></li>
                         <li role="presentation"><a asp-action="MostrarJugadorBajas" asp-controller="Personas">Consulta Bajas</a></li>
@@ -36,18 +32,14 @@
                 <div class="row" style="margin-top:10px;">
                     
                     <div class="col-sm-4"><label>Mail</label><input id="Mail" type="email" class="form-control" required /></div>
-                    <div class="col-sm-4"><label>Telefono</label><input id="Telefono" type="tel" class="form-control" required /></div>
+                    <div class="col-sm-3"><label>Telefono</label><input id="Telefono" type="tel" class="form-control" required /></div>
                     <div class="col-sm-4">
                        <br />
-                        <div class="checkbox">
-                            <label class="checkbox-inline"><input type="checkbox" value="">Clases Particulares</label>
-                            <label class="checkbox-inline"><input type="checkbox" value="">Jugador Particular</label>
-                        </div>
-                       
-                        
-                        <select id="TipoJugador" class="form-control" style="background-color: rgba(172, 44, 44, 0.9);color:white;display:none;">
-                            <option> Cargando..</option>
-                        </select>
+                        <div id="TipoJugador">
+
+                            
+                        </div>                                               
+                      
                     </div>
                 </div>
                 <hr />
