@@ -261,7 +261,7 @@ function MostrarTipoJugador() {
             var dvItems = $("#TipoJugador");
             var rows = '<div class="checkbox">';
             for (var i = 0; i < response.length; i++) {
-                rows += '<label><input type="checkbox" value="' + response[i].id + '">' + response[i].nombre + '</label>&nbsp;';
+                rows += '<label><input type="checkbox" name="TipoJugador" value="' + response[i].id + '">' + response[i].nombre + '</label>&nbsp;';
                           
             }
             rows += "</div>";
@@ -400,7 +400,11 @@ function New() {
         var contra = $("#Contra").val();
         var calle = $("#Calle").val();
         var ncalle = $("#NCalle").val();
-        var tipojugador = $("#TipoJugador option:selected").val();
+        var tipojugador = new Array();
+        $("input:checkbox:checked").each(function () {
+            tipojugador.push($(this).val());
+        });
+        
         var dpto = $("#Dpto").val();
         var piso = $("#Piso").val();
         $("#PanelJugadores").css("display", "none");
@@ -412,7 +416,7 @@ function New() {
             success: function (response) {
                 if (response === "OK") {
                     $("#DivCarga img").attr("src", "../images/ok.png");
-                    $("#DivCarga img").attr("width", "250");
+                    $("#DivCarga img").attr("width", "150");
                     $("#DivCarga .ok").append('<p><input id="Continuar" type="button" onclick="LimpiarCampos()" class="btn btn-success"  style="margin-left:10%;" value="Continuar"/></p>');
                 }
                 if (response === "ERROR") {
@@ -450,6 +454,11 @@ function ComprobarCampos() {
     }
     if ($("#Numero").val() === "") {
         alertify.error('No cargo el Numero de Documento');
+        return false;
+    }
+    const tipos = document.querySelectorAll('input[type=checkbox]:checked');
+    if (tipos.length <= 0) {
+        alertify.error("Marque una opcion tipo de jugador");
         return false;
     }
     if ($("#Mail").val() === "") {

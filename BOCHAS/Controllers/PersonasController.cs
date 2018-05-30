@@ -160,7 +160,7 @@ namespace BOCHAS.Controllers
             catch { return Json("ERROR"); }
         }
         [HttpPost]
-        public JsonResult NewJugador(string Nombre, string Apellido, string TipoDoc, string Numero, string Mail, string Telefono, string Localidad, string Barrio, string usuario, string Contra, string Calle, string TipoJugador, string ncalle, string dpto, string piso)
+        public JsonResult NewJugador(string Nombre, string Apellido, string TipoDoc, string Numero, string Mail, string Telefono, string Localidad, string Barrio, string usuario, string Contra, string Calle, List<string> TipoJugador, string ncalle, string dpto, string piso)
         {
             try
             {
@@ -217,11 +217,15 @@ namespace BOCHAS.Controllers
                     var IdPer = _context.Persona.Max(i => i.Id);
 
                     //Crea Jugador
-                    Jugador ju = new Jugador();
+                    foreach (var j in TipoJugador)
+                    {
+                        Jugador ju = new Jugador();
+
+                        ju.IdPersona = IdPer;
+                        ju.IdTipoJugador = Convert.ToInt32(j.ToString());
+                        _context.Jugador.Add(ju);
+                    }
                     
-                    ju.IdPersona = IdPer;
-                    ju.IdTipoJugador = Convert.ToInt32(TipoJugador);
-                    _context.Jugador.Add(ju);
                     if (_context.SaveChanges() == 0)
                     {
                         return Json("ERROR");
