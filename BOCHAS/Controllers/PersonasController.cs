@@ -282,7 +282,7 @@ namespace BOCHAS.Controllers
 
         public IActionResult EditarEmpleado(int id)
         {
-            var per = _context.Persona.Include(d => d.IdDomicilioNavigation).Include(u => u.IdUsuarioNavigation).Include(t => t.IdTipoDocumentoNavigation).Include(d => d.IdDomicilioNavigation.IdLocalidadNavigation).Include(d => d.IdDomicilioNavigation.IdBarrioNavigation).SingleOrDefault(p => p.Id == id);
+            var per = _context.Persona.Include(d => d.IdDomicilioNavigation).Include(u => u.IdUsuarioNavigation).Include(t => t.IdTipoDocumentoNavigation).Include(d => d.IdDomicilioNavigation.IdLocalidadNavigation).Include(d => d.IdDomicilioNavigation.IdBarrioNavigation).Include(p=>p.Empleado).SingleOrDefault(p => p.Id == id);
 
             return PartialView(per);
         }
@@ -381,6 +381,7 @@ namespace BOCHAS.Controllers
             var PersonaToUpdate = await _context.Persona
         .Include(i => i.IdDomicilioNavigation)
         .Include(i => i.IdUsuarioNavigation)
+        .Include(i=>i.Empleado)
         .SingleOrDefaultAsync(m => m.Id == id);
 
             if (await TryUpdateModelAsync<Persona>(

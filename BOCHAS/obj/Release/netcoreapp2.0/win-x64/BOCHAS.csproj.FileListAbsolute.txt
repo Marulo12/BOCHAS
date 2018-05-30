@@ -8,3 +8,13 @@ C:\Users\mboscatto\Desktop\BOCHAS\BOCHAS\obj\Release\netcoreapp2.0\win-x64\BOCHA
 C:\Users\mboscatto\Desktop\BOCHAS\BOCHAS\obj\Release\netcoreapp2.0\win-x64\BOCHAS.AssemblyInfo.cs
 C:\Users\mboscatto\Desktop\BOCHAS\BOCHAS\obj\Release\netcoreapp2.0\win-x64\BOCHAS.dll
 C:\Users\mboscatto\Desktop\BOCHAS\BOCHAS\obj\Release\netcoreapp2.0\win-x64\BOCHAS.pdb
+C:\Users\mboscatto\Documents\GitHub\BOCHAS\BOCHAS\bin\Release\netcoreapp2.0\win-x64\BOCHAS.deps.json
+C:\Users\mboscatto\Documents\GitHub\BOCHAS\BOCHAS\bin\Release\netcoreapp2.0\win-x64\BOCHAS.runtimeconfig.json
+C:\Users\mboscatto\Documents\GitHub\BOCHAS\BOCHAS\bin\Release\netcoreapp2.0\win-x64\BOCHAS.runtimeconfig.dev.json
+C:\Users\mboscatto\Documents\GitHub\BOCHAS\BOCHAS\bin\Release\netcoreapp2.0\win-x64\BOCHAS.dll
+C:\Users\mboscatto\Documents\GitHub\BOCHAS\BOCHAS\bin\Release\netcoreapp2.0\win-x64\BOCHAS.pdb
+C:\Users\mboscatto\Documents\GitHub\BOCHAS\BOCHAS\obj\Release\netcoreapp2.0\win-x64\BOCHAS.csproj.CoreCompileInputs.cache
+C:\Users\mboscatto\Documents\GitHub\BOCHAS\BOCHAS\obj\Release\netcoreapp2.0\win-x64\BOCHAS.AssemblyInfoInputs.cache
+C:\Users\mboscatto\Documents\GitHub\BOCHAS\BOCHAS\obj\Release\netcoreapp2.0\win-x64\BOCHAS.AssemblyInfo.cs
+C:\Users\mboscatto\Documents\GitHub\BOCHAS\BOCHAS\obj\Release\netcoreapp2.0\win-x64\BOCHAS.dll
+C:\Users\mboscatto\Documents\GitHub\BOCHAS\BOCHAS\obj\Release\netcoreapp2.0\win-x64\BOCHAS.pdb
