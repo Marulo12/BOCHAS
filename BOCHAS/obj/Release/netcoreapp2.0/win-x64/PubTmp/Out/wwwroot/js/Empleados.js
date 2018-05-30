@@ -121,7 +121,7 @@ function MostrarEmpleado(filtro) {
                 language: {
                     processing: "Procesando",
                     search: "Filtro&nbsp;:",
-                    lengthMenu: "Show _MENU_ entries",
+                
                     info: "Pagina _PAGE_ de _PAGES_  / <b>Total de Registros: _MAX_</b> ",
                     infoEmpty: "",
                     zeroRecords: "Ningun registro coincide",
@@ -192,7 +192,7 @@ function ConocerDomicilio(id) {
                 $("#ModalLocalidad").val(response[i].localidad);
                 $("#ModalBarrio").val(response[i].barrio);
                 $("#ModalUsuario").val(response[i].usuario);
-                if (response[i].piso == "0") {
+                if (response[i].piso === "0") {
                     $("#ModalPiso").val("");
                 }
                 else {
@@ -430,7 +430,7 @@ function ComprobarCampos() {
         return false;
     }
     if ($("#Calle").val() === "") {
-        alertify.error('No cargo la Calle');;
+        alertify.error('No cargo la Calle');
         return false;
     }
     if ($("#NCalle").val() === "") {
