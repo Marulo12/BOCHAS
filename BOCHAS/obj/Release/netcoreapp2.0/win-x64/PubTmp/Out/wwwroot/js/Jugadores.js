@@ -23,20 +23,30 @@
     });
 
     $("#TablaJugadoresBaja").after(function () {
+        $(".col-lg-12 img").hide();
+        $("#TablaJugadoresBaja").show();
         $("#TablaJugadoresBaja").DataTable({
             responsive: true,
-           
+
             "scrollX": true,
             searching: true,
 
             dom: 'Bfrtip',
             buttons: [
-
-                'excel',
-                'pdf',
+                {
+                    extend: 'excel',
+                    text: 'Excel',
+                    title: 'BOCHAS PADEL - Jugadores Activos'
+                },
+                {
+                    extend: 'pdfHtml5',
+                    text: 'PDF',
+                    title: 'BOCHAS PADEL - Jugadores Activos'
+                },
                 {
                     extend: 'print',
-                    text: 'Imprimir'
+                    text: 'Imprimir',
+                    title: 'BOCHAS PADEL - Jugadores Activos'
 
                 }
             ],
@@ -89,10 +99,29 @@ function MostrarJugador(filtro) {
                 "scrollX": true,
                 responsive: true,
                 search: "Filtro&nbsp;:",
+                dom: 'Bfrtip',
+                buttons: [
+                    {
+                        extend: 'excel',
+                        text: 'Excel',
+                        title: 'BOCHAS PADEL - Jugadores dados de baja'
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        text: 'PDF',
+                        title: 'BOCHAS PADEL - Jugadores dados de baja'
+
+                    },
+                    {
+                        extend: 'print',
+                        text: 'Imprimir',
+                        title: 'BOCHAS PADEL - Jugadores dados de baja'
+
+                    }
+                ],
                 language: {
                     processing: "Procesando",
                     search: "Filtro&nbsp;:",
-
                     info: "",
                     infoEmpty: "",
                     zeroRecords: "Ningun registro coincide",
@@ -145,16 +174,16 @@ function AbrirModalTipoJugador(id) {
 function AgregarTipoJugador() {
     var tipoJugador = $("#CmbModalTipoJugador option:selected").val();
     var IdPersona = $("#IdPersonaTipoJugador").val();
-    
+
     $.ajax({
         type: "POST",
         url: "/Personas/AgregarTipoJugador",
-        data: { IdPersona , tipoJugador },
-        
+        data: { IdPersona, tipoJugador },
+
         success: function (response) {
             if (response === "OK") {
                 alertify.success("Se agrego el tipo de jugador con exito");
-   
+
                 $("#ModalTipoJugador").modal('hide');
             }
             else {
@@ -258,13 +287,14 @@ function MostrarTipoJugador() {
         dataType: "json",
         url: "/Personas/MostrarTipoJugador",
         success: function (response) {
-            var rows;
             var dvItems = $("#TipoJugador");
-            dvItems.empty();
+            var rows = '<div class="checkbox">';
             for (var i = 0; i < response.length; i++) {
-                rows += '<option value="' + response[i].id + '">' + response[i].nombre + '</option>';
+                rows += '<label><input type="checkbox" name="TipoJugador" value="' + response[i].id + '">' + response[i].nombre + '</label>&nbsp;';
+
             }
-            $('#TipoJugador').append(rows);
+            rows += "</div>";
+            dvItems.html(rows);
         },
         failure: function (response) {
             alert(response);
@@ -338,23 +368,20 @@ function MostrarLocalidades() {
     });
 }
 function confirmarBaja(id) {
-    alertify.confirm("Confirmar baja de Jugador", function (e) {
-        if (e) {
-            alertify.success("Baja de Jugador dada con exito");
-            $.ajax({
-                type: "POST",
-                url: "/Personas/BajaJugador",
-                data: { id: id },
-                success: function (response) {
+    alertify.confirm('Confirmar', 'Dar de baja al Jugador?', function () {
+        alertify.success("Baja de Jugador dada con exito");
+        $.ajax({
+            type: "POST",
+            url: "/Personas/BajaJugador",
+            data: { id: id },
+            success: function (response) {
 
-                    window.location = "/Personas/ConsultarJugador";
+                window.location = "/Personas/ConsultarJugador";
 
-                }
-            });
-        } else {
-            alertify.error("Baja Cancelada");
-        }
-    });
+            }
+        });
+    }
+        , function () { alertify.error('Baja Cancelada') });
 
 }
 var usuarioExiste = false;
@@ -399,7 +426,11 @@ function New() {
         var contra = $("#Contra").val();
         var calle = $("#Calle").val();
         var ncalle = $("#NCalle").val();
-        var tipojugador = $("#TipoJugador option:selected").val();
+        var tipojugador = new Array();
+        $("input:checkbox:checked").each(function () {
+            tipojugador.push($(this).val());
+        });
+
         var dpto = $("#Dpto").val();
         var piso = $("#Piso").val();
         $("#PanelJugadores").css("display", "none");
@@ -410,17 +441,17 @@ function New() {
             data: { nombre, apellido, tipodoc, numero, mail, telefono, localidad, barrio, usuario, contra, calle, tipojugador, ncalle, dpto, piso },
             success: function (response) {
                 if (response === "OK") {
-                    $("#DivCarga img").attr("src", "../images/ok.png");
-                    $("#DivCarga img").attr("width", "250");
-                    $("#DivCarga .ok").append('<p><input id="Continuar" type="button" onclick="LimpiarCampos()" class="btn btn-success"  style="margin-left:10%;" value="Continuar"/></p>');
+                    $("#DivCarga").css("display", "none");
+
+                    alertify.alert('Alerta', 'Jugador cargado con exito').set('onok', function (closeEvent) { window.location = "/Personas/RegistrarJugador"; });
                 }
                 if (response === "ERROR") {
-                    $("#Error").html("Ocurrio un Error en la carga");
+                    alertify.alert('Alerta', 'Ocurrio un error en la operacion..').set('onok', function (closeEvent) { window.location = "/Personas/RegistrarJugador"; });
                     $("#DivCarga").css("display", "none");
                     $("#PanelJugadores").css("display", "inline");
                 }
                 if (response === "EXISTE") {
-                    $("#Error").html("Ese Jugador ya existe!!");
+                    alertify.alert('Alerta', 'Ocurrio un error en la operacion..').set('onok', function (closeEvent) { window.location = "/Personas/RegistrarJugador"; });
                     $("#DivCarga").css("display", "none");
                     $("#PanelJugadores").css("display", "inline");
                 }
@@ -430,7 +461,7 @@ function New() {
 
                 $("#DivCarga").css("display", "none");
                 $("#PanelJugadores").css("display", "inline");
-                $("#Error").html("Ocurrio un Error en la carga");
+                alertify.alert('Alerta', 'Ocurrio un error en la operacion..').set('onok', function (closeEvent) { window.location = "/Personas/RegistrarJugador"; });
             }
         });
     }
@@ -449,6 +480,11 @@ function ComprobarCampos() {
     }
     if ($("#Numero").val() === "") {
         alertify.error('No cargo el Numero de Documento');
+        return false;
+    }
+    const tipos = document.querySelectorAll('input[type=checkbox]:checked');
+    if (tipos.length <= 0) {
+        alertify.error("Marque una opcion tipo de jugador");
         return false;
     }
     if ($("#Mail").val() === "") {

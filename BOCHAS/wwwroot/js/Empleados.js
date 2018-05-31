@@ -23,18 +23,18 @@
     });
     
     $("#TablaEmpladosBaja").after(function () {
+        $(".col-lg-12 img").hide();
+        $("#TablaEmpladosBaja").show();
         $("#TablaEmpladosBaja").DataTable({
-            responsive: true,   
-           
+            responsive: true,             
             "scrollX": true,
-            searching: true,
-           
+            searching: true,           
             dom: 'Bfrtip',  
             buttons: [
                
                 {
                     extend: 'excel',
-                    text: 'excel',
+                    text: 'Excel',
                     title: 'Empleados Activos'
                 },
                 {
@@ -68,8 +68,8 @@
                 }
             }
         });
-       
-       
+
+      
     });
 });
 
@@ -82,6 +82,7 @@ function MostrarEmpleado(filtro) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
+
             var dvItems = $("#CEmpleados");
             dvItems.empty();
             var Table = '<table id="TablaEmpleados" class="table table-striped  display" style="width:100%;" ><thead style="background-color: rgba(158, 44, 44, 0.9);color:white"><tr><th>Nombre</th><th>Apellido</th><th>Documento</th><th>Telefono</th><th>Mail</th><th>Cargo</th><th ></th></tr></thead><tbody>';

@@ -19,53 +19,53 @@
               </div>
             <div class="row">
                
-                    <div class="col-lg-12 " style="padding:1%;">
-                        <table id="TablaJugadoresBaja" class=" table dt-responsive display nowrap"  style="width:100%;">
-                            <thead style="background-color: rgba(158, 44, 44, 0.9);color:white;">
-                                <tr>
-                                    <th>
-                                        Usuario
-                                    </th>
-                                    <th>
-                                        Nombre
-                                    </th>
-                                    <th>
-                                        Apellido
-                                    </th>
-                                   
-                                    <th>
-                                        Fecha de Baja
-                                    </th>
-                                    <th>
-                                        Localidad
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model.OrderByDescending(p => p.IdPersonaNavigation.FechaBaja))
-                                {
-                                    <tr>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.IdPersonaNavigation.IdUsuarioNavigation.Nombre)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.IdPersonaNavigation.Nombre)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.IdPersonaNavigation.Apellido)
-                                        </td>                                                                                  
-                                         <td>
-                                            @Html.DisplayFor(modelItem => item.IdPersonaNavigation.FechaBaja)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.IdPersonaNavigation.IdDomicilioNavigation.IdLocalidadNavigation.Nombre)
-                                        </td>
+                <div class="col-lg-12 " style="padding:1%;">
+                    <table id="TablaJugadoresBaja" class=" table dt-responsive display nowrap" style="width:100%;display:none;">
+                        <thead style="background-color: rgba(158, 44, 44, 0.9);color:white;">
+                            <tr>
+                                <th>
+                                    Usuario
+                                </th>
+                                <th>
+                                    Nombre
+                                </th>
+                                <th>
+                                    Apellido
+                                </th>
 
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                  
+                                <th>
+                                    Fecha de Baja
+                                </th>
+                                <th>
+                                    Localidad
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.OrderByDescending(p => p.IdPersonaNavigation.FechaBaja))
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.IdPersonaNavigation.IdUsuarioNavigation.Nombre)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.IdPersonaNavigation.Nombre)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.IdPersonaNavigation.Apellido)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.IdPersonaNavigation.FechaBaja)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.IdPersonaNavigation.IdDomicilioNavigation.IdLocalidadNavigation.Nombre)
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <img id="ImgLoad" src="~/images/carga.gif" alt="" width="200" style="margin-left:40%;" />
 
                 </div>
                 

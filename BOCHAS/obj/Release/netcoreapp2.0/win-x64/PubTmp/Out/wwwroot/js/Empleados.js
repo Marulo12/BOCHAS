@@ -23,18 +23,18 @@
     });
     
     $("#TablaEmpladosBaja").after(function () {
+        $(".col-lg-12 img").hide();
+        $("#TablaEmpladosBaja").show();
         $("#TablaEmpladosBaja").DataTable({
-            responsive: true,   
-           
+            responsive: true,             
             "scrollX": true,
-            searching: true,
-           
+            searching: true,           
             dom: 'Bfrtip',  
             buttons: [
                
                 {
                     extend: 'excel',
-                    text: 'excel',
+                    text: 'Excel',
                     title: 'Empleados Activos'
                 },
                 {
@@ -68,8 +68,8 @@
                 }
             }
         });
-       
-       
+
+      
     });
 });
 
@@ -82,6 +82,7 @@ function MostrarEmpleado(filtro) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
+
             var dvItems = $("#CEmpleados");
             dvItems.empty();
             var Table = '<table id="TablaEmpleados" class="table table-striped  display" style="width:100%;" ><thead style="background-color: rgba(158, 44, 44, 0.9);color:white"><tr><th>Nombre</th><th>Apellido</th><th>Documento</th><th>Telefono</th><th>Mail</th><th>Cargo</th><th ></th></tr></thead><tbody>';
@@ -300,23 +301,23 @@ function MostrarLocalidades() {
 }
 
 function confirmarBaja(id) {   
-    alertify.confirm("Confirmar baja de empleado", function (e) {
-        if (e) {           
-            alertify.success("Baja de empleado dada con exito");
-                $.ajax({
-                    type: "POST",
-                    url: "/Personas/BajaEmpleado",
-                    data: { id: id },
-                    success: function (response) {
-                      
-                        window.location = "/Personas/ConsultarEmpleado";
-                       
-                    }
-                });                      
-        } else {
-            alertify.error("Baja Cancelada");
-        }
-    });
+
+    alertify.confirm('Confirmar', 'Dar de baja al empleado?', function () {
+        alertify.success("Baja de empleado dada con exito");
+        $.ajax({
+            type: "POST",
+            url: "/Personas/BajaEmpleado",
+            data: { id: id },
+            success: function (response) {
+
+                window.location = "/Personas/ConsultarEmpleado";
+
+            }
+        });     }
+        , function () { alertify.error('Baja Cancelada') });
+
+
+   
     
 }
 var usuarioExiste = false;
@@ -372,12 +373,12 @@ function New() {
             data: { nombre, apellido, tipodoc, numero, mail, telefono, localidad, barrio, usuario, contra, calle, cargo, ncalle , dpto, piso },
             success: function (response) {
                 if (response === "OK") {
-                    $("#DivCarga img").attr("src", "../images/ok.png");
-                    $("#DivCarga img").attr("width", "250");
-                    $("#DivCarga .ok").append('<p><input id="Continuar" type="button" onclick="LimpiarCampos()" class="btn btn-success"  style="margin-left:10%;" value="Continuar"/></p>');
+
+                    $("#DivCarga").css("display", "none");
+                    alertify.alert('Alerta','Empleado cargado con exito').set('onok', function (closeEvent) { window.location = "/Personas/RegistrarEmpleado"; }); 
                 }
                 if (response === "ERROR") {
-                    $("#Error").html("Ocurrio un Error en la carga");
+                    alertify.alert('Alerta', 'Ocurrio un error en la operacion..').set('onok', function (closeEvent) { window.location = "/Personas/RegistrarEmpleado"; });
                     $("#DivCarga").css("display", "none");
                     $("#PanelEmpleados").css("display", "inline");
                 }
@@ -389,10 +390,9 @@ function New() {
 
             },
             failure: function (response) {
-
-                $("#DivCarga").css("display", "none");
-                $("#PanelEmpleados").css("display", "inline");
-                $("#Error").html("Ocurrio un Error en la carga");
+                alertify.alert('Alerta', 'Ocurrio un error en la operacion..').set('onok', function (closeEvent) { window.location = "/Personas/RegistrarEmpleado"; });
+              
+               
             }
         });
     }
