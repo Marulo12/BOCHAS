@@ -112,11 +112,9 @@
             <div class="sidebar-scroll">
                 <nav>
                     <ul class="nav">
-                        <li><img  src="~/images/extras/baf01fb517749ccf4e1215d7576fe262-pelota-de-tenis-by-vexels.png" width="30" style="margin-left:10%;margin-bottom:8%;"/>&nbsp;<label style="color:white;font-size:20px;">Menú</label></li>
-                      
+                        <li><img  src="~/images/extras/baf01fb517749ccf4e1215d7576fe262-pelota-de-tenis-by-vexels.png" width="25" style="margin-left:10%;margin-bottom:8%;"/>&nbsp;<label style="color:white;font-size:20px;">Menú</label></li>                     
                         <li style="margin-top:0px;border-bottom:1px solid white;border-top:1px solid white;"><a asp-action="Index" asp-controller="Home" class="active"><i class="lnr lnr-home"></i> <span>Escritorio</span></a></li>
                         <li><a href="charts.html" class=""><i class="far fa-calendar-alt"></i><span>Agenda</span></a></li>
-
                         <li>
                             <a href="#subPagesEmpleados" data-toggle="collapse" class="collapsed">   <i class="fa fa-fw fa-user-tie"></i> <span>Empleados</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                             <div id="subPagesEmpleados" class="collapse ">
@@ -199,7 +197,7 @@
     </div>
 
     <div id="ModalContraseña" class="modal fade" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog ">
 
 
             <div class="modal-content">
@@ -223,8 +221,11 @@
 
                 </div>
                 <div class="modal-footer">
-                    <input id="BtnCambiaContra" type="button" class="btn btn-info" value="Aceptar" />
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <div class="col-sm-11">
+                        <input id="BtnCambiaContra" type="button" class="btn btn-info" value="Aceptar" />
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    </div>
+                    
                 </div>
             </div>
 

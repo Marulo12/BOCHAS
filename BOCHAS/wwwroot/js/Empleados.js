@@ -68,7 +68,8 @@
                 }
             }
         });
-
+        $("#TablaSessiones_filter").append($("div .btn-group"));
+        $("div .btn-group").css("float", "left");
       
     });
 });
@@ -140,7 +141,8 @@ function MostrarEmpleado(filtro) {
                 }
                     });
 
-
+            $("#TablaSessiones_filter").append($("div .btn-group"));
+            $("div .btn-group").css("float", "left");
             $('[data-toggle="tooltip"]').tooltip();
         },
         failure: function (response) {
@@ -314,7 +316,7 @@ function confirmarBaja(id) {
 
             }
         });     }
-        , function () { alertify.error('Baja Cancelada') });
+        , function () { alertify.error('Baja Cancelada'); });
 
 
    

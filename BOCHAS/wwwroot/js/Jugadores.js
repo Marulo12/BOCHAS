@@ -53,9 +53,9 @@
             language: {
                 processing: "Procesando",
                 search: "Filtro&nbsp;:",
-                info: "",
+                info: "Pagina _PAGE_ de _PAGES_  / <b>Total de Registros: _MAX_</b> ",
                 infoEmpty: "",
-                infoFiltered: "(Filtrado de _MAX_ total de registros)",
+                infoFiltered: "",
                 zeroRecords: "Ningun registro coincide",
                 lengthMenu: "Mostrar _MENU_ registros",
                 infoPostFix: "",
@@ -69,7 +69,8 @@
                 }
             }
         });
-
+        $("#TablaSessiones_filter").append($("div .btn-group"));
+        $("div .btn-group").css("float", "left");
 
     });
     $("#BtnTipoJugador").click(function () {
@@ -122,10 +123,10 @@ function MostrarJugador(filtro) {
                 language: {
                     processing: "Procesando",
                     search: "Filtro&nbsp;:",
-                    info: "",
+                    info: "Pagina _PAGE_ de _PAGES_  / <b>Total de Registros: _MAX_</b> ",
                     infoEmpty: "",
+                    infoFiltered: "",
                     zeroRecords: "Ningun registro coincide",
-                    infoFiltered: "(Filtrado de _MAX_ total de registros)",
                     lengthMenu: "Mostrar _MENU_ registros",
                     infoPostFix: "",
                     loadingRecords: "Cargando...",
@@ -138,7 +139,8 @@ function MostrarJugador(filtro) {
                     }
                 }
             });
-
+            $("#TablaSessiones_filter").append($("div .btn-group"));
+            $("div .btn-group").css("float", "left");
 
             $('[data-toggle="tooltip"]').tooltip();
         },
@@ -239,7 +241,7 @@ function ConocerDomicilio(id) {
                 $("#ModalLocalidad").val(response[i].localidad);
                 $("#ModalBarrio").val(response[i].barrio);
                 $("#ModalUsuario").val(response[i].usuario);
-                if (response[i].piso == "0") {
+                if (response[i].piso === "0") {
                     $("#ModalPiso").val("");
                 }
                 else {
@@ -381,7 +383,7 @@ function confirmarBaja(id) {
             }
         });
     }
-        , function () { alertify.error('Baja Cancelada') });
+        , function () { alertify.error('Baja Cancelada'); });
 
 }
 var usuarioExiste = false;
@@ -504,7 +506,7 @@ function ComprobarCampos() {
         return false;
     }
     if ($("#Calle").val() === "") {
-        alertify.error('No cargo la Calle');;
+        alertify.error('No cargo la Calle');
         return false;
     }
     if ($("#NCalle").val() === "") {
