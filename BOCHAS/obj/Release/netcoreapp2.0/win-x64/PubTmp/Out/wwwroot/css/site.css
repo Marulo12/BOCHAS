@@ -25,12 +25,33 @@
 #qrCode {
     margin: 15px;
 }
+#ImgLoad {
+    margin-left: 40%;
+}
 
-/* Hide/rearrange for smaller screens */
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 700px) {
     /* Hide captions */
     .carousel-caption {
         display: none;
     }
+
+    #ImgLoad {
+        margin-left: 20%;
+    }
+
+   div .col-sm-12 ok {
+        padding-left: 20%;
+    }
+}
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 400px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
+    #ImgLoad {
+    margin-left:12%;
+    }
+  
 }
 

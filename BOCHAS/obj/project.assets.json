@@ -13143,11 +13143,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\mboscatto\\Desktop\\BOCHAS\\BOCHAS\\BOCHAS.csproj",
+      "projectUniqueName": "C:\\Users\\mboscatto\\Documents\\GitHub\\BOCHAS\\BOCHAS\\BOCHAS.csproj",
       "projectName": "BOCHAS",
-      "projectPath": "C:\\Users\\mboscatto\\Desktop\\BOCHAS\\BOCHAS\\BOCHAS.csproj",
+      "projectPath": "C:\\Users\\mboscatto\\Documents\\GitHub\\BOCHAS\\BOCHAS\\BOCHAS.csproj",
       "packagesPath": "C:\\Users\\mboscatto\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\mboscatto\\Desktop\\BOCHAS\\BOCHAS\\obj\\",
+      "outputPath": "C:\\Users\\mboscatto\\Documents\\GitHub\\BOCHAS\\BOCHAS\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

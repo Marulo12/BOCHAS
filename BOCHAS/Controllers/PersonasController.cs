@@ -160,7 +160,7 @@ namespace BOCHAS.Controllers
             catch { return Json("ERROR"); }
         }
         [HttpPost]
-        public JsonResult NewJugador(string Nombre, string Apellido, string TipoDoc, string Numero, string Mail, string Telefono, string Localidad, string Barrio, string usuario, string Contra, string Calle, string TipoJugador, string ncalle, string dpto, string piso)
+        public JsonResult NewJugador(string Nombre, string Apellido, string TipoDoc, string Numero, string Mail, string Telefono, string Localidad, string Barrio, string usuario, string Contra, string Calle, List<string> TipoJugador, string ncalle, string dpto, string piso)
         {
             try
             {
@@ -217,11 +217,15 @@ namespace BOCHAS.Controllers
                     var IdPer = _context.Persona.Max(i => i.Id);
 
                     //Crea Jugador
-                    Jugador ju = new Jugador();
+                    foreach (var j in TipoJugador)
+                    {
+                        Jugador ju = new Jugador();
+
+                        ju.IdPersona = IdPer;
+                        ju.IdTipoJugador = Convert.ToInt32(j.ToString());
+                        _context.Jugador.Add(ju);
+                    }
                     
-                    ju.IdPersona = IdPer;
-                    ju.IdTipoJugador = Convert.ToInt32(TipoJugador);
-                    _context.Jugador.Add(ju);
                     if (_context.SaveChanges() == 0)
                     {
                         return Json("ERROR");
@@ -282,7 +286,7 @@ namespace BOCHAS.Controllers
 
         public IActionResult EditarEmpleado(int id)
         {
-            var per = _context.Persona.Include(d => d.IdDomicilioNavigation).Include(u => u.IdUsuarioNavigation).Include(t => t.IdTipoDocumentoNavigation).Include(d => d.IdDomicilioNavigation.IdLocalidadNavigation).Include(d => d.IdDomicilioNavigation.IdBarrioNavigation).SingleOrDefault(p => p.Id == id);
+            var per = _context.Persona.Include(d => d.IdDomicilioNavigation).Include(u => u.IdUsuarioNavigation).Include(t => t.IdTipoDocumentoNavigation).Include(d => d.IdDomicilioNavigation.IdLocalidadNavigation).Include(d => d.IdDomicilioNavigation.IdBarrioNavigation).Include(p=>p.Empleado).SingleOrDefault(p => p.Id == id);
 
             return PartialView(per);
         }
@@ -381,6 +385,7 @@ namespace BOCHAS.Controllers
             var PersonaToUpdate = await _context.Persona
         .Include(i => i.IdDomicilioNavigation)
         .Include(i => i.IdUsuarioNavigation)
+        .Include(i=>i.Empleado)
         .SingleOrDefaultAsync(m => m.Id == id);
 
             if (await TryUpdateModelAsync<Persona>(
@@ -456,6 +461,26 @@ namespace BOCHAS.Controllers
         {
             var tipoJugador = (from p in _context.Persona join j in _context.Jugador on p.Id equals j.IdPersona join tj in _context.TipoJugador on j.IdTipoJugador equals tj.Id where p.Id == Convert.ToInt32(id) select new { Nombre = tj.Nombre });
             return Json( await tipoJugador.ToListAsync());
+        }
+        [HttpPost]
+        public JsonResult AgregarTipoJugador(string IdPersona , string tipoJugador)
+        {
+            var existeJugadorxTipo = _context.Jugador.Where(j => j.IdPersona == Convert.ToInt32(IdPersona) && j.IdTipoJugador == Convert.ToInt32(tipoJugador)).ToList().Count();
+            if (existeJugadorxTipo > 0)
+            {
+                return Json("False");
+            }
+            else
+            {
+                Jugador jugador = new Jugador();
+                jugador.IdPersona = Convert.ToInt32(IdPersona);
+                jugador.IdTipoJugador = Convert.ToInt32(tipoJugador);
+                _context.Jugador.Add(jugador);
+                _context.SaveChanges(); 
+                return Json("OK");
+            }
+           
+
         }
     }
    
