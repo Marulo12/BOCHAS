@@ -69,9 +69,9 @@
                 }
             }
         });
+       
         $("#TablaSessiones_filter").append($("div .btn-group"));
         $("div .btn-group").css("float", "left");
-
     });
     $("#BtnTipoJugador").click(function () {
         AgregarTipoJugador();
