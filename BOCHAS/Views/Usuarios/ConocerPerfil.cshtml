@@ -1,0 +1,70 @@
+﻿@model BOCHAS.Models.Persona
+
+
+   
+  
+<dl style="margin-left:0px;">
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Nombre)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.Nombre)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.Apellido)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.Apellido)
+    </dd>
+    <dt>
+        Tipo de Documento
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.IdTipoDocumentoNavigation.Nombre)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.NroDocumento)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.NroDocumento)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.Mail)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.Mail)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.Telefono)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.Telefono)
+    </dd>
+    <dt>
+        Localidad
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.IdDomicilioNavigation.IdLocalidadNavigation.Nombre)
+    </dd>
+    <dt>
+        Barrio
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.IdDomicilioNavigation.IdBarrioNavigation.Nombre)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.IdDomicilioNavigation.Calle)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.IdDomicilioNavigation.Calle)
+    </dd>
+
+    <dt>
+        Usuario
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.IdUsuarioNavigation.Nombre)
+    </dd>
+</dl>
+

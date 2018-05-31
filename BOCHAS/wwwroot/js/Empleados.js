@@ -35,17 +35,17 @@
                 {
                     extend: 'excel',
                     text: 'Excel',
-                    title: 'Empleados Activos'
+                    title: 'Empleados dados de baja'
                 },
                 {
                     extend: 'pdfHtml5',
                     text: 'PDF',
-                    title: 'Empleados Activos'
+                    title: 'Empleados dados de baja'
                 },
                 {
                     extend: 'print',
                     text: 'Imprimir',
-                    title: 'Empleados Activos'
+                    title: 'Empleados dados de baja'
 
                 }
             ],
@@ -122,8 +122,7 @@ function MostrarEmpleado(filtro) {
                 ],
                 language: {
                     processing: "Procesando",
-                    search: "Filtro&nbsp;:",
-                
+                    search: "Filtro&nbsp;:",              
                     info: "Pagina _PAGE_ de _PAGES_  / <b>Total de Registros: _MAX_</b> ",
                     infoEmpty: "",
                     zeroRecords: "Ningun registro coincide",
