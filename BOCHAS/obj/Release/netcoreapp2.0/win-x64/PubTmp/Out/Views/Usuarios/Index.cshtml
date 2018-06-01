@@ -39,13 +39,15 @@
         <div class="container-login100">
             <div class="wrap-login100">
                 <form class="login100-form validate-form" asp-action="ValidarUsuario" asp-controller="Usuarios">
-                    
                     <span class="login100-form-title p-b-10">
-                       <img class="img-fluid" src="~/images/LogoBochas.png" width="200"/>
+                        <img class="img-fluid" src="~/images/extras/padel3.png" width="150" style="z-index:10000;position:absolute;margin-top:110px;margin-right:300px;margin-left:-120px;" />
+                    </span>
+                    <span class="login100-form-title p-b-10">
+                        <img class="img-fluid" src="~/images/LogoBochas.png" width="150" />
                     </span>
 
                     <div class="wrap-input100 validate-input" data-validate="Ingrese el nombre de usuario">
-                        <input class="input100" type="text"  name="Usuario">
+                        <input class="input100" type="text" name="Usuario">
                         <span class="focus-input100" data-placeholder="Usuario"></span>
                     </div>
 
@@ -63,7 +65,7 @@
                             <input type="submit" class="login100-form-btn bg-alizarin" value="Login" />
                         </div>
                         <div class="label text-danger mt-4">@TempData["Mensaje"]</div>
-                        
+
                     </div>
 
                     <div class="text-center p-t-20">

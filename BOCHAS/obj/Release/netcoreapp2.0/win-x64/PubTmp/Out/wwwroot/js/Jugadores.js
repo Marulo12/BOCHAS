@@ -36,17 +36,17 @@
                 {
                     extend: 'excel',
                     text: 'Excel',
-                    title: 'BOCHAS PADEL - Jugadores Activos'
+                    title: 'BOCHAS PADEL - Jugadores dados de baja'
                 },
                 {
                     extend: 'pdfHtml5',
                     text: 'PDF',
-                    title: 'BOCHAS PADEL - Jugadores Activos'
+                    title: 'BOCHAS PADEL - Jugadores dados de baja'
                 },
                 {
                     extend: 'print',
                     text: 'Imprimir',
-                    title: 'BOCHAS PADEL - Jugadores Activos'
+                    title: 'BOCHAS PADEL - Jugadores dados de baja'
 
                 }
             ],
@@ -105,18 +105,18 @@ function MostrarJugador(filtro) {
                     {
                         extend: 'excel',
                         text: 'Excel',
-                        title: 'BOCHAS PADEL - Jugadores dados de baja'
+                        title: 'BOCHAS PADEL - Jugadores activos'
                     },
                     {
                         extend: 'pdfHtml5',
                         text: 'PDF',
-                        title: 'BOCHAS PADEL - Jugadores dados de baja'
+                        title: 'BOCHAS PADEL - Jugadores activos'
 
                     },
                     {
                         extend: 'print',
                         text: 'Imprimir',
-                        title: 'BOCHAS PADEL - Jugadores dados de baja'
+                        title: 'BOCHAS PADEL - Jugadores activos'
 
                     }
                 ],
@@ -292,7 +292,7 @@ function MostrarTipoJugador() {
             var dvItems = $("#TipoJugador");
             var rows = '<div class="checkbox">';
             for (var i = 0; i < response.length; i++) {
-                rows += '<label><input type="checkbox" name="TipoJugador" value="' + response[i].id + '">' + response[i].nombre + '</label>&nbsp;';
+                rows += '<label><input type="checkbox" name="TipoJugador" value="' + response[i].id + '">' + response[i].nombre + '</label>&nbsp;&nbsp;&nbsp;&nbsp;';
 
             }
             rows += "</div>";
