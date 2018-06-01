@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <title>BSC</title>
+    <title>BOCHAS PADEL</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
@@ -35,8 +35,10 @@
 </head>
 <body>
 
+   
     <div class="limiter">
         <div class="container-login100">
+
             <div class="wrap-login100">
                 <form class="login100-form validate-form" asp-action="ValidarUsuario" asp-controller="Usuarios">
                     <span class="login100-form-title p-b-10">
@@ -73,7 +75,7 @@
                             Ya estas registrado?
                         </span>
 
-                        <a class="txt2" href="#">
+                        <a class="txt2" asp-action="NuevoJugador" asp-controller="Home">
                             Crear Cuenta
                         </a>
                     </div>
