@@ -31,12 +31,11 @@ namespace BOCHAS.Controllers
         public IActionResult NuevoJugador()
         {
           
-
             return View();
 
         }
         [HttpPost]
-        public IActionResult NewJugador(string Nombre, string Apellido, string TipoDoc, string Numero, string Mail, string Telefono, string Localidad, string Barrio, string usuario, string Contra, string Calle, string ncalle, string dpto, string piso)
+        public JsonResult NewJugador(string Nombre, string Apellido, string TipoDoc, string Numero, string Mail, string Telefono, string Localidad, string Barrio, string usuario, string Contra, string Calle, string ncalle, string dpto, string piso)
         {
             try
             {
@@ -99,21 +98,20 @@ namespace BOCHAS.Controllers
                         ju.IdPersona = IdPer;
                         ju.IdTipoJugador = 1;
                         _context.Jugador.Add(ju);
-                    
-
+                   
                     if (_context.SaveChanges() == 0)
                     {
-                        return RedirectToAction("Index", "Usuarios", "");
+                        return Json("ERROR");
                     }
 
-                    return RedirectToAction("Index","Usuarios","");
+                    return Json("OK");
                 }
                 else
                 {
-                    return RedirectToAction("Index", "Usuarios", "");
+                    return Json("EXISTE");
                 }
             }
-            catch { return RedirectToAction("Index", "Usuarios", ""); }
+            catch { return Json("ERROR"); }
         }
         public bool ExistePersona(string documento)
         {
@@ -122,6 +120,54 @@ namespace BOCHAS.Controllers
                 return true;
             }
             return false;
+        }
+        public async Task<JsonResult> ConocerDomicilio(string IdPersona)
+        {
+            int idP = Convert.ToInt32(IdPersona);
+            var IdDomicilio = (from p in _context.Persona where p.Id == idP select new { IdDomicilio = p.IdDomicilio }).ToList();
+
+            var Domicilio = (from d in _context.Domicilio join l in _context.Localidad on d.IdLocalidad equals l.Id join b in _context.Barrio on d.IdBarrio equals b.Id join p in _context.Persona on d.Id equals p.IdDomicilio join u in _context.Usuario on p.IdUsuario equals u.Id where d.Id == Convert.ToInt32(IdDomicilio[0].IdDomicilio) select new { barrio = b.Nombre, localidad = l.Nombre, numero = d.Numero, calle = d.Calle, usuario = u.Nombre, contra = u.Contraseña, Dpto = d.Departamento, Piso = d.Piso });
+            return Json(await Domicilio.ToListAsync());
+        }
+        public JsonResult MostrarBarrios(string IdLocalidad)
+        {
+            try
+            {
+                int IdL = Convert.ToInt32(IdLocalidad);
+                var barrios = (from b in _context.Barrio where b.IdLocalidad == IdL select b).ToList();
+                return Json(barrios);
+            }
+            catch
+            {
+                return Json("");
+            }
+
+
+        }
+        public JsonResult ValidarUsuario(string usuario)
+        {
+            var Usuario = _context.Persona.Include(p => p.IdUsuarioNavigation).Where(u => u.IdUsuarioNavigation.Nombre == usuario && u.FechaBaja == null).Count();
+            if (Usuario > 0)
+            {
+                return Json("False");
+
+            }
+            else
+            {
+                return Json("OK");
+            }
+        }
+        public async Task<JsonResult> MostrarTipoDocumento()
+        {
+
+            return Json(await _context.TipoDocumento.ToListAsync());
+
+        }
+        public async Task<JsonResult> MostrarLocalidades()
+        {
+
+            return Json(await _context.Localidad.ToListAsync());
+
         }
         /*    public IActionResult Error()
             {

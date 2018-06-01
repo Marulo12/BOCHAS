@@ -13,71 +13,73 @@
     <link href="~/Menu/assets/css/bootstrap.css" rel="stylesheet" />
     <link href="~/Menu/assets/css/light-bootstrap-dashboard.css" rel="stylesheet" />
     <link href="~/Menu/assets/css/main.css" rel="stylesheet" />
+    <link href="~/lib/Alertify/alertify.css" rel="stylesheet" />
+    <link href="~/lib/Alertify/themes/bootstrap.css" rel="stylesheet" />
     <link rel="icon" type="image/png" href="~/images/LogoBochas.png" />
     <title>BOCHAS PADEL</title>
 </head>
-<body style=" background: linear-gradient(135deg, #cc0000 0%,#0a1896 0%,#cccccc 46%,#cccccc 58%,#cc0000 100%);height:100%;padding-top:2%;">
+<body id="altaJugador" style=" background: linear-gradient(135deg, #cc0000 0%,#0a1896 0%,#cccccc 46%,#cccccc 58%,#cc0000 100%);height:100%;padding-top:2%;">
     <div class="container-fluid" ng-app="">
         <div class="panel panel-default">
             <div class="panel-heading" style="padding:0px;background-color:white;">
                 <h3><img src="~/images/extras/padel (3).png" width="150" />Nueva Cuenta</h3>
             </div>
             <div class="panel-body">
-                <form asp-action="NewJugador" asp-controller="Home" method="post">
+                <form >
                     <div class="row">
 
                         <div class="col-md-3">
 
                             <div class="form-group">
                                 <label asp-for="Nombre" class="control-label"></label>
-                                <input asp-for="Nombre" name="Nombre" ng-model="Nombre" class="form-control" />
-                                <span asp-validation-for="Nombre" class="text-danger"></span>
+                                <input id="Nombre" ng-model="Nombre" class="form-control" />
+
                                 <br />
                                 <label>Localidad</label>
-                                <select asp-for="IdDomicilioNavigation.IdLocalidad" name="Localidad" class="form-control" asp-items="@(new SelectList(bd.Localidad.ToList(),"Id","Nombre"))"></select>
+                                <select id="Localidad" class="form-control"></select>
 
 
                             </div>
                         </div>
 
                         <div class="col-md-3">
-                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
                             <div class="form-group">
                                 <label asp-for="Apellido" class="control-label"></label>
-                                <input asp-for="Apellido" name="Apellido" ng-model="Apellido" class="form-control" />
-                                <span asp-validation-for="Apellido" class="text-danger"></span>
+                                <input id="Apellido" ng-model="Apellido" class="form-control" />
+
                                 <br />
                                 <label>Barrio</label>
-                                <select asp-for="IdDomicilioNavigation.IdBarrio" name="Barrio" class="form-control" asp-items="@(new SelectList(bd.Barrio.ToList(),"Id","Nombre"))"></select>
+                                <select id="Barrio" class="form-control"></select>
 
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Tipo Documento</label>
-                                <select asp-for="IdTipoDocumento" name="TipoDoc" class="form-control" asp-items="@(new SelectList(bd.TipoDocumento.ToList(),"Id","Nombre"))"></select>
+                                <select id="TipoDoc" class="form-control"></select>
                                 <br />
                                 <label asp-for="IdDomicilioNavigation.Calle" class="control-label"></label>
-                                <input asp-for="IdDomicilioNavigation.Calle" name="Calle" class="form-control" />
-                                <span asp-validation-for="IdDomicilioNavigation.Calle" class="text-danger"></span>
+                                <input id="Calle" class="form-control" />
+
 
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>N° Documento</label>
-                                <span asp-validation-for="NroDocumento" class="text-danger"></span>
-                                <input asp-for="NroDocumento" name="Numero" class="form-control" />
+
+                                <input id="Numero" class="form-control" />
                                 <br />
                                 <br />
                                 <div class="form-group form-inline">
                                     <label>N°</label>
-                                    <span asp-validation-for="IdDomicilioNavigation.Numero" class="text-danger"></span>
-                                    <input asp-for="IdDomicilioNavigation.Numero" name="ncalle" class="form-control" style="width:70px;" />
+
+                                    <input id="ncalle" class="form-control" style="width:70px;" />
                                     <label asp-for="IdDomicilioNavigation.Piso" class="control-label"></label>
-                                    <input asp-for="IdDomicilioNavigation.Piso" class="form-control" name="piso" style="width:60px;" />
+                                    <input class="form-control" id="piso" style="width:60px;" />
                                     <label class="control-label">Dpto</label>
-                                    <input asp-for="IdDomicilioNavigation.Departamento" class="form-control" name="dpto" style="width:60px;" />
+                                    <input class="form-control" id="dpto" style="width:60px;" />
                                 </div>
                             </div>
                         </div>
@@ -91,8 +93,8 @@
                             <div class="form-group">
 
                                 <label asp-for="Mail" class="control-label"></label>
-                                <input asp-for="Mail" name="Mail" class="form-control" />
-                                <span asp-validation-for="Mail" class="text-danger"></span>
+                                <input id="Mail" class="form-control" />
+
 
 
                             </div>
@@ -103,26 +105,26 @@
                             <div class="form-group">
 
                                 <label asp-for="Telefono" class="control-label"></label>
-                                <input asp-for="Telefono" name="Telefono" class="form-control" />
-                                <span asp-validation-for="Telefono" class="text-danger"></span>
+                                <input asp-for="Telefono" id="Telefono" class="form-control" />
+
 
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label class="control-label">Usuario para el sistema</label>
-                                <input asp-for="IdUsuarioNavigation.Nombre" name="usuario" value="{{Nombre.charAt(0) + Apellido}}" placeholder="Usuario" class="form-control" />
-                                <span asp-validation-for="IdUsuarioNavigation.Nombre" class="text-danger"></span>
+                                <input id="usuario" value="{{Nombre.charAt(0) + Apellido}}" placeholder="Usuario" class="form-control" />
+
 
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label class="control-label">Contraseña</label>
-                                <input type="password" asp-for="IdUsuarioNavigation.Contraseña" name="Contra" class="form-control" />
-                                <span asp-validation-for="IdUsuarioNavigation.Contraseña" class="text-danger"></span>
+                                <input type="password" id="Contra" class="form-control" />
+
                                 <br />
-                                <input type="submit" value="Crear" class="btn btn-success form-control" style="margin-top:6px;color:white;" />
+                                <input type="button" id="Registrar" value="Crear" class="btn btn-success form-control" style="margin-top:6px;color:white;" />
                             </div>
                         </div>
                     </div>
@@ -132,10 +134,12 @@
         </div>
 
     </div>
-
+    <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/Menu/assets/vendor/bootstrap/js/bootstrap.js"></script>
-    <script src="~/Menu/assets/vendor/bootstrap/js/npm.js"></script>
+
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-    
+
+    <script src="~/lib/Alertify/alertify.js"></script>
+    <script src="~/js/JugadorExterno.js"></script>
 </body>
 </html>
