@@ -1,0 +1,107 @@
+﻿@using BOCHAS.Models
+@model Persona
+@{
+    ViewData["Title"] = "NuevoJugador";
+    Layout = null;
+}
+@{
+    BOCHASContext bd = new BOCHASContext();
+}
+<!Doctype html>
+<html>
+<head>
+    <link href="~/Menu/assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Menu/assets/css/light-bootstrap-dashboard.css" rel="stylesheet" />
+    <link href="~/Menu/assets/css/main.css" rel="stylesheet" />
+</head>
+<body style=" background: linear-gradient(135deg, #cc0000 0%,#0a1896 0%,#cccccc 46%,#cccccc 58%,#cc0000 100%);height:100%;padding-top:2%;">
+    <div class="container-fluid">
+        <div class="panel panel-default">
+            <div class="panel-heading" style="padding:0px;background-color:white;">
+               
+                 <img src="~/images/extras/padel (3).png" width="200" />
+            </div>
+            <div class="panel-body">
+                <form asp-action="NuevoJugador">
+                    <div class="row">
+
+                        <div class="col-md-3">
+
+                            <div class="form-group">
+                                <label asp-for="Nombre" class="control-label"></label>
+                                <input asp-for="Nombre" class="form-control" />
+                                <span asp-validation-for="Nombre" class="text-danger"></span>
+                                <br />
+                                <label asp-for="NroDocumento" class="control-label"></label>
+                                <input asp-for="NroDocumento" class="form-control" />
+
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group">
+                                <label asp-for="Apellido" class="control-label"></label>
+                                <input asp-for="Apellido" class="form-control" />
+                                <span asp-validation-for="Apellido" class="text-danger"></span>
+                                <br />
+                                <span asp-validation-for="NroDocumento" class="text-danger"></span>
+                                <label asp-for="IdTipoDocumento" class="control-label"></label>
+                                <select asp-for="IdTipoDocumento" class="form-control" asp-items="@(new SelectList(bd.TipoDocumento.ToList(),"Id","Nombre"))"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label asp-for="IdDomicilio" class="control-label"></label>
+                                <select asp-for="IdDomicilio" class="form-control" asp-items="ViewBag.IdDomicilio"></select>
+                                <br />
+
+                                <label asp-for="IdUsuario" class="control-label"></label>
+                                <select asp-for="IdUsuario" class="form-control" asp-items="ViewBag.IdUsuario"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label asp-for="FechaBaja" class="control-label"></label>
+                                <input asp-for="FechaBaja" class="form-control" />
+                                <span asp-validation-for="FechaBaja" class="text-danger"></span>
+                                <br />
+                                <label asp-for="Mail" class="control-label"></label>
+                                <input asp-for="Mail" class="form-control" />
+                                <span asp-validation-for="Mail" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label asp-for="Telefono" class="control-label"></label>
+                                <input asp-for="Telefono" class="form-control" />
+                                <span asp-validation-for="Telefono" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <br />
+                                <input type="submit" value="Crear" class="btn btn-success" style="margin-top:6px;color:white;" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="~/Menu/assets/vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="~/Menu/assets/vendor/bootstrap/js/npm.js"></script>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+</body>
+</html>
