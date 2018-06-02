@@ -27,7 +27,11 @@ namespace BOCHAS.Controllers
             return View();
         }
 
-
+        [Authorize]
+        public IActionResult IndexJugadores()
+        {
+            return View();
+        }
         public IActionResult NuevoJugador()
         {
           
@@ -35,7 +39,7 @@ namespace BOCHAS.Controllers
 
         }
         [HttpPost]
-        public JsonResult NewJugador(string Nombre, string Apellido, string TipoDoc, string Numero, string Mail, string Telefono, string Localidad, string Barrio, string usuario, string Contra, string Calle, string ncalle, string dpto, string piso)
+        public JsonResult NewJugador(string Nombre, string Apellido, string TipoDoc, string Numero, string Mail, string Telefono, string Localidad, string Barrio, string usuario, string Contra, string Calle, List<string> TipoJugador, string ncalle, string dpto, string piso)
         {
             try
             {
@@ -92,12 +96,16 @@ namespace BOCHAS.Controllers
                     var IdPer = _context.Persona.Max(i => i.Id);
 
                     //Crea Jugador
-                   
+
+                    foreach (var j in TipoJugador)
+                    {
                         Jugador ju = new Jugador();
 
                         ju.IdPersona = IdPer;
-                        ju.IdTipoJugador = 1;
+                        ju.IdTipoJugador = Convert.ToInt32(j.ToString());
                         _context.Jugador.Add(ju);
+                    }
+                   
                    
                     if (_context.SaveChanges() == 0)
                     {
@@ -112,6 +120,12 @@ namespace BOCHAS.Controllers
                 }
             }
             catch { return Json("ERROR"); }
+        }
+        public JsonResult MostrarTipoJugador()
+        {
+            var tipo = _context.TipoJugador.ToList();
+            return Json(tipo);
+
         }
         public bool ExistePersona(string documento)
         {

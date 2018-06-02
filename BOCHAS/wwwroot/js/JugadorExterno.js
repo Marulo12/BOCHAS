@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
     $("#altaJugador").after(function () {
-        MostrarTipoDocumento(); MostrarLocalidades(); 
+        MostrarTipoDocumento(); MostrarLocalidades(); MostrarTipoJugador(); 
     });
     
 
@@ -17,7 +17,27 @@
 });
 
 
+function MostrarTipoJugador() {
+    $.ajax({
+        type: "GET",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        url: "/Home/MostrarTipoJugador",
+        success: function (response) {
+            var dvItems = $("#TipoJugador");
+            var rows = '<div class="checkbox">';
+            for (var i = 0; i < response.length; i++) {
+                rows += '<label><input type="checkbox" name="TipoJugador" value="' + response[i].id + '">' + response[i].nombre + '</label>&nbsp;&nbsp;&nbsp;&nbsp;';
 
+            }
+            rows += "</div>";
+            dvItems.html(rows);
+        },
+        failure: function (response) {
+            alert(response);
+        }
+    });
+}
 
 function MostrarTipoDocumento() {
     $.ajax({
@@ -128,14 +148,18 @@ function New() {
         var usuario = $("#Usuario").val();
         var contra = $("#Contra").val();
         var calle = $("#Calle").val();
+        var tipojugador = new Array();
+        $("input:checkbox:checked").each(function () {
+            tipojugador.push($(this).val());
+        });
         var ncalle = $("#NCalle").val();       
         var dpto = $("#Dpto").val();
         var piso = $("#Piso").val();
-        window.alert(nombre + apellido + tipodoc + numero + mail + telefono + barrio + usuario + contra + calle + ncalle + dpto + piso );
+       
         $.ajax({
             type: "POST",
             url: "/Home/NewJugador",
-            data: { nombre, apellido, tipodoc, numero, mail, telefono, localidad, barrio, usuario, contra, calle, ncalle, dpto, piso },
+            data: { nombre, apellido, tipodoc, numero, mail, telefono, localidad, barrio, usuario, contra, calle, tipojugador, ncalle, dpto, piso },
             success: function (response) {
                 if (response === "OK") {
                   
@@ -179,6 +203,11 @@ function ComprobarCampos() {
     
     if ($("#Mail").val() === "") {
         alertify.error('No cargo el Mail');
+        return false;
+    }
+    const tipos = document.querySelectorAll('input[type=checkbox]:checked');
+    if (tipos.length <= 0) {
+        alertify.error("Marque una opcion tipo de jugador");
         return false;
     }
     if ($("#Telefono").val() === "") {

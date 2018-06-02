@@ -1,0 +1,59 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link href="~/lib/DataTables/datatables.css" rel="stylesheet" />
+    <link href="~/lib/DataTables/DataTables-1.10.16/css/dataTables.bootstrap.css" rel="stylesheet" />
+    <link href="~/lib/Alertify/alertify.css" rel="stylesheet" />
+    <link href="~/lib/Alertify/themes/bootstrap.css" rel="stylesheet" />
+    <link rel="apple-touch-icon" sizes="76x76" href="~/images/LogoBochas.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="~/images/LogoBochas.png">
+    <meta name="viewport" content="width=device-width" />
+    <title>_LayoutJugadores</title>
+</head>
+<body>
+    <nav class="navbar " style="background: linear-gradient(90deg, rgba(243,243,245,1) 0%, rgba(195,78,78,1) 42%, rgba(190,41,41,1) 100%);">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar" >
+                    <span class="icon-bar" style="background-color:black;"></span>
+                    <span class="icon-bar" style="background-color:black;"></span>
+                    <span class="icon-bar" style="background-color:black;"></span>
+                </button>
+                <img src="~/images/LogoBochas.png" width="45" class="img-fluid" />
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav" style="font-size:16px;">
+                    <li class="active"><a href="#" style="color:black;">Home</a></li>
+                    <li><a href="#" class="text-dark" style="color:black;">Page 1</a></li>
+                    <li><a href="#" style="color:black;">Page 2</a></li>
+                    <li><a href="#" style="color:black;">Page 3</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#" style="color:black;"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                    <li><a href="#" style="color:black;"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section style="margin-top:5%;">
+        <div class="container">
+            @RenderBody()
+        </div>
+    </section>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+    <script src="~/lib/Alertify/alertify.js"></script>
+    <script src="~/lib/DataTables/datatables.js"></script>
+    <script src="~/lib/DataTables/DataTables-1.10.16/js/dataTables.bootstrap.js"></script>
+</body>
+</html>

@@ -7,7 +7,7 @@
 <html>
 <head>
     <link href="~/Menu/assets/css/bootstrap.css" rel="stylesheet" />
-    <link href="~/Menu/assets/css/light-bootstrap-dashboard.css" rel="stylesheet" />
+   
     <link href="~/Menu/assets/css/main.css" rel="stylesheet" />
     <link href="~/lib/Alertify/alertify.css" rel="stylesheet" />
     <link href="~/lib/Alertify/themes/bootstrap.css" rel="stylesheet" />
@@ -17,8 +17,8 @@
 <body id="altaJugador" style=" background: linear-gradient(135deg, #cc0000 0%,#0a1896 0%,#cccccc 46%,#cccccc 58%,#cc0000 100%);height:100%;padding-top:2%;">
     <div class="container-fluid" ng-app="">
         <div class="panel panel-default">
-            <div class="panel-heading" style="padding:0px;background-color:white;">
-                <h3><img src="~/images/extras/padel (3).png" width="150" />Nueva Cuenta</h3>
+            <div class="panel-heading" style="padding:0px;background-color:white;margin-bottom:0px;">
+                <h3 style="padding:0px;background-color:white;margin-bottom:0px;"><img src="~/images/extras/padel-pelota-cesped.png" width="100" />Nueva Cuenta</h3>
             </div>
             <div class="panel-body">
                 <form >
@@ -32,7 +32,9 @@
 
                                 <br />
                                 <label>Localidad</label>
-                                <select id="Localidad" class="form-control"></select>
+                                <select id="Localidad" class="form-control">
+                                    <option>Cargando...</option>
+                                </select>
 
 
                             </div>
@@ -46,14 +48,14 @@
 
                                 <br />
                                 <label>Barrio</label>
-                                <select id="Barrio" class="form-control"></select>
+                                <select id="Barrio" class="form-control"><option>Cargando...</option></select>
 
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Tipo Documento</label>
-                                <select id="TipoDoc" class="form-control"></select>
+                                <select id="TipoDoc" class="form-control"><option>Cargando...</option></select>
                                 <br />
                                 <label>Calle</label>
                                 <input id="Calle" class="form-control" />
@@ -90,8 +92,11 @@
 
                                 <label>Mail</label>
                                 <input id="Mail" class="form-control" />
+                                <br />
+                                <div id="TipoJugador" >
 
 
+                                </div>
 
                             </div>
                         </div>
@@ -120,7 +125,12 @@
                                 <input type="password" id="Contra" class="form-control" />
 
                                 <br />
-                                <input type="button" id="Registrar" value="Crear" class="btn btn-success form-control" style="margin-top:6px;color:white;" />
+                                <div class="row">
+                                    <div class="col-md-6"><input type="button" id="Registrar" value="Crear" class="btn btn-success form-control" style="margin-top:6px;color:white;" /></div>
+                                    <div class="col-md-6"><a asp-action="Index" asp-controller="Usuarios"><input type="button" value="Volver" class="btn btn-default form-control"  style="margin-top:6px;" /></a></div>
+                                </div>
+                                
+                                
                             </div>
                         </div>
                     </div>

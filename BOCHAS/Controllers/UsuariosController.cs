@@ -56,11 +56,12 @@ namespace BOCHAS.Controllers
                 {
 
                     return RedirectToAction("Index", "Home", "");
-                }
+                }                              
                 else
                 {
-                    return RedirectToAction("Index");
+                    return RedirectToAction("IndexJugadores", "Home");
                 }
+                
             }
             else
             {
