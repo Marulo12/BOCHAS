@@ -59,7 +59,17 @@ namespace BOCHAS.Controllers
                 }                              
                 else
                 {
-                    return RedirectToAction("IndexJugadores", "Home");
+                    var tipojugador = _context.Jugador.Where(j => j.IdPersona == usuario[0].Id && j.IdTipoJugador == 2).Count();
+                    if (tipojugador > 0)
+                    {
+                        return RedirectToAction("IndexJugadores", "Home");
+                    }
+                    else
+                    {
+                        TempData["Mensaje"] = "El usuario no tiene cuenta de jugador";
+                        return RedirectToAction("Index");
+                    }
+                    
                 }
                 
             }
