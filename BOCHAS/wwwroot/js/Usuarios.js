@@ -10,6 +10,27 @@
         ConocerPerfil();
 
     });
+
+    $("#IndexJ").after(function () {
+
+        $.ajax({
+
+            type: "GET",
+            url: "/Usuarios/PermisosNavBar",
+
+            success: function (response) {
+                var Items = "";
+                for (var i; i <= response.length; i++) {
+                    if (response[i].nombre === "Cliente Particular") { Items += '<li>Clases Particulares</li>'; }
+                    if (response[i].nombre === "Jugador Particular") { Items += '<li>Nueva Reserva</li>'; }
+                }
+                $("#PermisosNav").append(Items);
+
+            }
+        });
+    });
+    
+
 });
 
 function ConocerPerfil() {

@@ -59,17 +59,14 @@ namespace BOCHAS.Controllers
                 }                              
                 else
                 {
-                    var tipojugador = _context.Jugador.Where(j => j.IdPersona == usuario[0].Id && j.IdTipoJugador == 2).Count();
-                    if (tipojugador > 0)
-                    {
-                        return RedirectToAction("IndexJugadores", "Home");
-                    }
-                    else
-                    {
-                        TempData["Mensaje"] = "El usuario no tiene cuenta de jugador";
-                        return RedirectToAction("Index");
-                    }
                     
+
+                   
+                   
+                     
+
+                    return RedirectToAction("IndexJugadores", "Home", "");
+
                 }
                 
             }
@@ -144,7 +141,11 @@ namespace BOCHAS.Controllers
             }
         }
 
-
+        public  JsonResult PermisosNavBar()
+        {
+            var usuario = _context.Persona.Include(p => p.IdUsuarioNavigation).Where(p => p.FechaBaja == null && p.IdUsuarioNavigation.Nombre == HttpContext.User.Identity.Name ).ToList();
+            return  Json( _context.Jugador.Where(j => j.IdPersona == usuario[0].Id).ToList());
+        }
 
     }
 }
