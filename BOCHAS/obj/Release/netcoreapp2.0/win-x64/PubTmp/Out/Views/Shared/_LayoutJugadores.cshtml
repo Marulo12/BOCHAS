@@ -1,0 +1,144 @@
+﻿
+@{
+    Layout = null;
+}
+@using Microsoft.AspNetCore.Authentication;
+@using Microsoft.AspNetCore.Authentication.Cookies;
+@using BOCHAS.Models;
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link href="~/lib/DataTables/datatables.css" rel="stylesheet" />
+    <link href="~/lib/DataTables/DataTables-1.10.16/css/dataTables.bootstrap.css" rel="stylesheet" />
+    <link href="~/lib/Alertify/alertify.css" rel="stylesheet" />
+    <link href="~/lib/Alertify/themes/bootstrap.css" rel="stylesheet" />
+    <link rel="apple-touch-icon" sizes="76x76" href="~/images/LogoBochas.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="~/images/LogoBochas.png">
+    <meta name="viewport" content="width=device-width" />
+    <title>_LayoutJugadores</title>
+    <style>
+        .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
+            background-color: transparent;
+        }
+        .nav > li > a:hover, .nav > li > a:focus, .nav > li > a:hover {
+            background-color: transparent;
+        }
+       
+    </style>
+</head>
+<body>
+    <nav class="navbar " style="background: linear-gradient(90deg, rgba(247,247,247,1) 0%, rgba(237,80,80,1) 19%, rgba(201,31,31,1) 100%);">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar" style="background-color:black;"></span>
+                    <span class="icon-bar" style="background-color:black;"></span>
+                    <span class="icon-bar" style="background-color:black;"></span>
+                </button>
+                <img src="~/images/LogoBochas.png" width="59" class="img-fluid" />
+            </div>
+            <div class="collapse navbar-collapse " id="myNavbar" style="height:100%;">
+                <ul id="PermisosNav" class="nav navbar-nav " style="font-size:16px;padding-top:5px;margin-left:8%;">
+                    
+                    
+                </ul>
+                <ul class="nav navbar-nav navbar-right" style="height:100%;">
+                    @{if (User.Identity.IsAuthenticated)
+                        {
+                            <li style="background-color:transparent;">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color:white;"><img src="~/images/usuarioSinfond.png" width="35" />  @User.Identity.Name</a>
+                                <ul class="dropdown-menu">
+                                    <li><a id="BtnPerfil" href="#"><i class="lnr lnr-user"></i> <span>Mi Perfil</span></a></li>
+
+                                    <li><a href="#" data-toggle="modal" data-target="#ModalContraseña"><i class="lnr lnr-cog"></i> <span>Cambiar Contraseña</span></a></li>
+                                    <li><a asp-action="Logout" asp-controller="Usuarios"><i class="lnr lnr-exit"></i> <span>Salir</span></a></li>
+                                </ul>
+                            </li>
+                        }
+                    }
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section style="margin-top:5%;">
+        <div class="container">
+            @RenderBody()
+        </div>
+    </section>
+    <div id="ModalContraseña" class="modal fade" role="dialog">
+        <div class="modal-dialog ">
+
+
+            <div class="modal-content">
+                <div class="modal-header " style="background: linear-gradient(to right, rgba(69,117,214,1) 0%, rgba(55,119,219,1) 2%, rgba(21,123,232,1) 7%, rgba(228,238,240,1) 94%, rgba(228,238,240,1) 100%);">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" style="color:white;"><i class="fas fa-key"></i>   Cambiar contraseña</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-sm-4"><label>Contraseña actual:</label></div><div class="col-sm-7"><input id="PassActual" type="password" class="form-control" style="float:left" /></div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-4"><label>Nueva Contraseña:</label></div><div class="col-sm-7"><input id="PassNuevo" type="password" class="form-control" style="float:left" /></div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-4"><label>Confirmar Contraseña:</label></div><div class="col-sm-7"><input id="PassConfirma" type="password" class="form-control" style="float:left" /></div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <div class="col-sm-11">
+                        <input id="BtnCambiaContra" type="button" class="btn btn-info" value="Aceptar" />
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="ModalPerfil" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+
+            <div class="modal-content ">
+                <div class="modal-header " style="background: linear-gradient(to right, rgba(69,117,214,1) 0%, rgba(55,119,219,1) 2%, rgba(21,123,232,1) 7%, rgba(228,238,240,1) 94%, rgba(228,238,240,1) 100%);">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h2 class="modal-title" style="color:white;"><i class="far fa-2x  fa-address-card"></i>&nbsp;&nbsp;Mi Perfil</h2>
+                </div>
+                <div id="BodyPerfil" class="modal-body" style="font-size:17px;padding-left:18px;">
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <div class="col-sm-11">
+
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+    <script src="~/lib/Alertify/alertify.js"></script>
+    <script src="~/lib/DataTables/datatables.js"></script>
+    <script src="~/lib/DataTables/DataTables-1.10.16/js/dataTables.bootstrap.js"></script>
+    <script src="~/js/Usuarios.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
