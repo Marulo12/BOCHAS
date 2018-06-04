@@ -58,13 +58,7 @@ namespace BOCHAS.Controllers
                     return RedirectToAction("Index", "Home", "");
                 }                              
                 else
-                {
-                    
-
-                   
-                   
-                     
-
+                {                                                                             
                     return RedirectToAction("IndexJugadores", "Home", "");
 
                 }
@@ -143,8 +137,12 @@ namespace BOCHAS.Controllers
 
         public  JsonResult PermisosNavBar()
         {
-            var usuario = _context.Persona.Include(p => p.IdUsuarioNavigation).Where(p => p.FechaBaja == null && p.IdUsuarioNavigation.Nombre == HttpContext.User.Identity.Name ).ToList();
-            return  Json( _context.Jugador.Where(j => j.IdPersona == usuario[0].Id).ToList());
+            
+
+            var jugador = (from j in _context.Jugador join p in _context.Persona on j.IdPersona equals p.Id join u in _context.Usuario on p.IdUsuario equals u.Id where u.Nombre == HttpContext.User.Identity.Name && p.FechaBaja == null select new { jugador = j.IdTipoJugador }).ToList();
+
+
+            return  Json( jugador);
         }
 
     }
