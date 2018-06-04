@@ -36,17 +36,17 @@
                 {
                     extend: 'excel',
                     text: 'Excel',
-                    title: 'BOCHAS PADEL - Jugadores Activos'
+                    title: 'BOCHAS PADEL - Jugadores dados de baja'
                 },
                 {
                     extend: 'pdfHtml5',
                     text: 'PDF',
-                    title: 'BOCHAS PADEL - Jugadores Activos'
+                    title: 'BOCHAS PADEL - Jugadores dados de baja'
                 },
                 {
                     extend: 'print',
                     text: 'Imprimir',
-                    title: 'BOCHAS PADEL - Jugadores Activos'
+                    title: 'BOCHAS PADEL - Jugadores dados de baja'
 
                 }
             ],
@@ -89,7 +89,7 @@ function MostrarJugador(filtro) {
         success: function (response) {
             var dvItems = $("#CJugadores");
             dvItems.empty();
-            var Table = '<table id="TablaJugadores" class="table table-striped  display" style="width:100%;" ><thead style="background-color: rgba(158, 44, 44, 0.9);color:white"><tr><th>Nombre</th><th>Apellido</th><th>Documento</th><th>Telefono</th><th>Mail</th><th ></th></tr></thead><tbody>';
+            var Table = '<table id="TablaJugadores" class="table table-striped  display" style="width:100%;" ><thead style="background-color: rgba(158, 44, 44, 0.9);color:white"><tr><th>Nombre</th><th>Apellido</th><th>Documento</th><th>Teléfono</th><th>Mail</th><th ></th></tr></thead><tbody>';
             for (var i = 0; i < response.length; i++) {
                 Table += '<tr ><td>' + response[i].nombre + '</td>' + '<td>' + response[i].apellido + '</td>' + '<td>' + response[i].documento + '</td>' + '<td>' + response[i].telefono + '</td>' + '<td>' + response[i].mail + '</td>' + '</td> <td><div class="btn-group" style="padding-left:17%;"> <button class=" btn btn-sm btn-primary " data-toggle="tooltip" title="Informacion adicional" data-placement="top"  onclick="ConocerDomicilio(' + response[i].id + ');"><i class="far fa-address-card"></i></button><button  class=" btn btn-sm BtnEditar" data-toggle="tooltip" title="Modificar"  onclick="EditarJugador(' + response[i].id + ');" data-placement="top" ><i class="fas fa-pencil-alt"></i></button><button class="btn btn-sm btn-danger" data-toggle="tooltip" title="Baja" data-placement="top" onclick="confirmarBaja(' + response[i].id + ');"><i class="fas fa-trash-alt"></i></button><button class="btn btn-sm btn-warning" data-toggle="tooltip" title="Agregar tipo de jugador" data-placement="top" onclick="AbrirModalTipoJugador(' + response[i].id + ');"><i class="fas fa-user-tag"></i></button></div></td></tr>';
             }
@@ -105,18 +105,18 @@ function MostrarJugador(filtro) {
                     {
                         extend: 'excel',
                         text: 'Excel',
-                        title: 'BOCHAS PADEL - Jugadores dados de baja'
+                        title: 'BOCHAS PADEL - Jugadores activos'
                     },
                     {
                         extend: 'pdfHtml5',
                         text: 'PDF',
-                        title: 'BOCHAS PADEL - Jugadores dados de baja'
+                        title: 'BOCHAS PADEL - Jugadores activos'
 
                     },
                     {
                         extend: 'print',
                         text: 'Imprimir',
-                        title: 'BOCHAS PADEL - Jugadores dados de baja'
+                        title: 'BOCHAS PADEL - Jugadores activos'
 
                     }
                 ],
@@ -292,7 +292,7 @@ function MostrarTipoJugador() {
             var dvItems = $("#TipoJugador");
             var rows = '<div class="checkbox">';
             for (var i = 0; i < response.length; i++) {
-                rows += '<label><input type="checkbox" name="TipoJugador" value="' + response[i].id + '">' + response[i].nombre + '</label>&nbsp;';
+                rows += '<label><input type="checkbox" name="TipoJugador" value="' + response[i].id + '">' + response[i].nombre + '</label>&nbsp;&nbsp;&nbsp;&nbsp;';
 
             }
             rows += "</div>";

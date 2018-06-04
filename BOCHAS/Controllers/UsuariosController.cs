@@ -9,7 +9,7 @@ using BOCHAS.Models;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace BOCHAS.Controllers
 {
@@ -56,11 +56,13 @@ namespace BOCHAS.Controllers
                 {
 
                     return RedirectToAction("Index", "Home", "");
-                }
+                }                              
                 else
-                {
-                    return RedirectToAction("Index");
+                {                                                                             
+                    return RedirectToAction("IndexJugadores", "Home", "");
+
                 }
+                
             }
             else
             {
@@ -110,7 +112,13 @@ namespace BOCHAS.Controllers
                 return Json("False");
             }
         }
+        [Authorize]
+        public async Task<IActionResult> ConocerPerfil()
+        {
+            var Perfil = _context.Persona.Include(p => p.IdDomicilioNavigation).Include(p => p.IdUsuarioNavigation).Include(p => p.IdTipoDocumentoNavigation).Include(p => p.IdDomicilioNavigation.IdLocalidadNavigation).Include(p => p.IdDomicilioNavigation.IdBarrioNavigation).Where(p => p.IdUsuarioNavigation.Nombre == HttpContext.User.Identity.Name).SingleOrDefaultAsync();
 
+            return PartialView(await Perfil);
+        }
         public JsonResult CambiarContraseña(string contraactual,string contranueva)
         {
             var Usuario = _context.Usuario.Where(u => u.Nombre == HttpContext.User.Identity.Name && u.Contraseña == contraactual).SingleOrDefault();
@@ -127,7 +135,15 @@ namespace BOCHAS.Controllers
             }
         }
 
+        public  JsonResult PermisosNavBar()
+        {
+            
 
+            var jugador = (from j in _context.Jugador join p in _context.Persona on j.IdPersona equals p.Id join u in _context.Usuario on p.IdUsuario equals u.Id where u.Nombre == HttpContext.User.Identity.Name && p.FechaBaja == null select new { jugador = j.IdTipoJugador }).ToList();
+
+
+            return  Json( jugador);
+        }
 
     }
 }

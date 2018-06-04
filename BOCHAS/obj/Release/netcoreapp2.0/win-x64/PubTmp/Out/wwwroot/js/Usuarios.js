@@ -5,8 +5,30 @@
         VerificarContraseña();
 
     });
+    $("#BtnPerfil").click(function () {
+
+        ConocerPerfil();
+
+    });
+
+
+   
 
 });
+
+function ConocerPerfil() {
+    $.ajax({
+        type: "GET",
+        url: "/Usuarios/ConocerPerfil",
+       
+        success: function (response) {
+
+            $("#BodyPerfil").html(response);
+            $("#ModalPerfil").modal();
+        }
+    });
+
+}
 
 function CambiaContraseña(contraactual) {
     
