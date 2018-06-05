@@ -23,9 +23,9 @@ namespace BOCHAS.Models
             if (!optionsBuilder.IsConfigured)
             {
 
-                  optionsBuilder.UseSqlServer(@"Data Source=HPINTERFILE3;Initial Catalog=BOCHAS;Integrated Security=True");
+                 // optionsBuilder.UseSqlServer(@"Data Source=HPINTERFILE3;Initial Catalog=BOCHAS;Integrated Security=True");
               //  optionsBuilder.UseSqlServer(@"data source=BOCHASBD.mssql.somee.com;persist security info=False;initial catalog=BOCHASBD;user id=fgonzalez_SQLLogin_2;pwd=7jlascoceb");
-                //    optionsBuilder.UseSqlServer(@"Data Source=mlb;Initial Catalog=BOCHAS;Integrated Security=True");
+                    optionsBuilder.UseSqlServer(@"Data Source=mlb;Initial Catalog=BOCHAS;Integrated Security=True");
              //   optionsBuilder.UseSqlServer(@"Data Source=SISTEMAS04;Initial Catalog=BOCHAS;Persist Security Info=True;User ID=BSP;Password=bochas");
 
             }
@@ -149,7 +149,10 @@ namespace BOCHAS.Models
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
-
+                entity.Property(e => e.NroDocumento)
+                   .IsRequired()
+                   .HasMaxLength(20)
+                   .IsUnicode(false);
                 entity.Property(e => e.Telefono)
                     .HasMaxLength(50)
                     .IsUnicode(false);
@@ -186,7 +189,8 @@ namespace BOCHAS.Models
                 entity.Property(e => e.FechaFin).HasColumnType("date");
 
                 entity.Property(e => e.FechaInicio).HasColumnType("date");
-
+                entity.Property(e => e.origen)
+                   .IsRequired();
                 entity.HasOne(d => d.IdUsuarioNavigation)
                     .WithMany(p => p.Session)
                     .HasForeignKey(d => d.IdUsuario)
@@ -221,7 +225,7 @@ namespace BOCHAS.Models
             {
                 entity.Property(e => e.Contraseña)
                     .IsRequired()
-                    .HasColumnType("nchar(10)");
+                    .HasColumnType("nchar(20)");
 
                 entity.Property(e => e.Nombre)
                     .IsRequired()

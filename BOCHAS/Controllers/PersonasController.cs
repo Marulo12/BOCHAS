@@ -126,7 +126,7 @@ namespace BOCHAS.Controllers
                     per.IdUsuario = IdUs;
                     per.Mail = Mail;
                     per.Nombre = Nombre;
-                    per.NroDocumento = Convert.ToInt32(Numero);
+                    per.NroDocumento = Numero;
                     per.Telefono = Telefono;
                     per.Tipo = "EMPLEADO";
                     per.Apellido = Apellido;
@@ -204,7 +204,7 @@ namespace BOCHAS.Controllers
                     per.IdUsuario = IdUs;
                     per.Mail = Mail;
                     per.Nombre = Nombre;
-                    per.NroDocumento = Convert.ToInt32(Numero);
+                    per.NroDocumento = Numero;
                     per.Telefono = Telefono;
                     per.Tipo = "JUGADOR";
                     per.Apellido = Apellido;
@@ -242,7 +242,7 @@ namespace BOCHAS.Controllers
         }
         public bool ExistePersona(string documento)
         {
-            if (_context.Persona.Where(p => p.NroDocumento == Convert.ToInt32(documento) && p.FechaBaja == null).Count() >= 1 )
+            if (_context.Persona.Where(p => p.NroDocumento == documento && p.FechaBaja == null).Count() >= 1 )
             {
                 return true;
             }

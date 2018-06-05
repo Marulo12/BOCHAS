@@ -68,8 +68,13 @@ function MostrarTipoJugador() {
             var dvItems = $("#TipoJugador");
             var rows = '<div class="checkbox">';
             for (var i = 0; i < response.length; i++) {
-                rows += '<label><input type="checkbox" name="TipoJugador" value="' + response[i].id + '">' + response[i].nombre + '</label>&nbsp;&nbsp;&nbsp;&nbsp;';
 
+                if (response[i].id == 2) {
+                    rows += '<label style="display:none;"><input type="checkbox" name="TipoJugador" value="' + response[i].id + '"  checked>' + response[i].nombre + '</label>';
+                }
+                else {
+                    rows += '<label><input type="checkbox" name="TipoJugador" value="' + response[i].id + '">Clases particulares (opcional)</label>';
+                }
             }
             rows += "</div>";
             dvItems.html(rows);
@@ -212,7 +217,7 @@ function New() {
                    
                 }
                 if (response === "EXISTE") {
-                    alertify.alert('Alerta', 'Ocurrio un error en la operacion..').set('onok', function (closeEvent) { window.location = "/Usuarios/Index"; });
+                    alertify.alert('Alerta', 'Lo siento esa persona ya tiene una cuenta activa').set('onok', function (closeEvent) { window.location = "/Usuarios/Index"; });
                    
                 }
 
