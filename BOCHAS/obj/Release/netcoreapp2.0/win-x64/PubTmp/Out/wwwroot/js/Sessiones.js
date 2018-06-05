@@ -12,7 +12,7 @@ function MostrarSessiones() {
         var fechadesde = $("#fechadesde").val();
         var fechahasta = $("#fechahasta").val();
 
-        $("#DivSessiones").html('<img id="ImgLoad" src="../images/carga.gif" alt="" width="200" />');
+        $("#DivSessiones").html('<img id="ImgLoad" src="../images/extras/dots-2.gif" alt="" width="200" />');
 
         $.ajax({
             type: "GET",
