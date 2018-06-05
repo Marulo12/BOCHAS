@@ -11,7 +11,7 @@ namespace BOCHAS.Models
         }
 
         public int Id { get; set; }
-        public int NroDocumento { get; set; }
+        public string NroDocumento { get; set; }
         public int IdTipoDocumento { get; set; }
         public int IdDomicilio { get; set; }
         public int? IdUsuario { get; set; }

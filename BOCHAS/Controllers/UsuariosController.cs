@@ -76,6 +76,7 @@ namespace BOCHAS.Controllers
             Session Entrada = new Session();
             Entrada.IdUsuario = IdUsuario;
             Entrada.FechaInicio = DateTime.Now.Date;
+            Entrada.origen = 1;
             Entrada.HoraInicio = (TimeSpan)DateTime.Now.TimeOfDay;
             _context.Add(Entrada);
             _context.SaveChanges();
