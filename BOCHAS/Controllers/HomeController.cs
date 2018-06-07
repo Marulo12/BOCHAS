@@ -8,8 +8,7 @@ using BOCHAS.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
-
-
+using System.Security.Cryptography;
 
 namespace BOCHAS.Controllers
 {
@@ -68,7 +67,12 @@ namespace BOCHAS.Controllers
                     //crea usuario
                     Usuario us = new Usuario();
                     us.Nombre = usuario;
-                    us.Contraseña = Contra;
+                    using (MD5 md5Hash = MD5.Create())
+                    {
+                        string hash = Encriptador.GetMd5Hash(md5Hash, Contra);
+                        us.Contraseña = hash;
+                    }
+                  
                     _context.Usuario.Add(us);
                     if (_context.SaveChanges() == 0)
                     {
