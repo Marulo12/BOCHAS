@@ -63,7 +63,7 @@ function CambiaContraseña(contraactual) {
 
 function  VerificarContraseña() {
 
-    if (ComprobarCampos()) {
+    if (ComprobarCamposContraseñas()) {
     var contraactual = $("#PassActual").val();
     $.ajax({
         type: "GET",
@@ -94,7 +94,7 @@ function ValidarContraseñas(contranueva, contraconfirma) {
     }
 }
 
-function ComprobarCampos() {
+function ComprobarCamposContraseñas() {
     if ($("#PassActual").val() === "") {
 
         alertify.error('Ingrese la contraseña actual');

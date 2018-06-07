@@ -6,8 +6,9 @@
 <!Doctype html>
 <html>
 <head>
-    <link href="~/Menu/assets/css/bootstrap.css" rel="stylesheet" />
-   
+    
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    
     <link href="~/Menu/assets/css/main.css" rel="stylesheet" />
     <link href="~/lib/Alertify/alertify.css" rel="stylesheet" />
     <link href="~/lib/Alertify/themes/bootstrap.css" rel="stylesheet" />
@@ -19,18 +20,19 @@
         <div class="panel panel-default">
             <div class="panel-heading" style="padding:0px;background-color:white;margin-bottom:0px;">
                 <div class="row">
-                    <div class="col-md-4"><img src="~/images/extras/racchette-test-img.png" width="160" /></div>
-                    <div class="col-md-3"> <h2 style="text-align:center;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">Nueva Cuenta</h2>
-                    <h4 style="text-align:center;">Ingrese sus datos personales</h4>
+                    <div class="col-sm-4"><img src="~/images/extras/racchette-test-img.png" width="160" /></div>
+                    <div class="col-sm-3">
+                        <h2 style="text-align:center;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">Nueva Cuenta</h2>
+                        <h4 style="text-align:center;">Ingrese sus datos personales</h4>
                     </div>
                     <div class="col-md-4"></div>
                 </div>
             </div>
             <div class="panel-body">
-                <form >
+                <form class="form-group-sm">
                     <div class="row">
 
-                        <div class="col-md-3">
+                        <div class="col-sm-3">
 
                             <div class="form-group">
                                 <label>Nombre</label>
@@ -46,7 +48,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-3">
+                        <div class="col-sm-3">
 
                             <div class="form-group">
                                 <label>Apellido</label>
@@ -58,7 +60,7 @@
 
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Tipo Documento</label>
                                 <select id="TipoDoc" class="form-control"><option>Cargando...</option></select>
@@ -69,23 +71,37 @@
 
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label>N° Documento</label>
+                        <div class="col-sm-3">
+                            <div class="row">
+                                <div class="form-group">
+                                    <label>N° Documento</label>
 
-                                <input id="Numero" class="form-control" />
-                                <br />
-                                <br />
-                                <div class="form-group form-inline">
-                                    <label>N°</label>
-
-                                    <input id="NCalle" class="form-control" style="width:70px;" />
-                                    <label>Piso</label>
-                                    <input class="form-control" id="Piso" style="width:60px;" />
-                                    <label class="control-label">Dpto</label>
-                                    <input class="form-control" id="Dpto" style="width:60px;" />
+                                    <input id="Numero" class="form-control" />
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-sm-4">
+                                        <label>N°</label>
+
+                                        <input id="NCalle" class="form-control" />
+
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label>Piso</label>
+                                        <input class="form-control" id="Piso" />
+
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label class="control-label">Dpto</label>
+                                        <input class="form-control" id="Dpto" />
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+
                         </div>
 
 
@@ -93,13 +109,13 @@
 
                     </div>
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-sm-3">
                             <div class="form-group">
 
                                 <label>Mail</label>
                                 <input id="Mail" class="form-control" />
                                 <br />
-                                <div id="TipoJugador" >
+                                <div id="TipoJugador">
 
 
                                 </div>
@@ -107,7 +123,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-3">
+                        <div class="col-sm-3">
 
                             <div class="form-group">
 
@@ -117,7 +133,7 @@
 
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-sm-3">
                             <div class="form-group">
                                 <label class="control-label">Usuario para el sistema</label>
                                 <input id="Usuario" value="{{Nombre.charAt(0) + Apellido}}" placeholder="Usuario" class="form-control" />
@@ -125,18 +141,18 @@
 
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-sm-3">
                             <div class="form-group">
                                 <label class="control-label">Contraseña</label>
                                 <input type="password" id="Contra" class="form-control" />
 
                                 <br />
                                 <div class="row">
-                                    <div class="col-md-6"><input type="button" id="Registrar" value="Crear" class="btn btn-success form-control" style="margin-top:6px;color:white;" /></div>
-                                    <div class="col-md-6"><a asp-action="Index" asp-controller="Usuarios"><input type="button" value="Volver" class="btn btn-default form-control"  style="margin-top:6px;" /></a></div>
+                                    <div class="col-sm-6"><input type="button" id="Registrar" value="Crear" class="btn btn-success form-control" style="margin-top:6px;color:white;" /></div>
+                                    <div class="col-sm-6"><a asp-action="Index" asp-controller="Usuarios"><input type="button" value="Volver" class="btn btn-default form-control" style="margin-top:6px;" /></a></div>
                                 </div>
-                                
-                                
+
+
                             </div>
                         </div>
                     </div>
@@ -147,7 +163,8 @@
 
     </div>
     <script src="~/lib/jquery/dist/jquery.js"></script>
-    <script src="~/Menu/assets/vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+  
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 

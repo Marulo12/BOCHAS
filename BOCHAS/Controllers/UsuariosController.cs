@@ -10,6 +10,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Cryptography;
 
 namespace BOCHAS.Controllers
 {
@@ -30,8 +31,12 @@ namespace BOCHAS.Controllers
 
         public async Task<IActionResult> ValidarUsuario(string Usuario, string Contra)
         {
-            // = _context.Usuario.Where(u => u.Nombre == Usuario && u.Contraseña == Contra).ToList();
-            var usuario = _context.Persona.Include(p => p.IdUsuarioNavigation).Where(p => p.FechaBaja == null && p.IdUsuarioNavigation.Nombre == Usuario && p.IdUsuarioNavigation.Contraseña == Contra).ToList();
+            string hash = "";
+            using (MD5 md5Hash = MD5.Create())
+            {
+                 hash =Encriptador.GetMd5Hash(md5Hash, Contra);
+            }
+                var usuario = _context.Persona.Include(p => p.IdUsuarioNavigation).Where(p => p.FechaBaja == null && p.IdUsuarioNavigation.Nombre == Usuario && p.IdUsuarioNavigation.Contraseña == hash).ToList();
             if (usuario.Count >= 1)
             {
                 var claims = new List<Claim>

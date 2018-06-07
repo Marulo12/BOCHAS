@@ -453,7 +453,7 @@ function New() {
                     $("#PanelJugadores").css("display", "inline");
                 }
                 if (response === "EXISTE") {
-                    alertify.alert('Alerta', 'Ocurrio un error en la operacion..').set('onok', function (closeEvent) { window.location = "/Personas/RegistrarJugador"; });
+                    alertify.alert('Alerta', 'Esa persona ya existe').set('onok', function (closeEvent) { window.location = "/Personas/RegistrarJugador"; });
                     $("#DivCarga").css("display", "none");
                     $("#PanelJugadores").css("display", "inline");
                 }
