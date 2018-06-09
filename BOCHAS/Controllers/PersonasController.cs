@@ -284,6 +284,7 @@ namespace BOCHAS.Controllers
 
             return RedirectToAction("ConsultarEmpleado", "Personas","");
         }
+        [HttpPost]
         public async Task<IActionResult> BajaJugador(string id)
         {
             int Id = Convert.ToInt32(id);
