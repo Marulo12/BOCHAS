@@ -63,7 +63,7 @@ function MostrarTipoJugador() {
         type: "GET",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        url: "/Home/MostrarTipoJugador",
+        url: "/InscripcionCuentaJugador/MostrarTipoJugador",
         success: function (response) {
             var dvItems = $("#TipoJugador");
             var rows = '<div class="checkbox">';
@@ -90,7 +90,7 @@ function MostrarTipoDocumento() {
         type: "GET",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        url: "/Home/MostrarTipoDocumento",
+        url: "/InscripcionCuentaJugador/MostrarTipoDocumento",
         success: function (response) {
             var rows;
             var dvItems = $("#TipoDoc");
@@ -109,7 +109,7 @@ function MostrarBarrio() {
 
     $.ajax({
         type: "GET",
-        url: "/Home/MostrarBarrios",
+        url: "/InscripcionCuentaJugador/MostrarBarrios",
         data: { IdLocalidad: + $("#Localidad option:selected").val() },
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -135,7 +135,7 @@ function MostrarLocalidades() {
         type: "GET",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        url: "/Home/MostrarLocalidades",
+        url: "/InscripcionCuentaJugador/MostrarLocalidades",
         success: function (response) {
             var rows;
             var dvItems = $("#Localidad");
@@ -158,7 +158,7 @@ function ComprobarUsuario() {
 
     $.ajax({
         type: "GET",
-        url: "/Home/ValidarUsuario",
+        url: "/InscripcionCuentaJugador/ValidarUsuario",
         data: { usuario: usuario },
         success: function (response) {
             if (response === "False") {
@@ -204,7 +204,7 @@ function New() {
        
         $.ajax({
             type: "POST",
-            url: "/Home/NewJugador",
+            url: "/InscripcionCuentaJugador/NewJugador",
             data: { nombre, apellido, tipodoc, numero, mail, telefono, localidad, barrio, usuario, contra, calle, tipojugador, ncalle, dpto, piso },
             success: function (response) {
                 if (response === "OK") {
@@ -262,6 +262,10 @@ function ComprobarCampos() {
     }
     if ($("#Usuario").val() === "") {
         alertify.error('No cargo el Nombre de Usuario');
+        return false;
+    }
+    if ($("#Contra").val().length < 8) {
+        alertify.error('La Contraeña tiene que tener mas de 8 caracteres');
         return false;
     }
     if ($("#Contra").val() === "") {

@@ -89,9 +89,9 @@ function MostrarJugador(filtro) {
         success: function (response) {
             var dvItems = $("#CJugadores");
             dvItems.empty();
-            var Table = '<table id="TablaJugadores" class="table table-striped  display" style="width:100%;" ><thead style="background-color: rgba(158, 44, 44, 0.9);color:white"><tr><th>Nombre</th><th>Apellido</th><th>Documento</th><th>Teléfono</th><th>Mail</th><th ></th></tr></thead><tbody>';
+            var Table = '<table id="TablaJugadores" class="table table-striped  display" style="width:100%;" ><thead style="background-color: rgba(158, 44, 44, 0.9);color:white"><tr><th>Nombre</th><th>Apellido</th><th>Documento</th><th>Teléfono</th><th>Mail</th><th style="width:220px;"></th></tr></thead><tbody>';
             for (var i = 0; i < response.length; i++) {
-                Table += '<tr ><td>' + response[i].nombre + '</td>' + '<td>' + response[i].apellido + '</td>' + '<td>' + response[i].documento + '</td>' + '<td>' + response[i].telefono + '</td>' + '<td>' + response[i].mail + '</td>' + '</td> <td><div class="btn-group" style="padding-left:17%;"> <button class=" btn btn-sm btn-primary " data-toggle="tooltip" title="Informacion adicional" data-placement="top"  onclick="ConocerDomicilio(' + response[i].id + ');"><i class="far fa-address-card"></i></button><button  class=" btn btn-sm BtnEditar" data-toggle="tooltip" title="Modificar"  onclick="EditarJugador(' + response[i].id + ');" data-placement="top" ><i class="fas fa-pencil-alt"></i></button><button class="btn btn-sm btn-danger" data-toggle="tooltip" title="Baja" data-placement="top" onclick="confirmarBaja(' + response[i].id + ');"><i class="fas fa-trash-alt"></i></button><button class="btn btn-sm btn-warning" data-toggle="tooltip" title="Agregar tipo de jugador" data-placement="top" onclick="AbrirModalTipoJugador(' + response[i].id + ');"><i class="fas fa-user-tag"></i></button></div></td></tr>';
+                Table += '<tr ><td>' + response[i].nombre + '</td>' + '<td>' + response[i].apellido + '</td>' + '<td>' + response[i].documento + '</td>' + '<td>' + response[i].telefono + '</td>' + '<td>' + response[i].mail + '</td>' + '</td> <td><div class="btn-group" > <button class=" btn btn-sm btn-primary " data-toggle="tooltip" title="Informacion adicional" data-placement="top"  onclick="ConocerDomicilio(' + response[i].id + ');"><i class="far fa-address-card"></i></button><button  class=" btn btn-sm BtnEditar" data-toggle="tooltip" title="Modificar"  onclick="EditarJugador(' + response[i].id + ');" data-placement="top" ><i class="fas fa-pencil-alt"></i></button><button class="btn btn-sm btn-danger" data-toggle="tooltip" title="Baja" data-placement="top" onclick="confirmarBaja(' + response[i].id + ');"><i class="fas fa-trash-alt"></i></button><button class="btn btn-sm btn-warning" data-toggle="tooltip" title="Agregar tipo de jugador" data-placement="top" onclick="AbrirModalTipoJugador(' + response[i].id + ');"><i class="fas fa-user-tag"></i></button></div></td></tr>';
             }
             Table += "</tbody><tfoot></tfoot></table>";
             dvItems.append(Table);
@@ -499,6 +499,10 @@ function ComprobarCampos() {
     }
     if ($("#Usuario").val() === "") {
         alertify.error('No cargo el Nombre de Usuario');
+        return false;
+    }
+    if ($("#Contra").val().length < 8) {
+        alertify.error('La Contraeña tiene que tener mas de 8 caracteres');
         return false;
     }
     if ($("#Contra").val() === "") {

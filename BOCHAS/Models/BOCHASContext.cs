@@ -58,7 +58,7 @@ namespace BOCHAS.Models
 
                 entity.HasOne(d => d.IdEstadoCnchaNavigation)
                     .WithMany(p => p.Cancha)
-                    .HasForeignKey(d => d.IdEstadoCncha)
+                    .HasForeignKey(d => d.IdEstadoCancha)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Cancha_EstadoCancha");
 
