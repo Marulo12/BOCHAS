@@ -7,15 +7,19 @@ namespace BOCHAS.Models
     public partial class BOCHASContext : DbContext
     {
         public virtual DbSet<Barrio> Barrio { get; set; }
+        public virtual DbSet<Cancha> Cancha { get; set; }
         public virtual DbSet<Cargo> Cargo { get; set; }
         public virtual DbSet<Domicilio> Domicilio { get; set; }
         public virtual DbSet<Empleado> Empleado { get; set; }
+        public virtual DbSet<EstadoCancha> EstadoCancha { get; set; }
         public virtual DbSet<Jugador> Jugador { get; set; }
         public virtual DbSet<Localidad> Localidad { get; set; }
         public virtual DbSet<Persona> Persona { get; set; }
         public virtual DbSet<Session> Session { get; set; }
+        public virtual DbSet<Tarjeta> Tarjeta { get; set; }
         public virtual DbSet<TipoDocumento> TipoDocumento { get; set; }
         public virtual DbSet<TipoJugador> TipoJugador { get; set; }
+        public virtual DbSet<TipoMaterial> TipoMaterial { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -23,11 +27,8 @@ namespace BOCHAS.Models
             if (!optionsBuilder.IsConfigured)
             {
 
-                 // optionsBuilder.UseSqlServer(@"Data Source=HPINTERFILE3;Initial Catalog=BOCHAS;Integrated Security=True");
-              //  optionsBuilder.UseSqlServer(@"data source=BOCHASBD.mssql.somee.com;persist security info=False;initial catalog=BOCHASBD;user id=fgonzalez_SQLLogin_2;pwd=7jlascoceb");
-                 //  optionsBuilder.UseSqlServer(@"Data Source=mlb;Initial Catalog=BOCHAS;Integrated Security=True");
-              optionsBuilder.UseSqlServer(@"Data Source=SISTEMAS04;Initial Catalog=BOCHAS;Persist Security Info=True;User ID=BSP;Password=bochas");
-
+                // optionsBuilder.UseSqlServer(@"Data Source=SISTEMAS04;Initial Catalog=BOCHAS;Persist Security Info=True;User ID=BSP;Password=bochas");
+                optionsBuilder.UseSqlServer(@"Data Source=186.124.221.26,1433;Initial Catalog=BOCHAS;Persist Security Info=True;User ID=BSP;Password=bochas");
             }
         }
 
@@ -44,6 +45,28 @@ namespace BOCHAS.Models
                     .HasForeignKey(d => d.IdLocalidad)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Barrio_Localidad");
+            });
+
+            modelBuilder.Entity<Cancha>(entity =>
+            {
+                entity.Property(e => e.Descripcion).HasColumnType("nchar(50)");
+
+                entity.Property(e => e.Nombre)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.IdEstadoCnchaNavigation)
+                    .WithMany(p => p.Cancha)
+                    .HasForeignKey(d => d.IdEstadoCncha)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Cancha_EstadoCancha");
+
+                entity.HasOne(d => d.IdTipoMaterialNavigation)
+                    .WithMany(p => p.Cancha)
+                    .HasForeignKey(d => d.IdTipoMaterial)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Cancha_TipoMaterial");
             });
 
             modelBuilder.Entity<Cargo>(entity =>
@@ -89,6 +112,10 @@ namespace BOCHAS.Models
 
                 entity.Property(e => e.FechaComienzo).HasColumnType("date");
 
+                entity.Property(e => e.MotivoBaja)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
                 entity.HasOne(d => d.IdCargoNavigation)
                     .WithMany(p => p.Empleado)
                     .HasForeignKey(d => d.IdCargo)
@@ -100,6 +127,18 @@ namespace BOCHAS.Models
                     .HasForeignKey<Empleado>(d => d.IdPersona)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Empleado_Persona");
+            });
+
+            modelBuilder.Entity<EstadoCancha>(entity =>
+            {
+                entity.Property(e => e.Descripcion)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Nombre)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<Jugador>(entity =>
@@ -149,10 +188,12 @@ namespace BOCHAS.Models
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
+
                 entity.Property(e => e.NroDocumento)
-                   .IsRequired()
-                   .HasMaxLength(20)
-                   .IsUnicode(false);
+                    .IsRequired()
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.Telefono)
                     .HasMaxLength(50)
                     .IsUnicode(false);
@@ -189,13 +230,31 @@ namespace BOCHAS.Models
                 entity.Property(e => e.FechaFin).HasColumnType("date");
 
                 entity.Property(e => e.FechaInicio).HasColumnType("date");
-                entity.Property(e => e.origen)
-                   .IsRequired();
+
+                entity.Property(e => e.Origen).HasColumnName("origen");
+
                 entity.HasOne(d => d.IdUsuarioNavigation)
                     .WithMany(p => p.Session)
                     .HasForeignKey(d => d.IdUsuario)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Session_Usuario");
+            });
+
+            modelBuilder.Entity<Tarjeta>(entity =>
+            {
+                entity.Property(e => e.Descripcion)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Nombre)
+                    .IsRequired()
+                    .HasMaxLength(70)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.TipoTarjeta)
+                    .IsRequired()
+                    .HasMaxLength(70)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<TipoDocumento>(entity =>
@@ -210,6 +269,18 @@ namespace BOCHAS.Models
             });
 
             modelBuilder.Entity<TipoJugador>(entity =>
+            {
+                entity.Property(e => e.Descripcion)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Nombre)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<TipoMaterial>(entity =>
             {
                 entity.Property(e => e.Descripcion)
                     .HasMaxLength(50)
