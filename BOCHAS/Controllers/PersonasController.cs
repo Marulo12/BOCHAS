@@ -9,6 +9,10 @@ using BOCHAS.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Cryptography;
 using System.Text;
+using Microsoft.AspNetCore.Http;
+using System.Net.Http.Headers;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace BOCHAS.Controllers
 {
@@ -16,9 +20,10 @@ namespace BOCHAS.Controllers
     public class PersonasController : Controller
     {
         private readonly BOCHASContext _context;
-
-        public PersonasController(BOCHASContext context)
+        private IHostingEnvironment _hostingEnv;
+        public PersonasController(BOCHASContext context , IHostingEnvironment hosting)
         {
+            _hostingEnv = hosting;
             _context = context;
         }
 
@@ -496,7 +501,24 @@ namespace BOCHAS.Controllers
            
 
         }
-      
+        
+        [HttpPost]
+        public IActionResult SubirImagen(IFormFile ImageFile)
+        {
+            
+      //  var persona = _context.Persona.SingleOrDefault(p => p.IdUsuarioNavigation.Nombre == HttpContext.User.Identity.Name && p.FechaBaja == null);         
+                var filename = ContentDispositionHeaderValue.Parse(ImageFile.ContentDisposition).FileName.Trim('"');
+                var targetDirectory = Path.Combine(_hostingEnv.WebRootPath, string.Format("wwwroot\\images\\perfiles\\"));
+                var savePath = Path.Combine(targetDirectory, filename);
+                ImageFile.CopyTo(new FileStream(savePath, FileMode.Create));
+        //       persona.Imagen = filename;
+          //  _context.Persona.Update(persona);
+           // _context.SaveChanges();
+
+            return RedirectToAction("Index","Home","");
+            }
+        
+
     }
    
 }
