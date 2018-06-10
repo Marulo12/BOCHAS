@@ -272,12 +272,13 @@ namespace BOCHAS.Controllers
 
         [HttpPost]
 
-        public async  Task<IActionResult> BajaEmpleado(string id)
+        public async  Task<IActionResult> BajaEmpleado(string id, string Motivo)
         { int Id = Convert.ToInt32(id);
             var persona = await _context.Persona.SingleOrDefaultAsync(m => m.Id == Id );
             persona.FechaBaja = DateTime.Now;
             var empleado = await _context.Empleado.SingleOrDefaultAsync(m => m.IdPersona == Id);
             empleado.Activo = false;
+            empleado.MotivoBaja = Motivo;
             _context.Empleado.Update(empleado);
             _context.Persona.Update(persona);
             await _context.SaveChangesAsync();

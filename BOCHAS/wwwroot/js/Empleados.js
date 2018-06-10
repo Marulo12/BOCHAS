@@ -302,21 +302,26 @@ function MostrarLocalidades() {
 }
 
 function confirmarBaja(id) {   
+    alertify.prompt('Seguro quiere dar de baja al empleado?','Algun motivo:', '',
+        function (evt, value) {
+            var motivo = value;
+            
+            alertify.success("Baja de empleado dada con exito");
+            $.ajax({
+                type: "POST",
+                url: "/Personas/BajaEmpleado",
+                data: { id: id , Motivo: motivo },
+                success: function (response) {
 
-    alertify.confirm('Confirmar', 'Dar de baja al empleado?', function () {
-        alertify.success("Baja de empleado dada con exito");
-        $.ajax({
-            type: "POST",
-            url: "/Personas/BajaEmpleado",
-            data: { id: id },
-            success: function (response) {
+                    window.location = "/Personas/ConsultarEmpleado";
 
-                window.location = "/Personas/ConsultarEmpleado";
-
-            }
-        });     }
-        , function () { alertify.error('Baja Cancelada'); });
-
+                }
+            }); 
+        },
+        function () {
+            alertify.error('Baja Cancelada');
+        }).set('labels', { ok: 'Aceptar', cancel: 'Cancelar', 'modal': true });
+    
 
    
     
