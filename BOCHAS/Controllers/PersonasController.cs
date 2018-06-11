@@ -16,7 +16,7 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace BOCHAS.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Empleado")]
     public class PersonasController : Controller
     {
         private readonly BOCHASContext _context;
@@ -505,11 +505,13 @@ namespace BOCHAS.Controllers
         {
             return View();
         }
+        [AllowAnonymous]
         public IActionResult AgregarImagenPerfilJugador()
         {
             return View();
         }
-        [HttpPost]
+        [HttpPost,AllowAnonymous]
+       
         public IActionResult SubirImagenJugador(IFormFile ImageFile)
         {
            

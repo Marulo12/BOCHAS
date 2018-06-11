@@ -9,7 +9,8 @@ using BOCHAS.Models;
 using Microsoft.AspNetCore.Authorization;
 
 namespace BOCHAS.Controllers
-{ [Authorize]
+{
+    [Authorize(Roles = "Empleado")]
     public class CanchasController : Controller
     {
         private readonly BOCHASContext _context;

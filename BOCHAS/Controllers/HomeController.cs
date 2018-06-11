@@ -20,13 +20,13 @@ namespace BOCHAS.Controllers
         {
             _context = context;
         }
-        [Authorize]
+        [Authorize(Roles = "Empleado"), AutoValidateAntiforgeryToken]
         public IActionResult Index()
         {
             return View();
         }
 
-        [Authorize]
+        [Authorize(Roles = "Jugador"), AutoValidateAntiforgeryToken]
         public IActionResult IndexJugadores()
         {
             return View();

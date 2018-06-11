@@ -9,7 +9,8 @@ using BOCHAS.Models;
 using Microsoft.AspNetCore.Authorization;
 
 namespace BOCHAS.Controllers
-{[Authorize]
+{
+    [Authorize(Roles = "Empleado")]
     public class SessionsController : Controller
     {
         private readonly BOCHASContext _context;
