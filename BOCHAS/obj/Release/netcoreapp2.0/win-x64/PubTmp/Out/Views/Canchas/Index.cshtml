@@ -3,26 +3,33 @@
 @{
     ViewData["Title"] = "Index";
 }
-
-<div class="panel panel-primary">
+<style>
+    .ocultar {
+        display:none;
+    }
+    
+</style>
+<div class="panel panel-primary ">
     <div class="panel-heading">
-        <h2><i class="fab fa-codepen"></i>Administracion de canchas</h2>
+        <h2><i class="fab fa-codepen"></i>  Administración de canchas</h2>
+        
 
-      
     </div>
     <div class="panel-body">
 
         <div class="row">
             <ul class="nav nav-tabs ">
-                <li role="presentation"> <a asp-action="Create">Alta</a></li>
-                <li role="presentation" class="active"><a  asp-action="Index">Consulta</a></li>
-                
+                <li role="presentation"> <a asp-action="NuevaCancha">Alta</a></li>
+                <li role="presentation" class="active"><a asp-action="Index">Consulta</a></li>
+
             </ul>
             <br />
 
         </div>
-        <table class="table">
-            <thead>
+        
+        <div class="row" style="height:100%;"><img id="ImgLoad"  src="~/images/extras/dots-2.gif" width="200" /></div>
+        <table id="TablaCanchas" class="table display ocultar" >
+            <thead style="background-color: rgba(158, 44, 44, 0.9);color:white;">
                 <tr>
                     <th>
                         @Html.DisplayNameFor(model => model.Numero)
@@ -39,7 +46,7 @@
                     <th>
                         Tipo de Cancha
                     </th>
-                    <th></th>
+                    <th style="width:100px;"></th>
                 </tr>
             </thead>
             <tbody>
@@ -56,22 +63,54 @@
                             @Html.DisplayFor(modelItem => item.Descripcion)
                         </td>
                         <td>
+                            @{ if (item.IdEstadoCnchaNavigation.Id == 2)
+                                {
+                                    <i class="far fa-thumbs-up" style="color:forestgreen;"></i>
+                                }
+                                if (item.IdEstadoCnchaNavigation.Id == 1)
+                                {
+
+                                    <i class="fas fa-table-tennis" style="color:orangered;"></i>
+                                }
+                            }
                             @Html.DisplayFor(modelItem => item.IdEstadoCnchaNavigation.Nombre)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.IdTipoMaterialNavigation.Nombre)
                         </td>
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        <td class="btn-group">
+                            <a  class="btn btn-sm btn-primary" onclick="EditarCancha(@item.Id)" ><i class="fas fa-pencil-alt"></i></a> 
+                           
+                            <a  class="btn btn-sm btn-danger" onclick="BajadeCancha(@item.Id,@item.IdEstadoCnchaNavigation.Id)"><i class="fas fa-trash-alt"></i></a>
                         </td>
                     </tr>
                 }
             </tbody>
+            
         </table>
     </div>
 </div>
 
+<div id="ModalEditarCancha" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm">
 
+        <!-- Modal content-->
+        <div class="modal-content" >
+            <div class="modal-header" style="background:-webkit-gradient(linear, 96% 73%, 0% 0%, from(#AD9085), to(#CE2029));color:white;">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><i class="fas fa-pencil-alt"></i>  Editar Cancha</h4>
+            </div>
+            <div class="modal-body">
+               
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
 
+    </div>
+</div>
+@section Scripts {
+    <script src="~/js/Canchas.js"></script>
+
+}

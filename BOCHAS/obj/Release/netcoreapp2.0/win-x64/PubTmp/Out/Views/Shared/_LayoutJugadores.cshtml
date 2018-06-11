@@ -19,7 +19,8 @@
     <link rel="apple-touch-icon" sizes="76x76" href="~/images/LogoBochas.png">
     <link rel="icon" type="image/png" sizes="96x96" href="~/images/LogoBochas.png">
     <meta name="viewport" content="width=device-width" />
-    <title>_LayoutJugadores</title>
+    <title>BOCHAS PADEL</title>
+    
     <style>
         .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
             background-color: transparent;
@@ -47,17 +48,30 @@
                     
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    @{if (User.Identity.IsAuthenticated)
+                    @{
+                        if (User.Identity.IsAuthenticated)
                         {
-                            <li style="background-color:transparent;">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color:white;font-size:15px;"><img src="~/images/usuarioSinfond.png" width="25" />  @User.Identity.Name</a>
-                                <ul class="dropdown-menu">
-                                    <li><a id="BtnPerfil" href="#"><i class="lnr lnr-user"></i> <span>Mi Perfil</span></a></li>
+                    <li style="background-color:transparent;">
+                     @{   BOCHASContext db = new BOCHASContext();
+                         var perfil = db.Persona.SingleOrDefault(p => p.IdUsuarioNavigation.Nombre == User.Identity.Name && p.FechaBaja == null);
+                         if (perfil.Imagen == null)
+                         {
 
-                                    <li><a href="#" data-toggle="modal" data-target="#ModalContraseña"><i class="lnr lnr-cog"></i> <span>Cambiar Contraseña</span></a></li>
-                                    <li><a asp-action="Logout" asp-controller="Usuarios"><i class="lnr lnr-exit"></i> <span>Salir</span></a></li>
-                                </ul>
-                            </li>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding:0px;"> <img src="~/images/usuarioSinfond.png" class="img-circle" alt="Avatar" width="45"><span style="color:white;font-size:15px;"> @User.Identity.Name</span> </a>
+                         }
+                         else
+                         {
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding:0px;"> <img src="~/images/perfiles/jugadores/@perfil.Imagen" class="img-circle" alt="Avatar" width="45"><span style="color:white;font-size:15px;"> @User.Identity.Name</span> </a>
+
+                             }
+                         }
+                        <ul class="dropdown-menu">
+                            <li><a id="BtnPerfil" href="#"><i class="far fa-user"></i> <span>Mi Perfil</span></a></li>
+                            <li><a asp-action="AgregarImagenPerfilJugador" asp-controller="Personas"><i class="far fa-user-circle"></i> <span>Imagen de perfil</span></a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#ModalContraseña"><i class="fas fa-key"></i> <span>Cambiar Contraseña</span></a></li>
+                            <li><a asp-action="Logout" asp-controller="Usuarios"><i class="fas fa-sign-out-alt"></i> <span>Salir</span></a></li>
+                        </ul>
+                    </li>
                         }
                     }
 
@@ -139,6 +153,7 @@
     <script src="~/lib/DataTables/datatables.js"></script>
     <script src="~/lib/DataTables/DataTables-1.10.16/js/dataTables.bootstrap.js"></script>
     <script src="~/js/Usuarios.js"></script>
+    <script src="~/js/site.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

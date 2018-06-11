@@ -57,11 +57,11 @@
                          if (perfil.Imagen == null)
                          {
 
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding:0px;"> <img src="~/images/usuarioSinfond.png" class="img-circle" alt="Avatar" width="25"><span style="color:white;font-size:15px;"> @User.Identity.Name</span> </a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding:0px;"> <img src="~/images/usuarioSinfond.png" class="img-circle" alt="Avatar" width="45"><span style="color:white;font-size:15px;"> @User.Identity.Name</span> </a>
                          }
                          else
                          {
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding:0px;"> <img src="~/images/perfiles/@perfil.Imagen" class="img-circle" alt="Avatar" width="45"><span style="color:white;font-size:15px;"> @User.Identity.Name</span> </a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding:0px;"> <img src="~/images/perfiles/jugadores/@User.Identity.Name/@perfil.Imagen" class="img-circle" alt="Avatar" width="45"><span style="color:white;font-size:15px;"> @User.Identity.Name</span> </a>
 
                              }
                          }
