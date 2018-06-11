@@ -7,11 +7,12 @@
     .ocultar {
         display:none;
     }
+    
 </style>
-<div class="panel panel-primary">
+<div class="panel panel-primary ">
     <div class="panel-heading">
         <h2><i class="fab fa-codepen"></i>  Administración de canchas</h2>
-
+        
 
     </div>
     <div class="panel-body">
@@ -62,6 +63,16 @@
                             @Html.DisplayFor(modelItem => item.Descripcion)
                         </td>
                         <td>
+                            @{ if (item.IdEstadoCnchaNavigation.Id == 2)
+                                {
+                                    <i class="far fa-thumbs-up" style="color:forestgreen;"></i>
+                                }
+                                if (item.IdEstadoCnchaNavigation.Id == 1)
+                                {
+
+                                    <i class="fas fa-table-tennis" style="color:orangered;"></i>
+                                }
+                            }
                             @Html.DisplayFor(modelItem => item.IdEstadoCnchaNavigation.Nombre)
                         </td>
                         <td>
@@ -75,6 +86,7 @@
                     </tr>
                 }
             </tbody>
+            
         </table>
     </div>
 </div>

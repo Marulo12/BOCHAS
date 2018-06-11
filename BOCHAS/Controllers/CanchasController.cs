@@ -22,14 +22,14 @@ namespace BOCHAS.Controllers
       
         public async Task<IActionResult> Index()
         {
-            var bOCHASContext = _context.Cancha.Include(c => c.IdEstadoCnchaNavigation).Include(c => c.IdTipoMaterialNavigation).Where(c=>c.IdEstadoCncha != 3);
+            var bOCHASContext = _context.Cancha.Include(c => c.IdEstadoCnchaNavigation).Include(c => c.IdTipoMaterialNavigation).Where(c=>c.IdEstadoCancha != 3);
             return View(await bOCHASContext.ToListAsync());
         }
             
         
         public IActionResult NuevaCancha()
         {
-            ViewData["IdEstadoCncha"] = new SelectList(_context.EstadoCancha, "Id", "Nombre");
+            ViewData["IdEstadoCancha"] = new SelectList(_context.EstadoCancha, "Id", "Nombre");
             ViewData["IdTipoMaterial"] = new SelectList(_context.TipoMaterial.OrderBy(tm=> tm.Nombre), "Id", "Nombre");
             return View();
         }
@@ -37,16 +37,16 @@ namespace BOCHAS.Controllers
        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Numero,Nombre,Descripcion,IdTipoMaterial,IdEstadoCncha")] Cancha cancha)
+        public async Task<IActionResult> Create([Bind("Id,Numero,Nombre,Descripcion,IdTipoMaterial,IdEstadoCancha")] Cancha cancha)
         {
             if (ModelState.IsValid)
             {
-                cancha.IdEstadoCncha = 2;
+                cancha.IdEstadoCancha = 2;
                 _context.Add(cancha);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdEstadoCncha"] = new SelectList(_context.EstadoCancha, "Id", "Nombre", cancha.IdEstadoCncha);
+            ViewData["IdEstadoCancha"] = new SelectList(_context.EstadoCancha, "Id", "Nombre", cancha.IdEstadoCancha);
             ViewData["IdTipoMaterial"] = new SelectList(_context.TipoMaterial, "Id", "Nombre", cancha.IdTipoMaterial);
             return View(cancha);
         }
@@ -64,7 +64,7 @@ namespace BOCHAS.Controllers
             {
                 return NotFound();
             }
-            ViewData["IdEstadoCncha"] = new SelectList(_context.EstadoCancha, "Id", "Nombre", cancha.IdEstadoCncha);
+            ViewData["IdEstadoCancha"] = new SelectList(_context.EstadoCancha, "Id", "Nombre", cancha.IdEstadoCancha);
             ViewData["IdTipoMaterial"] = new SelectList(_context.TipoMaterial, "Id", "Nombre", cancha.IdTipoMaterial);
             return PartialView(cancha);
         }
@@ -72,7 +72,7 @@ namespace BOCHAS.Controllers
        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Numero,Nombre,Descripcion,IdTipoMaterial,IdEstadoCncha")] Cancha cancha)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Numero,Nombre,Descripcion,IdTipoMaterial,IdEstadoCancha")] Cancha cancha)
         {
             if (id != cancha.Id)
             {
@@ -99,7 +99,7 @@ namespace BOCHAS.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdEstadoCncha"] = new SelectList(_context.EstadoCancha, "Id", "Nombre", cancha.IdEstadoCncha);
+            ViewData["IdEstadoCancha"] = new SelectList(_context.EstadoCancha, "Id", "Nombre", cancha.IdEstadoCancha);
             ViewData["IdTipoMaterial"] = new SelectList(_context.TipoMaterial, "Id", "Nombre", cancha.IdTipoMaterial);
             return View(cancha);
         }
@@ -113,7 +113,7 @@ namespace BOCHAS.Controllers
         {
             int Id = Convert.ToInt32(id);
             var cancha = await _context.Cancha.SingleOrDefaultAsync(m => m.Id == Id);
-            cancha.IdEstadoCncha = 3;
+            cancha.IdEstadoCancha = 3;
             _context.Cancha.Update(cancha);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

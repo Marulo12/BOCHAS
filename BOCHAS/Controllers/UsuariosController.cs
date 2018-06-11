@@ -41,7 +41,7 @@ namespace BOCHAS.Controllers
             {
                 var claims = new List<Claim>
               {
-               new Claim(ClaimTypes.Name,Usuario)
+               new Claim(ClaimTypes.Name,usuario[0].IdUsuarioNavigation.Nombre)
 
               };
 

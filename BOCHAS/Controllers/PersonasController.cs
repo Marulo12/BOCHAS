@@ -9,6 +9,10 @@ using BOCHAS.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Cryptography;
 using System.Text;
+using Microsoft.AspNetCore.Http;
+using System.Net.Http.Headers;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace BOCHAS.Controllers
 {
@@ -16,9 +20,10 @@ namespace BOCHAS.Controllers
     public class PersonasController : Controller
     {
         private readonly BOCHASContext _context;
-
-        public PersonasController(BOCHASContext context)
+        private IHostingEnvironment _hostingEnv;
+        public PersonasController(BOCHASContext context , IHostingEnvironment hosting)
         {
+            _hostingEnv = hosting;
             _context = context;
         }
 
@@ -272,12 +277,13 @@ namespace BOCHAS.Controllers
 
         [HttpPost]
 
-        public async  Task<IActionResult> BajaEmpleado(string id)
+        public async  Task<IActionResult> BajaEmpleado(string id, string Motivo)
         { int Id = Convert.ToInt32(id);
             var persona = await _context.Persona.SingleOrDefaultAsync(m => m.Id == Id );
             persona.FechaBaja = DateTime.Now;
             var empleado = await _context.Empleado.SingleOrDefaultAsync(m => m.IdPersona == Id);
             empleado.Activo = false;
+            empleado.MotivoBaja = Motivo;
             _context.Empleado.Update(empleado);
             _context.Persona.Update(persona);
             await _context.SaveChangesAsync();
@@ -495,7 +501,34 @@ namespace BOCHAS.Controllers
            
 
         }
-      
+        public IActionResult AgregarImagenPerfil()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult SubirImagen(IFormFile ImageFile)
+        {
+            try
+            {
+                var persona = _context.Persona.SingleOrDefault(p => p.IdUsuarioNavigation.Nombre == HttpContext.User.Identity.Name && p.FechaBaja == null);
+                var filename = ContentDispositionHeaderValue.Parse(ImageFile.ContentDisposition).FileName.Trim('"');
+                var targetDirectory = Path.Combine(_hostingEnv.WebRootPath, string.Format("wwwroot\\images\\perfiles\\"));
+                var savePath = Path.Combine(@"C:\Users\mlb\Desktop\BOCHAS\BOCHAS\wwwroot\images\perfiles\", filename);
+
+                ImageFile.CopyTo(new FileStream(savePath, FileMode.Create));
+                persona.Imagen = filename;
+                _context.Persona.Update(persona);
+                _context.SaveChanges();
+
+                return RedirectToAction("Index", "Home", "");
+            }
+            catch {
+                TempData["Mensaje"] = "Ingrese una imagen";
+                return RedirectToAction("AgregarImagenPerfil");
+            }
+
+
+            }
     }
    
 }

@@ -53,12 +53,12 @@
         );
         $("#TablaSessiones_filter").append($("div .btn-group"));
         $("div .btn-group").css("float", "left");
-
+       
         $('[data-toggle="tooltip"]').tooltip();
     });
     $("#NuevaCancha").submit(function (event) {
         if (comprobarCampos()) {
-         
+            alertify.success("Cancha creada con exito");
 
         } else {
             event.preventDefault();

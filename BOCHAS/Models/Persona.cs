@@ -21,7 +21,7 @@ namespace BOCHAS.Models
         public string Mail { get; set; }
         public string Telefono { get; set; }
         public string Tipo { get; set; }
-
+        public string Imagen { get; set; }
         public Domicilio IdDomicilioNavigation { get; set; }
         public TipoDocumento IdTipoDocumentoNavigation { get; set; }
         public Usuario IdUsuarioNavigation { get; set; }

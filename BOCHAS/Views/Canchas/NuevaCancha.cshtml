@@ -27,22 +27,22 @@
                     <div class="form-group">
                         <label class="control-label">Número</label>
                         <input id="Numero" asp-for="Numero" class="form-control" />
-                       
+
                     </div>
+                   
+
                     <div class="form-group">
-                        <label asp-for="Nombre" class="control-label"></label>
-                        <input id="Nombre" asp-for="Nombre" class="form-control" />
+                        <label class="control-label">Descripción</label>
+                        <input asp-for="Descripcion" class="form-control" />
 
                     </div>
-
-
 
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="control-label">Descripción</label>
-                        <input asp-for="Descripcion" class="form-control" />
-                      
+                        <label asp-for="Nombre" class="control-label"></label>
+                        <input id="Nombre" asp-for="Nombre" class="form-control" />
+
                     </div>
                     <div class="form-group">
                         <label class="control-label">Tipo de Material</label>
@@ -54,7 +54,7 @@
                 <div class="col-md-1">
                     <div class="form-group" style="display:none;">
                         <label class="control-label">Estado</label>
-                        <select asp-for="IdEstadoCncha" class="form-control" asp-items="ViewBag.IdEstadoCncha" style="background-color: rgba(172, 44, 44, 0.9);color:white;"></select>
+                        <select asp-for="IdEstadoCancha" class="form-control" asp-items="ViewBag.IdEstadoCancha" style="background-color: rgba(172, 44, 44, 0.9);color:white;"></select>
 
                     </div>
                     <input type="submit" value="Aceptar" class="btn btn-primary" style="margin-top:100px;" />
