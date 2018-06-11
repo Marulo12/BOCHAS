@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Authentication;
 @using Microsoft.AspNetCore.Authentication.Cookies;
+@using Microsoft.AspNetCore.Http;
 @using BOCHAS.Models;
 <!DOCTYPE html>
 <html>
@@ -7,27 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BOCHAS PADEL</title>
-  <style>
-      .btn-file {
-          position: relative;
-          overflow: hidden;
-      }
-
-          .btn-file input[type=file] {
-              position: absolute;
-              top: 0;
-              right: 0;
-             
-              font-size: 100px;
-              text-align: right;
-              filter: alpha(opacity=0);
-              opacity: 0;
-              outline: none;
-              background: white;
-              cursor: inherit;
-              display: block;
-          }
-  </style>
+   
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
@@ -35,15 +16,15 @@
         <link href="~/lib/DataTables/datatables.css" rel="stylesheet" />
         <link href="~/lib/DataTables/DataTables-1.10.16/css/dataTables.bootstrap.css" rel="stylesheet" />
         <link href="~/lib/Alertify/alertify.css" rel="stylesheet" />
-        <link href="~/lib/Alertify/themes/bootstrap.css" rel="stylesheet" />       
+        <link href="~/lib/Alertify/themes/bootstrap.css" rel="stylesheet" />
         <link href="~/Menu/assets/vendor/pace/themes/red/pace-theme-minimal.css" rel="stylesheet" />
         <link rel="stylesheet" href="~/Menu/assets/vendor/linearicons/style.css">
-        <link rel="stylesheet" href="~/Menu/assets/vendor/chartist/css/chartist-custom.css">       
-        <link rel="stylesheet" href="~/Menu/assets/css/main.css">      
-        <link rel="stylesheet" href="~/Menu/assets/css/demo.css">       
-        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">        
+        <link rel="stylesheet" href="~/Menu/assets/vendor/chartist/css/chartist-custom.css">
+        <link rel="stylesheet" href="~/Menu/assets/css/main.css">
+        <link rel="stylesheet" href="~/Menu/assets/css/demo.css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
         <link rel="apple-touch-icon" sizes="76x76" href="~/images/LogoBochas.png">
-        <link rel="icon" type="image/png" sizes="96x96" href="~/images/LogoBochas.png">       
+        <link rel="icon" type="image/png" sizes="96x96" href="~/images/LogoBochas.png">
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -110,32 +91,37 @@
                             </ul>
                         </li>
                         <li class="dropdown">
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img src="~/images/usuarioSinfond.png" class="img-circle" alt="Avatar" width="25"><span style="color:white;font-size:15px;"> @User.Identity.Name</span> </a>
+                            @{ if (User.Identity.IsAuthenticated)
+                                {
+
+                                    BOCHASContext db = new BOCHASContext();
+                                    var perfil = db.Persona.SingleOrDefault(p => p.IdUsuarioNavigation.Nombre == User.Identity.Name && p.FechaBaja == null);
+                                    if (perfil.Imagen == null)
+                                    {
+
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img src="~/images/usuarioSinfond.png" class="img-circle" alt="Avatar" width="25"><span style="color:white;font-size:15px;"> @User.Identity.Name</span> </a>
+                                    }
+                                    else
+                                    {
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img src="~/images/perfiles/@perfil.Imagen" class="img-circle" alt="Avatar" width="25"><span style="color:white;font-size:15px;"> @User.Identity.Name</span> </a>
+
+                                    }
+
+
+                                }
                             }
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#"><i class="lnr lnr-user"></i> <span>Mi Perfil</span></a></li>
+                                            <li><a asp-action="AgregarImagenPerfil" asp-controller="Personas"><i class="far fa-user-circle"></i> <span>Imagen de perfil</span></a></li>
+                                            <li><a href="#" data-toggle="modal" data-target="#ModalContraseña"><i class="lnr lnr-cog"></i> <span>Cambiar Contraseña</span></a></li>
+                                            <li><a asp-action="Logout" asp-controller="Usuarios"><i class="lnr lnr-exit"></i> <span>Salir</span></a></li>
 
-                                <ul class="dropdown-menu">
-                                    <li><a id="BtnPerfil" href="#"><i class="lnr lnr-user"></i> <span>Mi Perfil</span></a></li>
-                                    <li><a href="#" data-toggle="modal" data-target="#ModalContraseña"><i class="lnr lnr-cog"></i> <span>Cambiar Contraseña</span></a></li>                                   
-                                    <li id="BtnImagen"><button  class="btn " style="border:0px;background-color:transparent;box-shadow:0px 0px 0px 0px white;"><i class="far fa-user-circle"></i>Subir Imagen</button>    
-                                        <form id="FormImagen" asp-action="SubirImagen" class="form-group form-inline" asp-controller="Personas" method="POST" enctype="multipart/form-data" style="display:none;padding-left:30px;">
-                                            <div class="btn-group">
-                                                <span class="btn btn-xs  btn-default btn-file">
-                                                    Agregar<input type="file">
-                                                </span>
-                                                <input type="submit" class="btn btn-xs btn-success" value="Subir" />
-                                            </div>
-                                        </form>
-                                    </li>
-                                    <li><a asp-action="Logout" asp-controller="Usuarios"><i class="lnr lnr-exit"></i> <span>Salir</span></a></li>
+                                        </ul>
 
-                                </ul>
-                           
                         </li>
 
                     </ul>
-                    
+
                 </div>
             </div>
         </nav>
@@ -283,19 +269,19 @@
         <div class="modal-dialog">
 
 
-            <div class="modal-content " >
+            <div class="modal-content ">
                 <div class="modal-header " style="background: linear-gradient(to right, rgba(69,117,214,1) 0%, rgba(55,119,219,1) 2%, rgba(21,123,232,1) 7%, rgba(228,238,240,1) 94%, rgba(228,238,240,1) 100%);">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h2 class="modal-title" style="color:white;"><i class="far fa-2x  fa-address-card"></i>&nbsp;&nbsp;Mi Perfil</h2>
                 </div>
-                <div id="BodyPerfil" class="modal-body" style="font-size:17px;padding-left:18px;" >
+                <div id="BodyPerfil" class="modal-body" style="font-size:17px;padding-left:18px;">
 
-                  
+
 
                 </div>
                 <div class="modal-footer">
                     <div class="col-sm-11">
-                  
+
                         <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
                     </div>
 

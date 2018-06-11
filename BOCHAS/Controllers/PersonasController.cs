@@ -501,24 +501,34 @@ namespace BOCHAS.Controllers
            
 
         }
-        
+        public IActionResult AgregarImagenPerfil()
+        {
+            return View();
+        }
         [HttpPost]
         public IActionResult SubirImagen(IFormFile ImageFile)
         {
-            
-      //  var persona = _context.Persona.SingleOrDefault(p => p.IdUsuarioNavigation.Nombre == HttpContext.User.Identity.Name && p.FechaBaja == null);         
+            try
+            {
+                var persona = _context.Persona.SingleOrDefault(p => p.IdUsuarioNavigation.Nombre == HttpContext.User.Identity.Name && p.FechaBaja == null);
                 var filename = ContentDispositionHeaderValue.Parse(ImageFile.ContentDisposition).FileName.Trim('"');
                 var targetDirectory = Path.Combine(_hostingEnv.WebRootPath, string.Format("wwwroot\\images\\perfiles\\"));
-                var savePath = Path.Combine(targetDirectory, filename);
+                var savePath = Path.Combine(@"C:\Users\mlb\Desktop\BOCHAS\BOCHAS\wwwroot\images\perfiles\", filename);
+
                 ImageFile.CopyTo(new FileStream(savePath, FileMode.Create));
-        //       persona.Imagen = filename;
-          //  _context.Persona.Update(persona);
-           // _context.SaveChanges();
+                persona.Imagen = filename;
+                _context.Persona.Update(persona);
+                _context.SaveChanges();
 
-            return RedirectToAction("Index","Home","");
+                return RedirectToAction("Index", "Home", "");
             }
-        
+            catch {
+                TempData["Mensaje"] = "Ingrese una imagen";
+                return RedirectToAction("AgregarImagenPerfil");
+            }
 
+
+            }
     }
    
 }
