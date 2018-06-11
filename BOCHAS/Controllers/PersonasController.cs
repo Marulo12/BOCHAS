@@ -505,16 +505,44 @@ namespace BOCHAS.Controllers
         {
             return View();
         }
-        [HttpPost]
-        public IActionResult SubirImagen(IFormFile ImageFile)
+        public IActionResult AgregarImagenPerfilJugador()
+        {
+            return View();
+        }
+        public IActionResult SubirImagenJugador(IFormFile ImageFile)
         {
             try
             {
                 var persona = _context.Persona.SingleOrDefault(p => p.IdUsuarioNavigation.Nombre == HttpContext.User.Identity.Name && p.FechaBaja == null);
                 var filename = ContentDispositionHeaderValue.Parse(ImageFile.ContentDisposition).FileName.Trim('"');
-                var targetDirectory = Path.Combine(_hostingEnv.WebRootPath, string.Format("wwwroot\\images\\perfiles\\"));
-                var savePath = Path.Combine(@"C:\Users\mlb\Desktop\BOCHAS\BOCHAS\wwwroot\images\perfiles\", filename);
+                var targetDirectory = Path.Combine(_hostingEnv.WebRootPath, string.Format("Images\\perfiles\\"));
+                //  var savePath = Path.Combine(@"C:\Users\mboscatto\Documents\GitHub\BOCHAS\BOCHAS\wwwroot\images\perfiles\", filename);
+                var savePath = Path.Combine(targetDirectory, filename);
+                ImageFile.CopyTo(new FileStream(savePath, FileMode.Create));
+                persona.Imagen = filename;
+                _context.Persona.Update(persona);
+                _context.SaveChanges();
 
+                return RedirectToAction("IndexJugadores", "Home", "");
+            }
+            catch
+            {
+                TempData["Mensaje"] = "Ingrese una imagen";
+                return RedirectToAction("AgregarImagenPerfilJugador");
+            }
+
+
+        }
+        [HttpPost]
+        public IActionResult SubirImagenEmpleados(IFormFile ImageFile)
+        {
+            try
+            {
+                var persona = _context.Persona.SingleOrDefault(p => p.IdUsuarioNavigation.Nombre == HttpContext.User.Identity.Name && p.FechaBaja == null);
+                var filename = ContentDispositionHeaderValue.Parse(ImageFile.ContentDisposition).FileName.Trim('"');
+                var targetDirectory = Path.Combine(_hostingEnv.WebRootPath, string.Format("Images\\perfiles\\"));
+                //  var savePath = Path.Combine(@"C:\Users\mboscatto\Documents\GitHub\BOCHAS\BOCHAS\wwwroot\images\perfiles\", filename);
+                var savePath = Path.Combine(targetDirectory, filename);
                 ImageFile.CopyTo(new FileStream(savePath, FileMode.Create));
                 persona.Imagen = filename;
                 _context.Persona.Update(persona);
