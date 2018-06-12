@@ -32,7 +32,7 @@ namespace BOCHAS.Controllers
             return View();
         }
       
-        /*    public IActionResult Error()
+        /*   public IActionResult Error()
             {
                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
             }
