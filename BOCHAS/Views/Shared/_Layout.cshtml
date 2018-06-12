@@ -99,11 +99,11 @@
                                     if (perfil.Imagen == null)
                                     {
 
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img src="~/images/usuarioSinfond.png" class="img-circle" alt="Avatar" width="25"><span style="color:white;font-size:15px;"> @User.Identity.Name</span> </a>
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" > <img src="~/images/usuarioSinfond.png" class="img-circle" alt="Avatar" width="25"><span style="color:white;font-size:15px;"> @User.Identity.Name</span> </a>
                                     }
                                     else
                                     {
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img src="~/images/perfiles/@perfil.Imagen" class="img-circle" alt="Avatar" width="25"><span style="color:white;font-size:15px;"> @User.Identity.Name</span> </a>
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img src="~/images/perfiles/empleados/@User.Identity.Name/@perfil.Imagen" class="img-circle" alt="Avatar" width="40" height="37"><span style="color:white;font-size:15px;"> @User.Identity.Name</span> </a>
 
                                     }
 
@@ -111,7 +111,7 @@
                                 }
                             }
                                         <ul class="dropdown-menu">
-                                            <li><a href="#"><i class="lnr lnr-user"></i> <span>Mi Perfil</span></a></li>
+                                            <li><a id="BtnPerfil" href="#"><i class="lnr lnr-user"></i> <span>Mi Perfil</span></a></li>
                                             <li><a asp-action="AgregarImagenPerfil" asp-controller="Personas"><i class="far fa-user-circle"></i> <span>Imagen de perfil</span></a></li>
                                             <li><a href="#" data-toggle="modal" data-target="#ModalContraseña"><i class="lnr lnr-cog"></i> <span>Cambiar Contraseña</span></a></li>
                                             <li><a asp-action="Logout" asp-controller="Usuarios"><i class="lnr lnr-exit"></i> <span>Salir</span></a></li>
@@ -128,8 +128,8 @@
         <!-- END NAVBAR -->
         <!-- LEFT SIDEBAR -->
         <div id="sidebar-nav" class="sidebar" style="width:160px;background-position:top;background-repeat:no-repeat;background-size:cover;background:linear-gradient(151deg, rgba(2,0,36,1) 25%, rgba(60,60,60,1) 56%, rgba(68,23,23,1) 100%);">
-            <div class="sidebar-scroll">
-                <nav>
+            <div  style="height:100%;">
+                <nav style="height:100%;">
                     <ul class="nav">
                         <li><img src="~/images/extras/padel.png" width="35" style="margin-left:10%;margin-bottom:8%;" />&nbsp;<label style="color:white;font-size:20px;">Menú</label></li>
                         <li style="margin-top:0px;border-bottom:1px solid white;border-top:1px solid white;"><a asp-action="Index" asp-controller="Home" class="active"><i class="lnr lnr-home"></i> <span>Escritorio</span></a></li>

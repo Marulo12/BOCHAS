@@ -42,28 +42,26 @@ namespace BOCHAS.Controllers
                 var claims = new List<Claim>
               {
                new Claim(ClaimTypes.Name,usuario[0].IdUsuarioNavigation.Nombre)
-
+               
               };
-
                 var claimsIdentity = new ClaimsIdentity(
                     claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
                 var authProperties = new AuthenticationProperties
                 {
                     IsPersistent = true,
-                };
-
-                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
-
-                
+                };                            
                 RegistrarIngresoSession(Convert.ToInt32(usuario[0].IdUsuario));
                 if (usuario[0].Tipo == "EMPLEADO")
                 {
-
+                    claimsIdentity.AddClaim(new Claim(ClaimTypes.Role, "Empleado"));
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
                     return RedirectToAction("Index", "Home", "");
                 }                              
                 else
-                {                                                                             
+                {
+                    claimsIdentity.AddClaim(new Claim(ClaimTypes.Role, "Jugador"));
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
                     return RedirectToAction("IndexJugadores", "Home", "");
 
                 }
