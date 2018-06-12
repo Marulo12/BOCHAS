@@ -13,6 +13,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace BOCHAS.Controllers
 {
@@ -26,17 +27,20 @@ namespace BOCHAS.Controllers
         public APIUsuariosController(BOCHASContext context , IConfiguration configuration )
         {
             _configuration = configuration;
+            
             _context = context;
         }
 
+        
         // GET: api/APIUsuarios
         [HttpGet]
+        [Authorize(AuthenticationSchemes= JwtBearerDefaults.AuthenticationScheme)]
         public IEnumerable<Usuario> GetUsuario()
         {
-            return _context.Usuario;
+            return _context.Usuario.ToList();
         }
 
-        // GET: api/APIUsuarios/5
+       
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUsuario([FromRoute] int id)
         {
@@ -51,22 +55,10 @@ namespace BOCHAS.Controllers
             {
                 return NotFound();
             }
-            
-   
-            // Asumamos que tenemos un usuario válido
-            var user = new Usuario
-            {
-                Nombre = "Eduardo",
-                Contraseña= "Admin",
-                //UserId = Guid.NewGuid().ToString()
-            };
-
-            /* Creamos la información que queremos transportar en el token,
-             * en nuestro los datos del usuario
-             */
+                                           
             var claims = new[]
             {
-            new Claim("UserData", JsonConvert.SerializeObject(user))
+            new Claim("UserData", JsonConvert.SerializeObject(usuario))
         };
 
             // Generamos el Token
@@ -80,15 +72,16 @@ namespace BOCHAS.Controllers
                 signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["ApiAuth:SecretKey"])),
                         SecurityAlgorithms.HmacSha256)
             );
+            
 
             // Retornamos el token
             return Ok(
-                new
+               new
                 {
                     response = new JwtSecurityTokenHandler().WriteToken(token)
                 }
             );
-          //  return Ok(usuario);
+         
         }
         [Authorize]
         // PUT: api/APIUsuarios/5
