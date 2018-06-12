@@ -105,7 +105,12 @@ namespace BOCHAS.Controllers
 
       public JsonResult VerificarContraseña(string contraactual)
         {
-            var Usuario = _context.Usuario.Where(u => u.Nombre == HttpContext.User.Identity.Name && u.Contraseña == contraactual).ToList().Count();
+            string hash = "";
+            using (MD5 md5Hash = MD5.Create())
+            {
+                hash = Encriptador.GetMd5Hash(md5Hash, contraactual);
+            }
+            var Usuario = _context.Usuario.Where(u => u.Nombre == HttpContext.User.Identity.Name && u.Contraseña == hash).ToList().Count();
 
             if (Usuario > 0)
             {
@@ -125,9 +130,20 @@ namespace BOCHAS.Controllers
         }
         public JsonResult CambiarContraseña(string contraactual,string contranueva)
         {
-            var Usuario = _context.Usuario.Where(u => u.Nombre == HttpContext.User.Identity.Name && u.Contraseña == contraactual).SingleOrDefault();
+            string hash = "";
+            using (MD5 md5Hash = MD5.Create())
+            {
+                hash = Encriptador.GetMd5Hash(md5Hash, contraactual);
+            }
+            var Usuario = _context.Usuario.Where(u => u.Nombre == HttpContext.User.Identity.Name && u.Contraseña == hash).SingleOrDefault();
 
-            Usuario.Contraseña = contranueva;
+            string hashNuevo = "";
+            using (MD5 md5Hash = MD5.Create())
+            {
+                hashNuevo = Encriptador.GetMd5Hash(md5Hash, contranueva);
+            }
+
+            Usuario.Contraseña = hashNuevo;
             _context.Update(Usuario);
             if (_context.SaveChanges()==1)
             {
