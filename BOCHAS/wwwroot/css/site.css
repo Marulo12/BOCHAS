@@ -8,10 +8,12 @@
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    
 }
 .containerImagenJugador {
     width: 70%;
 }
+
 /* Carousel */
 .carousel-caption p {
     font-size: 20px;
