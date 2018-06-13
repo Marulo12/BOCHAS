@@ -6,9 +6,8 @@
 <!Doctype html>
 <html>
 <head>
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-    
     <link href="~/Menu/assets/css/main.css" rel="stylesheet" />
     <link href="~/lib/Alertify/alertify.css" rel="stylesheet" />
     <link href="~/lib/Alertify/themes/bootstrap.css" rel="stylesheet" />
@@ -17,7 +16,7 @@
 </head>
 <body id="altaJugador" style=" background: linear-gradient(135deg, #cc0000 0%,#0a1896 0%,#cccccc 46%,#cccccc 58%,#cc0000 100%);height:100%;padding-top:2%;">
     <div class="container-fluid" ng-app="">
-        <div class="panel panel-default">
+        <div class="panel  panel-default">
             <div class="panel-heading" style="padding:0px;background-color:white;margin-bottom:0px;">
                 <div class="row">
                     <div class="col-sm-4"><img src="~/images/extras/racchette-test-img.png" width="160" /></div>
@@ -73,36 +72,38 @@
                         </div>
                         <div class="col-sm-3">
                             <div class="row">
-                                <div class="form-group">
-                                    <label>N° Documento</label>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label>N° Documento</label>
 
-                                    <input id="Numero" class="form-control" />
+                                        <input id="Numero" class="form-control" />
+                                    </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group">
-                                    <div class="col-sm-4">
-                                        <label>N°</label>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-sm-4">
+                                            <label>N°</label>
 
-                                        <input id="NCalle" class="form-control" />
+                                            <input id="NCalle" class="form-control" />
+
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label>Piso</label>
+                                            <input class="form-control" id="Piso" />
+
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label class="control-label">Dpto</label>
+                                            <input class="form-control" id="Dpto" />
+
+                                        </div>
 
                                     </div>
-                                    <div class="col-sm-4">
-                                        <label>Piso</label>
-                                        <input class="form-control" id="Piso" />
-
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <label class="control-label">Dpto</label>
-                                        <input class="form-control" id="Dpto" />
-
-                                    </div>
-
                                 </div>
+
+
                             </div>
-
-
-                        </div>
 
 
 

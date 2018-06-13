@@ -48,7 +48,7 @@
                    
                 }
                 Items += '<li><a href="#" class="text-dark" style="color:white;"><i class="far fa-address-book"></i>  Contactos</a></li><li> <a href="#" style="color:white;"> <i class="fas fa-envelope"></i>  Mail</a></li >';
-                $("#PermisosNav").append(Items);
+                $("#PermisosNav").html(Items);
 
             }
         });
