@@ -65,12 +65,17 @@
                         <td>
                             @{ if (item.IdEstadoCnchaNavigation.Id == 2)
                                 {
-                                    <i class="far fa-thumbs-up" style="color:forestgreen;"></i>
+                                    <i class="far  fa-thumbs-up" style="color:forestgreen;"></i>
                                 }
                                 if (item.IdEstadoCnchaNavigation.Id == 1)
                                 {
 
-                                    <i class="fas fa-table-tennis" style="color:orangered;"></i>
+                                    <i class="fas  fa-table-tennis" style="color:orangered;"></i>
+                                }
+                                if (item.IdEstadoCnchaNavigation.Id == 1002)
+                                {
+                                    <i class="fas  fa-screwdriver"></i>
+
                                 }
                             }
                             @Html.DisplayFor(modelItem => item.IdEstadoCnchaNavigation.Nombre)

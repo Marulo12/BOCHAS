@@ -155,6 +155,7 @@ function MostrarEmpleado(filtro) {
 
 
 function EditarEmpleado(id) {
+    
     $.ajax({
         type: "GET",
         url: "/Personas/EditarEmpleado",
