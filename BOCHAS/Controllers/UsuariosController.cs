@@ -21,9 +21,7 @@ namespace BOCHAS.Controllers
        
         public UsuariosController(BOCHASContext context)
         {
-            _context = context;
-           
-
+            _context = context;           
         }
 
         // GET: Usuarios
@@ -92,19 +90,11 @@ namespace BOCHAS.Controllers
        
         public async Task<IActionResult> Logout()
         {
-            try
-            {
                 RegistrarSalidaSession(HttpContext.User.Identity.Name);
                 await HttpContext.SignOutAsync(
         CookieAuthenticationDefaults.AuthenticationScheme);
                 return RedirectToAction("Index", "Usuarios", "");
-            }
-            catch {
-                RegistrarSalidaSession(HttpContext.User.Identity.Name);
-                await HttpContext.SignOutAsync(
-        CookieAuthenticationDefaults.AuthenticationScheme);
-                return RedirectToAction("Index", "Usuarios", "");
-            }
+                   
         }
 
         public void RegistrarSalidaSession(string Usuario)

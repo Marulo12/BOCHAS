@@ -101,9 +101,10 @@
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img src="~/images/perfiles/empleados/@User.Identity.Name/@perfil.Imagen" class="img-circle" alt="Avatar" width="40" height="37"><span style="color:white;font-size:15px;"> @User.Identity.Name</span> </a>
 
                                     }
-
+                                    <input id="UsuarioConectado" type="text" value="@User.Identity.Name" style="display:none" />
 
                                 }
+
                             }
                             <ul class="dropdown-menu">
                                 <li><a id="BtnPerfil" href="#"><i class="lnr lnr-user"></i> <span>Mi Perfil</span></a></li>
