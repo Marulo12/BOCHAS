@@ -553,7 +553,7 @@ namespace BOCHAS.Controllers
                     Directory.CreateDirectory(targetDirectory);
                 }
                 
-                //  var savePath = Path.Combine(@"C:\Users\mboscatto\Documents\GitHub\BOCHAS\BOCHAS\wwwroot\images\perfiles\", filename);
+              
                 var savePath = Path.Combine(targetDirectory, filename);
                 ImageFile.CopyTo(new FileStream(savePath, FileMode.Create));
                 persona.Imagen = filename;

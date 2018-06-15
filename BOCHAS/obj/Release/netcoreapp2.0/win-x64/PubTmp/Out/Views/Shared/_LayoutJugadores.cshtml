@@ -62,6 +62,7 @@
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding:0px;"> <img src="~/images/perfiles/jugadores/@User.Identity.Name/@perfil.Imagen" class="img-circle" alt="Avatar" width="50" height="50"><span style="color:black;font-size:15px;"> @User.Identity.Name</span> </a>
 
                                     }
+                                    <input id="UsuarioConectado" type="text" value="@User.Identity.Name" style="display:none"/>
                                 }
                                 <ul class="dropdown-menu">
                                     <li><a id="BtnPerfil" href="#"><i class="far fa-user"></i> <span>Mi Perfil</span></a></li>
@@ -92,7 +93,7 @@
                     <h4 class="modal-title" style="color:white;"><i class="fas fa-key"></i>   Cambiar contraseña</h4>
                 </div>
                 <div class="modal-body" style="padding-left:40px;">
-                   
+
                     <div class="row">
                         <div class="col-sm-4"><label>Contraseña actual:</label></div><div class="col-sm-6"><input id="PassActual" type="password" class="form-control" style="float:left" /></div>
                     </div>
@@ -104,12 +105,13 @@
                     <div class="row">
                         <div class="col-sm-4"><label>Confirmar Contraseña:</label></div><div class="col-sm-6"><input id="PassConfirma" type="password" class="form-control" style="float:left" /></div>
                     </div>
-                       
+
                 </div>
                 <div class="modal-footer">
                     <div class="col-sm-11" style="float:right;">
                         <input id="BtnCambiaContra" type="button" class="btn btn-info" value="Aceptar" />
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                        <input type="button" id="NuevaReservaJugador" value="dame click" />
                     </div>
 
                 </div>
@@ -153,6 +155,8 @@
     <script src="~/js/Usuarios.js"></script>
     <script src="~/js/site.js"></script>
     <script src="~/js/JugadorExterno.js"></script>
+    <script src="~/lib/SignalR/signalr.js"></script>
+    <script src="~/js/Notificaciones.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

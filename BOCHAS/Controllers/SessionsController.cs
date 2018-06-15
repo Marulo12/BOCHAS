@@ -18,7 +18,7 @@ namespace BOCHAS.Controllers
        
         public SessionsController(BOCHASContext context)
         {
-            
+            _context = context;
         }
 
         // GET: Sessions

@@ -40,5 +40,4 @@ C:\Users\HPINTERFILE\Documents\GitHub\BOCHAS\BOCHAS\obj\Release\netcoreapp2.0\BO
 C:\Users\HPINTERFILE\Documents\GitHub\BOCHAS\BOCHAS\obj\Release\netcoreapp2.0\BOCHAS.AssemblyInfo.cs
 C:\Users\HPINTERFILE\Documents\GitHub\BOCHAS\BOCHAS\obj\Release\netcoreapp2.0\BOCHAS.dll
 C:\Users\HPINTERFILE\Documents\GitHub\BOCHAS\BOCHAS\obj\Release\netcoreapp2.0\BOCHAS.pdb
-C:\Users\mboscatto\Documents\GitHub\BOCHAS\BOCHAS\obj\Release\netcoreapp2.0\BOCHAS.csprojAssemblyReference.cache
 C:\Users\mlb\Desktop\BOCHAS\BOCHAS\obj\Release\netcoreapp2.0\BOCHAS.csprojAssemblyReference.cache

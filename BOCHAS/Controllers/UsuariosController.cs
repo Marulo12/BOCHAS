@@ -86,19 +86,25 @@ namespace BOCHAS.Controllers
             Entrada.HoraInicio = (TimeSpan)DateTime.Now.TimeOfDay;
             _context.Add(Entrada);
             _context.SaveChanges();
-  
-          
-           
+                       
         }
 
        
         public async Task<IActionResult> Logout()
         {
-
-            RegistrarSalidaSession(HttpContext.User.Identity.Name);
-            await HttpContext.SignOutAsync(
-    CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Index", "Usuarios", "");
+            try
+            {
+                RegistrarSalidaSession(HttpContext.User.Identity.Name);
+                await HttpContext.SignOutAsync(
+        CookieAuthenticationDefaults.AuthenticationScheme);
+                return RedirectToAction("Index", "Usuarios", "");
+            }
+            catch {
+                RegistrarSalidaSession(HttpContext.User.Identity.Name);
+                await HttpContext.SignOutAsync(
+        CookieAuthenticationDefaults.AuthenticationScheme);
+                return RedirectToAction("Index", "Usuarios", "");
+            }
         }
 
         public void RegistrarSalidaSession(string Usuario)

@@ -65,7 +65,7 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
                                 <i class="lnr lnr-alarm" style="color:white;"></i>
-                                <span id="btnNoti" class="badge bg-danger">5<span class="waves"></span></span>
+                                <span id="btnNoti" class="badge bg-danger" style="display:none;"><label id="badgeNoti"></label><span class="waves"></span></span>
                             </a>
                             <ul id="Notificaciones" class="dropdown-menu notifications">
                                 
@@ -328,6 +328,8 @@
         <script src="~/Menu/assets/vendor/pace/pace.js"></script>
         <script src="~/lib/Alertify/alertify.js"></script>
         <script src="~/js/Usuarios.js"></script>
+        <script src="~/lib/SignalR/signalr.js"></script>
+        <script src="~/js/Notificaciones.js"></script>
     </environment>
 
     @RenderSection("Scripts", required: false)

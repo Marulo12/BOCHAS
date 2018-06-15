@@ -41,7 +41,7 @@
                             '<a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color:black;"><i class="fas fa-clipboard-list"></i>  Reservas'+
                              '</a>'+
                             ' <ul class="dropdown-menu">' +
-                            '<li> <a href="#">Nueva Reserva</a></li >'+
+                            '<li> <a  href="#">Nueva Reserva</a></li >'+
                                 '<li><a href="#">Mis Reservas</a></li>'+
                                 '<li><a href="#">Anular Reservas</a></li>'+
                                 '</ul >';
