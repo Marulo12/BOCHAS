@@ -2,7 +2,8 @@
     $("#altaJugador").after(function () {
         MostrarTipoDocumento(); MostrarLocalidades(); MostrarTipoJugador(); 
     });
-    
+
+   
 
     $("#Localidad").change(function () {
         MostrarBarrio();

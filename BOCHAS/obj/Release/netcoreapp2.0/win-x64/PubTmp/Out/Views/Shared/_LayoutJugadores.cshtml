@@ -43,8 +43,8 @@
                 </button>
                 <img src="~/images/LogoBochas.png" width="50" class="img-fluid" />
             </div>
-            <div class="collapse navbar-collapse " id="myNavbar" style="height:100%;">
-                <ul id="PermisosNav" class="nav navbar-nav " style="font-size:15px;padding-top:0px;margin-left:2%;"></ul>
+            <div class="collapse navbar-collapse " id="myNavbar" style="padding-bottom:0px;">
+                <ul id="PermisosNav" class="nav navbar-nav " style="font-size:15px;margin-left:2%;"></ul>
                 <ul class="nav navbar-nav navbar-right">
                     @{
                         if (User.Identity.IsAuthenticated)
@@ -107,7 +107,7 @@
                        
                 </div>
                 <div class="modal-footer">
-                    <div class="col-sm-11">
+                    <div class="col-sm-11" style="float:right;">
                         <input id="BtnCambiaContra" type="button" class="btn btn-info" value="Aceptar" />
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                     </div>

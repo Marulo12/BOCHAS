@@ -99,7 +99,7 @@
                                     if (perfil.Imagen == null)
                                     {
 
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" > <img src="~/images/usuarioSinfond.png" class="img-circle" alt="Avatar" width="25"><span style="color:white;font-size:15px;"> @User.Identity.Name</span> </a>
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img src="~/images/usuarioSinfond.png" class="img-circle" alt="Avatar" width="25"><span style="color:white;font-size:15px;"> @User.Identity.Name</span> </a>
                                     }
                                     else
                                     {
@@ -110,13 +110,13 @@
 
                                 }
                             }
-                                        <ul class="dropdown-menu">
-                                            <li><a id="BtnPerfil" href="#"><i class="lnr lnr-user"></i> <span>Mi Perfil</span></a></li>
-                                            <li><a asp-action="AgregarImagenPerfil" asp-controller="Personas"><i class="far fa-user-circle"></i> <span>Imagen de perfil</span></a></li>
-                                            <li><a href="#" data-toggle="modal" data-target="#ModalContraseña"><i class="lnr lnr-cog"></i> <span>Cambiar Contraseña</span></a></li>
-                                            <li><a asp-action="Logout" asp-controller="Usuarios"><i class="lnr lnr-exit"></i> <span>Salir</span></a></li>
+                            <ul class="dropdown-menu">
+                                <li><a id="BtnPerfil" href="#"><i class="lnr lnr-user"></i> <span>Mi Perfil</span></a></li>
+                                <li><a asp-action="AgregarImagenPerfil" asp-controller="Personas"><i class="far fa-user-circle"></i> <span>Imagen de perfil</span></a></li>
+                                <li><a href="#" data-toggle="modal" data-target="#ModalContraseña"><i class="lnr lnr-cog"></i> <span>Cambiar Contraseña</span></a></li>
+                                <li><a asp-action="Logout" asp-controller="Usuarios"><i class="lnr lnr-exit"></i> <span>Salir</span></a></li>
 
-                                        </ul>
+                            </ul>
 
                         </li>
 
@@ -128,7 +128,7 @@
         <!-- END NAVBAR -->
         <!-- LEFT SIDEBAR -->
         <div id="sidebar-nav" class="sidebar" style="width:160px;background-position:top;background-repeat:no-repeat;background-size:cover;background:linear-gradient(151deg, rgba(2,0,36,1) 25%, rgba(60,60,60,1) 56%, rgba(68,23,23,1) 100%);">
-            <div  style="height:100%;">
+            <div style="height:100%;">
                 <nav style="height:100%;">
                     <ul class="nav">
                         <li><img src="~/images/extras/padel.png" width="35" style="margin-left:10%;margin-bottom:8%;" />&nbsp;<label style="color:white;font-size:20px;">Menú</label></li>
@@ -228,6 +228,8 @@
         <!-- END MAIN -->
 
     </div>
+   
+   
 
     <div id="ModalContraseña" class="modal fade" role="dialog">
         <div class="modal-dialog ">
@@ -238,23 +240,23 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title" style="color:white;"><i class="fas fa-key"></i>   Cambiar contraseña</h4>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" style="padding-left:40px;">
 
                     <div class="row">
-                        <div class="col-sm-4"><label>Contraseña actual:</label></div><div class="col-sm-7"><input id="PassActual" type="password" class="form-control" style="float:left" /></div>
+                        <div class="col-sm-4"><label>Contraseña actual:</label></div><div class="col-sm-6"><input id="PassActual" type="password" class="form-control" style="float:left" /></div>
                     </div>
                     <br />
                     <div class="row">
-                        <div class="col-sm-4"><label>Nueva Contraseña:</label></div><div class="col-sm-7"><input id="PassNuevo" type="password" class="form-control" style="float:left" /></div>
+                        <div class="col-sm-4"><label>Nueva Contraseña:</label></div><div class="col-sm-6"><input id="PassNuevo" type="password" class="form-control" style="float:left" /></div>
                     </div>
                     <br />
                     <div class="row">
-                        <div class="col-sm-4"><label>Confirmar Contraseña:</label></div><div class="col-sm-7"><input id="PassConfirma" type="password" class="form-control" style="float:left" /></div>
+                        <div class="col-sm-4"><label>Confirmar Contraseña:</label></div><div class="col-sm-6"><input id="PassConfirma" type="password" class="form-control" style="float:left" /></div>
                     </div>
 
                 </div>
                 <div class="modal-footer">
-                    <div class="col-sm-11">
+                    <div class="col-sm-11" style="float:right;">
                         <input id="BtnCambiaContra" type="button" class="btn btn-info" value="Aceptar" />
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                     </div>
@@ -305,6 +307,8 @@
         <script src="~/Menu/assets/vendor/chartist/js/chartist.min.js"></script>
         <script src="~/Menu/assets/scripts/klorofil-common.js"></script>
         <script src="~/js/Usuarios.js"></script>
+        <!--  <script src="~/lib/SignalR/signalr.js"></script>
+      <script src="~/js/Notificaciones.js"></script>-->
     </environment>
     <environment exclude="Development">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"

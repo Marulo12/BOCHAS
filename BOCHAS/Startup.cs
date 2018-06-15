@@ -49,10 +49,6 @@ namespace BOCHAS
             };
         });
 
-
-
-
-           
             services.AddMvc();
             services.AddSignalR();
             services.AddDbContext<BOCHASContext>();
@@ -70,10 +66,10 @@ namespace BOCHAS
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+           
             app.UseWebSockets();
             app.UseStaticFiles();
             app.UseAuthentication();
-            app.UseCors("CorsPolicy");
             app.UseCookiePolicy();
             app.UseSignalR(routes =>
             {
