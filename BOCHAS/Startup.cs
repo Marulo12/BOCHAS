@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-
+using Microsoft.AspNetCore.SignalR;
 namespace BOCHAS
 {
     public class Startup
@@ -48,28 +48,13 @@ namespace BOCHAS
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["ApiAuth:SecretKey"]))
             };
         });
-           
+
+
+
 
            
-
-        /*    services.AddAuthentication(options => {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(jwtBearerOptions =>
-            {
-                jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters()
-                {
-                    ValidateActor = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                   // ValidIssuer = Configuration["ApiAuth:Issuer"],
-                 //   ValidAudience = Configuration["ApiAuth:Audience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["ApiAuth:SecretKey"]))
-                };
-            });*/
             services.AddMvc();
+            services.AddSignalR();
             services.AddDbContext<BOCHASContext>();
         }
 
@@ -85,9 +70,15 @@ namespace BOCHAS
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
+            app.UseWebSockets();
             app.UseStaticFiles();
             app.UseAuthentication();
+            app.UseCors("CorsPolicy");
+            app.UseCookiePolicy();
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<ChatHub>("/chathub");
+            });
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
