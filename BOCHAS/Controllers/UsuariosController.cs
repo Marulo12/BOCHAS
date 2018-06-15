@@ -12,15 +12,18 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Cryptography;
 
+
 namespace BOCHAS.Controllers
 {
     public class UsuariosController : Controller
     {
         private readonly BOCHASContext _context;
-
+       
         public UsuariosController(BOCHASContext context)
         {
             _context = context;
+           
+
         }
 
         // GET: Usuarios
@@ -74,7 +77,7 @@ namespace BOCHAS.Controllers
             }
         }
 
-        public void RegistrarIngresoSession(int IdUsuario)
+        public  void RegistrarIngresoSession(int IdUsuario)
         {
             Session Entrada = new Session();
             Entrada.IdUsuario = IdUsuario;
@@ -83,8 +86,12 @@ namespace BOCHAS.Controllers
             Entrada.HoraInicio = (TimeSpan)DateTime.Now.TimeOfDay;
             _context.Add(Entrada);
             _context.SaveChanges();
+  
+          
+           
         }
 
+       
         public async Task<IActionResult> Logout()
         {
 

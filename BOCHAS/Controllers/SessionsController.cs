@@ -8,16 +8,17 @@ using Microsoft.EntityFrameworkCore;
 using BOCHAS.Models;
 using Microsoft.AspNetCore.Authorization;
 
+
 namespace BOCHAS.Controllers
 {
     [Authorize(Roles = "Empleado")]
     public class SessionsController : Controller
     {
         private readonly BOCHASContext _context;
-
+       
         public SessionsController(BOCHASContext context)
         {
-            _context = context;
+            
         }
 
         // GET: Sessions
