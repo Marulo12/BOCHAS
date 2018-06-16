@@ -48,7 +48,7 @@ namespace BOCHAS
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["ApiAuth:SecretKey"]))
             };
         });
-
+            services.AddSignalR();
             services.AddMvc();
            
             services.AddDbContext<BOCHASContext>();
@@ -71,7 +71,7 @@ namespace BOCHAS
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseCookiePolicy();
-            
+            app.UseSignalR();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
