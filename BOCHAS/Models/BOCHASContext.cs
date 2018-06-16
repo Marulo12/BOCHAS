@@ -27,8 +27,8 @@ namespace BOCHAS.Models
             if (!optionsBuilder.IsConfigured)
             {
               //  optionsBuilder.UseSqlServer(@"Data Source=HPINTERFILE3;Initial Catalog=BOCHAS;Integrated Security=True");
-                                optionsBuilder.UseSqlServer(@"Data Source=SISTEMAS04;Initial Catalog=BOCHAS;Persist Security Info=True;User ID=BSP;Password=bochas");
-                   //optionsBuilder.UseSqlServer(@"Data Source=186.124.221.26,1433;Initial Catalog=BOCHAS;Persist Security Info=True;User ID=BSP;Password=bochas");
+                               // optionsBuilder.UseSqlServer(@"Data Source=SISTEMAS04;Initial Catalog=BOCHAS;Persist Security Info=True;User ID=BSP;Password=bochas");
+                   optionsBuilder.UseSqlServer(@"Data Source=186.124.221.26,1433;Initial Catalog=BOCHAS;Persist Security Info=True;User ID=BSP;Password=bochas");
             }
         }
 
