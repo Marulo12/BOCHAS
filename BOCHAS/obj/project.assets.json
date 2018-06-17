@@ -3264,7 +3264,7 @@
           "lib/netstandard1.1/SQLitePCLRaw.provider.e_sqlite3.dll": {}
         }
       },
-      "SqlTableDependency/7.4.0": {
+      "SqlTableDependency/7.2.0": {
         "type": "package",
         "compile": {
           "lib/TableDependency.SqlClient.Where.dll": {},
@@ -8508,16 +8508,16 @@
         "sqlitepclraw.provider.e_sqlite3.netstandard11.nuspec"
       ]
     },
-    "SqlTableDependency/7.4.0": {
-      "sha512": "NKvxMrDiTeoSpDHnjG/cne5dpW4Jt9AWfU5EDlAmJdjaJv2WAjXzq2/hfHCMkRRQRXHokrZneO1/u/nv0MjLfg==",
+    "SqlTableDependency/7.2.0": {
+      "sha512": "80WbvA4QmtiGwMwyf0xjJQCmB0cGk9MKwoQ+ZHxxmfH/N+5Zl+rm7lM/Gky2tFdeLTtk+3cRQG+KLkyAPz7O9g==",
       "type": "package",
-      "path": "sqltabledependency/7.4.0",
+      "path": "sqltabledependency/7.2.0",
       "files": [
         "ReadMe.txt",
         "lib/TableDependency.SqlClient.Where.dll",
         "lib/TableDependency.SqlClient.dll",
         "lib/TableDependency.dll",
-        "sqltabledependency.7.4.0.nupkg.sha512",
+        "sqltabledependency.7.2.0.nupkg.sha512",
         "sqltabledependency.nuspec"
       ]
     },
@@ -13228,7 +13228,7 @@
       "Microsoft.EntityFrameworkCore.Tools >= 2.0.3",
       "Microsoft.NETCore.App >= 2.0.0",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 2.0.3",
-      "SqlTableDependency >= 7.4.0"
+      "SqlTableDependency >= 7.2.0"
     ]
   },
   "packageFolders": {
@@ -13299,7 +13299,7 @@
           },
           "SqlTableDependency": {
             "target": "Package",
-            "version": "[7.4.0, )"
+            "version": "[7.2.0, )"
           }
         },
         "imports": [
@@ -13375,7 +13375,7 @@
       "code": "NU1701",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "El paquete \"SqlTableDependency 7.4.0\" se restauró con \".NETFramework,Version=v4.6.1\" en lugar de la plataforma de destino del proyecto \".NETCoreApp,Version=v2.0\". Puede que el paquete no sea totalmente compatible con el proyecto.",
+      "message": "El paquete \"SqlTableDependency 7.2.0\" se restauró con \".NETFramework,Version=v4.6.1\" en lugar de la plataforma de destino del proyecto \".NETCoreApp,Version=v2.0\". Puede que el paquete no sea totalmente compatible con el proyecto.",
       "libraryId": "SqlTableDependency",
       "targetGraphs": [
         ".NETCoreApp,Version=v2.0"
