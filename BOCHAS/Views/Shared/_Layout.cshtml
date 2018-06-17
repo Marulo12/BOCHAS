@@ -65,11 +65,11 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
                                 <i class="lnr lnr-alarm" style="color:white;"></i>
-                                <span class="badge bg-danger">3  <span class="waves"></span></span>
+                                <span id="SpanNotifica" class="badge bg-danger" style="display:none;"><label id="LabelNoti"></label><span class="waves"></span></span>
                             </a>
                             <ul id="Sig" class="dropdown-menu notifications">
                                
-                                <li><a href="#" class="more">See all notifications</a></li>
+                              
                             </ul>
                         </li>
                         <li class="dropdown">
@@ -310,13 +310,36 @@
         <script>
 
             var connection = $.hubConnection(), hub = connection.createHubProxy('chat');
-            var join = function (msg) {
-                
-                $("#Sig").html('<li>' + msg + '</li>');
+            var user = function (user) {
+                if (user.length == 0) {
 
+
+                }
+                else {
+
+                    $("#Sig").empty();
+
+                    for (var i = 0; i < user.length; i++) {
+
+                        $("#Sig").append('<li><a href="#" class="notification-item"><span class="dot bg-success"></span>' + user[i].us + ' Conectado</a></li>');
+                    }
+                    $("#Sig").append('<li><a href="#" class="more">Ver todas las notificaciones</a></li>');
+                    $("#LabelNoti").html(user.length);
+                    $("#SpanNotifica").css("display", "inline");
+                }
+                
             }
-            hub.on('join', join);
-            connection.start();
+            hub.on('join', user);
+            connection.start(
+                function () {
+                    hub.invoke('join', '');
+                });
+
+           
+
+                
+
+            
 
         </script>
     </environment>

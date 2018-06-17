@@ -164,7 +164,7 @@
        
         connection.start(function () {
 
-            hub.invoke('join');
+            hub.invoke('join','@User.Identity.Name');
 
         });
 

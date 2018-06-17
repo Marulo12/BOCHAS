@@ -3264,6 +3264,19 @@
           "lib/netstandard1.1/SQLitePCLRaw.provider.e_sqlite3.dll": {}
         }
       },
+      "SqlTableDependency/7.4.0": {
+        "type": "package",
+        "compile": {
+          "lib/TableDependency.SqlClient.Where.dll": {},
+          "lib/TableDependency.SqlClient.dll": {},
+          "lib/TableDependency.dll": {}
+        },
+        "runtime": {
+          "lib/TableDependency.SqlClient.Where.dll": {},
+          "lib/TableDependency.SqlClient.dll": {},
+          "lib/TableDependency.dll": {}
+        }
+      },
       "StackExchange.Redis.StrongName/1.2.4": {
         "type": "package",
         "dependencies": {
@@ -8495,6 +8508,19 @@
         "sqlitepclraw.provider.e_sqlite3.netstandard11.nuspec"
       ]
     },
+    "SqlTableDependency/7.4.0": {
+      "sha512": "NKvxMrDiTeoSpDHnjG/cne5dpW4Jt9AWfU5EDlAmJdjaJv2WAjXzq2/hfHCMkRRQRXHokrZneO1/u/nv0MjLfg==",
+      "type": "package",
+      "path": "sqltabledependency/7.4.0",
+      "files": [
+        "ReadMe.txt",
+        "lib/TableDependency.SqlClient.Where.dll",
+        "lib/TableDependency.SqlClient.dll",
+        "lib/TableDependency.dll",
+        "sqltabledependency.7.4.0.nupkg.sha512",
+        "sqltabledependency.nuspec"
+      ]
+    },
     "StackExchange.Redis.StrongName/1.2.4": {
       "sha512": "qrfSB1BnmM17V20A4yvvNA0HNiDgnBd/CcjaeMKMA4qtup1uuBUMyhl20oj31fRVo71E/fXTbmQCuM9ytBJs6w==",
       "type": "package",
@@ -13201,7 +13227,8 @@
       "Microsoft.EntityFrameworkCore.SqlServer >= 2.0.3",
       "Microsoft.EntityFrameworkCore.Tools >= 2.0.3",
       "Microsoft.NETCore.App >= 2.0.0",
-      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 2.0.3"
+      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 2.0.3",
+      "SqlTableDependency >= 7.4.0"
     ]
   },
   "packageFolders": {
@@ -13269,6 +13296,10 @@
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
             "target": "Package",
             "version": "[2.0.3, )"
+          },
+          "SqlTableDependency": {
+            "target": "Package",
+            "version": "[7.4.0, )"
           }
         },
         "imports": [
@@ -13336,6 +13367,16 @@
       "warningLevel": 1,
       "message": "Gray.Microsoft.AspNetCore.SignalR.Messaging 0.2.0 depende de Microsoft.Extensions.Options (>= 1.1.0-alpha1-22144), pero no se encontró Microsoft.Extensions.Options 1.1.0-alpha1-22144. Se resolvió una mejor coincidencia aproximada de Microsoft.Extensions.Options 1.1.0-preview1-final.",
       "libraryId": "Microsoft.Extensions.Options",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v2.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "El paquete \"SqlTableDependency 7.4.0\" se restauró con \".NETFramework,Version=v4.6.1\" en lugar de la plataforma de destino del proyecto \".NETCoreApp,Version=v2.0\". Puede que el paquete no sea totalmente compatible con el proyecto.",
+      "libraryId": "SqlTableDependency",
       "targetGraphs": [
         ".NETCoreApp,Version=v2.0"
       ]
