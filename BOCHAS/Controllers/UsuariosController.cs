@@ -90,7 +90,10 @@ namespace BOCHAS.Controllers
        
         public async Task<IActionResult> Logout()
         {
-                RegistrarSalidaSession(HttpContext.User.Identity.Name);
+            try { RegistrarSalidaSession(HttpContext.User.Identity.Name); } catch {
+
+                NotFound();
+            }
                 await HttpContext.SignOutAsync(
         CookieAuthenticationDefaults.AuthenticationScheme);
                 return RedirectToAction("Index", "Usuarios", "");
@@ -99,10 +102,11 @@ namespace BOCHAS.Controllers
 
         public void RegistrarSalidaSession(string Usuario)
         {
-            var Salida = (from p in _context.Session join u in _context.Usuario on p.IdUsuario equals u.Id where u.Nombre == Usuario && p.Id == _context.Session.Max(s => s.Id) select p).ToList();
-            Salida[0].HoraFin = (TimeSpan)DateTime.Now.TimeOfDay;
-            Salida[0].FechaFin = DateTime.Now.Date;
-            _context.Session.Update(Salida[0]);
+            var SalidaMax = (from p in _context.Session join u in _context.Usuario on p.IdUsuario equals u.Id where u.Nombre == Usuario && p.FechaFin == null select p).Max(p=>p.Id);
+            var Salida = _context.Session.SingleOrDefault(s => s.Id == SalidaMax);
+            Salida.HoraFin = (TimeSpan)DateTime.Now.TimeOfDay;
+            Salida.FechaFin = DateTime.Now.Date;
+            _context.Session.Update(Salida);
             _context.SaveChanges();
         }
 
