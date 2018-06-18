@@ -1,6 +1,6 @@
 ﻿var connection = $.hubConnection(), hub = connection.createHubProxy('chat');
 var user = function (user) {
-    if (user.length == 0) {
+    if (user.length === 0) {
     }
     else {
         $("#Sig").empty();
