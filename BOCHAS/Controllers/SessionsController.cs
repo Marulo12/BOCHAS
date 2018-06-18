@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BOCHAS.Models;
 using Microsoft.AspNetCore.Authorization;
-
+using BOCHAS.Hubs;
 
 namespace BOCHAS.Controllers
 {
@@ -44,6 +44,8 @@ namespace BOCHAS.Controllers
 
             return PartialView(session);
         }
+
+      
 
         
        

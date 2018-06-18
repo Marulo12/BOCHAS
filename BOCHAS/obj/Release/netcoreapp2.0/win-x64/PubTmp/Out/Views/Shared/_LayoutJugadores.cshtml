@@ -62,7 +62,7 @@
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding:0px;"> <img src="~/images/perfiles/jugadores/@User.Identity.Name/@perfil.Imagen" class="img-circle" alt="Avatar" width="50" height="50"><span style="color:black;font-size:15px;"> @User.Identity.Name</span> </a>
 
                                     }
-                                    <input id="UsuarioConectado" type="text" value="@User.Identity.Name" style="display:none"/>
+                                    <input id="UsuarioConectado" type="text" value="@User.Identity.Name" style="display:none" />
                                 }
                                 <ul class="dropdown-menu">
                                     <li><a id="BtnPerfil" href="#"><i class="far fa-user"></i> <span>Mi Perfil</span></a></li>
@@ -155,8 +155,20 @@
     <script src="~/js/Usuarios.js"></script>
     <script src="~/js/site.js"></script>
     <script src="~/js/JugadorExterno.js"></script>
-    <script src="~/lib/SignalR/signalr.js"></script>
-    <script src="~/js/Notificaciones.js"></script>
+
+    <script src="~/lib/signalr/jquery.signalR.min.js"></script>
+    <script src="signalr/hubs"></script>
+    <script>
+
+        var connection = $.hubConnection(), hub = connection.createHubProxy('chat');
+       
+        connection.start(function () {
+
+            hub.invoke('join','@User.Identity.Name');
+
+        });
+
+    </script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

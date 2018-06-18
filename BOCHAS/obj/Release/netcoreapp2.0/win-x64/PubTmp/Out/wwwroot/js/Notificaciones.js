@@ -1,28 +1,19 @@
-﻿$(document).ready(function () {
-    $("#NuevaReservaJugador").click(function () {
-        
-        connection.start().catch(err => console.error(err.toString()));
-        connection.invoke("UsuariosConectados", $("#UsuarioConectado").val()).catch(err => console.error(err.toString()));
+﻿var connection = $.hubConnection(), hub = connection.createHubProxy('chat');
+var user = function (user) {
+    if (user.length == 0) {
+    }
+    else {
+        $("#Sig").empty();
+        for (var i = 0; i < user.length; i++) {
+
+            $("#Sig").append('<li><a asp-action="Index" asp-controller="Sessions" class="notification-item"><span class="dot bg-success"></span>' + user[i].us + ' Conectado</a></li>');
+        }
+    }   
+}
+hub.on('join', user);
+connection.start(
+    function () {
+
+        hub.invoke('join', '');
 
     });
-});
-
-
-const connection = new signalR.HubConnectionBuilder()
-    .withUrl("/chatHub")
-    .build();
-
-connection.on("UsuariosConectado", (usuario) => {
-    $("#Notificaciones").empty();
-    for (var i = 0; i < usuario.length; i++) {
-
-        const li = document.createElement("li");
-        li.textContent = usuario[i].user + " - Esta conectado al sistema";
-        document.getElementById("Notificaciones").appendChild(li);
-    }
-    $("#badgeNoti").html(usuario.length);
-    $("#btnNoti").css("display","inline");
-});
-Object.defineProperty(WebSocket, 'OPEN', { value: 1, });
-connection.start().catch(err => console.error(err.toString()));
-

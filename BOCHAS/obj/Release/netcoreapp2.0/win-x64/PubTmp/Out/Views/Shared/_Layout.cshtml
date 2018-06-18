@@ -65,10 +65,16 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
                                 <i class="lnr lnr-alarm" style="color:white;"></i>
-                                <span id="btnNoti" class="badge bg-danger" style="display:none;"><label id="badgeNoti"></label><span class="waves"></span></span>
+                                <span id="SpanNotifica" class="badge bg-danger">4<span class="waves"></span></span>
                             </a>
-                            <ul id="Notificaciones" class="dropdown-menu notifications">
-                                
+                            <ul class="dropdown-menu notifications">
+                                <li><a href="#" class="notification-item"><span class="dot bg-warning"></span>System space is almost full</a></li>
+                                <li><a href="#" class="notification-item"><span class="dot bg-danger"></span>You have 9 unfinished tasks</a></li>
+                                <li><a href="#" class="notification-item"><span class="dot bg-success"></span>Monthly report is available</a></li>
+                                <li><a href="#" class="notification-item"><span class="dot bg-warning"></span>Weekly meeting in 1 hour</a></li>
+                                <li><a href="#" class="notification-item"><span class="dot bg-success"></span>Your request has been approved</a></li>
+                                <li><a href="#" class="more">See all notifications</a></li>
+
                             </ul>
                         </li>
                         <li class="dropdown">
@@ -101,9 +107,10 @@
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img src="~/images/perfiles/empleados/@User.Identity.Name/@perfil.Imagen" class="img-circle" alt="Avatar" width="40" height="37"><span style="color:white;font-size:15px;"> @User.Identity.Name</span> </a>
 
                                     }
-
+                                    <input id="UsuarioConectado" type="text" value="@User.Identity.Name" style="display:none" />
 
                                 }
+
                             }
                             <ul class="dropdown-menu">
                                 <li><a id="BtnPerfil" href="#"><i class="lnr lnr-user"></i> <span>Mi Perfil</span></a></li>
@@ -215,7 +222,7 @@
                 <div class="container-fluid">
                     <!-- OVERVIEW -->
                     @RenderBody()
-
+                    
                 </div>
             </div>
             <!-- END MAIN CONTENT -->
@@ -302,8 +309,10 @@
         <script src="~/Menu/assets/vendor/chartist/js/chartist.min.js"></script>
         <script src="~/Menu/assets/scripts/klorofil-common.js"></script>
         <script src="~/js/Usuarios.js"></script>
-         <script src="~/lib/SignalR/signalr.js"></script>
-      <script src="~/js/Notificaciones.js"></script>
+
+       
+       
+       
     </environment>
     <environment exclude="Development">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
@@ -328,8 +337,7 @@
         <script src="~/Menu/assets/vendor/pace/pace.js"></script>
         <script src="~/lib/Alertify/alertify.js"></script>
         <script src="~/js/Usuarios.js"></script>
-        <script src="~/lib/SignalR/signalr.js"></script>
-        <script src="~/js/Notificaciones.js"></script>
+       
     </environment>
 
     @RenderSection("Scripts", required: false)
