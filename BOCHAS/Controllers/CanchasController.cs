@@ -65,14 +65,14 @@ namespace BOCHAS.Controllers
             {
                 return NotFound();
             }
-            ViewData["IdEstadoCancha"] = new SelectList(_context.EstadoCancha, "Id", "Nombre", cancha.IdEstadoCancha);
+            ViewData["IdEstadoCancha"] = new SelectList(_context.EstadoCancha.Where(e=>e.Id != 3), "Id", "Nombre", cancha.IdEstadoCancha);
             ViewData["IdTipoMaterial"] = new SelectList(_context.TipoMaterial, "Id", "Nombre", cancha.IdTipoMaterial);
             return PartialView(cancha);
         }
 
        
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]  
         public async Task<IActionResult> Edit(int id, [Bind("Id,Numero,Nombre,Descripcion,IdTipoMaterial,IdEstadoCancha")] Cancha cancha)
         {
             if (id != cancha.Id)

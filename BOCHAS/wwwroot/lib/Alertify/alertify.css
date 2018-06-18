@@ -76,10 +76,12 @@
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABZ0RVh0Q3JlYXRpb24gVGltZQAwNy8xMy8xNOrZqugAAAAcdEVYdFNvZnR3YXJlAEFkb2JlIEZpcmV3b3JrcyBDUzbovLKMAAAAOUlEQVQYlWP8//8/AzGAhYGBgaG4uBiv6t7eXkYmooxjYGAgWiELsvHYFMCcRX2rSXcjoSBiJDbAAeD+EGu+8BZcAAAAAElFTkSuQmCC);
 }
 .alertify .ajs-header {
-  margin: -24px;
-  margin-bottom: 0;
-  padding: 16px 24px;
-  background-color: #fff;
+    margin: -24px;
+    margin-bottom: 0;
+    padding: 16px 24px;
+    background-color: darkred ;
+    color:white !important;
+    
 }
 .alertify .ajs-body {
   min-height: 56px;
@@ -181,6 +183,7 @@
   position: absolute;
   top: 0;
   left: 0;
+  
   right: 0;
   margin: 0;
   padding: 16px 24px;

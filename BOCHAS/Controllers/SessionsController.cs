@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BOCHAS.Models;
 using Microsoft.AspNetCore.Authorization;
+using BOCHAS.Hubs;
 
 namespace BOCHAS.Controllers
 {
@@ -14,7 +15,7 @@ namespace BOCHAS.Controllers
     public class SessionsController : Controller
     {
         private readonly BOCHASContext _context;
-
+       
         public SessionsController(BOCHASContext context)
         {
             _context = context;
@@ -43,6 +44,8 @@ namespace BOCHAS.Controllers
 
             return PartialView(session);
         }
+
+      
 
         
        

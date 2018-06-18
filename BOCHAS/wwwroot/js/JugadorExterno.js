@@ -2,7 +2,8 @@
     $("#altaJugador").after(function () {
         MostrarTipoDocumento(); MostrarLocalidades(); MostrarTipoJugador(); 
     });
-    
+
+   
 
     $("#Localidad").change(function () {
         MostrarBarrio();
@@ -30,7 +31,7 @@
                     
                            Items += '<li>' +
                                '<a href="#" style="color:black;"> <i class="fas fa-chalkboard-teacher"></i>  Mis Clases' +
-                               '</a></li>' 
+                               '</a></li>'; 
                                
                        }
                       
@@ -40,7 +41,7 @@
                             '<a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color:black;"><i class="fas fa-clipboard-list"></i>  Reservas'+
                              '</a>'+
                             ' <ul class="dropdown-menu">' +
-                            '<li> <a href="#">Nueva Reserva</a></li >'+
+                            '<li> <a  href="#">Nueva Reserva</a></li >'+
                                 '<li><a href="#">Mis Reservas</a></li>'+
                                 '<li><a href="#">Anular Reservas</a></li>'+
                                 '</ul >';
@@ -69,7 +70,7 @@ function MostrarTipoJugador() {
             var rows = '<div class="checkbox">';
             for (var i = 0; i < response.length; i++) {
 
-                if (response[i].id == 2) {
+                if (response[i].id === 2) {
                     rows += '<label style="display:none;"><input type="checkbox" name="TipoJugador" value="' + response[i].id + '"  checked>' + response[i].nombre + '</label>';
                 }
                 else {

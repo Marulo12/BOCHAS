@@ -8,6 +8,10 @@
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    
+}
+.containerImagenJugador {
+    width: 70%;
 }
 
 /* Carousel */
@@ -16,8 +20,8 @@
     line-height: 1.4;
 }
 
-/* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"] {
+    /* Make .svg files in the carousel display properly in older browsers */
+    .carousel-inner .item img[src$=".svg"] {
     width: 100%;
 }
 
@@ -28,30 +32,46 @@
 #ImgLoad {
     margin-left: 40%;
 }
-
-@media screen and (max-width: 700px) {
-    /* Hide captions */
-    .carousel-caption {
-        display: none;
-    }
-
-    #ImgLoad {
-        margin-left: 20%;
-    }
-
-   div .col-sm-12 ok {
-        padding-left: 20%;
+@media screen and (max-width: 800px) {
+    .containerImagenJugador {
+        width: 100%;
     }
 }
-/* Hide/rearrange for smaller screens */
-@media screen and (max-width: 400px) {
-    /* Hide captions */
-    .carousel-caption {
-        display: none;
+    @media screen and (max-width: 700px) {
+        /* Hide captions */
+        .carousel-caption {
+            display: none;
+        }
+
+        #ImgLoad {
+            margin-left: 20%;
+        }
+
+        div .col-sm-12 ok {
+            padding-left: 20%;
+        }
+
+        .containerImagenJugador {
+            width: 100%;
+        }
+
+       
     }
-    #ImgLoad {
-    margin-left:12%;
+    /* Hide/rearrange for smaller screens */
+    @media screen and (max-width: 400px) {
+        /* Hide captions */
+        .carousel-caption {
+            display: none;
+        }
+
+        #ImgLoad {
+            margin-left: 12%;
+        }
+
+        .containerImagenJugador {
+            width: 100%;
+        }
+
+       
     }
-  
-}
 

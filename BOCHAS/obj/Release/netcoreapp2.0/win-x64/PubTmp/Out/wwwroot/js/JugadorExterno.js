@@ -2,7 +2,8 @@
     $("#altaJugador").after(function () {
         MostrarTipoDocumento(); MostrarLocalidades(); MostrarTipoJugador(); 
     });
-    
+
+   
 
     $("#Localidad").change(function () {
         MostrarBarrio();
@@ -29,26 +30,26 @@
                        if (response[i].jugador === 1) {
                     
                            Items += '<li>' +
-                               '<a href="#" style="color:white;"> <i class="fas fa-chalkboard-teacher"></i>  Mis Clases' +
-                               '</a></li>' 
+                               '<a href="#" style="color:black;"> <i class="fas fa-chalkboard-teacher"></i>  Mis Clases' +
+                               '</a></li>'; 
                                
                        }
                       
                     if (response[i].jugador === 2) {
 
                         Items +=  '<li class="dropdown">'+
-                            '<a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color:white;"><i class="fas fa-clipboard-list"></i>  Reservas'+
+                            '<a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color:black;"><i class="fas fa-clipboard-list"></i>  Reservas'+
                              '</a>'+
                             ' <ul class="dropdown-menu">' +
-                            '<li> <a href="#">Nueva Reserva</a></li >'+
+                            '<li> <a  href="#">Nueva Reserva</a></li >'+
                                 '<li><a href="#">Mis Reservas</a></li>'+
                                 '<li><a href="#">Anular Reservas</a></li>'+
                                 '</ul >';
                     }
                    
                 }
-                Items += '<li><a href="#" class="text-dark" style="color:white;"><i class="far fa-address-book"></i>  Contactos</a></li><li> <a href="#" style="color:white;"> <i class="fas fa-envelope"></i>  Mail</a></li >';
-                $("#PermisosNav").append(Items);
+                Items += '<li><a href="#" class="text-dark" style="color:black;"><i class="far fa-address-book"></i>  Contactos</a></li><li> <a href="#" style="color:black;"> <i class="fas fa-envelope"></i>  Mail</a></li >';
+                $("#PermisosNav").html(Items);
 
             }
         });
@@ -69,11 +70,11 @@ function MostrarTipoJugador() {
             var rows = '<div class="checkbox">';
             for (var i = 0; i < response.length; i++) {
 
-                if (response[i].id == 2) {
+                if (response[i].id === 2) {
                     rows += '<label style="display:none;"><input type="checkbox" name="TipoJugador" value="' + response[i].id + '"  checked>' + response[i].nombre + '</label>';
                 }
                 else {
-                    rows += '<label><input type="checkbox" name="TipoJugador" value="' + response[i].id + '">Clases particulares (opcional)</label>';
+                    rows += '<label><input type="checkbox" name="TipoJugador" value="' + response[i].id + '"> Anotarme para Clases particulares (opcional)</label>';
                 }
             }
             rows += "</div>";

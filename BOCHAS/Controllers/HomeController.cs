@@ -10,11 +10,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Security.Cryptography;
 
+
 namespace BOCHAS.Controllers
 {
    
     public class HomeController : Controller
     {
+       
         private readonly BOCHASContext _context;
         public HomeController(BOCHASContext context)
         {
@@ -22,7 +24,7 @@ namespace BOCHAS.Controllers
         }
         [Authorize(Roles = "Empleado"), AutoValidateAntiforgeryToken]
         public IActionResult Index()
-        {
+        {           
             return View();
         }
 

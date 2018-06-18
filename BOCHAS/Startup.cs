@@ -28,6 +28,7 @@ namespace BOCHAS
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSession();
             services.AddAuthentication(options => {
                   options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 //options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -48,29 +49,9 @@ namespace BOCHAS
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["ApiAuth:SecretKey"]))
             };
         });
-           
-
-           
-
-        /*    services.AddAuthentication(options => {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(jwtBearerOptions =>
-            {
-                jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters()
-                {
-                    ValidateActor = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                   // ValidIssuer = Configuration["ApiAuth:Issuer"],
-                 //   ValidAudience = Configuration["ApiAuth:Audience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["ApiAuth:SecretKey"]))
-                };
-            });*/
-            services.AddMvc();
+            services.AddSignalR();
             services.AddDbContext<BOCHASContext>();
+            services.AddMvc();                      
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -85,9 +66,13 @@ namespace BOCHAS
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
+           
+           
             app.UseStaticFiles();
             app.UseAuthentication();
+            app.UseCookiePolicy();
+            app.UseSession();
+            app.UseSignalR();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

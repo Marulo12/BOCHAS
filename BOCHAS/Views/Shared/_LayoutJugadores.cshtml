@@ -32,7 +32,7 @@
         }
     </style>
 </head>
-<body class="bodyJugadores" style="background-image:url(/images/padel-1024x768.jpg);">
+<body class="bodyJugadores" style="background: linear-gradient(135deg, #cc0000 0%,#0a1896 0%,#cccccc 46%,#cccccc 58%,#cc0000 100%);background-repeat:no-repeat;background-size:cover;background-attachment:fixed;">
     <nav class="navbar " style="background-color:white;box-shadow: -1px 9px 18px -5px rgba(0,0,0,0.72);">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -43,8 +43,8 @@
                 </button>
                 <img src="~/images/LogoBochas.png" width="50" class="img-fluid" />
             </div>
-            <div class="collapse navbar-collapse " id="myNavbar" style="height:100%;">
-                <ul id="PermisosNav" class="nav navbar-nav " style="font-size:15px;padding-top:0px;margin-left:2%;"></ul>
+            <div class="collapse navbar-collapse " id="myNavbar" style="padding-bottom:0px;">
+                <ul id="PermisosNav" class="nav navbar-nav " style="font-size:15px;margin-left:2%;"></ul>
                 <ul class="nav navbar-nav navbar-right">
                     @{
                         if (User.Identity.IsAuthenticated)
@@ -62,6 +62,7 @@
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding:0px;"> <img src="~/images/perfiles/jugadores/@User.Identity.Name/@perfil.Imagen" class="img-circle" alt="Avatar" width="50" height="50"><span style="color:black;font-size:15px;"> @User.Identity.Name</span> </a>
 
                                     }
+                                    <input id="UsuarioConectado" type="text" value="@User.Identity.Name" style="display:none" />
                                 }
                                 <ul class="dropdown-menu">
                                     <li><a id="BtnPerfil" href="#"><i class="far fa-user"></i> <span>Mi Perfil</span></a></li>
@@ -92,7 +93,7 @@
                     <h4 class="modal-title" style="color:white;"><i class="fas fa-key"></i>   Cambiar contraseña</h4>
                 </div>
                 <div class="modal-body" style="padding-left:40px;">
-                   
+
                     <div class="row">
                         <div class="col-sm-4"><label>Contraseña actual:</label></div><div class="col-sm-6"><input id="PassActual" type="password" class="form-control" style="float:left" /></div>
                     </div>
@@ -104,12 +105,13 @@
                     <div class="row">
                         <div class="col-sm-4"><label>Confirmar Contraseña:</label></div><div class="col-sm-6"><input id="PassConfirma" type="password" class="form-control" style="float:left" /></div>
                     </div>
-                       
+
                 </div>
                 <div class="modal-footer">
-                    <div class="col-sm-11">
+                    <div class="col-sm-11" style="float:right;">
                         <input id="BtnCambiaContra" type="button" class="btn btn-info" value="Aceptar" />
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                        <input type="button" id="NuevaReservaJugador" value="dame click" />
                     </div>
 
                 </div>
@@ -153,6 +155,20 @@
     <script src="~/js/Usuarios.js"></script>
     <script src="~/js/site.js"></script>
     <script src="~/js/JugadorExterno.js"></script>
+
+    <script src="~/lib/signalr/jquery.signalR.min.js"></script>
+    <script src="signalr/hubs"></script>
+    <script>
+
+        var connection = $.hubConnection(), hub = connection.createHubProxy('chat');
+       
+        connection.start(function () {
+
+            hub.invoke('join','@User.Identity.Name');
+
+        });
+
+    </script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

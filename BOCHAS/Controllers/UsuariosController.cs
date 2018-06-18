@@ -12,15 +12,16 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Cryptography;
 
+
 namespace BOCHAS.Controllers
 {
     public class UsuariosController : Controller
     {
         private readonly BOCHASContext _context;
-
+       
         public UsuariosController(BOCHASContext context)
         {
-            _context = context;
+            _context = context;           
         }
 
         // GET: Usuarios
@@ -74,7 +75,7 @@ namespace BOCHAS.Controllers
             }
         }
 
-        public void RegistrarIngresoSession(int IdUsuario)
+        public  void RegistrarIngresoSession(int IdUsuario)
         {
             Session Entrada = new Session();
             Entrada.IdUsuario = IdUsuario;
@@ -83,23 +84,29 @@ namespace BOCHAS.Controllers
             Entrada.HoraInicio = (TimeSpan)DateTime.Now.TimeOfDay;
             _context.Add(Entrada);
             _context.SaveChanges();
+                       
         }
 
+       
         public async Task<IActionResult> Logout()
         {
+            try { RegistrarSalidaSession(HttpContext.User.Identity.Name); } catch {
 
-            RegistrarSalidaSession(HttpContext.User.Identity.Name);
-            await HttpContext.SignOutAsync(
-    CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Index", "Usuarios", "");
+                NotFound();
+            }
+                await HttpContext.SignOutAsync(
+        CookieAuthenticationDefaults.AuthenticationScheme);
+                return RedirectToAction("Index", "Usuarios", "");
+                   
         }
 
         public void RegistrarSalidaSession(string Usuario)
         {
-            var Salida = (from p in _context.Session join u in _context.Usuario on p.IdUsuario equals u.Id where u.Nombre == Usuario && p.Id == _context.Session.Max(s => s.Id) select p).ToList();
-            Salida[0].HoraFin = (TimeSpan)DateTime.Now.TimeOfDay;
-            Salida[0].FechaFin = DateTime.Now.Date;
-            _context.Session.Update(Salida[0]);
+            var SalidaMax = (from p in _context.Session join u in _context.Usuario on p.IdUsuario equals u.Id where u.Nombre == Usuario && p.FechaFin == null select p).Max(p=>p.Id);
+            var Salida = _context.Session.SingleOrDefault(s => s.Id == SalidaMax);
+            Salida.HoraFin = (TimeSpan)DateTime.Now.TimeOfDay;
+            Salida.FechaFin = DateTime.Now.Date;
+            _context.Session.Update(Salida);
             _context.SaveChanges();
         }
 

@@ -4,10 +4,9 @@
     Layout = "~/Views/Shared/_LayoutJugadores.cshtml";
 }
 <div class="container containerImagenJugador">
-    <div class="panel panel-default" style="border:1px solid black;">
+    <div class="panel panel-primary" style="border:1px solid black;">
         <div class="panel-heading">
-
-            <div class="panel-title"><h4 style="padding-left:5px;text-align:left;"><img id="imgSalida" width="70" height="70" src="~/images/usuario.png" style="background-size:contain;" />  Agregar Imagen de perfil</h4></div>
+            <h4 style="text-align:left;"><img id="imgSalida" class="img-circle" width="80" height="80" src="~/images/usuario.png" style="background-size:cover;background-attachment:fixed;" /> <br/><br /> Agregar Imagen de perfil</h4>
         </div>
         <div class="panel-body">
             <form id="FormImagen" asp-action="SubirImagenJugador" class="form-group form-inline" asp-controller="Personas" method="POST" enctype="multipart/form-data">
