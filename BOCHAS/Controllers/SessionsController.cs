@@ -45,9 +45,14 @@ namespace BOCHAS.Controllers
             return PartialView(session);
         }
 
-      
 
-        
+        public async Task<JsonResult> MostrarTotalSesiones() {
+
+            return Json(await _context.Session.CountAsync());
+
+        }
+
        
+
     }
 }
