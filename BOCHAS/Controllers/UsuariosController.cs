@@ -12,15 +12,18 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Cryptography;
 
+using Microsoft.AspNetCore.SignalR;
+using BOCHAS.Hubs;
 
 namespace BOCHAS.Controllers
 {
     public class UsuariosController : Controller
     {
         private readonly BOCHASContext _context;
-       
-        public UsuariosController(BOCHASContext context)
+        private readonly IHubContext<Chat> _hubContext;
+        public UsuariosController(BOCHASContext context, IHubContext<Chat> hubContext)
         {
+            _hubContext = hubContext;
             _context = context;           
         }
 
@@ -90,7 +93,11 @@ namespace BOCHAS.Controllers
        
         public async Task<IActionResult> Logout()
         {
-            try { RegistrarSalidaSession(HttpContext.User.Identity.Name); } catch {
+            try {
+                RegistrarSalidaSession(HttpContext.User.Identity.Name);
+                NotificarSalidaSession();
+                           
+            } catch {
 
                 NotFound();
             }
@@ -108,6 +115,11 @@ namespace BOCHAS.Controllers
             Salida.FechaFin = DateTime.Now.Date;
             _context.Session.Update(Salida);
             _context.SaveChanges();
+        }
+        public void NotificarSalidaSession()
+        {
+            var users = (from u in _context.Usuario join s in _context.Session on u.Id equals s.IdUsuario join p in _context.Persona on u.Id equals p.IdUsuario where p.Tipo == "JUGADOR" && s.FechaInicio == DateTime.Now.Date && s.FechaFin == null select new { us = u.Nombre }).ToList().Distinct();
+            _hubContext.Clients.All.join(users);
         }
 
       public JsonResult VerificarContraseña(string contraactual)
@@ -128,7 +140,8 @@ namespace BOCHAS.Controllers
                 return Json("False");
             }
         }
-        [Authorize]
+        [Microsoft.AspNetCore.Authorization.AuthorizeAttribute]
+        
         public async Task<IActionResult> ConocerPerfil()
         {
             var Perfil = _context.Persona.Include(p => p.IdDomicilioNavigation).Include(p => p.IdUsuarioNavigation).Include(p => p.IdTipoDocumentoNavigation).Include(p => p.IdDomicilioNavigation.IdLocalidadNavigation).Include(p => p.IdDomicilioNavigation.IdBarrioNavigation).Where(p => p.IdUsuarioNavigation.Nombre == HttpContext.User.Identity.Name).SingleOrDefaultAsync();
