@@ -158,7 +158,7 @@
         <!-- TASKS -->
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title">Sesiones</h3>
+                <h3 class="panel-title">Sesiones Activas</h3>
                 <div class="right">
                     <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
                     <button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
@@ -294,21 +294,35 @@
 
 
             // visits chart
-            data = {
-                labels: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'],
-                series: [
-                    [6384, 6342, 5437, 2764, 3958, 5068, 2654]
-                ]
-            };
+            $.ajax({
+                type: "GET",
+                url: "/Sessions/MostrarSesionesMensuales",
 
-            options = {
-                height: 300,
-                axisX: {
-                    showGrid: false
-                },
-            };
+                success: function (response) {
 
-            new Chartist.Bar('#visits-chart', data, options);
+                    var data = {
+                        labels: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'],
+                        series: [
+                            [response[0], response[1], response[2], response[3], response[4], response[5], response[6]]
+                        ],
+
+                    };
+
+                    options = {
+                        height: 300,
+                       
+                        axisX: {
+                            showGrid: false
+                        },
+                        axisY: {
+                            onlyInteger: true
+                        }
+                    };
+
+                    new Chartist.Bar('#visits-chart', data, options);
+                }
+
+            });
 
 
             // real-time pie chart

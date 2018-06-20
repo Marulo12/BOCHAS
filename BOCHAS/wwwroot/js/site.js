@@ -18,3 +18,10 @@ function fileOnload(e) {
     var result = e.target.result;
     $('#imgSalida').attr("src", result);
 }
+
+
+  
+
+
+
+

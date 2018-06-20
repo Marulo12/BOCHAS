@@ -52,7 +52,43 @@ namespace BOCHAS.Controllers
 
         }
 
-       
+        public JsonResult MostrarSesionesMensuales()
+        {
+            // var sesiones = _context.Session.Where(s=>s.FechaInicio.Month == DateTime.Now.Month && s.FechaInicio.Year == DateTime.Now.Year).ToList();
+            var sesiones = _context.Session.ToList();
+            int Monday = 0; int Tuesday = 0; int Wednesday = 0; int Thursday = 0; int Friday = 0; int Saturday = 0; int Sunday = 0;
+
+            foreach (var s in sesiones)
+            {
+                switch (s.FechaInicio.DayOfWeek.ToString())
+                {
+                    case "Monday":
+                        Monday++;
+                        break;
+                    case "Tuesday":
+                        Tuesday++;
+                        break;
+                    case "Wednesday":
+                        Wednesday++;
+                        break;
+                    case "Thursday":
+                        Thursday++;
+                        break;
+                    case "Friday":
+                        Friday++;
+                        break;
+                    case "Saturday":
+                        Saturday++;
+                        break;
+                    case "Sunday":
+                        Sunday++;
+                        break;
+                }
+            }
+
+            int[] ls = new int[] { Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday };
+            return Json(ls.ToList());
+        }
 
     }
 }
