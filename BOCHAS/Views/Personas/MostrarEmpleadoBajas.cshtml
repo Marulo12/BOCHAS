@@ -40,33 +40,38 @@
                                 <th>
                                     Localidad
                                 </th>
+                                <th>
+                                    Motivo
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var item in Model.OrderByDescending(p => p.IdPersonaNavigation.FechaBaja))
                             {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.IdPersonaNavigation.IdUsuarioNavigation.Nombre)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.IdPersonaNavigation.Nombre)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.IdPersonaNavigation.Apellido)
-                                    </td>
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IdPersonaNavigation.IdUsuarioNavigation.Nombre)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IdPersonaNavigation.Nombre)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IdPersonaNavigation.Apellido)
+                                </td>
 
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.FechaComienzo)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.IdPersonaNavigation.FechaBaja)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.IdPersonaNavigation.IdDomicilioNavigation.IdLocalidadNavigation.Nombre)
-                                    </td>
-
-                                </tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FechaComienzo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IdPersonaNavigation.FechaBaja)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IdPersonaNavigation.IdDomicilioNavigation.IdLocalidadNavigation.Nombre)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IdPersonaNavigation.Empleado.MotivoBaja)
+                                </td>
+                            </tr>
                             }
                         </tbody>
                     </table>
