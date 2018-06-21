@@ -1,14 +1,12 @@
-﻿<reference path="../menu/assets/vendor/dropzone/dropzone.min.js" />
-
-var previewNode = document.querySelector("#template");
+﻿var previewNode = document.querySelector("#template");
 previewNode.id = "";
 var previewTemplate = previewNode.parentNode.innerHTML;
 previewNode.parentNode.removeChild(previewNode);
 
 var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
-    url: "/target-url", // Set the url
-    thumbnailWidth: 80,
-    thumbnailHeight: 80,
+    url: "186.124.221.26:10022/images/Noticias", // Set the url
+    thumbnailWidth: 180,
+    thumbnailHeight: 180,
     parallelUploads: 20,
     previewTemplate: previewTemplate,
     autoQueue: false, // Make sure the files aren't queued until manually added

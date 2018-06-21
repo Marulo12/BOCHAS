@@ -1,4 +1,6 @@
-﻿<div class="panel panel-headline">
+﻿
+<link href="~/Menu/assets/vendor/dropzone/dropzone.css" rel="stylesheet" /><div class="panel panel-headline">
+    <link href="~/Menu/assets/vendor/dropzone/basic.css" rel="stylesheet" />
     <div class="panel-heading">
         <h3 class="panel-title">Inicio</h3>
         <p class="panel-subtitle">Fecha:  @DateTime.Now.Date.ToString("dd/MM/yyyy")</p>
@@ -152,7 +154,7 @@
     </div>
 </div>
 
-  
+
 <div class="row">
     <div class="col-md-4">
         <!-- TASKS -->
@@ -165,15 +167,12 @@
                 </div>
             </div>
             <div class="panel-body">
-                <ul id="Sig" class="list-unstyled task-list">
-                   
-
-                </ul>
+                <ul id="Sig" class="list-unstyled task-list"></ul>
             </div>
         </div>
         <!-- END TASKS -->
     </div>
-    <div class="col-md-4">
+    <div class="col-md-8">
         <!-- VISIT CHART -->
         <div class="panel">
             <div class="panel-heading">
@@ -189,28 +188,82 @@
         </div>
         <!-- END VISIT CHART -->
     </div>
-    <div class="col-md-4">
+   
+</div>
+<div class="row">
+    <div class="col-md-12">
         <!-- REALTIME CHART -->
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title">Carga del Sistemas</h3>
+                <h3 class="panel-title">Noticias</h3>
                 <div class="right">
                     <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
                     <button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
                 </div>
             </div>
             <div class="panel-body">
-                <div id="system-load" class="easy-pie-chart" data-percent="70">
-                    <span class="percent">70</span>
+                <div id="actions" class="row">
+
+                    <div class="col-md-4">
+                        <!-- The fileinput-button span is used to style the file input field as button -->
+                        <span class="btn btn-success fileinput-button dz-clickable">
+                            <i class="glyphicon glyphicon-plus"></i>
+                            <span>Agregar Imagen</span>
+                        </span>
+                       
+                    </div>
+                    <div class="col-md-4" style="display:none;">
+                        <span class="fileupload-process">
+                            <div id="total-progress" class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                                <div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress=""></div>
+                            </div>
+                        </span>
+                    </div>
+
+                   
+
                 </div>
-                <h4>CPU Load</h4>
-                <ul class="list-unstyled list-justify">
-                    <li>High: <span>95%</span></li>
-                    <li>Average: <span>87%</span></li>
-                    <li>Low: <span>20%</span></li>
-                    <li>Threads: <span>996</span></li>
-                    <li>Processes: <span>259</span></li>
-                </ul>
+                <div class="table table-striped files" id="previews">
+                    
+                    <div id="template" class="file-row">
+                        <div class="col-md-3">
+                            <!-- This is used as the file preview template -->
+                            <div>
+                                <span class="preview"><img data-dz-thumbnail /></span>
+                            </div>
+                            <div>
+                                <p class="name" data-dz-name></p>
+                                <strong class="error text-danger" data-dz-errormessage></strong>
+                            </div>
+                            <div>
+                                <p class="size" data-dz-size></p>
+                                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                                    <div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress></div>
+                                </div>
+                            </div>
+                            <div>
+
+                                <button class="btn btn-primary start">
+                                    <i class="glyphicon glyphicon-upload"></i>
+                                    <span>Aceptar</span>
+                                </button>
+                                <button data-dz-remove class="btn btn-warning cancel">
+                                    <i class="glyphicon glyphicon-ban-circle"></i>
+                                    <span>Cancelar</span>
+                                </button>
+
+                            </div>
+
+                        </div>
+                        <div class="col-md-6"> 
+                            <label>Descripcion</label>
+                            <textarea style="height:180px;width:100%;float:left;"></textarea>
+                        </div>
+                    </div>
+                  
+                   
+
+                </div>
             </div>
         </div>
         <!-- END REALTIME CHART -->
@@ -218,10 +271,11 @@
 </div>
 @section Scripts
     {
-
+    <script src="~/Menu/assets/vendor/dropzone/dropzone.js"></script>
     <script src="~/lib/signalr/jquery.signalR.js"></script>
     <script src="signalr/hubs"></script>
     <script src="~/js/Notificaciones.js"></script>
+    <script src="~/js/Noticias.js"></script>
     <script>
         $(function () {
             var data, options;
@@ -310,7 +364,7 @@
 
                     options = {
                         height: 300,
-                       
+
                         axisX: {
                             showGrid: false
                         },
@@ -351,8 +405,10 @@
             function getRandomInt(min, max) {
                 return Math.floor(Math.random() * (max - min + 1)) + min;
             }
-                               
+
         });
+
+
     </script>
 
 }
