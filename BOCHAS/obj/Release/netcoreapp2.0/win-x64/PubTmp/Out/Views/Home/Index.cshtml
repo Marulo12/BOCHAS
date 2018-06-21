@@ -27,7 +27,7 @@
                 <div class="metric">
                     <span class="icon"><i class="fa fa-eye"></i></span>
                     <p>
-                        <span class="number">274,678</span>
+                        <span class="number" id="TotalSesiones">0</span>
                         <span class="title">Sessiones</span>
                     </p>
                 </div>
@@ -151,108 +151,14 @@
         <!-- END MULTI CHARTS -->
     </div>
 </div>
-<div class="row">
-    <div class="col-md-7">
-        <!-- TODO LIST -->
-        <div class="panel">
-            <div class="panel-heading">
-                <h3 class="panel-title">Lista a hacer</h3>
-                <div class="right">
-                    <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
-                    <button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
-                </div>
-            </div>
-            <div class="panel-body">
-                <ul class="list-unstyled todo-list">
-                    <li>
-                        <label class="control-inline fancy-checkbox">
-                            <input type="checkbox"><span></span>
-                        </label>
-                        <p>
-                            <span class="title">Mantenimiento</span>
-                            <span class="short-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</span>
-                            <span class="date">Oct 9, 2016</span>
-                        </p>
-                        <div class="controls">
-                            <a href="#"><i class="icon-software icon-software-pencil"></i></a> <a href="#"><i class="icon-arrows icon-arrows-circle-remove"></i></a>
-                        </div>
-                    </li>
-                    <li>
-                        <label class="control-inline fancy-checkbox">
-                            <input type="checkbox"><span></span>
-                        </label>
-                        <p>
-                            <span class="title">Cobros</span>
-                            <span class="short-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
-                            <span class="date">Oct 23, 2016</span>
-                        </p>
-                        <div class="controls">
-                            <a href="#"><i class="icon-software icon-software-pencil"></i></a> <a href="#"><i class="icon-arrows icon-arrows-circle-remove"></i></a>
-                        </div>
-                    </li>
-                    <li>
-                        <label class="control-inline fancy-checkbox">
-                            <input type="checkbox"><span></span>
-                        </label>
-                        <p>
-                            <strong>Pago Proveedores</strong>
-                            <span class="short-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</span>
-                            <span class="date">Oct 11, 2016</span>
-                        </p>
-                        <div class="controls">
-                            <a href="#"><i class="icon-software icon-software-pencil"></i></a> <a href="#"><i class="icon-arrows icon-arrows-circle-remove"></i></a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <!-- END TODO LIST -->
-    </div>
-    <div class="col-md-5">
-        <!-- TIMELINE -->
-        <div class="panel panel-scrolling">
-            <div class="panel-heading">
-                <h3 class="panel-title">Actividades</h3>
-                <div class="right">
-                    <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
-                    <button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
-                </div>
-            </div>
-            <div class="panel-body">
-                <ul class="list-unstyled activity-list">
-                    <li>
-                        <img src="#" alt="Avatar" class="img-circle pull-left avatar" style="display:none;">
-                        <p><a href="#">Michael</a> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua<span class="timestamp">20 minutes ago</span></p>
-                    </li>
-                    <li>
-                        <img src="#" alt="Avatar" class="img-circle pull-left avatar" style="display:none;">
-                        <p><a href="#">Daniel</a> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua <a href="#">System Update</a> <span class="timestamp">Yesterday</span></p>
-                    </li>
-                    <li>
-                        <img src="#" alt="Avatar" class="img-circle pull-left avatar" style="display:none;">
-                        <p><a href="#">Martha</a> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua<a href="#">Landing Page</a> <span class="timestamp">2 days ago</span></p>
-                    </li>
-                    <li>
-                        <img src="#" alt="Avatar" class="img-circle pull-left avatar" style="display:none;">
-                        <p><a href="#">Jane</a> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua <span class="timestamp">2 days ago</span></p>
-                    </li>
-                    <li>
-                        <img src="#" alt="Avatar" class="img-circle pull-left avatar" style="display:none;">
-                        <p><a href="#">Jason</a> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua <a href="#">Weekly Meeting</a> <span class="timestamp">3 days ago</span></p>
-                    </li>
-                </ul>
-                <button type="button" class="btn btn-primary btn-bottom center-block">Load More</button>
-            </div>
-        </div>
-        <!-- END TIMELINE -->
-    </div>
-</div>
+
+  
 <div class="row">
     <div class="col-md-4">
         <!-- TASKS -->
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title">Sesiones</h3>
+                <h3 class="panel-title">Sesiones Activas</h3>
                 <div class="right">
                     <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
                     <button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
@@ -388,21 +294,35 @@
 
 
             // visits chart
-            data = {
-                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-                series: [
-                    [6384, 6342, 5437, 2764, 3958, 5068, 7654]
-                ]
-            };
+            $.ajax({
+                type: "GET",
+                url: "/Sessions/MostrarSesionesMensuales",
 
-            options = {
-                height: 300,
-                axisX: {
-                    showGrid: false
-                },
-            };
+                success: function (response) {
 
-            new Chartist.Bar('#visits-chart', data, options);
+                    var data = {
+                        labels: ['Lun', 'Mar', 'Mier', 'Jue', 'Vier', 'Sab', 'Dom'],
+                        series: [
+                            [response[0], response[1], response[2], response[3], response[4], response[5], response[6]]
+                        ],
+
+                    };
+
+                    options = {
+                        height: 300,
+                       
+                        axisX: {
+                            showGrid: false
+                        },
+                        axisY: {
+                            onlyInteger: true
+                        }
+                    };
+
+                    new Chartist.Bar('#visits-chart', data, options);
+                }
+
+            });
 
 
             // real-time pie chart
