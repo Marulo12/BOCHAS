@@ -23,7 +23,7 @@ namespace BOCHAS.Controllers
       
         public async Task<IActionResult> Index()
         {
-            var bOCHASContext = _context.Cancha.Include(c => c.IdEstadoCnchaNavigation).Include(c => c.IdTipoMaterialNavigation).Where(c=>c.IdEstadoCancha != 3);
+            var bOCHASContext = _context.Cancha.Include(c => c.IdEstadoCanchaNavigation).Include(c => c.IdTipoMaterialNavigation).Where(c=>c.IdEstadoCancha != 3);
             return View(await bOCHASContext.ToListAsync());
         }
             

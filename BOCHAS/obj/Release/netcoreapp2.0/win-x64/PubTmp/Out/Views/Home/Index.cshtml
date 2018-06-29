@@ -1,6 +1,5 @@
 ﻿
-<link href="~/Menu/assets/vendor/dropzone/dropzone.css" rel="stylesheet" /><div class="panel panel-headline">
-    <link href="~/Menu/assets/vendor/dropzone/basic.css" rel="stylesheet" />
+
     <div class="panel-heading">
         <h3 class="panel-title">Inicio</h3>
         <p class="panel-subtitle">Fecha:  @DateTime.Now.Date.ToString("dd/MM/yyyy")</p>
@@ -155,8 +154,8 @@
 </div>
 
 
-<div class="row">
-    <div class="col-md-4">
+<div class="row" >
+    <div class="col-md-4" >
         <!-- TASKS -->
         <div class="panel">
             <div class="panel-heading">
@@ -190,10 +189,51 @@
     </div>
    
 </div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-heading">
+                <div class="row">                    
+                    <div class="col-sm-12"><h3 class="panel-title">Agregar Noticia</h3></div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <form id="FormImagen" class="form-group" method="POST" asp-action="CrearNoticia" asp-controller="Noticias" enctype="multipart/form-data">
+                    <div class="row" >                        
+                            <img id="imgSalida" class="img-thumbnail" style="height:200px; background-size:auto;background-repeat:no-repeat;display:none;" />                                                
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Título</label>
+                            <input type="text" name="titulo" class="form-control" required/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>Descripción</label>
+                            <textarea class="form-control" name="descripcion" title="Descripcion"></textarea>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row ">
+                        <div class="col-md-6">
+                            <div class="form-group form-inline btn-group">
+                                <input id="InputImagen" class="btn btn-default form-control " type="file" name="ImageFile" required">
+                                <input id="BtnSubirImagen" type="submit" class="btn btn-success form-control  " value="Subir" />
+                                <p>@TempData["Mensaje"]</p>
+                            </div>
 
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
 @section Scripts
     {
-    <script src="~/Menu/assets/vendor/dropzone/dropzone.js"></script>
+    
     <script src="~/lib/signalr/jquery.signalR.js"></script>
     <script src="signalr/hubs"></script>
     <script src="~/js/Notificaciones.js"></script>

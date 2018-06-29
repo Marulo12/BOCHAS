@@ -63,22 +63,22 @@
                             @Html.DisplayFor(modelItem => item.Descripcion)
                         </td>
                         <td>
-                            @{ if (item.IdEstadoCnchaNavigation.Id == 2)
+                            @{ if (item.IdEstadoCanchaNavigation.Id == 2)
                                 {
                                     <i class="far  fa-thumbs-up" style="color:forestgreen;"></i>
                                 }
-                                if (item.IdEstadoCnchaNavigation.Id == 1)
+                                if (item.IdEstadoCanchaNavigation.Id == 1)
                                 {
 
                                     <i class="fas  fa-table-tennis" style="color:orangered;"></i>
                                 }
-                                if (item.IdEstadoCnchaNavigation.Id == 1002)
+                                if (item.IdEstadoCanchaNavigation.Id == 1002)
                                 {
                                     <i class="fas  fa-screwdriver"></i>
 
                                 }
                             }
-                            @Html.DisplayFor(modelItem => item.IdEstadoCnchaNavigation.Nombre)
+                            @Html.DisplayFor(modelItem => item.IdEstadoCanchaNavigation.Nombre)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.IdTipoMaterialNavigation.Nombre)
@@ -86,7 +86,7 @@
                         <td class="btn-group">
                             <a  class="btn btn-sm btn-primary" onclick="EditarCancha(@item.Id)" ><i class="fas fa-pencil-alt"></i></a> 
                            
-                            <a  class="btn btn-sm btn-danger" onclick="BajadeCancha(@item.Id,@item.IdEstadoCnchaNavigation.Id)"><i class="fas fa-trash-alt"></i></a>
+                            <a  class="btn btn-sm btn-danger" onclick="BajadeCancha(@item.Id,@item.IdEstadoCanchaNavigation.Id)"><i class="fas fa-trash-alt"></i></a>
                         </td>
                     </tr>
                 }

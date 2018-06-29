@@ -12,7 +12,7 @@ namespace BOCHAS.Models
         public int IdTipoMaterial { get; set; }
         public int IdEstadoCancha { get; set; }
 
-        public EstadoCancha IdEstadoCnchaNavigation { get; set; }
+        public EstadoCancha IdEstadoCanchaNavigation { get; set; }
         public TipoMaterial IdTipoMaterialNavigation { get; set; }
     }
 }

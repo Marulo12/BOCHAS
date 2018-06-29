@@ -198,25 +198,20 @@
                 </div>
             </div>
             <div class="panel-body">
-
-                <form id="FormImagen" class="form-group" method="POST" enctype="multipart/form-data">
-                    <div class="row" >
-                        
-                            <img id="imgSalida" class="img-thumbnail" style="height:200px; background-size:auto;background-repeat:no-repeat;display:none;" />
-                        
-                        
+                <form id="FormImagen" class="form-group" method="POST" asp-action="CrearNoticia" asp-controller="Noticias" enctype="multipart/form-data">
+                    <div class="row" >                        
+                            <img id="imgSalida" class="img-thumbnail" style="height:200px; background-size:auto;background-repeat:no-repeat;display:none;" />                                                
                     </div>
                     <div class="row">
                         <div class="col-md-4">
                             <label>Título</label>
-                            <input type="text" class="form-control" />
+                            <input type="text" name="titulo" class="form-control" required/>
                         </div>
-
                     </div>
                     <div class="row">
                         <div class="col-md-12">
                             <label>Descripción</label>
-                            <textarea class="form-control" title="Descripcion"></textarea>
+                            <textarea class="form-control" name="descripcion" title="Descripcion"></textarea>
                         </div>
                     </div>
                     <hr />

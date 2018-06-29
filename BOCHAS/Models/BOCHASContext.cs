@@ -14,6 +14,7 @@ namespace BOCHAS.Models
         public virtual DbSet<EstadoCancha> EstadoCancha { get; set; }
         public virtual DbSet<Jugador> Jugador { get; set; }
         public virtual DbSet<Localidad> Localidad { get; set; }
+        public virtual DbSet<Noticias> Noticias { get; set; }
         public virtual DbSet<Persona> Persona { get; set; }
         public virtual DbSet<Session> Session { get; set; }
         public virtual DbSet<Tarjeta> Tarjeta { get; set; }
@@ -26,9 +27,8 @@ namespace BOCHAS.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-              //  optionsBuilder.UseSqlServer(@"Data Source=HPINTERFILE3;Initial Catalog=BOCHAS;Integrated Security=True");
-                   optionsBuilder.UseSqlServer(@"Data Source=SISTEMAS04;Initial Catalog=BOCHAS;Persist Security Info=True;User ID=BSP;Password=bochas");
-                 // optionsBuilder.UseSqlServer(@"Data Source=186.124.221.26,1433;Initial Catalog=BOCHAS;Persist Security Info=True;User ID=BSP;Password=bochas");
+
+                optionsBuilder.UseSqlServer(@"Data Source=SISTEMAS04;Initial Catalog=BOCHAS;Persist Security Info=True;User ID=BSP;Password=bochas");
             }
         }
 
@@ -56,7 +56,7 @@ namespace BOCHAS.Models
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.HasOne(d => d.IdEstadoCnchaNavigation)
+                entity.HasOne(d => d.IdEstadoCanchaNavigation)
                     .WithMany(p => p.Cancha)
                     .HasForeignKey(d => d.IdEstadoCancha)
                     .OnDelete(DeleteBehavior.ClientSetNull)
@@ -165,6 +165,28 @@ namespace BOCHAS.Models
                     .HasMaxLength(50);
             });
 
+            modelBuilder.Entity<Noticias>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Activo).HasColumnName("activo");
+
+                entity.Property(e => e.Descripcion)
+                    .HasColumnName("descripcion")
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Titulo)
+                    .IsRequired()
+                    .HasColumnName("titulo")
+                    .HasMaxLength(250)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Url)
+                    .HasColumnName("url")
+                    .HasMaxLength(250)
+                    .IsUnicode(false);
+            });
+
             modelBuilder.Entity<Persona>(entity =>
             {
                 entity.Property(e => e.Apellido)
@@ -179,6 +201,8 @@ namespace BOCHAS.Models
                 entity.Property(e => e.IdDomicilio).HasColumnName("Id_Domicilio");
 
                 entity.Property(e => e.IdUsuario).HasColumnName("Id_Usuario");
+
+                entity.Property(e => e.Imagen).HasColumnType("text");
 
                 entity.Property(e => e.Mail)
                     .HasMaxLength(50)
