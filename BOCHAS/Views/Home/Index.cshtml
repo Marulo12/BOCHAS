@@ -190,92 +190,14 @@
     </div>
    
 </div>
-<div class="row">
-    <div class="col-md-12">
-        <!-- REALTIME CHART -->
-        <div class="panel">
-            <div class="panel-heading">
-                <h3 class="panel-title">Noticias</h3>
-                <div class="right">
-                    <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
-                    <button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
-                </div>
-            </div>
-            <div class="panel-body">
-                <div id="actions" class="row">
 
-                    <div class="col-md-4">
-                        <!-- The fileinput-button span is used to style the file input field as button -->
-                        <span class="btn btn-success fileinput-button dz-clickable">
-                            <i class="glyphicon glyphicon-plus"></i>
-                            <span>Agregar Imagen</span>
-                        </span>
-                       
-                    </div>
-                    <div class="col-md-4" style="display:none;">
-                        <span class="fileupload-process">
-                            <div id="total-progress" class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-                                <div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress=""></div>
-                            </div>
-                        </span>
-                    </div>
-
-                   
-
-                </div>
-                <div class="table table-striped files" id="previews">
-                    
-                    <div id="template" class="file-row">
-                        <div class="col-md-3">
-                            <!-- This is used as the file preview template -->
-                            <div>
-                                <span class="preview"><img data-dz-thumbnail /></span>
-                            </div>
-                            <div>
-                                <p class="name" data-dz-name></p>
-                                <strong class="error text-danger" data-dz-errormessage></strong>
-                            </div>
-                            <div>
-                                <p class="size" data-dz-size></p>
-                                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-                                    <div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress></div>
-                                </div>
-                            </div>
-                            <div>
-
-                                <button class="btn btn-primary start">
-                                    <i class="glyphicon glyphicon-upload"></i>
-                                    <span>Aceptar</span>
-                                </button>
-                                <button data-dz-remove class="btn btn-warning cancel">
-                                    <i class="glyphicon glyphicon-ban-circle"></i>
-                                    <span>Cancelar</span>
-                                </button>
-
-                            </div>
-
-                        </div>
-                        <div class="col-md-6"> 
-                            <label>Descripcion</label>
-                            <textarea style="height:180px;width:100%;float:left;"></textarea>
-                        </div>
-                    </div>
-                  
-                   
-
-                </div>
-            </div>
-        </div>
-        <!-- END REALTIME CHART -->
-    </div>
-</div>
 @section Scripts
     {
     <script src="~/Menu/assets/vendor/dropzone/dropzone.js"></script>
     <script src="~/lib/signalr/jquery.signalR.js"></script>
     <script src="signalr/hubs"></script>
     <script src="~/js/Notificaciones.js"></script>
-    <script src="~/js/Noticias.js"></script>
+    
     <script>
         $(function () {
             var data, options;
