@@ -29,7 +29,7 @@ namespace BOCHAS.Controllers
         {
             try
             {
-                var persona = _context.Persona.SingleOrDefault(p => p.IdUsuarioNavigation.Nombre == HttpContext.User.Identity.Name && p.FechaBaja == null);
+              
                 var filename = ContentDispositionHeaderValue.Parse(ImageFile.ContentDisposition).FileName.Trim('"');
                 var targetDirectory = Path.Combine(_hostingEnv.WebRootPath, string.Format("Images\\Noticias\\" ));
                 if (!Directory.Exists(targetDirectory))
@@ -37,13 +37,8 @@ namespace BOCHAS.Controllers
                     Directory.CreateDirectory(targetDirectory);
                 }
 
-
                 var savePath = Path.Combine(targetDirectory, filename);
-                ImageFile.CopyTo(new FileStream(savePath, FileMode.Create));
-                persona.Imagen = filename;
-                _context.Persona.Update(persona);
-                if (_context.SaveChanges() == 1)
-                {
+                ImageFile.CopyTo(new FileStream(savePath, FileMode.Create));                              
                     Noticias noti = new Noticias();
                     noti.Titulo = titulo;
                     noti.Descripcion = descripcion;
@@ -58,15 +53,7 @@ namespace BOCHAS.Controllers
                     {
                         TempData["Mensaje"] = "Error en la operacion";
                         return RedirectToAction("Index", "Home", "");
-                    }
-
-                }
-                else
-                {
-                    TempData["Mensaje"] = "Error en la operacion";
-                    return RedirectToAction("Index", "Home", "");
-                }
-
+                    }             
                
             }
             catch
