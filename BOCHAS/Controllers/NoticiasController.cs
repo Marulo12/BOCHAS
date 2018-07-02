@@ -28,15 +28,13 @@ namespace BOCHAS.Controllers
         public IActionResult CrearNoticia( string titulo, string descripcion, IFormFile ImageFile)
         {
             try
-            {
-              
+            {              
                 var filename = ContentDispositionHeaderValue.Parse(ImageFile.ContentDisposition).FileName.Trim('"');
                 var targetDirectory = Path.Combine(_hostingEnv.WebRootPath, string.Format("Images\\Noticias\\" ));
                 if (!Directory.Exists(targetDirectory))
                 {
                     Directory.CreateDirectory(targetDirectory);
                 }
-
                 var savePath = Path.Combine(targetDirectory, filename);
                 ImageFile.CopyTo(new FileStream(savePath, FileMode.Create));                              
                     Noticias noti = new Noticias();
@@ -53,19 +51,33 @@ namespace BOCHAS.Controllers
                     {
                         TempData["Mensaje"] = "Error en la operacion";
                         return RedirectToAction("Index", "Home", "");
-                    }             
-               
+                    }                            
             }
             catch
             {
                 TempData["Mensaje"] = "Ingrese una imagen";
                 return RedirectToAction("AgregarImagenPerfil");
             }
-
-
         }
 
+        public async Task<JsonResult> ConocerNoticias()
+        {
+            var noticia = _context.Noticias.Where(n => n.Activo == true).OrderByDescending(o => o.Titulo).ToListAsync();
 
+            return Json(await noticia);
+        }
+
+        public JsonResult BajadeNoticia(int id)
+        {
+            var noti = _context.Noticias.SingleOrDefault(n=>n.Id ==  id);
+            noti.Activo = false;
+            _context.Noticias.Update(noti);
+            if (_context.SaveChanges() == 1)
+            {
+                return Json("OK");
+            }
+            return Json("ERROR");
+        }
 
     }
 }

@@ -26,8 +26,7 @@
         $(".col-lg-12 img").hide();
         $("#TablaEmpladosBaja").show();
         $("#TablaEmpladosBaja").DataTable({
-            responsive: true,             
-            "scrollX": true,
+            responsive: true,                       
             searching: true,           
             dom: 'Bfrtip',  
             buttons: [
@@ -93,8 +92,7 @@ function MostrarEmpleado(filtro) {
             Table += "</tbody><tfoot></tfoot></table>";
             dvItems.append(Table);
             $("#TablaEmpleados").DataTable({
-                searching: true,             
-                "scrollX": true,
+                searching: true,                          
                 responsive: true,
                 search: "Filtro&nbsp;:",
                 dom: 'Bfrtip',

@@ -27,10 +27,8 @@
         $("#TablaJugadoresBaja").show();
         $("#TablaJugadoresBaja").DataTable({
             responsive: true,
-
-            "scrollX": true,
+           
             searching: true,
-
             dom: 'Bfrtip',
             buttons: [
                 {
@@ -95,7 +93,7 @@ function MostrarJugador(filtro) {
             dvItems.append(Table);
             $("#TablaJugadores").DataTable({
                 searching: true,
-                "scrollX": true,
+               
                 responsive: true,
                 search: "Filtro&nbsp;:",
                 dom: 'Bfrtip',

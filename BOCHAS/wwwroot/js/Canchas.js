@@ -7,10 +7,8 @@
 
             {
                 searching: true,
-
                 responsive: true,
                 search: "Filtro&nbsp;:",
-
                 dom: 'Bfrtip',
                 buttons: [
                     {
