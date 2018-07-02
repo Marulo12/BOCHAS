@@ -465,21 +465,20 @@ iframe {
 }
 
 .alert-validate::after {
-  content: "\f06a";
-  font-family: FontAwesome;
-  font-size: 16px;
-  color: #c80000;
-
-  display: block;
-  position: absolute;
-  background-color: #fff;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  -moz-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  -o-transform: translateY(-50%);
-  transform: translateY(-50%);
-  right: 5px;
+    content: "\f06";   
+    font-family: FontAwesome;
+    font-size: 20px;
+    color: #c80000;
+    display: block;
+    position: absolute;
+    background-color: #fff;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+    right: 5px;
 }
 
 .alert-validate:hover:before {
