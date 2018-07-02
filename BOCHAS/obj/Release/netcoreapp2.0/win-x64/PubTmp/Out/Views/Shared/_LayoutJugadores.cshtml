@@ -111,7 +111,7 @@
                     <div class="col-sm-11" style="float:right;">
                         <input id="BtnCambiaContra" type="button" class="btn btn-info" value="Aceptar" />
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                        <input type="button" id="NuevaReservaJugador" value="dame click" />
+                       
                     </div>
 
                 </div>
@@ -145,7 +145,7 @@
 
         </div>
     </div>
-    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>    
     <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
@@ -155,13 +155,12 @@
     <script src="~/js/Usuarios.js"></script>
     <script src="~/js/site.js"></script>
     <script src="~/js/JugadorExterno.js"></script>
-
     <script src="~/lib/signalr/jquery.signalR.min.js"></script>
     <script src="signalr/hubs"></script>
     <script>
 
         var connection = $.hubConnection(), hub = connection.createHubProxy('chat');
-       
+
         connection.start(function () {
 
             hub.invoke('join','@User.Identity.Name');

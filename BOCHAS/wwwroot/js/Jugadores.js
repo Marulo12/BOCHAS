@@ -27,10 +27,8 @@
         $("#TablaJugadoresBaja").show();
         $("#TablaJugadoresBaja").DataTable({
             responsive: true,
-
-            "scrollX": true,
+           
             searching: true,
-
             dom: 'Bfrtip',
             buttons: [
                 {
@@ -73,9 +71,7 @@
         $("#TablaSessiones_filter").append($("div .btn-group"));
         $("div .btn-group").css("float", "left");
     });
-    $("#BtnTipoJugador").click(function () {
-        AgregarTipoJugador();
-    });
+    
 });
 
 
@@ -91,13 +87,13 @@ function MostrarJugador(filtro) {
             dvItems.empty();
             var Table = '<table id="TablaJugadores" class="table table-striped  display" style="width:100%;" ><thead style="background-color: rgba(158, 44, 44, 0.9);color:white"><tr><th>Nombre</th><th>Apellido</th><th>Documento</th><th>Teléfono</th><th>Mail</th><th style="width:220px;"></th></tr></thead><tbody>';
             for (var i = 0; i < response.length; i++) {
-                Table += '<tr ><td>' + response[i].nombre + '</td>' + '<td>' + response[i].apellido + '</td>' + '<td>' + response[i].documento + '</td>' + '<td>' + response[i].telefono + '</td>' + '<td>' + response[i].mail + '</td>' + '</td> <td><div class="btn-group" > <button class=" btn btn-sm btn-primary " data-toggle="tooltip" title="Informacion adicional" data-placement="top"  onclick="ConocerDomicilio(' + response[i].id + ');"><i class="far fa-address-card"></i></button><button  class=" btn btn-sm BtnEditar" data-toggle="tooltip" title="Modificar"  onclick="EditarJugador(' + response[i].id + ');" data-placement="top" ><i class="fas fa-pencil-alt"></i></button><button class="btn btn-sm btn-danger" data-toggle="tooltip" title="Baja" data-placement="top" onclick="confirmarBaja(' + response[i].id + ');"><i class="fas fa-trash-alt"></i></button><button class="btn btn-sm btn-warning" data-toggle="tooltip" title="Agregar tipo de jugador" data-placement="top" onclick="AbrirModalTipoJugador(' + response[i].id + ');"><i class="fas fa-user-tag"></i></button></div></td></tr>';
+                Table += '<tr ><td>' + response[i].nombre + '</td>' + '<td>' + response[i].apellido + '</td>' + '<td>' + response[i].documento + '</td>' + '<td>' + response[i].telefono + '</td>' + '<td>' + response[i].mail + '</td>' + '</td> <td><div class="btn-group" > <button class=" btn btn-sm btn-primary " data-toggle="tooltip" title="Informacion adicional" data-placement="top"  onclick="ConocerDomicilio(' + response[i].id + ');"><i class="far fa-address-card"></i></button><button  class=" btn btn-sm BtnEditar" data-toggle="tooltip" title="Modificar"  onclick="EditarJugador(' + response[i].id + ');" data-placement="top" ><i class="fas fa-pencil-alt"></i></button><button class="btn btn-sm btn-danger" data-toggle="tooltip" title="Baja" data-placement="top" onclick="confirmarBaja(' + response[i].id + ');"><i class="fas fa-trash-alt"></i></button><button class="btn btn-sm btn-warning" data-toggle="tooltip" title="Clases particulares" data-placement="top" onclick="AgregarServicio(' + response[i].id + ');"><i class="fas fa-user-tag"></i></button></div></td></tr>';
             }
             Table += "</tbody><tfoot></tfoot></table>";
             dvItems.append(Table);
             $("#TablaJugadores").DataTable({
                 searching: true,
-                "scrollX": true,
+               
                 responsive: true,
                 search: "Filtro&nbsp;:",
                 dom: 'Bfrtip',
@@ -151,54 +147,37 @@ function MostrarJugador(filtro) {
     });
 
 }
-function AbrirModalTipoJugador(id) {
-    $.ajax({
-        type: "GET",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        url: "/Personas/MostrarTipoJugador",
-        success: function (response) {
-            var rows;
-            var dvItems = $("#CmbModalTipoJugador");
-            dvItems.empty();
-            for (var i = 0; i < response.length; i++) {
-                rows += '<option value="' + response[i].id + '">' + response[i].nombre + '</option>';
+function AgregarServicio(id) {
+    var servicio = 1;
+    alertify.confirm('Confirmar', 'Agregar servicio de clases particulares?', function () {
+       
+        $.ajax({
+            type: "POST",
+            url: "/Personas/AgregarTipoJugador",
+            data: { 'IdPersona': id, 'tipoJugador':'1' },
+            success: function (response) {
+                if (response === "OK") {
+                    alertify.success("Servicio agregado con exito");             
+
+                    
+                }
+                else {
+                    alertify.error("El servicio ya estaba incorporado");
+                   
+                }
+            },
+            failure: function (response) {
+                alertify.error(response);
             }
-            $("#IdPersonaTipoJugador").val(id);
-            dvItems.append(rows);
-            $("#ModalTipoJugador").modal();
-        },
-        failure: function (response) {
-            alert(response);
-        }
-    });
+        });
+    }
+        , function () { alertify.error('Operacion Cancelada'); });
+
+
+
+    
 }
-function AgregarTipoJugador() {
-    var tipoJugador = $("#CmbModalTipoJugador option:selected").val();
-    var IdPersona = $("#IdPersonaTipoJugador").val();
 
-    $.ajax({
-        type: "POST",
-        url: "/Personas/AgregarTipoJugador",
-        data: { IdPersona, tipoJugador },
-
-        success: function (response) {
-            if (response === "OK") {
-                alertify.success("Se agrego el tipo de jugador con exito");
-
-                $("#ModalTipoJugador").modal('hide');
-            }
-            else {
-                alertify.error("Ya existe ese tipo para esa persona");
-                $("#ModalTipoJugador").modal('hide');
-            }
-        },
-        failure: function (response) {
-            alertify.error(response);
-        }
-    });
-
-}
 
 function EditarJugador(id) {
     $.ajax({
@@ -292,7 +271,12 @@ function MostrarTipoJugador() {
             var dvItems = $("#TipoJugador");
             var rows = '<div class="checkbox">';
             for (var i = 0; i < response.length; i++) {
-                rows += '<label><input type="checkbox" name="TipoJugador" value="' + response[i].id + '">' + response[i].nombre + '</label>&nbsp;&nbsp;&nbsp;&nbsp;';
+                if (response[i].id === 2) {
+                    rows += '<label style="display:none;"><input type="checkbox" name="TipoJugador" value="' + response[i].id + '"  checked>' + response[i].nombre + '</label>';
+                }
+                else {
+                    rows += '<label><input type="checkbox" name="TipoJugador" value="' + response[i].id + '"> Clases particulares (opcional)</label>';
+                }
 
             }
             rows += "</div>";

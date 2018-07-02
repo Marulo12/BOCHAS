@@ -1,4 +1,5 @@
-﻿<div class="panel panel-headline">
+﻿
+<div class="panel">
     <div class="panel-heading">
         <h3 class="panel-title">Inicio</h3>
         <p class="panel-subtitle">Fecha:  @DateTime.Now.Date.ToString("dd/MM/yyyy")</p>
@@ -27,7 +28,7 @@
                 <div class="metric">
                     <span class="icon"><i class="fa fa-eye"></i></span>
                     <p>
-                        <span class="number">274,678</span>
+                        <span class="number" id="TotalSesiones">0</span>
                         <span class="title">Sessiones</span>
                     </p>
                 </div>
@@ -151,123 +152,26 @@
         <!-- END MULTI CHARTS -->
     </div>
 </div>
-<div class="row">
-    <div class="col-md-7">
-        <!-- TODO LIST -->
-        <div class="panel">
-            <div class="panel-heading">
-                <h3 class="panel-title">Lista a hacer</h3>
-                <div class="right">
-                    <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
-                    <button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
-                </div>
-            </div>
-            <div class="panel-body">
-                <ul class="list-unstyled todo-list">
-                    <li>
-                        <label class="control-inline fancy-checkbox">
-                            <input type="checkbox"><span></span>
-                        </label>
-                        <p>
-                            <span class="title">Mantenimiento</span>
-                            <span class="short-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</span>
-                            <span class="date">Oct 9, 2016</span>
-                        </p>
-                        <div class="controls">
-                            <a href="#"><i class="icon-software icon-software-pencil"></i></a> <a href="#"><i class="icon-arrows icon-arrows-circle-remove"></i></a>
-                        </div>
-                    </li>
-                    <li>
-                        <label class="control-inline fancy-checkbox">
-                            <input type="checkbox"><span></span>
-                        </label>
-                        <p>
-                            <span class="title">Cobros</span>
-                            <span class="short-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
-                            <span class="date">Oct 23, 2016</span>
-                        </p>
-                        <div class="controls">
-                            <a href="#"><i class="icon-software icon-software-pencil"></i></a> <a href="#"><i class="icon-arrows icon-arrows-circle-remove"></i></a>
-                        </div>
-                    </li>
-                    <li>
-                        <label class="control-inline fancy-checkbox">
-                            <input type="checkbox"><span></span>
-                        </label>
-                        <p>
-                            <strong>Pago Proveedores</strong>
-                            <span class="short-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</span>
-                            <span class="date">Oct 11, 2016</span>
-                        </p>
-                        <div class="controls">
-                            <a href="#"><i class="icon-software icon-software-pencil"></i></a> <a href="#"><i class="icon-arrows icon-arrows-circle-remove"></i></a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <!-- END TODO LIST -->
-    </div>
-    <div class="col-md-5">
-        <!-- TIMELINE -->
-        <div class="panel panel-scrolling">
-            <div class="panel-heading">
-                <h3 class="panel-title">Actividades</h3>
-                <div class="right">
-                    <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
-                    <button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
-                </div>
-            </div>
-            <div class="panel-body">
-                <ul class="list-unstyled activity-list">
-                    <li>
-                        <img src="#" alt="Avatar" class="img-circle pull-left avatar" style="display:none;">
-                        <p><a href="#">Michael</a> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua<span class="timestamp">20 minutes ago</span></p>
-                    </li>
-                    <li>
-                        <img src="#" alt="Avatar" class="img-circle pull-left avatar" style="display:none;">
-                        <p><a href="#">Daniel</a> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua <a href="#">System Update</a> <span class="timestamp">Yesterday</span></p>
-                    </li>
-                    <li>
-                        <img src="#" alt="Avatar" class="img-circle pull-left avatar" style="display:none;">
-                        <p><a href="#">Martha</a> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua<a href="#">Landing Page</a> <span class="timestamp">2 days ago</span></p>
-                    </li>
-                    <li>
-                        <img src="#" alt="Avatar" class="img-circle pull-left avatar" style="display:none;">
-                        <p><a href="#">Jane</a> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua <span class="timestamp">2 days ago</span></p>
-                    </li>
-                    <li>
-                        <img src="#" alt="Avatar" class="img-circle pull-left avatar" style="display:none;">
-                        <p><a href="#">Jason</a> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua <a href="#">Weekly Meeting</a> <span class="timestamp">3 days ago</span></p>
-                    </li>
-                </ul>
-                <button type="button" class="btn btn-primary btn-bottom center-block">Load More</button>
-            </div>
-        </div>
-        <!-- END TIMELINE -->
-    </div>
-</div>
+
+
 <div class="row">
     <div class="col-md-4">
         <!-- TASKS -->
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title">Sesiones</h3>
+                <h3 class="panel-title">Sesiones Activas</h3>
                 <div class="right">
                     <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
                     <button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
                 </div>
             </div>
             <div class="panel-body">
-                <ul id="Sig" class="list-unstyled task-list">
-                   
-
-                </ul>
+                <ul id="Sig" class="list-unstyled task-list"></ul>
             </div>
         </div>
         <!-- END TASKS -->
     </div>
-    <div class="col-md-4">
+    <div class="col-md-8">
         <!-- VISIT CHART -->
         <div class="panel">
             <div class="panel-heading">
@@ -283,31 +187,67 @@
         </div>
         <!-- END VISIT CHART -->
     </div>
-    <div class="col-md-4">
-        <!-- REALTIME CHART -->
+
+</div>
+<div class="row">
+    <div class="col-md-12">
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title">Carga del Sistemas</h3>
-                <div class="right">
-                    <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
-                    <button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
-                </div>
+               
+                <input id="AdministrarNoticias" class="btn btn-xs btn-info" style="border-radius:10px;float:right;" value="Administrar Noticias" />
+                <div class="panel-title"><h3 class="panel-title">Agregar Noticia</h3></div>
+
+
             </div>
             <div class="panel-body">
-                <div id="system-load" class="easy-pie-chart" data-percent="70">
-                    <span class="percent">70</span>
-                </div>
-                <h4>CPU Load</h4>
-                <ul class="list-unstyled list-justify">
-                    <li>High: <span>95%</span></li>
-                    <li>Average: <span>87%</span></li>
-                    <li>Low: <span>20%</span></li>
-                    <li>Threads: <span>996</span></li>
-                    <li>Processes: <span>259</span></li>
-                </ul>
+                <form id="FormImagen" class="form-group" method="POST" asp-action="CrearNoticia" asp-controller="Noticias" enctype="multipart/form-data">
+                    <div class="row">
+                        <img id="imgSalida" src="~/images/extras/noticia.png" class="img-responsive" style="height:200px; background-size:auto;background-repeat:no-repeat;margin-left:5px;border:none;" />
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Título</label>
+                            <input type="text" name="titulo" class="form-control" required />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>Descripción</label>
+                            <textarea class="form-control" name="descripcion" title="Descripcion"></textarea>
+                        </div>
+                    </div>
+                    <hr style="border:1px solid red;" />
+                    <div class="row ">
+                        <div class="col-md-6">
+                            <div class="form-group form-inline btn-group">
+                                <input id="InputImagen" class="btn btn-default form-control " type="file" name="ImageFile" required">
+                                <input id="BtnSubirImagen" type="submit" class="btn btn-success form-control  " value="Subir" />
+                                <p>@TempData["Mensaje"]</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+
             </div>
         </div>
-        <!-- END REALTIME CHART -->
+    </div>
+</div>
+<div id="ModalNoticias" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header"style="background: linear-gradient(to right, rgba(69,117,214,1) 0%, rgba(55,119,219,1) 2%, rgba(21,123,232,1) 7%, rgba(228,238,240,1) 94%, rgba(228,238,240,1) 100%);" >
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" style="color:white"><i class="fas fa-2x fa-images"></i>  Administrar Noticias</h4>
+            </div>
+            <div class="modal-body">                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+
     </div>
 </div>
 @section Scripts
@@ -316,6 +256,7 @@
     <script src="~/lib/signalr/jquery.signalR.js"></script>
     <script src="signalr/hubs"></script>
     <script src="~/js/Notificaciones.js"></script>
+    <script src="~/js/Noticias.js"></script>
     <script>
         $(function () {
             var data, options;
@@ -388,25 +329,39 @@
 
 
             // visits chart
-            data = {
-                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-                series: [
-                    [6384, 6342, 5437, 2764, 3958, 5068, 7654]
-                ]
-            };
+            $.ajax({
+                type: "GET",
+                url: "/Sessions/MostrarSesionesMensuales",
 
-            options = {
-                height: 300,
-                axisX: {
-                    showGrid: false
-                },
-            };
+                success: function (response) {
 
-            new Chartist.Bar('#visits-chart', data, options);
+                    var data = {
+                        labels: ['Lun', 'Mar', 'Mier', 'Jue', 'Vier', 'Sab', 'Dom'],
+                        series: [
+                            [response[0], response[1], response[2], response[3], response[4], response[5], response[6]]
+                        ],
+
+                    };
+
+                    options = {
+                        height: 300,
+
+                        axisX: {
+                            showGrid: false
+                        },
+                        axisY: {
+                            onlyInteger: true
+                        }
+                    };
+
+                    new Chartist.Bar('#visits-chart', data, options);
+                }
+
+            });
 
 
             // real-time pie chart
-            var sysLoad = $('#system-load').easyPieChart({
+     /*       var sysLoad = $('#system-load').easyPieChart({
                 size: 130,
                 barColor: function (percent) {
                     return "rgb(" + Math.round(200 * percent / 100) + ", " + Math.round(200 * (1.1 - percent / 100)) + ", 0)";
@@ -416,7 +371,7 @@
                 lineWidth: 5,
                 lineCap: "square",
                 animate: 800
-            });
+            });*/
 
             var updateInterval = 3000; // in milliseconds
 
@@ -431,8 +386,10 @@
             function getRandomInt(min, max) {
                 return Math.floor(Math.random() * (max - min + 1)) + min;
             }
-                               
+
         });
+
+
     </script>
 
 }
