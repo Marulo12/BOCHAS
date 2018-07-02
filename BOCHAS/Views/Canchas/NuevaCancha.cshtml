@@ -51,15 +51,18 @@
                     </div>
 
                 </div>
-                <div class="col-md-1">
+                <div class="col-md-3">
                     <div class="form-group" style="display:none;">
                         <label class="control-label">Estado</label>
                         <select asp-for="IdEstadoCancha" class="form-control" asp-items="ViewBag.IdEstadoCancha" style="background-color: rgba(172, 44, 44, 0.9);color:white;"></select>
 
                     </div>
-                    <input type="submit" value="Aceptar" class="btn btn-primary" style="margin-top:100px;" />
-                </div>
-            </form>
+                    <div class="btn-group" >
+                        <input type="submit" value="Aceptar" class="btn btn-primary" style="margin-top:100px;" />
+                        <a asp-action="NuevaCancha" asp-controller="Canchas"> <input type="button" value="Limpiar" class="btn btn-primary" style="margin-top:100px;" /></a>
+                    </div>
+                    </div>
+</form>
         </div>
 
 
