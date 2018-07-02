@@ -1,5 +1,5 @@
 ﻿
-
+<div class="panel">
     <div class="panel-heading">
         <h3 class="panel-title">Inicio</h3>
         <p class="panel-subtitle">Fecha:  @DateTime.Now.Date.ToString("dd/MM/yyyy")</p>
@@ -200,7 +200,7 @@
             <div class="panel-body">
                 <form id="FormImagen" class="form-group" method="POST" asp-action="CrearNoticia" asp-controller="Noticias" enctype="multipart/form-data">
                     <div class="row" >                        
-                            <img id="imgSalida" class="img-thumbnail" style="height:200px; background-size:auto;background-repeat:no-repeat;display:none;" />                                                
+                            <img id="imgSalida" src="~/images/extras/noticia.png" class="img-responsive" style="height:200px; background-size:auto;background-repeat:no-repeat;margin-left:5px;border:none;" />                                                
                     </div>
                     <div class="row">
                         <div class="col-md-4">
@@ -214,7 +214,7 @@
                             <textarea class="form-control" name="descripcion" title="Descripcion"></textarea>
                         </div>
                     </div>
-                    <hr />
+                    <hr style="border:1px solid red;"/>
                     <div class="row ">
                         <div class="col-md-6">
                             <div class="form-group form-inline btn-group">
