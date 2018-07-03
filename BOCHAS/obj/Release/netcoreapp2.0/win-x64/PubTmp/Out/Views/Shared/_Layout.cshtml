@@ -12,17 +12,17 @@
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+        <link href="~/lib/fontawesome-free-5.1.0-web/fontawesome-free-5.1.0-web/css/all.css" rel="stylesheet" />
         <link href="~/lib/DataTables/datatables.css" rel="stylesheet" />
         <link href="~/lib/DataTables/DataTables-1.10.16/css/dataTables.bootstrap.css" rel="stylesheet" />
         <link href="~/lib/Alertify/alertify.css" rel="stylesheet" />
         <link href="~/lib/Alertify/themes/bootstrap.css" rel="stylesheet" />
         <link href="~/Menu/assets/vendor/pace/themes/red/pace-theme-minimal.css" rel="stylesheet" />
         <link rel="stylesheet" href="~/Menu/assets/vendor/linearicons/style.css">
+        <link href="https://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet">
         <link rel="stylesheet" href="~/Menu/assets/vendor/chartist/css/chartist-custom.css">
         <link rel="stylesheet" href="~/Menu/assets/css/main.css">
-        <link rel="stylesheet" href="~/Menu/assets/css/demo.css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+
         <link rel="apple-touch-icon" sizes="76x76" href="~/images/LogoBochas.png">
         <link rel="icon" type="image/png" sizes="96x96" href="~/images/LogoBochas.png">
     </environment>
@@ -31,14 +31,15 @@
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
+        <link href="~/lib/fontawesome-free-5.1.0-web/fontawesome-free-5.1.0-web/css/all.css" rel="stylesheet" />
         <link href="~/lib/DataTables/datatables.min.css" rel="stylesheet" />
         <link href="~/Menu/assets/vendor/pace/themes/red/pace-theme-minimal.css" rel="stylesheet" />
         <link rel="stylesheet" href="~/Menu/assets/vendor/linearicons/style.css">
         <link rel="stylesheet" href="~/Menu/assets/vendor/chartist/css/chartist-custom.css">
         <link rel="stylesheet" href="~/Menu/assets/css/main.css">
         <link rel="stylesheet" href="~/Menu/assets/css/demo.css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet">
         <link rel="apple-touch-icon" sizes="76x76" href="~/images/LogoBochas.png">
         <link rel="icon" type="image/png" sizes="96x96" href="~/images/LogoBochas.png">
         <link href="~/lib/Alertify/alertify.css" rel="stylesheet" />
@@ -114,7 +115,7 @@
                             }
                             <ul class="dropdown-menu">
                                 <li><a id="BtnPerfil" href="#"><i class="lnr lnr-user"></i> <span>Mi Perfil</span></a></li>
-                                <li><a asp-action="AgregarImagenPerfil" asp-controller="Personas"><i class="far fa-user-circle"></i> <span>Imagen de perfil</span></a></li>
+                                <li><a asp-action="AgregarImagenPerfil" asp-controller="Personas"><i class="far fa-user-circle"></i> <span>&nbsp;&nbsp;Imagen de perfil</span></a></li>
                                 <li><a href="#" data-toggle="modal" data-target="#ModalContraseña"><i class="lnr lnr-cog"></i> <span>Cambiar Contraseña</span></a></li>
                                 <li><a asp-action="Logout" asp-controller="Usuarios"><i class="lnr lnr-exit"></i> <span>Salir</span></a></li>
 
@@ -135,9 +136,9 @@
                     <ul class="nav">
                         <li><img src="~/images/extras/padel.png" width="35" style="margin-left:10%;margin-bottom:8%;" />&nbsp;<label style="color:white;font-size:20px;">Menú</label></li>
                         <li style="margin-top:0px;border-bottom:1px solid white;border-top:1px solid white;"><a asp-action="Index" asp-controller="Home" class="active"><i class="lnr lnr-home"></i> <span>Escritorio</span></a></li>
-                        <li><a href="charts.html" class=""><i class="far fa-calendar-alt"></i><span>Agenda</span></a></li>
+                        <li><a href="charts.html" class=""><i class="far fa-calendar-alt"></i><span> &nbsp;&nbsp;Agenda</span></a></li>
                         <li>
-                            <a href="#subPagesReservas" data-toggle="collapse" class="collapsed"><i class="fas fa-bell"></i> <span>Reservas</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                            <a href="#subPagesReservas" data-toggle="collapse" class="collapsed"><i class="fas  fa-bell"></i> <span>&nbsp;&nbsp;Reservas</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                             <div id="subPagesReservas" class="collapse ">
                                 <ul class="nav">
                                     <li><a href="page-profile.html" class="">Profile</a></li>
@@ -147,12 +148,12 @@
                             </div>
                         </li>
                         <li>
-                            <a href="#subPagesJugadores" data-toggle="collapse" class="collapsed"><i class="fas fa-user-shield"></i><span>Jugadores</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                            <a href="#subPagesJugadores" data-toggle="collapse" class="collapsed"><i class="fas fa-user-shield"></i><span>&nbsp;&nbsp;Jugadores</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                             <div id="subPagesJugadores" class="collapse ">
                                 <ul class="nav">
-                                    <li><a asp-action="RegistrarJugador" asp-controller="Personas"> <i class="fas fa-user-plus"></i>Nuevo Jugador</a></li>
-                                    <li><a asp-controller="Personas" asp-action="ConsultarJugador"> <i class="fas fa-user-edit"></i>Consultar activos</a></li>
-                                    <li><a asp-controller="Personas" asp-action="MostrarJugadorBajas"> <i class="fas fa-user-times"></i>Consultar Bajas</a></li>
+                                    <li><a asp-action="RegistrarJugador" asp-controller="Personas"> <i class="fas fa-user-plus"></i>&nbsp;&nbsp;Nuevo Jugador</a></li>
+                                    <li><a asp-controller="Personas" asp-action="ConsultarJugador"> <i class="fas fa-user-edit"></i>&nbsp;&nbsp;Consultar activos</a></li>
+                                    <li><a asp-controller="Personas" asp-action="MostrarJugadorBajas"> <i class="fas fa-user-times"></i>&nbsp;&nbsp;Consultar Bajas</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -160,7 +161,7 @@
 
 
                         <li>
-                            <a href="#subPages" data-toggle="collapse" class="collapsed"><i class="fas fa-users"></i> <span>Clases</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                            <a href="#subPages" data-toggle="collapse" class="collapsed"><i class="fas fa-users"></i> <span>&nbsp;&nbsp;Clases</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                             <div id="subPages" class="collapse ">
                                 <ul class="nav">
                                     <li><a href="page-profile.html" class="">Profile</a></li>
@@ -172,7 +173,7 @@
 
 
                         <li>
-                            <a href="#subPagesTorneos" data-toggle="collapse" class="collapsed"><i class="fas fa-trophy"></i> <span>Torneos</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                            <a href="#subPagesTorneos" data-toggle="collapse" class="collapsed"><i class="fas fa-trophy"></i> <span>&nbsp;&nbsp;Torneos</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                             <div id="subPagesTorneos" class="collapse ">
                                 <ul class="nav">
                                     <li><a href="page-profile.html" class="">Profile</a></li>
@@ -181,19 +182,19 @@
                                 </ul>
                             </div>
                         </li>
-                        <li><a asp-action="NuevaCancha" asp-controller="Canchas" class=""><i class="fab fa-codepen"></i> <span>Canchas</span></a></li>
+                        <li><a asp-action="NuevaCancha" asp-controller="Canchas" class=""><i class="fab fa-codepen"></i> <span>&nbsp;&nbsp;Canchas</span></a></li>
                         <li>
-                            <a href="#subPagesEmpleados" data-toggle="collapse" class="collapsed"><i class="fa fa-fw fa-user-tie"></i><span>Empleados</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                            <a href="#subPagesEmpleados" data-toggle="collapse" class="collapsed"><i class="fa fa-fw fa-user-tie"></i><span>&nbsp;&nbsp;Empleados</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                             <div id="subPagesEmpleados" class="collapse ">
                                 <ul class="nav">
-                                    <li><a asp-action="RegistrarEmpleado" asp-controller="Personas"> <i class="fas fa-user-plus"></i>Nuevo Empleado</a></li>
-                                    <li><a asp-controller="Personas" asp-action="ConsultarEmpleado"> <i class="fas fa-user-edit"></i>Consultar activos</a></li>
-                                    <li><a asp-controller="Personas" asp-action="MostrarEmpleadoBajas"> <i class="fas fa-user-times"></i>Consultar Bajas</a></li>
+                                    <li><a asp-action="RegistrarEmpleado" asp-controller="Personas"> <i class="fas fa-user-plus"></i>&nbsp;&nbsp;Nuevo Empleado</a></li>
+                                    <li><a asp-controller="Personas" asp-action="ConsultarEmpleado"> <i class="fas fa-user-edit"></i>&nbsp;&nbsp;Consultar activos</a></li>
+                                    <li><a asp-controller="Personas" asp-action="MostrarEmpleadoBajas"> <i class="fas fa-user-times"></i>&nbsp;&nbsp;Consultar Bajas</a></li>
                                 </ul>
                             </div>
                         </li>
                         <li>
-                            <a href="#subPagesReportes" data-toggle="collapse" class="collapsed"><i class="fas fa-file-alt"></i> <span>Reportes</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                            <a href="#subPagesReportes" data-toggle="collapse" class="collapsed"><i class="fas fa-file-alt"></i> <span>&nbsp;&nbsp;Reportes</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                             <div id="subPagesReportes" class="collapse ">
                                 <ul class="nav">
                                     <li><a href="page-profile.html" class="">Profile</a></li>
@@ -202,11 +203,10 @@
                                 </ul>
                             </div>
                         </li>
+                        <li><a href="charts.html" class=""><i class="lnr lnr-chart-bars"></i><span>Estadisticas</span></a></li>
+                        <li><a asp-action="Index" asp-controller="Sessions"><i class="fab fa-algolia"></i> <span>&nbsp;&nbsp;Sessiones</span></a></li>
 
-                        <li><a href="charts.html" class=""><i class="lnr lnr-chart-bars"></i> <span>Estadisticas</span></a></li>
-                        <li><a asp-action="Index" asp-controller="Sessions"><i class="fab fa-algolia"></i> <span>Sessiones</span></a></li>
-
-                        <li><a href="icons.html" class=""><i class="fas fa-book"></i><span>Ayuda</span></a></li>
+                        <li><a href="icons.html" class=""><i class="fas fa-book"></i><span>&nbsp;&nbsp;Ayuda</span></a></li>
                     </ul>
 
                 </nav>
@@ -310,10 +310,8 @@
         <script src="~/Menu/assets/vendor/chartist/js/chartist.min.js"></script>
         <script src="~/Menu/assets/scripts/klorofil-common.js"></script>
         <script src="~/js/Usuarios.js"></script>
-
-
-
-
+        <script src="~/lib/fontawesome-free-5.1.0-web/fontawesome-free-5.1.0-web/js/all.js"></script>
+        
     </environment>
     <environment exclude="Development">
 
@@ -328,12 +326,14 @@
         <script src="~/lib/DataTables/datatables.min.js"></script>
         <script src="~/lib/DataTables/DataTables-1.10.16/js/dataTables.bootstrap.js"></script>
         <script src="~/Menu/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-        <script src="~/Menu/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
+       
         <script src="~/Menu/assets/vendor/chartist/js/chartist.min.js"></script>
+        <script src="~/Menu/assets/vendor/jquery.easy-pie-chart/easypiechart.js"></script>
         <script src="~/Menu/assets/scripts/klorofil-common.js"></script>
         <script src="~/Menu/assets/vendor/pace/pace.js"></script>
         <script src="~/lib/Alertify/alertify.js"></script>
         <script src="~/js/Usuarios.js"></script>
+        <script src="~/lib/fontawesome-free-5.1.0-web/fontawesome-free-5.1.0-web/js/all.js"></script>
 
     </environment>
 
