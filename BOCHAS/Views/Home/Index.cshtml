@@ -165,12 +165,57 @@
                     <button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
                 </div>
             </div>
-            <div class="panel-body">
-                <ul id="Sig" class="list-unstyled task-list"></ul>
+            <div class="panel-body pre-scrollable" style="max-height:100px;">
+                <ul id="Sig" class="list-unstyled task-list "></ul>
+                
             </div>
         </div>
+       
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="panel-title"><h3 class="panel-title">Agregar Noticia  <button id="AdministrarNoticias" class="btn btn-sm btn-info" style="border-radius:100px;width:30px;height:30px;background-color:dodgerblue;float:right;" data-toggle="tooltip" ><i class="fas fa-clipboard-list"></i></button></h3> </div>                   
+                
+                </div>
+                <div class="panel-body">
+                    <form id="FormImagen" class="form-group" method="POST" asp-action="CrearNoticia" asp-controller="Noticias" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-10" ><img id="imgSalida" src="~/images/extras/noticia.png" class="img-responsive" style="width:90%; height:200px; background-size:auto;background-repeat:no-repeat;" /></div>
+                            <div class="col-sm-1"></div>
+                            
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>Título</label>
+                                <input type="text" name="titulo" class="form-control" required />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>Descripción</label>
+                                <textarea class="form-control" name="descripcion" title="Descripcion"></textarea>
+                            </div>
+                        </div>
+                        <hr style="border:1px solid red;" />
+                        <div class="row ">
+                            <div class="col-md-12">
+                                <div class="form-group  btn-group">
+                                    <input id="InputImagen" class="btn btn-default form-control " type="file" name="ImageFile" required">
+                                    <input id="BtnSubirImagen" type="submit" class="btn btn-success form-control  " value="Subir" />
+                                    <p>@TempData["Mensaje"]</p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+       
         <!-- END TASKS -->
     </div>
+   
     <div class="col-md-8">
         <!-- VISIT CHART -->
         <div class="panel">
@@ -189,50 +234,7 @@
     </div>
 
 </div>
-<div class="row">
-    <div class="col-md-12">
-        <div class="panel">
-            <div class="panel-heading">
-               
-                <input id="AdministrarNoticias" class="btn btn-xs btn-info" style="border-radius:10px;float:right;" value="Administrar Noticias" />
-                <div class="panel-title"><h3 class="panel-title">Agregar Noticia</h3></div>
 
-
-            </div>
-            <div class="panel-body">
-                <form id="FormImagen" class="form-group" method="POST" asp-action="CrearNoticia" asp-controller="Noticias" enctype="multipart/form-data">
-                    <div class="row">
-                        <img id="imgSalida" src="~/images/extras/noticia.png" class="img-responsive" style="height:200px; background-size:auto;background-repeat:no-repeat;margin-left:5px;border:none;" />
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label>Título</label>
-                            <input type="text" name="titulo" class="form-control" required />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label>Descripción</label>
-                            <textarea class="form-control" name="descripcion" title="Descripcion"></textarea>
-                        </div>
-                    </div>
-                    <hr style="border:1px solid red;" />
-                    <div class="row ">
-                        <div class="col-md-6">
-                            <div class="form-group form-inline btn-group">
-                                <input id="InputImagen" class="btn btn-default form-control " type="file" name="ImageFile" required">
-                                <input id="BtnSubirImagen" type="submit" class="btn btn-success form-control  " value="Subir" />
-                                <p>@TempData["Mensaje"]</p>
-                            </div>
-
-                        </div>
-                    </div>
-                </form>
-
-            </div>
-        </div>
-    </div>
-</div>
 <div id="ModalNoticias" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">
         <!-- Modal content-->
@@ -258,6 +260,7 @@
     <script src="~/js/Notificaciones.js"></script>
     <script src="~/js/Noticias.js"></script>
     <script>
+        $('#AdministrarNoticias').tooltip({ title: "Administrar Noticias", animation: false, placement: "bottom"}); 
         $(function () {
             var data, options;
 
