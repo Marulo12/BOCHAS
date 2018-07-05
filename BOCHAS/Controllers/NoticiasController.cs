@@ -36,7 +36,8 @@ namespace BOCHAS.Controllers
                     Directory.CreateDirectory(targetDirectory);
                 }
                 var savePath = Path.Combine(targetDirectory, filename);
-                ImageFile.CopyTo(new FileStream(savePath, FileMode.Create));                              
+                ImageFile.CopyToAsync(new FileStream(savePath, FileMode.Create));           
+                
                     Noticias noti = new Noticias();
                     noti.Titulo = titulo;
                     noti.Descripcion = descripcion;
@@ -70,10 +71,13 @@ namespace BOCHAS.Controllers
         public JsonResult BajadeNoticia(int id)
         {
             var noti = _context.Noticias.SingleOrDefault(n=>n.Id ==  id);
+          
             noti.Activo = false;
             _context.Noticias.Update(noti);
+
             if (_context.SaveChanges() == 1)
-            {
+            {                                          
+               
                 return Json("OK");
             }
             return Json("ERROR");

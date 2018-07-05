@@ -1,6 +1,6 @@
 ﻿
-<div id="containerEmpleadoAlta" ng-app=""  >
-    <div class="panel panel-primary" >
+<div id="containerEmpleadoAlta" ng-app="">
+    <div class="panel panel-primary">
         <div class="panel-heading" style="padding-bottom:0px;">
             <h3><i class="fas fa-user-tie "></i> Empleados</h3>
 
@@ -9,7 +9,7 @@
             <div id="DivCarga" style="display:none;">
                 <div class="row">
 
-                    <div class="col-sm-12 ok" >
+                    <div class="col-sm-12 ok">
                         <img id="ImgLoad" src="~/images/extras/dots-2.gif" alt="" width="200" />
                     </div>
                 </div>
@@ -28,8 +28,8 @@
                     <div class="col-sm-3"><label>Nombre</label><input id="Nombre" ng-model="Nombre" type="text" class="form-control " required /></div>
                     <div class="col-sm-3"><label>Apellido</label><input id="Apellido" ng-model="Apellido" type="text" class="form-control" required /></div>
                     <div class="col-sm-2">
-                        <label for="TipoDoc">Tipo Documento</label>  <select id="TipoDoc" class= "form-control" style="background-color: rgba(172, 44, 44, 0.9);color:white;">
-                       <option> Cargando..</option>
+                        <label for="TipoDoc">Tipo Documento</label>  <select id="TipoDoc" class="form-control" style="background-color: rgba(172, 44, 44, 0.9);color:white;">
+                            <option> Cargando..</option>
                         </select>
                     </div>
                     <div class="col-sm-3" style="float:left;"><label>Número</label><input id="Numero" type="text" class="form-control" required /></div>
@@ -38,20 +38,23 @@
                     <div class="col-sm-4"><label>Mail</label><input id="Mail" type="email" class="form-control" required /></div>
                     <div class="col-sm-4"><label>Teléfono</label><input id="Telefono" type="tel" class="form-control" required /></div>
                     <div class="col-sm-3">
-                        <label for="Cargo">Cargo</label> <select id="Cargo" class="form-control"  style="background-color: rgba(172, 44, 44, 0.9);color:white;">
-                                                             <option> Cargando..</option></select>
+                        <label for="Cargo">Cargo</label> <select id="Cargo" class="form-control" style="background-color: rgba(172, 44, 44, 0.9);color:white;">
+                            <option> Cargando..</option>
+                        </select>
                     </div>
                 </div>
                 <hr />
 
                 <div class="row">
                     <div class="col-sm-3">
-                        <label for="Localidad">Localidad</label>&nbsp;<select id="Localidad" class= "form-control" style="background-color: rgba(172, 44, 44, 0.9);color:white;">
-                                                                          <option> Cargando..</option></select>
+                        <label for="Localidad">Localidad</label>&nbsp;<select id="Localidad" class="form-control" style="background-color: rgba(172, 44, 44, 0.9);color:white;">
+                            <option> Cargando..</option>
+                        </select>
                     </div>
                     <div class="col-sm-3">
-                        <label for="Barrio">Barrio</label>&nbsp; <select id="Barrio" class= "form-control" style="background-color: rgba(172, 44, 44, 0.9);color:white;">
-                                                                     <option> Cargando..</option></select>
+                        <label for="Barrio">Barrio</label>&nbsp; <select id="Barrio" class="form-control" style="background-color: rgba(172, 44, 44, 0.9);color:white;">
+                            <option> Cargando..</option>
+                        </select>
 
                     </div>
                     <div class="col-sm-2">
@@ -67,7 +70,7 @@
 
                     </div>
                     <div class="col-sm-1">
-                    
+
                         <label for="Dpto">Dpto</label>&nbsp; <input id="Dpto" type="text" class="form-control" />
                     </div>
 
@@ -83,7 +86,7 @@
                             <div class="col-sm-6"><input id="Contra" type="password" placeholder="Contraseña" class="form-control" required /></div>
                         </div>
                     </div>
-                    
+
                     <div class="col-sm-3 btn-group" style="margin-top:4%;float:right">
                         <input id="Registrar" type="button" class="btn   btn-primary" value="Registrar" />
                         <input id="Limpiar" type="button" class="btn  btn-primary" value="Limpiar" />
@@ -100,7 +103,7 @@
 
 @section Scripts {
 
-<script src="~/js/Empleados.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="~/js/Empleados.js"></script>
+    <script src="~/js/angular.js"></script>
 }
 
