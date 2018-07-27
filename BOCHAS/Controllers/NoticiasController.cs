@@ -72,9 +72,9 @@ namespace BOCHAS.Controllers
         {
             var noti = _context.Noticias.SingleOrDefault(n=>n.Id ==  id);
 
-            //   noti.Activo = false;
-            //    _context.Noticias.Update(noti);
-            System.IO.File.Delete(noti.Url);
+               noti.Activo = false;
+                _context.Noticias.Update(noti);
+         //   System.IO.File.Delete(noti.Url);
             if (_context.SaveChanges() == 1)
             {                                          
                
