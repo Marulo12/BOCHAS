@@ -134,10 +134,10 @@
                         <li style="margin-top:0px;border-bottom:1px solid white;border-top:1px solid white;"><a asp-action="Index" asp-controller="Home" class="active"><i class="lnr lnr-home"></i> <span>Escritorio</span></a></li>
                         <li><a href="charts.html" class=""><i class="far fa-calendar-alt"></i><span> &nbsp;&nbsp;Agenda</span></a></li>
                         <li>
-                            <a href="#subPagesReservas" data-toggle="collapse" class="collapsed"><i class="fas  fa-bell"></i> <span>&nbsp;&nbsp;Reservas</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                            <a href="#subPagesReservas" data-toggle="collapse" class="collapsed"><i class="fas fa-clipboard-list"></i> <span>&nbsp;&nbsp;Reservas</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                             <div id="subPagesReservas" class="collapse ">
                                 <ul class="nav">
-                                    <li><a href="page-profile.html" class="">Profile</a></li>
+                                    <li><a asp-action="NuevaReserva" asp-controller="AlquilerCanchas" class=""><i class="fas fa-plus"></i>&nbsp;&nbsp;Nueva Reserva</a></li>
                                     <li><a href="page-login.html" class="">Login</a></li>
                                     <li><a href="page-lockscreen.html" class="">Lockscreen</a></li>
                                 </ul>
@@ -199,7 +199,8 @@
                                 </ul>
                             </div>
                         </li>
-                        <li><a href="charts.html" class=""><i class="lnr lnr-chart-bars"></i><span>Estadísticas</span></a></li>
+                        <li><a href="charts.html"><i class="lnr lnr-chart-bars"></i><span>Estadísticas</span></a></li>
+                       
                         <li><a asp-action="Index" asp-controller="Sessions"><i class="fab fa-algolia"></i> <span>&nbsp;&nbsp;Sessiones</span></a></li>
 
                         <li><a href="icons.html" class=""><i class="fas fa-book"></i><span>&nbsp;&nbsp;Ayuda</span></a></li>
