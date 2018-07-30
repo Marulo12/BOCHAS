@@ -6,11 +6,15 @@ namespace BOCHAS.Models
 {
     public partial class BOCHASContext : DbContext
     {
+        public virtual DbSet<Agenda> Agenda { get; set; }
+        public virtual DbSet<AlquilerCancha> AlquilerCancha { get; set; }
         public virtual DbSet<Barrio> Barrio { get; set; }
         public virtual DbSet<Cancha> Cancha { get; set; }
         public virtual DbSet<Cargo> Cargo { get; set; }
+        public virtual DbSet<DetalleAlquilerCancha> DetalleAlquilerCancha { get; set; }
         public virtual DbSet<Domicilio> Domicilio { get; set; }
         public virtual DbSet<Empleado> Empleado { get; set; }
+        public virtual DbSet<EstadoAlquiler> EstadoAlquiler { get; set; }
         public virtual DbSet<EstadoCancha> EstadoCancha { get; set; }
         public virtual DbSet<Jugador> Jugador { get; set; }
         public virtual DbSet<Localidad> Localidad { get; set; }
@@ -28,13 +32,66 @@ namespace BOCHAS.Models
             if (!optionsBuilder.IsConfigured)
             {
 
-                 // optionsBuilder.UseSqlServer(@"Data Source=SISTEMAS04;Initial Catalog=BOCHAS;Persist Security Info=True;User ID=BSP;Password=bochas");
-                optionsBuilder.UseSqlServer(@"Data Source=186.124.221.26,1433;Initial Catalog=BOCHAS;Persist Security Info=True;User ID=BSP;Password=bochas");
+                optionsBuilder.UseSqlServer(@"Data Source=186.124.221.26,1433;Initial Catalog=BOCHAS;User ID=bsp;Password=bochas");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Agenda>(entity =>
+            {
+                entity.Property(e => e.Fecha).HasColumnType("date");
+
+                entity.Property(e => e.IdAlquilerCancha).HasColumnName("IdAlquiler_Cancha");
+
+                entity.HasOne(d => d.IdAlquilerCanchaNavigation)
+                    .WithMany(p => p.Agenda)
+                    .HasForeignKey(d => d.IdAlquilerCancha)
+                    .HasConstraintName("FK_Agenda_Alquiler_Cancha");
+
+                entity.HasOne(d => d.IdCanchaNavigation)
+                    .WithMany(p => p.Agenda)
+                    .HasForeignKey(d => d.IdCancha)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Agenda_Cancha");
+            });
+
+            modelBuilder.Entity<AlquilerCancha>(entity =>
+            {
+                entity.HasKey(e => e.Numero);
+
+                entity.ToTable("Alquiler_Cancha");
+
+                entity.Property(e => e.FechaCancelacion)
+                    .HasColumnName("Fecha_Cancelacion")
+                    .HasColumnType("date");
+
+                entity.Property(e => e.FechaPedido)
+                    .HasColumnName("Fecha_Pedido")
+                    .HasColumnType("date");
+
+                entity.Property(e => e.FechaReserva)
+                    .HasColumnName("Fecha_Reserva")
+                    .HasColumnType("date");
+
+                entity.HasOne(d => d.IdClienteNavigation)
+                    .WithMany(p => p.AlquilerCanchaIdClienteNavigation)
+                    .HasForeignKey(d => d.IdCliente)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Alquiler_Cancha_Usuario1");
+
+                entity.HasOne(d => d.IdEmpleadoNavigation)
+                    .WithMany(p => p.AlquilerCanchaIdEmpleadoNavigation)
+                    .HasForeignKey(d => d.IdEmpleado)
+                    .HasConstraintName("FK_Alquiler_Cancha_Usuario");
+
+                entity.HasOne(d => d.IdEstadoNavigation)
+                    .WithMany(p => p.AlquilerCancha)
+                    .HasForeignKey(d => d.IdEstado)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Alquiler_Cancha_EstadoAlquiler");
+            });
+
             modelBuilder.Entity<Barrio>(entity =>
             {
                 entity.Property(e => e.Nombre)
@@ -77,6 +134,25 @@ namespace BOCHAS.Models
                 entity.Property(e => e.Nombre)
                     .IsRequired()
                     .HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<DetalleAlquilerCancha>(entity =>
+            {
+                entity.ToTable("Detalle_AlquilerCancha");
+
+                entity.Property(e => e.IdAlquilerCancha).HasColumnName("IdAlquiler_Cancha");
+
+                entity.HasOne(d => d.IdAlquilerCanchaNavigation)
+                    .WithMany(p => p.DetalleAlquilerCancha)
+                    .HasForeignKey(d => d.IdAlquilerCancha)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Detalle_AlquilerCancha_Alquiler_Cancha");
+
+                entity.HasOne(d => d.IdCanchaNavigation)
+                    .WithMany(p => p.DetalleAlquilerCancha)
+                    .HasForeignKey(d => d.IdCancha)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Detalle_AlquilerCancha_Cancha");
             });
 
             modelBuilder.Entity<Domicilio>(entity =>
@@ -128,6 +204,17 @@ namespace BOCHAS.Models
                     .HasForeignKey<Empleado>(d => d.IdPersona)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Empleado_Persona");
+            });
+
+            modelBuilder.Entity<EstadoAlquiler>(entity =>
+            {
+                entity.Property(e => e.Descripcion)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Nombre)
+                    .IsRequired()
+                    .HasMaxLength(50);
             });
 
             modelBuilder.Entity<EstadoCancha>(entity =>

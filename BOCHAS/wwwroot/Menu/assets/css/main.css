@@ -451,7 +451,7 @@ ul.notifications > li {
     }
         .sidebar .nav > li > a:hover i, .sidebar .nav > li > a:focus i, .sidebar .nav > li > a.active i {
             color: white;
-            font-size: 14px;
+          
         }
     .sidebar .nav > li > a:focus, .sidebar .nav > li > a:hover {
         border-left: 5px solid rgba(215, 40, 40, 0.9);
