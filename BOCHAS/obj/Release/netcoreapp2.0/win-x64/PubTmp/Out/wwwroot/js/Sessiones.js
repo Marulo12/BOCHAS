@@ -23,6 +23,7 @@ function MostrarSessiones() {
                 $("#DivSessiones").html(response);
                 $("#TablaSessiones").DataTable({
                     searching: true,                   
+                    lengthMenu: [5, 10, 20, 75, 100],
                     responsive: true,
                     search: "Filtro&nbsp;:",                   
                     dom: 'Bfrtip',

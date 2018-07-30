@@ -1,4 +1,6 @@
 ﻿$("#AdministrarNoticias").click(function () {
+    $("#AdministrarNoticias").tooltip("hide");
+    
     TraerNoticias();
 
 });
@@ -12,13 +14,14 @@ function TraerNoticias() {
            
             var armatabla = '<table id=TablaNoti class="table" style="width:100%;"><thead  style="background-color: rgba(158, 44, 44, 0.9);color:white"><tr><th>Imagen</th><th>Título</th><th>Descripcion</th><th>Opción</th></tr></thead><tbody>';
             for (var i = 0; i < response.length; i++) {
-                armatabla += ' <tr><td><img class="img-responsive" src="' + response[i].url + '" /></td><td>' + response[i].titulo + '</td><td>' + response[i].descripcion + '</td><td><button class="btn btn-sm btn-danger" data-toggle="tooltip" title="Baja" data-placement="top" onclick="confirmarBajaNoti(' + response[i].id + ');"><i class="fas fa-trash-alt"></i></button></td></tr>';
+                armatabla += ' <tr><td><img style="width:220px;height:100px;" src="' + response[i].url + '" /></td><td>' + response[i].titulo + '</td><td>' + response[i].descripcion + '</td><td><button class="btn btn-sm btn-danger" data-toggle="tooltip" title="Baja" data-placement="top" onclick="confirmarBajaNoti(' + response[i].id + ');"><i class="fas fa-trash-alt"></i></button></td></tr>';
             }
             armatabla += '</tbody></table>';
             $("#ModalNoticias .modal-body").empty();
          
             $("#ModalNoticias .modal-body").append(armatabla);
             $("#TablaNoti").DataTable({
+              
                 responsive: true,                      
                 lengthMenu: [2, 5, 20, 75, 100],
                 language: {

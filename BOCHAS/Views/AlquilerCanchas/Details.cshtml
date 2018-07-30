@@ -1,0 +1,61 @@
+﻿@model BOCHAS.Models.AlquilerCancha
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_LayoutJugadores.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>AlquilerCancha</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaPedido)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FechaPedido)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaCancelacion)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FechaCancelacion)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaReserva)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FechaReserva)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Cobro)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Cobro)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IdClienteNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdClienteNavigation.Contraseña)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IdEmpleadoNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdEmpleadoNavigation.Contraseña)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IdEstadoNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdEstadoNavigation.Id)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Numero">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

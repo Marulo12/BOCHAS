@@ -1,13 +1,13 @@
 ﻿
-<div id="containerJugadorAlta" ng-app="" >
+<div id="containerJugadorAlta" ng-app="">
     <div class="panel panel-primary">
-        <div class="panel-heading"  style="padding-bottom:0px;">
+        <div class="panel-heading" style="padding-bottom:0px;">
             <h3><i class="fas fa-user-shield"></i> Jugadores</h3>
         </div>
         <div class="panel-body">
             <div id="DivCarga" style="display:none;">
                 <div class="row">
-                    <div class="col-sm-12 ok" >
+                    <div class="col-sm-12 ok">
                         <img id="ImgLoad" src="~/images/extras/dots-2.gif" alt="" width="200" />
                     </div>
                 </div>
@@ -30,16 +30,16 @@
                     <div class="col-sm-3" style="float:left;"><label>Número</label><input id="Numero" type="text" class="form-control" required /></div>
                 </div>
                 <div class="row" style="margin-top:10px;">
-                    
+
                     <div class="col-sm-4"><label>Mail</label><input id="Mail" type="email" class="form-control" required /></div>
                     <div class="col-sm-3"><label>Teléfono</label><input id="Telefono" type="tel" class="form-control" required /></div>
                     <div class="col-sm-4">
-                       <br />
+                        <br />
                         <div id="TipoJugador">
 
-                            
-                        </div>                                               
-                      
+
+                        </div>
+
                     </div>
                 </div>
                 <hr />
@@ -85,7 +85,7 @@
                             <div class="col-sm-6"><input id="Contra" type="password" placeholder="Contraseña" class="form-control" required /></div>
                         </div>
                     </div>
-                   
+
                     <div class="col-sm-3 btn-group" style="margin-top:4%;float:right">
                         <input id="Registrar" type="button" class="btn   btn-primary" value="Registrar" />
                         <input id="Limpiar" type="button" class="btn  btn-primary" value="Limpiar" />
@@ -103,6 +103,7 @@
 @section Scripts {
 
     <script src="~/js/Jugadores.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+    <script src="~/js/angular.js"></script>
 }
 
