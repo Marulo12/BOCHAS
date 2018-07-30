@@ -25,7 +25,7 @@
         <div class="row">
 
             <div class="col-sm-4"><label for="emp">Encargado</label> <input id="emp" type="text" class="form-control" value="@ViewData["empleado"].ToString()" readonly /></div>
-            <div class="col-sm-2"><label for="FecP">Fecha de Pedido</label> <input id="FecP" type="text" class="form-control" value="@DateTime.Now.Date.ToString("dd/MM/yyyy")" readonly /></div>
+            <div class="col-sm-2" style="display:none;"><label for="FecP">Fecha de Pedido</label> <input id="FecP" type="text" class="form-control" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" readonly /></div>
             <div class="col-sm-2"><label for="FecR">Fecha de Reserva</label> <input id="FecR" type="date" class="form-control" /></div>
         </div>
         <hr>

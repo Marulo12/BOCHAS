@@ -1,4 +1,6 @@
 ﻿
+
+
 $(document).ready(function() {
 
     $("#BtnValida").click(function () {
@@ -32,11 +34,17 @@ function TraerCanchas() {
     }
 }
 function ComprobarCampos() {
-  
-        if ($("#FecR").val() == "") {
+    
+   
+    if ($("#FecR").val() == "") {
             alertify.error("Complete el campo fecha de Reserva");
             return false;
-        }
+    }
+    if ($("#FecR").val() < $("#FecP").val()) {
+        alertify.error("La fecha de reserva no puede ser menor que la fecha de pedido");
+        return false;
+    }
+   
         if ($("#HD").val() == "") {
             alertify.error("Complete el campo Hora Desde");
             return false;
