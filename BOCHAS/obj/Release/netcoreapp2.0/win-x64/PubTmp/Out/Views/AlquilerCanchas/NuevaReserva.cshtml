@@ -19,22 +19,19 @@
                 <li role="presentation"><a id="ConsultaEmpleado" asp-action="ConsultarEmpleado" asp-controller="Personas">Consulta</a></li>
                 <li role="presentation"><a asp-action="MostrarEmpleadoBajas" asp-controller="Personas">Consulta Bajas</a></li>
             </ul>
-
         </div>
         <h3 style="border-bottom:1px solid rgba(0, 14, 44, 0.3);padding:2px 2px 2px 2px;">General</h3>
         <div class="row">
-
             <div class="col-sm-4"><label for="emp">Encargado</label> <input id="emp" type="text" class="form-control" value="@ViewData["empleado"].ToString()" readonly /></div>
             <div class="col-sm-2" style="display:none;"><label for="FecP">Fecha de Pedido</label> <input id="FecP" type="text" class="form-control" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" readonly /></div>
             <div class="col-sm-2"><label for="FecR">Fecha de Reserva</label> <input id="FecR" type="date" class="form-control" /></div>
         </div>
         <hr>
         <div class="row">
-
             <div class="col-sm-4"><label for="emp">Jugador</label> <select asp-for="IdCliente" class="form-control alert-danger" asp-items="@{ new SelectList(cliente, "Id", "Client" );}"></select></div>
             <div class="col-sm-2"><label for="HD">Hora Desde</label><input type="time" id="HD" class="form-control" /></div>
             <div class="col-sm-2"><label for="HH">Hora Hasta</label><input type="time" id="HH" class="form-control" /></div>
-            <div class="col-sm-1" style="padding-top:2.2%;"><input id="BtnValida" type="button" class="btn btn-sm btn-success" value="Comprobar Horarios" style="border-radius:12px;"/></div>
+            <div class="col-sm-1" style="padding-top:2.2%;"><input id="BtnValida" type="button" class="btn btn-sm btn-success" value="Comprobar Disponibilidad" style="border-radius:12px;"/></div>
         </div>
 
         <h3 style="border-bottom:1px solid rgba(0, 14, 44, 0.3);padding:2px 2px 2px 2px;"> Seleccionar Canchas</h3>
@@ -42,7 +39,7 @@
             <div class="col-sm-12">
 
                 <table class="table table-striped">
-                    <thead><tr><td style="display:none">Id</td><td>Numero</td><td>Nombre</td><td>Tipo</td><td></td></tr></thead>
+                    <thead><tr><td style="display:none">Id</td><td>Numero</td><td>Nombre</td><td>Descripcion</td><td></td></tr></thead>
                     <tbody id="Canchas"></tbody>
                 </table>
                 <img id="ImgLoad" class="img-responsive" width="180" src="~/images/extras/dots-2.gif" style="display:none;" />

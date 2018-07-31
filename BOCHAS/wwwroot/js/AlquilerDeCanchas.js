@@ -22,11 +22,12 @@ function TraerCanchas() {
             data: { fecR, hd, hh },
             url: "/AlquilerCanchas/MostrarCanchas",
             success: function (response) {
-                alert(JSON.stringify( response));
+                alert(JSON.stringify(response));
+                $("#ImgLoad").css("display", "none");
                 var table = $("#Canchas");
                 var tr = "";
                 for (var i = 0; i < response.length; i++) {
-                    $("#ImgLoad").css("display", "none");
+                    
                     tr += '<tr><td style="display:none">' + response[i].id + '</td><td>' + response[i].numero + '</td><td>' + response[i].nombre + '</td><td>' + response[i].descripcion + '</td><td><input type="checkbox"/></td></tr>';
                 }
                 
