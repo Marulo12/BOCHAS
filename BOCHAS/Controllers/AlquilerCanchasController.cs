@@ -19,20 +19,101 @@ namespace BOCHAS.Controllers
         }
 
 
-        public IActionResult NuevaReserva() {
-            
+        public IActionResult NuevaReserva()
+        {
+
             var empleado = _context.Persona.Include(p => p.IdUsuarioNavigation).Where(u => u.IdUsuarioNavigation.Nombre == HttpContext.User.Identity.Name && u.Tipo == "EMPLEADO" && u.FechaBaja == null).SingleOrDefault();
             ViewData["empleado"] = empleado.Nombre + " " + empleado.Apellido;
-        
+
             return View();
 
         }
 
-        public async Task<JsonResult> MostrarCanchas() {
+        public JsonResult MostrarCanchas(string fecha, string hd, string hh)
+        {
+            DateTime fechaR = Convert.ToDateTime(fecha);
+            TimeSpan HD = Convert.ToDateTime(hd).TimeOfDay;
+            TimeSpan HH = Convert.ToDateTime(hh).TimeOfDay;
+            var cancha = (from c in _context.Cancha join e in _context.EstadoCancha on c.IdEstadoCancha equals e.Id where e.Id == 1 || e.Id == 2 select new { Id = c.Id }).ToList();
+            int[] idCanchasDisponibles = new int[cancha.Count()];
+            int count = 0;
 
-            var canchas = (from c in _context.Cancha join e in _context.EstadoCancha on c.IdEstadoCancha equals e.Id join t in _context.TipoMaterial on c.IdTipoMaterial equals t.Id where e.Id == 1 || e.Id == 2 select new { Id = c.Id , Numero = c.Numero , Nombre = c.Nombre , Tipo = t.Nombre }).ToListAsync();
+            foreach (var c in cancha)
+            {
+                Boolean salirBuclePadre = false;
+                var agenda = _context.Agenda.Where(a => a.Fecha == fechaR && a.IdCancha == c.Id).OrderByDescending(a => a.HoraDesde).ToList();
+              
 
-            return Json(await canchas);
+                if (agenda.Count() == 0)
+                {
+                    idCanchasDisponibles[count] = c.Id;
+                    count++;
+                   
+                }
+                else
+                {
+                    for (int i = 0; i < agenda.Count(); i++)
+                    {
+                        if (agenda[i].HoraDesde == HD)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            for (int ii = 0; ii < agenda.Count(); ii++)
+                            {
+                                if (HD == agenda[ii].HoraHasta)
+                                {
+                                    if (HH <= agenda[ii + 1].HoraDesde)
+                                    {
+                                        idCanchasDisponibles[count] = c.Id;
+                                        count++;
+                                        salirBuclePadre = true;
+                                        break;
+
+                                    }
+                                    else
+                                    {
+                                        salirBuclePadre = true;
+                                        break;
+                                    }
+                                }
+                                else
+                                {
+                                    if (HD > agenda[ii].HoraHasta && HD <= agenda[ii + 1].HoraHasta)
+                                    {
+                                        idCanchasDisponibles[count] = c.Id;
+                                        count++;
+                                        salirBuclePadre = true;
+                                        break;
+                                    }
+                                }
+
+                                if (salirBuclePadre)
+                                {
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+            if (idCanchasDisponibles.Length != 0)
+            {
+                List<Cancha> Lcancha = new List<Cancha>();
+                for (int j = 0; j < idCanchasDisponibles.Length; j++)
+                {
+                    var canchas = _context.Cancha.Where(a => a.Id == idCanchasDisponibles[j]).SingleOrDefault();
+                    Lcancha.Add(canchas);
+                }
+                return Json(Lcancha);
+            }
+            else
+            {
+               return Json("VACIO");
+            }
+                        
         }
         // GET: AlquilerCanchas
         public async Task<IActionResult> Index()
@@ -179,7 +260,7 @@ namespace BOCHAS.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        
+
 
         private bool AlquilerCanchaExists(int id)
         {

@@ -14,20 +14,27 @@ function TraerCanchas() {
     if (ComprobarCampos()) {
         $("#Canchas").empty();
         $("#ImgLoad").css("display", "inline-block");
+        var fecR = $("#FecR").val();
+        var hd = $("#HD").val();
+        var hh = $("#HH").val();
         $.ajax({
             type: "GET",
+            data: { fecR, hd, hh },
             url: "/AlquilerCanchas/MostrarCanchas",
             success: function (response) {
-
+                alert(JSON.stringify( response));
                 var table = $("#Canchas");
                 var tr = "";
                 for (var i = 0; i < response.length; i++) {
                     $("#ImgLoad").css("display", "none");
-                    tr += '<tr><td style="display:none">' + response[i].id + '</td><td>' + response[i].numero + '</td><td>' + response[i].nombre + '</td><td>' + response[i].tipo + '</td><td><input type="checkbox"/></td></tr>';
+                    tr += '<tr><td style="display:none">' + response[i].id + '</td><td>' + response[i].numero + '</td><td>' + response[i].nombre + '</td><td>' + response[i].descripcion + '</td><td><input type="checkbox"/></td></tr>';
                 }
-
+                
                 table.html(tr);
 
+            },
+            failure: function (response) {
+                alert(response);
             }
 
         });
