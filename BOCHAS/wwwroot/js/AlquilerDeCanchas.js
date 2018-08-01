@@ -23,10 +23,11 @@ function TraerCanchas() {
             url: "/AlquilerCanchas/MostrarCanchas",
             success: function (response) {
                 $("#Canchas").empty();
+                $("#ImgLoad").css("display", "none");
                 if (response === "VACIO") {
-
+                    alertify.alert("Alerta","No hay canchas disponibles para ese horario");
                 } else {
-                    $("#ImgLoad").css("display", "none");
+                  
                     var table = $("#Canchas");
                     var tr = "";
                     for (var i = 0; i < response.length; i++) {
