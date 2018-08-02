@@ -1,0 +1,46 @@
+﻿@model IEnumerable<BOCHAS.Models.DetalleAlquilerCancha>
+
+<table id="TablaDetalleReserva" class="table" style="width:100%;">
+    <thead>
+        <tr>
+            <th>Reserva</th>
+            <th>
+                Cancha
+            </th>
+            <th>
+                Nombre
+            </th>
+            <th>
+                Descripcion
+            </th>
+            <th>
+                Hora Desde
+            </th>
+            <th>
+                Hora Hasta
+            </th>                         
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.IdAlquilerCanchaNavigation.Numero)</td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdCanchaNavigation.Numero)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdCanchaNavigation.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdCanchaNavigation.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoraReservaDesde)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoraReservaHasta)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

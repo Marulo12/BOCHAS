@@ -28,7 +28,7 @@
         </div>
         <hr>
         <div class="row">
-            <div class="col-sm-3"><label for="emp">Jugador</label> <select asp-for="IdCliente" class="btn btn-sm form-control " style="background-color: rgba(172, 44, 44, 0.9);color:white;" asp-items="@{ new SelectList(cliente, "Id", "Client" );}"></select></div>
+            <div class="col-sm-3"><label for="emp">Jugador</label> <select id="IdCliente" asp-for="IdCliente" class="btn btn-sm form-control " style="background-color: rgba(172, 44, 44, 0.9);color:white;" asp-items="@{ new SelectList(cliente, "Id", "Client" );}"></select></div>
             <div class="col-sm-2"><label for="HD">Hora Desde</label><input type="time" id="HD" class="form-control" /></div>
             <div class="col-sm-2"><label for="HH">Hora Hasta</label><input type="time" id="HH" class="form-control" /></div>
             <div class="col-sm-5" style="padding-top:25px;"><div class="btn-group btn-group-sm form-inline" role="group" aria-label="..."><input id="BtnOcupadas" type="button" class="btn btn-sm btn-success form-control" value="Ver Horarios Ocupados" /><input id="BtnValida" type="button" class="btn btn-sm btn-success form-control" value="Comprobar Disponibilidad"  /></div></div>
@@ -44,14 +44,14 @@
                 </table>
                 <img id="ImgLoad" class="img-responsive" width="180" src="~/images/extras/dots-2.gif" style="display:none;" />
             </div>
-
+            
 
         </div>
         <div class="row">
             <div class="col-sm-4"></div>
             <div class="col-sm-2"></div>
             <div class="col-sm-6">
-                <div  style="float:right;"><input class="btn btn-sm btn-info" value="Aceptar" /><a asp-action="NuevaReserva" class="btn btn-sm btn-default " asp-controller="AlquilerCanchas">Limpiar</a></div>
+                <div  style="float:right;"><input id="RegistrarReserva" class="btn btn-sm btn-info" value="Aceptar" /><a asp-action="NuevaReserva" class="btn btn-sm btn-default " asp-controller="AlquilerCanchas">Limpiar</a></div>
             </div>
         </div>
 

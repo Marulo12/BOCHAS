@@ -18,7 +18,7 @@ namespace BOCHAS.Models
         public int IdEstado { get; set; }
         public DateTime? FechaCancelacion { get; set; }
         public DateTime? FechaReserva { get; set; }
-        public int? Cobro { get; set; }
+        public int? IdCobro { get; set; }
 
         public Usuario IdClienteNavigation { get; set; }
         public Usuario IdEmpleadoNavigation { get; set; }

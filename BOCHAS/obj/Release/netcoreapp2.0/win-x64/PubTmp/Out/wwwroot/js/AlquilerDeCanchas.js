@@ -1,17 +1,111 @@
 ﻿
-
-
-$(document).ready(function() {
+$(document).ready(function () {
 
     $("#BtnValida").click(function () {
 
         TraerCanchas();
     });
+    $("#BtnOcupadas").click(function () {
+
+        MostrarHorariosOcupados();
+    });
+    $("#RegistrarReserva").click(function () {
+        RegistrarReserva();
+
+    });
 
 });
 
+function RegistrarReserva() {
+    if ($("#IdCliente").val() === "") {
+        alert.error("Seleccione un Jugador");
+        return;
+    }
+
+    var Canchas = new Array();
+    $(".CanchasR:checked").each(function (index) {
+        Canchas.push($(this).val());
+    });
+    if (ComprobarCamposDates() && Canchas.length > 0) {
+        var fecR = $("#FecR").val();
+        var hd = $("#HD").val();
+        var hh = $("#HH").val();
+        var Cliente = $("#IdCliente option:selected").val();
+        $("#Canchas").empty();
+        $("#ImgLoad").css("display", "inline-block");
+        $.ajax({
+            type: "POST",
+            data: { fecR, hd, hh, Canchas, Cliente },
+            url: "/AlquilerCanchas/RegistrarReserva",
+            success: function (response) {
+
+                $("#Canchas").empty();
+                $("#ImgLoad").css("display", "none");
+                if (response != "ERROR") {
+
+                    alertify.alert('Alerta', "Reserva Generada con exito con Numero: " + response, function () { window.location = "/AlquilerCanchas/NuevaReserva"; });
+                }
+                else {
+
+                    alertify.error("Error en la operacion");
+                }
+            },
+            failure: function (response) {
+                alert(response);
+            }
+
+        });
+
+    } else { alert.error("Seleccione una cancha"); }
+
+
+}
+function MostrarHorariosOcupados() {
+    var fecR = $("#FecR").val();
+    if (fecR != "") {
+        $.ajax({
+            type: "GET",
+            data: { fecR },
+            url: "/Agenda/MostrarHorariosOcupados",
+            success: function (response) {
+                $("#ModalHorariosBody").html(response);
+                $("#TablaHorariosOcupados").DataTable({
+                    searching: true,
+                    pageLength: 50,
+                    responsive: true,
+                    search: "Filtro&nbsp;:",
+                    language: {
+                        processing: "Procesando",
+                        search: "Filtro&nbsp;:",
+                        info: "Pagina _PAGE_ de _PAGES_  / <b>Total de Registros: _MAX_</b> ",
+                        infoEmpty: "",
+                        infoFiltered: "",
+                        zeroRecords: "Ningun registro coincide",
+                        lengthMenu: "Mostrar _MENU_ registros",
+                        infoPostFix: "",
+                        loadingRecords: "Cargando...",
+                        emptyTable: "No hay registros",
+                        paginate: {
+                            first: "Primero",
+                            previous: "Anterior",
+                            next: "Siguiente",
+                            last: "Ultimo"
+                        }
+                    }
+                });
+                $("#ModalHorarios").modal();
+
+            },
+            failure: function (response) {
+                alert(response);
+            }
+
+        });
+    } else { alertify.error("Para consultar horarios tiene que incorporar una fecha de reserva"); }
+}
+
 function TraerCanchas() {
-    if (ComprobarCampos()) {
+    if (ComprobarCamposDates()) {
         $("#Canchas").empty();
         $("#ImgLoad").css("display", "inline-block");
         var fecR = $("#FecR").val();
@@ -22,16 +116,21 @@ function TraerCanchas() {
             data: { fecR, hd, hh },
             url: "/AlquilerCanchas/MostrarCanchas",
             success: function (response) {
-                alert(JSON.stringify( response));
-                var table = $("#Canchas");
-                var tr = "";
-                for (var i = 0; i < response.length; i++) {
-                    $("#ImgLoad").css("display", "none");
-                    tr += '<tr><td style="display:none">' + response[i].id + '</td><td>' + response[i].numero + '</td><td>' + response[i].nombre + '</td><td>' + response[i].descripcion + '</td><td><input type="checkbox"/></td></tr>';
-                }
-                
-                table.html(tr);
+                $("#Canchas").empty();
+                $("#ImgLoad").css("display", "none");
+                if (response === "VACIO") {
+                    alertify.alert("Alerta", "No hay canchas disponibles para ese horario");
+                } else {
 
+                    var table = $("#Canchas");
+                    var tr = "";
+                    for (var i = 0; i < response.length; i++) {
+
+                        tr += '<tr><td style="display:none">' + response[i].id + '</td><td>' + response[i].numero + '</td><td>' + response[i].nombre + '</td><td>' + response[i].descripcion + '</td><td><input type="checkbox" class="CanchasR" value="' + response[i].id + '" /></td></tr>';
+                    }
+
+                    table.html(tr);
+                }
             },
             failure: function (response) {
                 alert(response);
@@ -40,33 +139,33 @@ function TraerCanchas() {
         });
     }
 }
-function ComprobarCampos() {
-    
-   
+function ComprobarCamposDates() {
+
+
     if ($("#FecR").val() == "") {
-            alertify.error("Complete el campo fecha de Reserva");
-            return false;
-    }
-    if ($("#FecR").val() < $("#FecP").val()) {
-        alertify.error("La fecha de reserva no puede ser menor que la fecha de pedido");
+        alertify.error("Complete el campo fecha de Reserva");
         return false;
     }
-   
-        if ($("#HD").val() == "") {
-            alertify.error("Complete el campo Hora Desde");
-            return false;
-        }
-        if ($("#HH").val() == "") {
-            alertify.error("Complete el campo Hora Hasta");
-            return false;
-        }
-
-        if ($("#HH").val() < $("#HD").val()) {
-            alertify.error("La Hora hasta no puede ser menor que la hora desde");
-            return false;
-        }
-        return true;
-
+    if ($("#FecR").val() < $("#FecP").val()) {
+        alertify.error("La fecha de reserva no puede ser menor que la fecha ACTUAL");
+        return false;
     }
+
+    if ($("#HD").val() == "") {
+        alertify.error("Complete el campo Hora Desde");
+        return false;
+    }
+    if ($("#HH").val() == "") {
+        alertify.error("Complete el campo Hora Hasta");
+        return false;
+    }
+
+    if ($("#HH").val() <= $("#HD").val()) {
+        alertify.error("La Hora hasta no puede ser menor o igual que la hora desde");
+        return false;
+    }
+    return true;
+
+}
 
 

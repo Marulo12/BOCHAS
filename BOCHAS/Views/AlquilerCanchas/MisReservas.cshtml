@@ -1,0 +1,90 @@
+﻿@model IEnumerable<BOCHAS.Models.AlquilerCancha>
+
+@{
+    ViewData["Title"] = "MisReservas";
+    Layout = "~/Views/Shared/_LayoutJugadores.cshtml";
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading"><h3> <i class="fas fa-clipboard-list"></i>  Mis Reservas</h3></div>
+    <div class="panel-body">
+        <table id="TablaMisReservas" class="table table-striped table-responsive">
+            <thead>
+                <tr>
+                    <th>
+                        Numero de Reserva
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FechaPedido)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FechaReserva)
+                    </th>
+                    <th>
+                        Estado
+                    </th>
+                    <th>
+                        Ver Detalle
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Numero)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FechaPedido)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FechaReserva)
+                        </td>
+
+                        <td>
+                            @{ if (item.IdEstado == 2)
+                                {
+                                    <i class="far fa-thumbs-up" style="color:darkseagreen;"></i>
+                                }
+                                else
+                                {
+
+                                    <i class="far fa-clock" style="color:cornflowerblue;"></i>
+                                }
+                            }
+                            @Html.DisplayFor(modelItem => item.IdEstadoNavigation.Nombre)
+                        </td>
+                        <td style="align-content:center;justify-content:center;">
+                            <button class="btn btn-sm btn-danger" onclick="VerDetalleReserva(@item.Numero)"><i class="fas fa-info-circle " style="color:white"></i></button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div id="ModalDetalleReserva" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg ">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="background:-webkit-gradient(linear, 96% 73%, 0% 0%, from(#AD9085), to(#CE2029));">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" style="color:white;">Detalle de la Reserva</h4>
+            </div>
+            <div id="DetalleReservaBody" class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+@section Scripts{
+    <script src="~/js/AlquilerDeCanchas.js"></script>
+}
