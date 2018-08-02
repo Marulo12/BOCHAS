@@ -39,8 +39,8 @@ namespace BOCHAS.Controllers
          
           try {
                 int ResultadoAlquiler = 0;
-                DateTime fechaPedido = DateTime.Now;
-                DateTime fechaReserva = Convert.ToDateTime(fecR);
+                DateTime fechaPedido = DateTime.Now.Date;
+                DateTime fechaReserva = Convert.ToDateTime(fecR).Date;
             TimeSpan HoraDesde = TimeSpan.Parse(hd);
                 TimeSpan HoraHasta = TimeSpan.Parse(hh);
             int idPersona = Convert.ToInt32(Cliente);

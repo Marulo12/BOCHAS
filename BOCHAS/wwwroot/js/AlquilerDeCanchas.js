@@ -31,13 +31,16 @@ function RegistrarReserva() {
         var hd = $("#HD").val();
         var hh = $("#HH").val();
         var Cliente = $("#IdCliente option:selected").val();
+        $("#Canchas").empty();
+        $("#ImgLoad").css("display", "inline-block");
         $.ajax({
             type: "POST",
             data: { fecR, hd, hh, Canchas, Cliente },
             url: "/AlquilerCanchas/RegistrarReserva",
             success: function (response) {
 
-
+                $("#Canchas").empty();
+                $("#ImgLoad").css("display", "none");
                 if (response != "ERROR") {
 
                     alertify.alert('Alerta', "Reserva Generada con exito con Numero: " + response, function () { window.location = "/AlquilerCanchas/NuevaReserva"; });
