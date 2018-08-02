@@ -13,7 +13,44 @@ $(document).ready(function () {
         RegistrarReserva();
 
     });
+    $("#RegistrarReservaJugador").click(function () {
+        RegistrarReservaJugador();
 
+    });
+    $("#TablaMisReservas").DataTable({
+        searching: true,
+        lengthMenu: [5, 10, 20, 75, 100],
+        responsive: true,
+        search: "Filtro&nbsp;:",
+        dom: 'Bfrtip',
+        buttons: [
+           
+            {
+                extend: 'print',
+                text: 'Imprimir',
+                title: 'BOCHAS PADEL - Mis Reservas'
+
+            }
+        ],
+        language: {
+            processing: "Procesando",
+            search: "Filtro&nbsp;:",
+            info: "Pagina _PAGE_ de _PAGES_  / <b>Total de Registros: _MAX_</b> ",
+            infoEmpty: "",
+            infoFiltered: "",
+            zeroRecords: "Ningun registro coincide",
+            lengthMenu: "Mostrar _MENU_ registros",
+            infoPostFix: "",
+            loadingRecords: "Cargando...",
+            emptyTable: "No hay registros",
+            paginate: {
+                first: "Primero",
+                previous: "Anterior",
+                next: "Siguiente",
+                last: "Ultimo"
+            }
+        }
+    });
 });
 
 function RegistrarReserva() {
@@ -44,6 +81,45 @@ function RegistrarReserva() {
                 if (response != "ERROR") {
 
                     alertify.alert('Alerta', "Reserva Generada con exito con Numero: " + response, function () { window.location = "/AlquilerCanchas/NuevaReserva"; });
+                }
+                else {
+
+                    alertify.error("Error en la operacion");
+                }
+            },
+            failure: function (response) {
+                alert(response);
+            }
+
+        });
+
+    } else { alert.error("Seleccione una cancha"); }
+
+
+}
+function RegistrarReservaJugador() {
+   
+    var Canchas = new Array();
+    $(".CanchasR:checked").each(function (index) {
+        Canchas.push($(this).val());
+    });
+    if (ComprobarCamposDates() && Canchas.length > 0) {
+        var fecR = $("#FecR").val();
+        var hd = $("#HD").val();
+        var hh = $("#HH").val();
+        $("#Canchas").empty();
+        $("#ImgLoad").css("display", "inline-block");
+        $.ajax({
+            type: "POST",
+            data: { fecR, hd, hh, Canchas },
+            url: "/AlquilerCanchas/RegistrarReservaJugador",
+            success: function (response) {
+
+                $("#Canchas").empty();
+                $("#ImgLoad").css("display", "none");
+                if (response != "ERROR") {
+
+                    alertify.alert('Alerta', "Reserva Generada con exito con Numero de reserva: " + response + ", para ver si la reserva se confirmo verifique la misma en 'Mis Reservas'", function () { window.location = "/AlquilerCanchas/NuevaReservaJugador"; });
                 }
                 else {
 
@@ -169,3 +245,55 @@ function ComprobarCamposDates() {
 }
 
 
+function VerDetalleReserva(numero) {
+
+    $.ajax({
+        type: "GET",
+        data: { numero },
+        url: "/AlquilerCanchas/VerDetalleMiReserva",
+        success: function (response) {
+            $("#DetalleReservaBody").html(response);
+            $("#TablaDetalleReserva").DataTable({
+                searching: true,
+                lengthMenu: [5, 10, 20, 75, 100],
+                responsive: true,
+                search: "Filtro&nbsp;:",
+                dom: 'Bfrtip',
+                buttons: [
+                   
+                    {
+                        extend: 'print',
+                        text: 'Imprimir',
+                        title: 'BOCHAS PADEL - Detalle Reserva'
+
+                    }
+                ],
+                language: {
+                    processing: "Procesando",
+                    search: "Filtro&nbsp;:",
+                    info: "",
+                    infoEmpty: "",
+                    infoFiltered: "",
+                    zeroRecords: "Ningun registro coincide",
+                    lengthMenu: "Mostrar _MENU_ registros",
+                    infoPostFix: "",
+                    loadingRecords: "Cargando...",
+                    emptyTable: "No hay registros",
+                    paginate: {
+                        first: "Primero",
+                        previous: "Anterior",
+                        next: "Siguiente",
+                        last: "Ultimo"
+                    }
+                }
+            }
+            );
+            $("#ModalDetalleReserva").modal();
+        },
+        failure: function (response) {
+            alert(response);
+        }
+
+    });
+
+}

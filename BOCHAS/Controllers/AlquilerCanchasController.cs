@@ -33,6 +33,11 @@ namespace BOCHAS.Controllers
             return View();
 
         }
+        public IActionResult NuevaReservaJugador()
+        {         
+            return View();
+
+        }
         [HttpPost]
         public JsonResult RegistrarReserva(string fecR,string hd,string hh,string[] Canchas ,string Cliente)
         {
@@ -88,8 +93,52 @@ namespace BOCHAS.Controllers
           catch { return Json("ERROR"); }
        
         }
+        [HttpPost]
+        public JsonResult RegistrarReservaJugador(string fecR, string hd, string hh, string[] Canchas)
+        {
 
-     
+            try
+            {
+                int ResultadoAlquiler = 0;
+                DateTime fechaPedido = DateTime.Now.Date;
+                DateTime fechaReserva = Convert.ToDateTime(fecR).Date;
+                TimeSpan HoraDesde = TimeSpan.Parse(hd);
+                TimeSpan HoraHasta = TimeSpan.Parse(hh);
+                
+                int idCliente = (from u in _context.Usuario join p in _context.Persona on u.Id equals p.IdUsuario where u.Nombre == HttpContext.User.Identity.Name && p.Tipo == "JUGADOR" && p.FechaBaja == null select u).SingleOrDefault().Id;
+                
+
+                AlquilerCancha al = new AlquilerCancha();
+                al.FechaPedido = fechaPedido;
+                al.FechaReserva = fechaReserva;
+                al.IdCliente = idCliente;                
+                al.IdEstado = 1;
+                _context.AlquilerCancha.Add(al);
+
+                if (_context.SaveChanges() == 1)
+                {
+                    int IdAlquiler = _context.AlquilerCancha.Max(a => a.Numero);
+                    ResultadoAlquiler = IdAlquiler;
+                    foreach (var id in Canchas)
+                    {
+                        DetalleAlquilerCancha DetA = new DetalleAlquilerCancha();
+                        DetA.IdAlquilerCancha = IdAlquiler;
+                        DetA.IdCancha = Convert.ToInt32(id);
+                        DetA.HoraReservaDesde = HoraDesde;
+                        DetA.HoraReservaHasta = HoraHasta;
+                        _context.DetalleAlquilerCancha.Add(DetA);
+                        _context.SaveChanges();
+                        
+
+                    }
+                }
+
+                return Json(ResultadoAlquiler);
+            }
+            catch { return Json("ERROR"); }
+
+        }
+
         public JsonResult MostrarCanchas(string fecR, string hd, string hh)
         {
             var cancha = (from c in _context.Cancha join e in _context.EstadoCancha on c.IdEstadoCancha equals e.Id where e.Id == 1 || e.Id == 2 select new { Id = c.Id }).ToList();
@@ -193,8 +242,21 @@ namespace BOCHAS.Controllers
         }
 
 
-      
+        public async Task<IActionResult> MisReservas()
+        {
+            int idCliente = (from u in _context.Usuario join p in _context.Persona on u.Id equals p.IdUsuario where u.Nombre == HttpContext.User.Identity.Name && p.Tipo == "JUGADOR" && p.FechaBaja == null select u).SingleOrDefault().Id;
+            var alquiler = _context.AlquilerCancha.Include(a=>a.IdEstadoNavigation).Where(a => a.IdCliente == idCliente && (a.IdEstado == 1 || a.IdEstado == 2)).OrderBy(a=>a.Numero).ToListAsync();
 
-       
+            return View(await alquiler);
+        }
+
+        public async Task<IActionResult> VerDetalleMiReserva(string numero)
+        { int num = Convert.ToInt32(numero);
+            var detalle = _context.DetalleAlquilerCancha.Include(d=>d.IdAlquilerCanchaNavigation).Include(d=>d.IdCanchaNavigation).Where(d => d.IdAlquilerCancha == num).ToListAsync();
+            return PartialView(await detalle);
+        }
+
+
+
     }
 }
