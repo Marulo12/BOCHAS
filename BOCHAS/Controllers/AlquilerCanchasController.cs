@@ -33,7 +33,63 @@ namespace BOCHAS.Controllers
             return View();
 
         }
+        [HttpPost]
+        public JsonResult RegistrarReserva(string fecR,string hd,string hh,string[] Canchas ,string Cliente)
+        {
+         
+          try {
+                int ResultadoAlquiler = 0;
+                DateTime fechaPedido = DateTime.Now;
+                DateTime fechaReserva = Convert.ToDateTime(fecR);
+            TimeSpan HoraDesde = TimeSpan.Parse(hd);
+                TimeSpan HoraHasta = TimeSpan.Parse(hh);
+            int idPersona = Convert.ToInt32(Cliente);
+            int idCliente = (from u in _context.Usuario join p in _context.Persona on u.Id equals p.IdUsuario where p.Id == idPersona && p.Tipo == "JUGADOR" select u).SingleOrDefault().Id;
+            int empleado = (from p in _context.Persona join u in _context.Usuario on p.IdUsuario equals u.Id where u.Nombre == HttpContext.User.Identity.Name && p.Tipo == "EMPLEADO" select u).SingleOrDefault().Id;
+            
+            AlquilerCancha al = new AlquilerCancha();
+                al.FechaPedido = fechaPedido;
+                al.FechaReserva = fechaReserva;
+                al.IdCliente = idCliente;
+                al.IdEmpleado = empleado;
+                al.IdEstado = 2;
+                   _context.AlquilerCancha.Add(al);
+               
+                if (_context.SaveChanges() == 1)
+                {
+                    int IdAlquiler = _context.AlquilerCancha.Max(a=>a.Numero);
+                    ResultadoAlquiler = IdAlquiler;
+                    foreach (var id in Canchas)
+                    {
+                        DetalleAlquilerCancha DetA = new DetalleAlquilerCancha();
+                        DetA.IdAlquilerCancha = IdAlquiler;
+                        DetA.IdCancha = Convert.ToInt32(id);
+                        DetA.HoraReservaDesde = HoraDesde;
+                        DetA.HoraReservaHasta = HoraHasta;
+                        _context.DetalleAlquilerCancha.Add(DetA);
+                        if (_context.SaveChanges() == 1)
+                        {
+                            Agenda Ag = new Agenda();
+                            Ag.IdAlquilerCancha = IdAlquiler;
+                            Ag.IdCancha = Convert.ToInt32(id);
+                            Ag.Fecha = fechaReserva;
+                            Ag.HoraDesde = HoraDesde;
+                            Ag.HoraHasta = HoraHasta;
+                            _context.Agenda.Add(Ag);
+                            _context.SaveChanges();
 
+                        }
+
+                    }
+                }
+
+                return Json(ResultadoAlquiler);
+           }
+          catch { return Json("ERROR"); }
+       
+        }
+
+     
         public JsonResult MostrarCanchas(string fecR, string hd, string hh)
         {
             var cancha = (from c in _context.Cancha join e in _context.EstadoCancha on c.IdEstadoCancha equals e.Id where e.Id == 1 || e.Id == 2 select new { Id = c.Id }).ToList();

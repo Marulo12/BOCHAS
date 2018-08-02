@@ -7,7 +7,7 @@ namespace BOCHAS.Models
     {
         public int Id { get; set; }
         public int? IdAlquilerCancha { get; set; }
-        public int IdTorneo { get; set; }
+        public int? IdTorneo { get; set; }
         public int? IdClasesParticulares { get; set; }
         public DateTime Fecha { get; set; }
         public int IdCancha { get; set; }

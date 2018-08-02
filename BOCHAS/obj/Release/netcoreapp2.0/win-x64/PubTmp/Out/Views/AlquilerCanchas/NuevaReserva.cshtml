@@ -28,10 +28,10 @@
         </div>
         <hr>
         <div class="row">
-            <div class="col-sm-4"><label for="emp">Jugador</label> <select asp-for="IdCliente" class="form-control alert-danger" asp-items="@{ new SelectList(cliente, "Id", "Client" );}"></select></div>
+            <div class="col-sm-3"><label for="emp">Jugador</label> <select asp-for="IdCliente" class="btn btn-sm form-control " style="background-color: rgba(172, 44, 44, 0.9);color:white;" asp-items="@{ new SelectList(cliente, "Id", "Client" );}"></select></div>
             <div class="col-sm-2"><label for="HD">Hora Desde</label><input type="time" id="HD" class="form-control" /></div>
             <div class="col-sm-2"><label for="HH">Hora Hasta</label><input type="time" id="HH" class="form-control" /></div>
-            <div class="col-sm-1" style="padding-top:2.2%;"><input id="BtnValida" type="button" class="btn btn-sm btn-success" value="Comprobar Disponibilidad" style="border-radius:12px;"/></div>
+            <div class="col-sm-5" style="padding-top:25px;"><div class="btn-group btn-group-sm form-inline" role="group" aria-label="..."><input id="BtnOcupadas" type="button" class="btn btn-sm btn-success form-control" value="Ver Horarios Ocupados" /><input id="BtnValida" type="button" class="btn btn-sm btn-success form-control" value="Comprobar Disponibilidad"  /></div></div>
         </div>
 
         <h3 style="border-bottom:1px solid rgba(0, 14, 44, 0.3);padding:2px 2px 2px 2px;"> Seleccionar Canchas</h3>
@@ -39,7 +39,7 @@
             <div class="col-sm-12">
 
                 <table class="table table-striped">
-                    <thead><tr><td style="display:none">Id</td><td>Numero</td><td>Nombre</td><td>Descripcion</td><td></td></tr></thead>
+                    <thead><tr><td style="display:none">Id</td><td>Numero</td><td>Nombre</td><td>Descripcion</td><td>Seleccionar</td></tr></thead>
                     <tbody id="Canchas"></tbody>
                 </table>
                 <img id="ImgLoad" class="img-responsive" width="180" src="~/images/extras/dots-2.gif" style="display:none;" />
@@ -52,6 +52,26 @@
             <div class="col-sm-2"></div>
             <div class="col-sm-6">
                 <div  style="float:right;"><input class="btn btn-sm btn-info" value="Aceptar" /><a asp-action="NuevaReserva" class="btn btn-sm btn-default " asp-controller="AlquilerCanchas">Limpiar</a></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="ModalHorarios" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="background:-webkit-gradient(linear, 96% 73%, 0% 0%, from(#AD9085), to(#CE2029));padding-bottom:0px;">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 style="color:white;padding:0px;"><i class="fa fa-clock"></i>Horarios Ocupados</h4>
+            </div>
+            <div id="ModalHorariosBody"class="modal-body">
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
 
