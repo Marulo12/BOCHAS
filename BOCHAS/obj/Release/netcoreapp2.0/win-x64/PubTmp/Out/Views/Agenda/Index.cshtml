@@ -3,12 +3,32 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="panel" >
-    <div class="panel-body" style="min-height:85vh;padding:0px;margin:0px;" >
-        <div id="calendar" ></div>
+
+<div class="panel">
+    <div class="panel-body" style="min-height:85vh;padding:0px;margin:0px;">
+        <p><h4>Referencia de colores: <i class="fas fa-palette" style="color:CadetBlue"></i>Reservas   <i class="fas fa-palette" style="color:orangered"></i>Torneos  <i class="fas fa-palette" style="color:dimgrey"></i>Clases Particulares</h4></p>
+        <div id="calendar"></div>
     </div>
 </div>
+<div id="ModalEvento" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm">
 
-@section Scripts{ 
-<script src="~/js/Agenda.js"></script>
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header"  style="background:-webkit-gradient(linear, 96% 73%, 0% 0%, from(#AD9085), to(#CE2029));">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" style="color:white;">Informacion del Evento</h4>
+            </div>
+            <div id="EventoBody" class="modal-body">
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+@section Scripts{
+    <script src="~/js/Agenda.js"></script>
 }

@@ -34,7 +34,7 @@ namespace BOCHAS.Controllers
 
         public JsonResult ArmarAgenda()
         {                                
-            var agenda = (from a in _context.Agenda select new { title="Nombre:"+a.IdCanchaNavigation.Nombre + " Numero:" + a.IdCanchaNavigation.Numero + " Descripcion:" + a.IdCanchaNavigation.Descripcion, allDay = false , start=a.Fecha.Date.ToString("yyyy-MM-dd") + "T" + Convert.ToString(a.HoraDesde) , end = a.Fecha.Date.ToString("yyyy-MM-dd") + "T" + Convert.ToString(a.HoraHasta), backgroundColor = ColorXTipodeServicio(a.IdAlquilerCancha, a.IdTorneo , a.IdClasesParticulares) }).ToList();
+            var agenda = (from a in _context.Agenda select new {id= a.Id , title="Nombre:"+a.IdCanchaNavigation.Nombre + " Numero:" + a.IdCanchaNavigation.Numero + " Descripcion:" + a.IdCanchaNavigation.Descripcion, allDay = false , start=a.Fecha.Date.ToString("yyyy-MM-dd") + "T" + Convert.ToString(a.HoraDesde) , end = a.Fecha.Date.ToString("yyyy-MM-dd") + "T" + Convert.ToString(a.HoraHasta), backgroundColor = ColorXTipodeServicio(a.IdAlquilerCancha, a.IdTorneo , a.IdClasesParticulares) }).ToList();
             return Json(agenda);
         }
 
@@ -54,6 +54,15 @@ namespace BOCHAS.Controllers
             }
             return color;
         }
-      
+
+        public async Task<IActionResult> MostrarEvento(string evento) {
+            int even = Convert.ToInt32(evento);
+            var eventos = _context.Agenda.Include(a => a.IdAlquilerCanchaNavigation).Include(a=>a.IdAlquilerCanchaNavigation.IdClienteNavigation).Include(a=>a.IdAlquilerCanchaNavigation.IdEmpleadoNavigation).Include(a => a.IdCanchaNavigation).Where(a => a.Id == even).SingleOrDefaultAsync();
+
+            return PartialView(await eventos);
+
+        }
+
+
     }
 }

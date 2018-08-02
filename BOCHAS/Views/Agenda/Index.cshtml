@@ -10,7 +10,25 @@
         <div id="calendar"></div>
     </div>
 </div>
+<div id="ModalEvento" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm">
 
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header"  style="background:-webkit-gradient(linear, 96% 73%, 0% 0%, from(#AD9085), to(#CE2029));">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" style="color:white;">Informacion del Evento</h4>
+            </div>
+            <div id="EventoBody" class="modal-body">
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+
+    </div>
+</div>
 @section Scripts{
     <script src="~/js/Agenda.js"></script>
 }
