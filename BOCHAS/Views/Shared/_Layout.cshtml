@@ -18,11 +18,12 @@
         <link href="~/lib/Alertify/alertify.css" rel="stylesheet" />
         <link href="~/lib/Alertify/themes/bootstrap.css" rel="stylesheet" />
         <link href="~/Menu/assets/vendor/pace/themes/red/pace-theme-minimal.css" rel="stylesheet" />
-        <link rel="stylesheet" href="~/Menu/assets/vendor/linearicons/style.css">       
+        <link rel="stylesheet" href="~/Menu/assets/vendor/linearicons/style.css">
         <link rel="stylesheet" href="~/Menu/assets/vendor/chartist/css/chartist-custom.css">
         <link rel="stylesheet" href="~/Menu/assets/css/main.css">
         <link rel="apple-touch-icon" sizes="76x76" href="~/images/LogoBochas.png">
         <link rel="icon" type="image/png" sizes="96x96" href="~/images/LogoBochas.png">
+        <link href="~/lib/fullcalendar/dist/fullcalendar.css" rel="stylesheet" />
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -35,11 +36,12 @@
         <link href="~/Menu/assets/vendor/pace/themes/red/pace-theme-minimal.css" rel="stylesheet" />
         <link rel="stylesheet" href="~/Menu/assets/vendor/linearicons/style.css">
         <link rel="stylesheet" href="~/Menu/assets/vendor/chartist/css/chartist-custom.css">
-        <link rel="stylesheet" href="~/Menu/assets/css/main.css">            
+        <link rel="stylesheet" href="~/Menu/assets/css/main.css">
         <link rel="apple-touch-icon" sizes="76x76" href="~/images/LogoBochas.png">
         <link rel="icon" type="image/png" sizes="96x96" href="~/images/LogoBochas.png">
         <link href="~/lib/Alertify/alertify.css" rel="stylesheet" />
         <link href="~/lib/Alertify/themes/bootstrap.css" rel="stylesheet" />
+        <link href="~/lib/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet" />
     </environment>
 </head>
 
@@ -132,7 +134,7 @@
                     <ul class="nav">
                         <li><img src="~/images/extras/padel.png" width="35" style="margin-left:10%;margin-bottom:8%;" />&nbsp;<label style="color:white;font-size:20px;">Menú</label></li>
                         <li style="margin-top:0px;border-bottom:1px solid white;border-top:1px solid white;"><a asp-action="Index" asp-controller="Home" class="active"><i class="lnr lnr-home"></i> <span>Escritorio</span></a></li>
-                        <li><a href="charts.html" class=""><i class="far fa-calendar-alt"></i><span> &nbsp;&nbsp;Agenda</span></a></li>
+                        <li><a asp-action="Index" asp-controller="Agenda" class=""><i class="far fa-calendar-alt"></i><span> &nbsp;&nbsp;Agenda</span></a></li>
                         <li>
                             <a href="#subPagesReservas" data-toggle="collapse" class="collapsed"><i class="fas fa-clipboard-list"></i> <span>&nbsp;&nbsp;Reservas</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                             <div id="subPagesReservas" class="collapse ">
@@ -292,7 +294,7 @@
         </div>
     </div>
     <environment include="Development">
-       
+
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
@@ -308,7 +310,10 @@
         <script src="~/Menu/assets/scripts/klorofil-common.js"></script>
         <script src="~/js/Usuarios.js"></script>
         <script src="~/lib/fontawesome-free-5.1.0-web/fontawesome-free-5.1.0-web/js/all.js"></script>
-        
+        <script src="~/lib/moment/moment.js"></script>
+        <script src="~/lib/fullcalendar/dist/fullcalendar.min.js"></script>
+        <script src="~/lib/fullcalendar/dist/locale/es.js"></script>
+
     </environment>
     <environment exclude="Development">
 
@@ -323,7 +328,7 @@
         <script src="~/lib/DataTables/datatables.min.js"></script>
         <script src="~/lib/DataTables/DataTables-1.10.16/js/dataTables.bootstrap.js"></script>
         <script src="~/Menu/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-       
+
         <script src="~/Menu/assets/vendor/chartist/js/chartist.min.js"></script>
         <script src="~/Menu/assets/vendor/jquery.easy-pie-chart/easypiechart.js"></script>
         <script src="~/Menu/assets/scripts/klorofil-common.js"></script>
@@ -331,6 +336,9 @@
         <script src="~/lib/Alertify/alertify.js"></script>
         <script src="~/js/Usuarios.js"></script>
         <script src="~/lib/fontawesome-free-5.1.0-web/fontawesome-free-5.1.0-web/js/all.js"></script>
+        <script src="~/lib/moment/min/moment.min.js"></script>
+        <script src="~/lib/fullcalendar/dist/fullcalendar.min.js"></script>
+        <script src="~/lib/fullcalendar/dist/locale/es.js"></script>
 
     </environment>
 

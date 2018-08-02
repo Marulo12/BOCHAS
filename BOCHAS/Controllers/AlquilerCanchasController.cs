@@ -6,9 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BOCHAS.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BOCHAS.Controllers
-{
+{  [Authorize]
     public class AlquilerCanchasController : Controller
     {
         private readonly BOCHASContext _context;
@@ -17,7 +18,11 @@ namespace BOCHAS.Controllers
         {
             _context = context;
         }
-
+        public async Task<IActionResult> Index()
+        {
+            var bOCHASContext = _context.AlquilerCancha.Include(a => a.IdClienteNavigation).Include(a => a.IdEmpleadoNavigation).Include(a => a.IdEstadoNavigation);
+            return View(await bOCHASContext.ToListAsync());
+        }
 
         public IActionResult NuevaReserva()
         {
@@ -132,159 +137,8 @@ namespace BOCHAS.Controllers
         }
 
 
+      
 
-
-
-        // GET: AlquilerCanchas
-        public async Task<IActionResult> Index()
-        {
-            var bOCHASContext = _context.AlquilerCancha.Include(a => a.IdClienteNavigation).Include(a => a.IdEmpleadoNavigation).Include(a => a.IdEstadoNavigation);
-            return View(await bOCHASContext.ToListAsync());
-        }
-
-        // GET: AlquilerCanchas/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var alquilerCancha = await _context.AlquilerCancha
-                .Include(a => a.IdClienteNavigation)
-                .Include(a => a.IdEmpleadoNavigation)
-                .Include(a => a.IdEstadoNavigation)
-                .SingleOrDefaultAsync(m => m.Numero == id);
-            if (alquilerCancha == null)
-            {
-                return NotFound();
-            }
-
-            return View(alquilerCancha);
-        }
-
-        // GET: AlquilerCanchas/Create
-        public IActionResult Create()
-        {
-            ViewData["IdCliente"] = new SelectList(_context.Usuario, "Id", "Contraseña");
-            ViewData["IdEmpleado"] = new SelectList(_context.Usuario, "Id", "Contraseña");
-            ViewData["IdEstado"] = new SelectList(_context.EstadoAlquiler, "Id", "Id");
-            return View();
-        }
-
-        // POST: AlquilerCanchas/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Numero,FechaPedido,IdEmpleado,IdCliente,IdEstado,FechaCancelacion,FechaReserva,Cobro")] AlquilerCancha alquilerCancha)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(alquilerCancha);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["IdCliente"] = new SelectList(_context.Usuario, "Id", "Contraseña", alquilerCancha.IdCliente);
-            ViewData["IdEmpleado"] = new SelectList(_context.Usuario, "Id", "Contraseña", alquilerCancha.IdEmpleado);
-            ViewData["IdEstado"] = new SelectList(_context.EstadoAlquiler, "Id", "Id", alquilerCancha.IdEstado);
-            return View(alquilerCancha);
-        }
-
-        // GET: AlquilerCanchas/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var alquilerCancha = await _context.AlquilerCancha.SingleOrDefaultAsync(m => m.Numero == id);
-            if (alquilerCancha == null)
-            {
-                return NotFound();
-            }
-            ViewData["IdCliente"] = new SelectList(_context.Usuario, "Id", "Contraseña", alquilerCancha.IdCliente);
-            ViewData["IdEmpleado"] = new SelectList(_context.Usuario, "Id", "Contraseña", alquilerCancha.IdEmpleado);
-            ViewData["IdEstado"] = new SelectList(_context.EstadoAlquiler, "Id", "Id", alquilerCancha.IdEstado);
-            return View(alquilerCancha);
-        }
-
-        // POST: AlquilerCanchas/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Numero,FechaPedido,IdEmpleado,IdCliente,IdEstado,FechaCancelacion,FechaReserva,Cobro")] AlquilerCancha alquilerCancha)
-        {
-            if (id != alquilerCancha.Numero)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(alquilerCancha);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!AlquilerCanchaExists(alquilerCancha.Numero))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["IdCliente"] = new SelectList(_context.Usuario, "Id", "Contraseña", alquilerCancha.IdCliente);
-            ViewData["IdEmpleado"] = new SelectList(_context.Usuario, "Id", "Contraseña", alquilerCancha.IdEmpleado);
-            ViewData["IdEstado"] = new SelectList(_context.EstadoAlquiler, "Id", "Id", alquilerCancha.IdEstado);
-            return View(alquilerCancha);
-        }
-
-        // GET: AlquilerCanchas/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var alquilerCancha = await _context.AlquilerCancha
-                .Include(a => a.IdClienteNavigation)
-                .Include(a => a.IdEmpleadoNavigation)
-                .Include(a => a.IdEstadoNavigation)
-                .SingleOrDefaultAsync(m => m.Numero == id);
-            if (alquilerCancha == null)
-            {
-                return NotFound();
-            }
-
-            return View(alquilerCancha);
-        }
-
-        // POST: AlquilerCanchas/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var alquilerCancha = await _context.AlquilerCancha.SingleOrDefaultAsync(m => m.Numero == id);
-            _context.AlquilerCancha.Remove(alquilerCancha);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-
-
-        private bool AlquilerCanchaExists(int id)
-        {
-            return _context.AlquilerCancha.Any(e => e.Numero == id);
-        }
+       
     }
 }
