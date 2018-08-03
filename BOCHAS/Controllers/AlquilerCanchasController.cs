@@ -256,7 +256,12 @@ namespace BOCHAS.Controllers
             return PartialView(await detalle);
         }
 
+        public async Task<IActionResult> ConsultarReservas()
+        {            
+            var alquiler = _context.AlquilerCancha.Include(a => a.IdEstadoNavigation).Include(a => a.IdClienteNavigation.Persona).Include(a=>a.IdEmpleadoNavigation.Persona).Include(a=>a.IdClienteNavigation).Include(a=>a.IdEmpleadoNavigation).OrderByDescending(a => a.Numero).ToListAsync();
 
+            return View(await alquiler);
+        }
 
     }
 }

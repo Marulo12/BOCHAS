@@ -17,6 +17,52 @@ $(document).ready(function () {
         RegistrarReservaJugador();
 
     });
+    $("#TablaReservasCons").DataTable({
+        searching: true,
+        pageLength: 10,
+        lengthMenu: [5, 10, 20, 75, 100],
+        responsive: true,
+        search: "Filtro&nbsp;:",
+        dom: 'Bfrtip',
+        buttons: [
+
+            {
+                extend: 'print',
+                text: 'Imprimir',
+                title: 'BOCHAS PADEL -  Alquiler de Canchas'
+
+            }, {
+                extend: 'excel',
+                text: 'Excel',
+                title: 'BOCHAS PADEL - Alquiler de Canchas'
+            },
+            {
+                extend: 'pdfHtml5',
+                text: 'PDF',
+                title: 'BOCHAS PADEL - Alquiler de Canchas'
+
+            }
+        ],
+        language: {
+            processing: "Procesando",
+            search: "Filtro&nbsp;:",
+            info: "Pagina _PAGE_ de _PAGES_  / <b>Total de Registros: _MAX_</b> ",
+            infoEmpty: "",
+            infoFiltered: "",
+            zeroRecords: "Ningun registro coincide",
+            lengthMenu: "Mostrar _MENU_ registros",
+            infoPostFix: "",
+            loadingRecords: "Cargando...",
+            emptyTable: "No hay registros",
+            paginate: {
+                first: "Primero",
+                previous: "Anterior",
+                next: "Siguiente",
+                last: "Ultimo"
+            }
+        }
+    });
+    $("#TablaReservasCons").removeAttr('style');
     $("#TablaMisReservas").DataTable({
         searching: true,
         lengthMenu: [5, 10, 20, 75, 100],
