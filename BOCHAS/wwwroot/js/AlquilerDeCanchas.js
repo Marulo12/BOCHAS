@@ -1,6 +1,6 @@
 ﻿
 $(document).ready(function () {
-
+    $('[data-toggle="tooltip"]').tooltip(); 
     $("#BtnValida").click(function () {
 
         TraerCanchas();
@@ -103,10 +103,15 @@ $(document).ready(function () {
         }
     });
 
-    if ($("#Respuesta").val()) {
+    if ($("#Respuesta").val()==="SI") {
         alertify.success("Reserva Confirmada!!");
     }
-      
+    if ($("#Respuesta").val() === "Cancelado") {
+        alertify.success("Reserva Cancelada");
+    }
+    if ($("#Respuesta").val() === "NO") {
+        alertify.error("Error en la operacion");
+    }
 
    
 });
@@ -136,7 +141,7 @@ function RegistrarReserva() {
 
                 $("#Canchas").empty();
                 $("#ImgLoad").css("display", "none");
-                if (response != "ERROR") {
+                if (response !== "ERROR") {
 
                     alertify.alert('Alerta', "Reserva Generada con exito con Numero: " + response, function () { window.location = "/AlquilerCanchas/NuevaReserva"; });
                 }
@@ -175,7 +180,7 @@ function RegistrarReservaJugador() {
 
                 $("#Canchas").empty();
                 $("#ImgLoad").css("display", "none");
-                if (response != "ERROR") {
+                if (response !== "ERROR") {
 
                     alertify.alert('Alerta', "Reserva Generada con exito con Numero de reserva: " + response + ", para ver si la reserva se confirmo verifique la misma en 'Mis Reservas'", function () { window.location = "/AlquilerCanchas/NuevaReservaJugador"; });
                 }
@@ -196,7 +201,7 @@ function RegistrarReservaJugador() {
 }
 function MostrarHorariosOcupados() {
     var fecR = $("#FecR").val();
-    if (fecR != "") {
+    if (fecR !== "") {
         $.ajax({
             type: "GET",
             data: { fecR },
@@ -276,7 +281,7 @@ function TraerCanchas() {
 function ComprobarCamposDates() {
 
 
-    if ($("#FecR").val() == "") {
+    if ($("#FecR").val() === "") {
         alertify.error("Complete el campo fecha de Reserva");
         return false;
     }
@@ -285,11 +290,11 @@ function ComprobarCamposDates() {
         return false;
     }
 
-    if ($("#HD").val() == "") {
+    if ($("#HD").val() === "") {
         alertify.error("Complete el campo Hora Desde");
         return false;
     }
-    if ($("#HH").val() == "") {
+    if ($("#HH").val() === "") {
         alertify.error("Complete el campo Hora Hasta");
         return false;
     }
@@ -316,16 +321,8 @@ function VerDetalleReserva(numero) {
                 lengthMenu: [5, 10, 20, 75, 100],
                 responsive: true,
                 search: "Filtro&nbsp;:",
-                dom: 'Bfrtip',
-                buttons: [
-                   
-                    {
-                        extend: 'print',
-                        text: 'Imprimir',
-                        title: 'BOCHAS PADEL - Detalle Reserva'
-
-                    }
-                ],
+               
+               
                 language: {
                     processing: "Procesando",
                     search: "Filtro&nbsp;:",
