@@ -264,37 +264,35 @@ namespace BOCHAS.Controllers
         }
 
         public IActionResult ConfirmarReserva(int Nreserva)
-        {
-            var reserva = _context.AlquilerCancha.Include(a=>a.DetalleAlquilerCancha).Where(a=>a.Numero == Nreserva).SingleOrDefault();
-            reserva.IdEstado = 2;
-            _context.AlquilerCancha.Update(reserva);
-            if (_context.SaveChanges() == 1)
-            {
-                foreach (var r in reserva.DetalleAlquilerCancha)
+        {          
+            var reserva = _context.AlquilerCancha.Include(a=>a.DetalleAlquilerCancha).Where(a=>a.Numero == Nreserva).SingleOrDefault();           
+                reserva.IdEstado = 2;
+                _context.AlquilerCancha.Update(reserva);
+                if (_context.SaveChanges() == 1)
                 {
-                    Agenda ag = new Agenda();
-                    ag.Fecha = Convert.ToDateTime(reserva.FechaReserva).Date;
-                    ag.IdAlquilerCancha = reserva.Numero;
-                    ag.IdCancha = r.IdCancha;
-                    ag.HoraDesde = r.HoraReservaDesde;
-                    ag.HoraHasta = r.HoraReservaHasta;
-                    _context.Agenda.Add(ag);
-                    _context.SaveChanges();
+                    foreach (var r in reserva.DetalleAlquilerCancha)
+                    {
+                        Agenda ag = new Agenda();
+                        ag.Fecha = Convert.ToDateTime(reserva.FechaReserva).Date;
+                        ag.IdAlquilerCancha = reserva.Numero;
+                        ag.IdCancha = r.IdCancha;
+                        ag.HoraDesde = r.HoraReservaDesde;
+                        ag.HoraHasta = r.HoraReservaHasta;
+                        _context.Agenda.Add(ag);
+                        _context.SaveChanges();
+                    }
+                TempData["Respuesta"] = "SI";
+                    return RedirectToAction("ConsultarReservas");
                 }
-                
-                
-
-                return  RedirectToAction("ConsultarReservas");
+                else
+                {
+                    return NotFound();
+                }
             }
-            else
-            {
-                return NotFound();
-            }
+         
 
         }
 
-
-
-
-    }
+       
+    
 }

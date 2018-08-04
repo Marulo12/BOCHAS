@@ -103,11 +103,12 @@ $(document).ready(function () {
         }
     });
 
-    $(".confirm").click(function (event) {
-       
+    if ($("#Respuesta").val()) {
         alertify.success("Reserva Confirmada!!");
+    }
+      
 
-    });
+   
 });
 
 function RegistrarReserva() {

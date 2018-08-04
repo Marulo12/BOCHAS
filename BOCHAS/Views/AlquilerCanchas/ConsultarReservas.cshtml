@@ -110,6 +110,13 @@
         </table>
     </div>
     <div class="panel-footer">
+        @{ if (TempData["Respuesta"] != null)
+            {
+
+                <input id="Respuesta" value="@TempData["Respuesta"]" style="display:none" />
+            }
+        }
+
         <p>Nota: Solo se visualizan los alquileres con fecha de reserva desde la fecha actual para adelante, caso contrario use la busqueda particular..</p>
     </div>
 </div>
