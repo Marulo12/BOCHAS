@@ -256,7 +256,43 @@ namespace BOCHAS.Controllers
             return PartialView(await detalle);
         }
 
+        public async Task<IActionResult> ConsultarReservas()
+        { 
+            var alquiler = _context.AlquilerCancha.Include(a => a.IdEstadoNavigation).Include(a => a.IdClienteNavigation.Persona).Include(a=>a.IdEmpleadoNavigation.Persona).Include(a=>a.IdClienteNavigation).Include(a=>a.IdEmpleadoNavigation).Where(a=>a.FechaReserva >= DateTime.Now.Date).OrderByDescending(a => a.Numero).ToListAsync();
 
+            return View(await alquiler);
+        }
 
-    }
+        public IActionResult ConfirmarReserva(int Nreserva)
+        {          
+            var reserva = _context.AlquilerCancha.Include(a=>a.DetalleAlquilerCancha).Where(a=>a.Numero == Nreserva).SingleOrDefault();           
+                reserva.IdEstado = 2;
+                _context.AlquilerCancha.Update(reserva);
+                if (_context.SaveChanges() == 1)
+                {
+                    foreach (var r in reserva.DetalleAlquilerCancha)
+                    {
+                        Agenda ag = new Agenda();
+                        ag.Fecha = Convert.ToDateTime(reserva.FechaReserva).Date;
+                        ag.IdAlquilerCancha = reserva.Numero;
+                        ag.IdCancha = r.IdCancha;
+                        ag.HoraDesde = r.HoraReservaDesde;
+                        ag.HoraHasta = r.HoraReservaHasta;
+                        _context.Agenda.Add(ag);
+                        _context.SaveChanges();
+                    }
+                TempData["Respuesta"] = "SI";
+                    return RedirectToAction("ConsultarReservas");
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+         
+
+        }
+
+       
+    
 }
