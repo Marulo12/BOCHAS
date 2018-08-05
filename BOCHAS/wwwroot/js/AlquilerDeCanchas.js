@@ -112,7 +112,9 @@ $(document).ready(function () {
     if ($("#Respuesta").val() === "NO") {
         alertify.error("Error en la operacion");
     }
-
+    $("#BtnConPart").click(function () {
+        ConsultaParticular();
+    });
    
 });
 
@@ -307,7 +309,62 @@ function ComprobarCamposDates() {
 
 }
 
+function ConsultaParticular() {
+    var nombre = $("#nombre").val();
+    var Nreserva = $("#Nreserva").val();
+    var apellido = $("#apellido").val();
+    if (Nreserva == "" && nombre == "" && apellido == "") {
+        alertify.error("Complete uno de los campos de consulta");
+       
+    } else {
+        $("#TablaConPar").empty();
+        $.ajax({
+            type: "GET",
+            data: { Nreserva, nombre, apellido },
+            url: "/AlquilerCanchas/ConsultaReservaParticular",
+            success: function (response) {
+                $("#TablaConPar").html(response);
+                $("#TablaReservasConsP").DataTable({
+                    searching: true,
+                    lengthMenu: [5, 10, 20, 75, 100],
+                    responsive: true,
+                    search: "Filtro&nbsp;:",
+                    dom: 'Bfrtip',
+                    buttons: [
 
+                        {
+                            extend: 'print',
+                            text: 'Imprimir',
+                            title: 'BOCHAS PADEL - Mis Reservas'
+
+                        }
+                    ],
+                    language: {
+                        processing: "Procesando",
+                        search: "Filtro&nbsp;:",
+                        info: "Pagina _PAGE_ de _PAGES_  / <b>Total de Registros: _MAX_</b> ",
+                        infoEmpty: "",
+                        infoFiltered: "",
+                        zeroRecords: "Ningun registro coincide",
+                        lengthMenu: "Mostrar _MENU_ registros",
+                        infoPostFix: "",
+                        loadingRecords: "Cargando...",
+                        emptyTable: "No hay registros",
+                        paginate: {
+                            first: "Primero",
+                            previous: "Anterior",
+                            next: "Siguiente",
+                            last: "Ultimo"
+                        }
+                    }
+                });
+            },
+            failure: function (response) {
+                alert(response);
+            }
+
+        }); }
+}
 function VerDetalleReserva(numero) {
 
     $.ajax({

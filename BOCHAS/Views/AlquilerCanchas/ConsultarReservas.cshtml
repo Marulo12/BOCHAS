@@ -12,14 +12,13 @@
 <div class="panel panel-primary" style="padding:0px;margin:0px;">
     <div class="panel-heading" style="padding-bottom:0px;margin:0px;">
         <h3 style="padding:0px;margin:0px;margin-bottom:4px;"><i class="fas fa-clipboard-list"></i> Alquiler de Cancha</h3>
-
     </div>
     <div class="panel-body">
         <div class="row">
             <ul class="nav nav-tabs ">
                 <li role="presentation"><a asp-action="NuevaReserva" asp-controller="AlquilerCanchas">Nueva Reserva</a></li>
                 <li role="presentation" class="active"><a id="ConsultaReserva" asp-action="ConsultarReservas" asp-controller="AlquilerCanchas">Consulta de Reservas</a></li>
-                <li role="presentation"><a asp-action="ConsultarBajas" asp-controller="Personas">Consulta Bajas</a></li>
+                <li role="presentation"><a asp-action="Index" asp-controller="AlquilerCanchas">Consulta Particular</a></li>
             </ul>
         </div>
 
@@ -125,7 +124,7 @@
             }
         }
 
-        <p>Nota: Solo se visualizan los alquileres con fecha de reserva desde la fecha actual para adelante, caso contrario use la busqueda particular..</p>
+        <p>Nota: Solo se visualizan los alquileres con fecha de reserva desde la fecha actual para adelante y que no esten cancelados, caso contrario use la consulta particular..</p>
     </div>
 </div>
 <div id="ModalDetalleReserva" class="modal fade" role="dialog">

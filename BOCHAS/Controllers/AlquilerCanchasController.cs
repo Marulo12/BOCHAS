@@ -18,12 +18,11 @@ namespace BOCHAS.Controllers
         {
             _context = context;
         }
-        public async Task<IActionResult> Index()
-        {
-            var bOCHASContext = _context.AlquilerCancha.Include(a => a.IdClienteNavigation).Include(a => a.IdEmpleadoNavigation).Include(a => a.IdEstadoNavigation);
-            return View(await bOCHASContext.ToListAsync());
-        }
 
+        public IActionResult Index()
+        {
+            return View();
+        }
         public IActionResult NuevaReserva()
         {
 
@@ -350,8 +349,28 @@ namespace BOCHAS.Controllers
             return RedirectToAction("ConsultarReservas");
         }
 
+        public IActionResult ConsultaReservaParticular(string Nreserva , string nombre , string apellido)
+        {
+            var Reserva = _context.AlquilerCancha.Include(a => a.DetalleAlquilerCancha).Include(a => a.IdClienteNavigation).Include(a=>a.IdClienteNavigation.Persona).Include(a=>a.IdEstadoNavigation);
+            if (!string.IsNullOrEmpty(Nreserva) )
+            {
+                int nreserva = Convert.ToInt32( Nreserva);
+                Reserva.Where(a => a.Numero == nreserva);
 
+            }
+            if (!string.IsNullOrEmpty(nombre))
+            {
+                Reserva.Where(a => a.IdClienteNavigation.Persona.SingleOrDefault().Nombre.Contains(nombre));
+            }
+            if (!string.IsNullOrEmpty(apellido))
+            {
+              Reserva.Where(a => a.IdClienteNavigation.Persona.SingleOrDefault().Apellido.Contains(apellido));
+            }
+            
 
+            return PartialView(Reserva.ToList());
+        }
+       
 
 
 
