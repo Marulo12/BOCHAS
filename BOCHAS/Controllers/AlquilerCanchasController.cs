@@ -50,7 +50,7 @@ namespace BOCHAS.Controllers
                 TimeSpan HoraHasta = TimeSpan.Parse(hh);
             int idPersona = Convert.ToInt32(Cliente);
             int idCliente = (from u in _context.Usuario join p in _context.Persona on u.Id equals p.IdUsuario where p.Id == idPersona && p.Tipo == "JUGADOR" select u).SingleOrDefault().Id;
-            int empleado = (from p in _context.Persona join u in _context.Usuario on p.IdUsuario equals u.Id where u.Nombre == HttpContext.User.Identity.Name && p.Tipo == "EMPLEADO" select u).SingleOrDefault().Id;
+            int empleado = (from p in _context.Persona join u in _context.Usuario on p.IdUsuario equals u.Id where u.Nombre == HttpContext.User.Identity.Name && p.Tipo == "EMPLEADO" && p.FechaBaja == null select u).SingleOrDefault().Id;
             
             AlquilerCancha al = new AlquilerCancha();
                 al.FechaPedido = fechaPedido;
@@ -83,7 +83,11 @@ namespace BOCHAS.Controllers
                             _context.Agenda.Add(Ag);
                             _context.SaveChanges();
 
+                        
                         }
+
+
+
 
                     }
                 }
@@ -112,7 +116,7 @@ namespace BOCHAS.Controllers
                 al.FechaPedido = fechaPedido;
                 al.FechaReserva = fechaReserva;
                 al.IdCliente = idCliente;                
-                al.IdEstado = 1;
+                al.IdEstado = 2;
                 _context.AlquilerCancha.Add(al);
 
                 if (_context.SaveChanges() == 1)
@@ -128,9 +132,18 @@ namespace BOCHAS.Controllers
                         DetA.HoraReservaHasta = HoraHasta;
                         _context.DetalleAlquilerCancha.Add(DetA);
                         _context.SaveChanges();
-                        
 
+                        Agenda ag = new Agenda();
+                        ag.Fecha = Convert.ToDateTime(al.FechaReserva).Date;
+                        ag.IdAlquilerCancha = al.Numero;
+                        ag.IdCancha = Convert.ToInt32(id);
+                        ag.HoraDesde = HoraDesde;
+                        ag.HoraHasta = HoraHasta;
+                        _context.Agenda.Add(ag);
+                        _context.SaveChanges();
                     }
+
+
                 }
 
                 return Json(ResultadoAlquiler);
@@ -258,15 +271,17 @@ namespace BOCHAS.Controllers
 
         public async Task<IActionResult> ConsultarReservas()
         { 
-            var alquiler = _context.AlquilerCancha.Include(a => a.IdEstadoNavigation).Include(a => a.IdClienteNavigation.Persona).Include(a=>a.IdEmpleadoNavigation.Persona).Include(a=>a.IdClienteNavigation).Include(a=>a.IdEmpleadoNavigation).Where(a=>a.FechaReserva >= DateTime.Now.Date).OrderByDescending(a => a.Numero).ToListAsync();
+            var alquiler = _context.AlquilerCancha.Include(a => a.IdEstadoNavigation).Include(a => a.IdClienteNavigation.Persona).Include(a=>a.IdEmpleadoNavigation.Persona).Include(a=>a.IdClienteNavigation).Include(a=>a.IdEmpleadoNavigation).Where(a=>a.FechaReserva >= DateTime.Now.Date && a.IdEstado != 5).OrderByDescending(a => a.Numero).ToListAsync();
 
             return View(await alquiler);
         }
 
         public IActionResult ConfirmarReserva(int Nreserva)
-        {          
-            var reserva = _context.AlquilerCancha.Include(a=>a.DetalleAlquilerCancha).Where(a=>a.Numero == Nreserva).SingleOrDefault();           
+        {
+ 
+            var reserva = _context.AlquilerCancha.Include(a => a.DetalleAlquilerCancha).Where(a => a.Numero == Nreserva).SingleOrDefault();
                 reserva.IdEstado = 2;
+                reserva.IdEmpleado = (from p in _context.Persona join u in _context.Usuario on p.IdUsuario equals u.Id where u.Nombre == HttpContext.User.Identity.Name && p.Tipo == "EMPLEADO" && p.FechaBaja == null select u).SingleOrDefault().Id;
                 _context.AlquilerCancha.Update(reserva);
                 if (_context.SaveChanges() == 1)
                 {
@@ -281,18 +296,70 @@ namespace BOCHAS.Controllers
                         _context.Agenda.Add(ag);
                         _context.SaveChanges();
                     }
-                TempData["Respuesta"] = "SI";
+                    TempData["Respuesta"] = "SI";
                     return RedirectToAction("ConsultarReservas");
                 }
                 else
                 {
-                    return NotFound();
-                }
+                TempData["Respuesta"] = "NO";
+                return RedirectToAction("ConsultarReservas");
             }
-         
+            }
+
+        public IActionResult CancelarReserva(int Nreserva)
+        {
+            var reserva = _context.AlquilerCancha.Include(a => a.DetalleAlquilerCancha).Where(a => a.Numero == Nreserva).SingleOrDefault();
+
+            if (reserva.IdEstado == 1)
+            {
+                reserva.IdEstado = 5;
+                reserva.FechaCancelacion = DateTime.Now.Date;
+                _context.AlquilerCancha.Update(reserva);
+                _context.SaveChanges();
+                TempData["Respuesta"] = "Cancelado";
+                return RedirectToAction("ConsultarReservas");
+            }
+
+            
+            if (reserva.IdEstado == 2)
+            {
+                var ag = _context.Agenda.Where(a => a.IdAlquilerCancha == Nreserva).ToList();
+                foreach (var a in ag)
+                {
+                    _context.Agenda.Remove(a);
+                    _context.SaveChanges();
+
+                }
+
+                reserva.IdEstado = 5;
+                reserva.FechaCancelacion = DateTime.Now.Date;
+                _context.AlquilerCancha.Update(reserva);
+                if (_context.SaveChanges() == 1)
+
+                {
+                   
+                    TempData["Respuesta"] = "Cancelado";
+                    return RedirectToAction("ConsultarReservas");
+
+                }
+              
+  
+            }
+
+            TempData["Respuesta"] = "NO";
+            return RedirectToAction("ConsultarReservas");
+        }
+
+
+
+
+
+
+
+        }
 
         }
 
        
     
-}
+

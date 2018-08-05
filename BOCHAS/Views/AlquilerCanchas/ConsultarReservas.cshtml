@@ -25,7 +25,7 @@
 
         <hr />
         <img id="ImgLoad" src="~/images/extras/dots-2.gif" alt="" width="200" />
-        <table id="TablaReservasCons" class="table table-striped" style="display:none;width:100%;">
+        <table id="TablaReservasCons" class="table table-striped" style="display:none;width:100%;margin-left:0px;margin-right:0px;">
             <thead style="background-color: rgba(158, 44, 44, 0.9);color:white;">
                 <tr>
                     <th>Numero Reserva</th>
@@ -45,7 +45,7 @@
                     <th>
                         Responsable
                     </th>
-                    <th>
+                    <th >
                         Estado
                     </th>
                     <th></th>
@@ -57,10 +57,11 @@
                     <tr>
                         <td>@Html.DisplayFor(modelItem => item.Numero)</td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.FechaReserva)
+                            @item.FechaReserva.Value.Date.ToString("dd/MM/yyyy")
+                            
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.FechaPedido)
+                            @item.FechaPedido.Value.Date.ToString("dd/MM/yyyy")
                         </td>
 
                         <td>
@@ -71,25 +72,32 @@
                             @Html.DisplayFor(modelItem => item.IdClienteNavigation.Persona.Where(p => p.IdUsuario == item.IdClienteNavigation.Id).SingleOrDefault().Nombre),@Html.DisplayFor(modelItem => item.IdClienteNavigation.Persona.Where(p => p.IdUsuario == item.IdClienteNavigation.Id).SingleOrDefault().Apellido)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.IdEmpleadoNavigation.Persona.Where(p => p.IdUsuario == item.IdEmpleadoNavigation.Id).SingleOrDefault().Nombre),@Html.DisplayFor(modelItem => item.IdEmpleadoNavigation.Persona.Where(p => p.IdUsuario == item.IdEmpleadoNavigation.Id).SingleOrDefault().Apellido)
+                            @{
+                                if (item.IdEmpleado != null)
+                                {
+                                    var em = item.IdEmpleadoNavigation.Persona.Where(p => p.IdUsuario == item.IdEmpleadoNavigation.Id).SingleOrDefault().Nombre + " " + item.IdEmpleadoNavigation.Persona.Where(p => p.IdUsuario == item.IdEmpleadoNavigation.Id).SingleOrDefault().Apellido;
+                                 <label>@em</label>
+                                }
+                            }
+
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.IdEstadoNavigation.Nombre)
                         </td>
-                        <td>
-                            <div class="btn-group">
-                                <button class="btn btn-info btn-sm" onclick="VerDetalleReserva(@item.Numero)">Ver Detalle</button>
+                        <td >
+                            <div class="btn-group form-group">
+                                <button class="btn btn-info btn-sm" onclick="VerDetalleReserva(@item.Numero)" data-toggle="tooltip" title="Ver Detalle"><i class="fas fa-info-circle"></i></button>
                                 @{
                                     switch (item.IdEstado)
                                     {
-                                        case 1: <a  class="btn btn-success btn-sm confirm" asp-action="ConfirmarReserva" asp-controller="AlquilerCanchas" asp-route-Nreserva="@item.Numero">Confirmar</a>
-                                            <button class="btn btn-danger btn-sm"><a asp-action="Edit" asp-route-id="@item.Numero" style="color:white">Cancelar</a></button>
+                                        case 1: <a  class="btn btn-success btn-sm confirm" asp-action="ConfirmarReserva" asp-controller="AlquilerCanchas" asp-route-Nreserva="@item.Numero" data-toggle="tooltip" title="Confirmar"><i class="fas fa-check"></i></a>
+                                            <a class="btn btn-danger btn-sm" asp-action="CancelarReserva" asp-controller="AlquilerCanchas" asp-route-Nreserva="@item.Numero" style="color:white" data-toggle="tooltip" title="Cancelar"><i class="fas fa-ban"></i></a>
                                             break;
                                         case 2:
-                                            <button class="btn btn-default btn-sm"><a asp-action="Edit" asp-route-id="@item.Numero" style="color:black">Comenzar</a></button>
-                                            <button class="btn btn-danger btn-sm"><a asp-action="Edit" asp-route-id="@item.Numero" style="color:white">Cancelar</a></button>
+                                            <button class="btn btn-default btn-sm"><a asp-action="Edit" asp-route-id="@item.Numero" style="color:black" data-toggle="tooltip" title="Comenzar"><i class="fas fa-play"></i></a></button>
+                                            <a class="btn btn-danger btn-sm" asp-action="CancelarReserva" asp-controller="AlquilerCanchas" asp-route-Nreserva="@item.Numero" style="color:white" data-toggle="tooltip" title="Cancelar"><i class="fas fa-ban"></i></a>
                                             break;
-                                        case 3: <button class="btn btn-warning btn-sm"><a asp-action="Edit" asp-route-id="@item.Numero" style="color:white">Finalizar</a></button>
+                                        case 3: <button class="btn btn-warning btn-sm"><a asp-action="Edit" asp-route-id="@item.Numero" style="color:white" data-toggle="tooltip" title="Finalizar"><i class="fas fa-stopwatch"></i></a></button>
                                             break;
                                         case 4:
                                             break;
