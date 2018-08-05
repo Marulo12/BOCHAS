@@ -72,7 +72,14 @@
                             @Html.DisplayFor(modelItem => item.IdClienteNavigation.Persona.Where(p => p.IdUsuario == item.IdClienteNavigation.Id).SingleOrDefault().Nombre),@Html.DisplayFor(modelItem => item.IdClienteNavigation.Persona.Where(p => p.IdUsuario == item.IdClienteNavigation.Id).SingleOrDefault().Apellido)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.IdEmpleadoNavigation.Persona.Where(p => p.IdUsuario == item.IdEmpleadoNavigation.Id).SingleOrDefault().Nombre),@Html.DisplayFor(modelItem => item.IdEmpleadoNavigation.Persona.Where(p => p.IdUsuario == item.IdEmpleadoNavigation.Id).SingleOrDefault().Apellido)
+                            @{
+                                if (item.IdEmpleado != null)
+                                {
+                                    var em = item.IdEmpleadoNavigation.Persona.Where(p => p.IdUsuario == item.IdEmpleadoNavigation.Id).SingleOrDefault().Nombre + " " + item.IdEmpleadoNavigation.Persona.Where(p => p.IdUsuario == item.IdEmpleadoNavigation.Id).SingleOrDefault().Apellido;
+                                 <label>@em</label>
+                                }
+                            }
+
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.IdEstadoNavigation.Nombre)

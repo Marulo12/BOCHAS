@@ -83,7 +83,11 @@ namespace BOCHAS.Controllers
                             _context.Agenda.Add(Ag);
                             _context.SaveChanges();
 
+                        
                         }
+
+
+
 
                     }
                 }
@@ -112,7 +116,7 @@ namespace BOCHAS.Controllers
                 al.FechaPedido = fechaPedido;
                 al.FechaReserva = fechaReserva;
                 al.IdCliente = idCliente;                
-                al.IdEstado = 1;
+                al.IdEstado = 2;
                 _context.AlquilerCancha.Add(al);
 
                 if (_context.SaveChanges() == 1)
@@ -128,9 +132,18 @@ namespace BOCHAS.Controllers
                         DetA.HoraReservaHasta = HoraHasta;
                         _context.DetalleAlquilerCancha.Add(DetA);
                         _context.SaveChanges();
-                        
 
+                        Agenda ag = new Agenda();
+                        ag.Fecha = Convert.ToDateTime(al.FechaReserva).Date;
+                        ag.IdAlquilerCancha = al.Numero;
+                        ag.IdCancha = Convert.ToInt32(id);
+                        ag.HoraDesde = HoraDesde;
+                        ag.HoraHasta = HoraHasta;
+                        _context.Agenda.Add(ag);
+                        _context.SaveChanges();
                     }
+
+
                 }
 
                 return Json(ResultadoAlquiler);
