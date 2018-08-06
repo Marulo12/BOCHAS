@@ -310,19 +310,20 @@ function ComprobarCamposDates() {
 }
 
 function ConsultaParticular() {
-    var nombre = $("#nombre").val();
-    var Nreserva = $("#Nreserva").val();
-    var apellido = $("#apellido").val();
-    if (Nreserva == "" && nombre == "" && apellido == "") {
-        alertify.error("Complete uno de los campos de consulta");
+    var nombreP = $("#nombreP").val();
+    
+    if (nombreP == "" ) {
+        alertify.error("Complete el campo de consulta");
        
     } else {
         $("#TablaConPar").empty();
+        $("#ImgLoad").css("display", "inline-block");
         $.ajax({
             type: "GET",
-            data: { Nreserva, nombre, apellido },
+            data: {nombreP},
             url: "/AlquilerCanchas/ConsultaReservaParticular",
             success: function (response) {
+                $("#ImgLoad").css("display", "none");
                 $("#TablaConPar").html(response);
                 $("#TablaReservasConsP").DataTable({
                     searching: true,

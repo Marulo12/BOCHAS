@@ -1,6 +1,6 @@
 ﻿
 $(document).ready(function () {
-
+    $('[data-toggle="tooltip"]').tooltip(); 
     $("#BtnValida").click(function () {
 
         TraerCanchas();
@@ -13,7 +13,109 @@ $(document).ready(function () {
         RegistrarReserva();
 
     });
+    $("#RegistrarReservaJugador").click(function () {
+        RegistrarReservaJugador();
 
+    });
+
+    $("#TablaReservasCons").ready(function () {
+        $("#ImgLoad").css('display','none');
+        $("#TablaReservasCons").DataTable({
+            searching: true,
+            pageLength: 10,
+            lengthMenu: [5, 10, 20, 75, 100],
+            responsive: true,
+            search: "Filtro&nbsp;:",
+            dom: 'Bfrtip',
+            buttons: [
+
+                {
+                    extend: 'print',
+                    text: 'Imprimir',
+                    title: 'BOCHAS PADEL -  Alquiler de Canchas'
+
+                }, {
+                    extend: 'excel',
+                    text: 'Excel',
+                    title: 'BOCHAS PADEL - Alquiler de Canchas'
+                },
+                {
+                    extend: 'pdfHtml5',
+                    text: 'PDF',
+                    title: 'BOCHAS PADEL - Alquiler de Canchas'
+
+                }
+            ],
+            language: {
+                processing: "Procesando",
+                search: "Filtro&nbsp;:",
+                info: "Pagina _PAGE_ de _PAGES_  / <b>Total de Registros: _MAX_</b> ",
+                infoEmpty: "",
+                infoFiltered: "",
+                zeroRecords: "Ningun registro coincide",
+                lengthMenu: "Mostrar _MENU_ registros",
+                infoPostFix: "",
+                loadingRecords: "Cargando...",
+                emptyTable: "No hay registros",
+                paginate: {
+                    first: "Primero",
+                    previous: "Anterior",
+                    next: "Siguiente",
+                    last: "Ultimo"
+                }
+            }
+        });
+        $("#TablaReservasCons").removeAttr('style');
+    });
+    
+    $("#TablaMisReservas").DataTable({
+        searching: true,
+        lengthMenu: [5, 10, 20, 75, 100],
+        responsive: true,
+        search: "Filtro&nbsp;:",
+        dom: 'Bfrtip',
+        buttons: [
+           
+            {
+                extend: 'print',
+                text: 'Imprimir',
+                title: 'BOCHAS PADEL - Mis Reservas'
+
+            }
+        ],
+        language: {
+            processing: "Procesando",
+            search: "Filtro&nbsp;:",
+            info: "Pagina _PAGE_ de _PAGES_  / <b>Total de Registros: _MAX_</b> ",
+            infoEmpty: "",
+            infoFiltered: "",
+            zeroRecords: "Ningun registro coincide",
+            lengthMenu: "Mostrar _MENU_ registros",
+            infoPostFix: "",
+            loadingRecords: "Cargando...",
+            emptyTable: "No hay registros",
+            paginate: {
+                first: "Primero",
+                previous: "Anterior",
+                next: "Siguiente",
+                last: "Ultimo"
+            }
+        }
+    });
+
+    if ($("#Respuesta").val()==="SI") {
+        alertify.success("Reserva Confirmada!!");
+    }
+    if ($("#Respuesta").val() === "Cancelado") {
+        alertify.success("Reserva Cancelada");
+    }
+    if ($("#Respuesta").val() === "NO") {
+        alertify.error("Error en la operacion");
+    }
+    $("#BtnConPart").click(function () {
+        ConsultaParticular();
+    });
+   
 });
 
 function RegistrarReserva() {
@@ -41,7 +143,7 @@ function RegistrarReserva() {
 
                 $("#Canchas").empty();
                 $("#ImgLoad").css("display", "none");
-                if (response != "ERROR") {
+                if (response !== "ERROR") {
 
                     alertify.alert('Alerta', "Reserva Generada con exito con Numero: " + response, function () { window.location = "/AlquilerCanchas/NuevaReserva"; });
                 }
@@ -60,9 +162,48 @@ function RegistrarReserva() {
 
 
 }
+function RegistrarReservaJugador() {
+   
+    var Canchas = new Array();
+    $(".CanchasR:checked").each(function (index) {
+        Canchas.push($(this).val());
+    });
+    if (ComprobarCamposDates() && Canchas.length > 0) {
+        var fecR = $("#FecR").val();
+        var hd = $("#HD").val();
+        var hh = $("#HH").val();
+        $("#Canchas").empty();
+        $("#ImgLoad").css("display", "inline-block");
+        $.ajax({
+            type: "POST",
+            data: { fecR, hd, hh, Canchas },
+            url: "/AlquilerCanchas/RegistrarReservaJugador",
+            success: function (response) {
+
+                $("#Canchas").empty();
+                $("#ImgLoad").css("display", "none");
+                if (response !== "ERROR") {
+
+                    alertify.alert('Alerta', "Reserva Generada con exito con Numero de reserva: " + response + ", para ver si la reserva se confirmo verifique la misma en 'Mis Reservas'", function () { window.location = "/AlquilerCanchas/NuevaReservaJugador"; });
+                }
+                else {
+
+                    alertify.error("Error en la operacion");
+                }
+            },
+            failure: function (response) {
+                alert(response);
+            }
+
+        });
+
+    } else { alert.error("Seleccione una cancha"); }
+
+
+}
 function MostrarHorariosOcupados() {
     var fecR = $("#FecR").val();
-    if (fecR != "") {
+    if (fecR !== "") {
         $.ajax({
             type: "GET",
             data: { fecR },
@@ -142,7 +283,7 @@ function TraerCanchas() {
 function ComprobarCamposDates() {
 
 
-    if ($("#FecR").val() == "") {
+    if ($("#FecR").val() === "") {
         alertify.error("Complete el campo fecha de Reserva");
         return false;
     }
@@ -151,11 +292,11 @@ function ComprobarCamposDates() {
         return false;
     }
 
-    if ($("#HD").val() == "") {
+    if ($("#HD").val() === "") {
         alertify.error("Complete el campo Hora Desde");
         return false;
     }
-    if ($("#HH").val() == "") {
+    if ($("#HH").val() === "") {
         alertify.error("Complete el campo Hora Hasta");
         return false;
     }
@@ -168,4 +309,104 @@ function ComprobarCamposDates() {
 
 }
 
+function ConsultaParticular() {
+    var nombreP = $("#nombreP").val();
+    
+    if (nombreP == "" ) {
+        alertify.error("Complete el campo de consulta");
+       
+    } else {
+        $("#TablaConPar").empty();
+        $("#ImgLoad").css("display", "inline-block");
+        $.ajax({
+            type: "GET",
+            data: {nombreP},
+            url: "/AlquilerCanchas/ConsultaReservaParticular",
+            success: function (response) {
+                $("#ImgLoad").css("display", "none");
+                $("#TablaConPar").html(response);
+                $("#TablaReservasConsP").DataTable({
+                    searching: true,
+                    lengthMenu: [5, 10, 20, 75, 100],
+                    responsive: true,
+                    search: "Filtro&nbsp;:",
+                    dom: 'Bfrtip',
+                    buttons: [
 
+                        {
+                            extend: 'print',
+                            text: 'Imprimir',
+                            title: 'BOCHAS PADEL - Mis Reservas'
+
+                        }
+                    ],
+                    language: {
+                        processing: "Procesando",
+                        search: "Filtro&nbsp;:",
+                        info: "Pagina _PAGE_ de _PAGES_  / <b>Total de Registros: _MAX_</b> ",
+                        infoEmpty: "",
+                        infoFiltered: "",
+                        zeroRecords: "Ningun registro coincide",
+                        lengthMenu: "Mostrar _MENU_ registros",
+                        infoPostFix: "",
+                        loadingRecords: "Cargando...",
+                        emptyTable: "No hay registros",
+                        paginate: {
+                            first: "Primero",
+                            previous: "Anterior",
+                            next: "Siguiente",
+                            last: "Ultimo"
+                        }
+                    }
+                });
+            },
+            failure: function (response) {
+                alert(response);
+            }
+
+        }); }
+}
+function VerDetalleReserva(numero) {
+
+    $.ajax({
+        type: "GET",
+        data: { numero },
+        url: "/AlquilerCanchas/VerDetalleMiReserva",
+        success: function (response) {
+            $("#DetalleReservaBody").html(response);
+            $("#TablaDetalleReserva").DataTable({
+                searching: true,
+                lengthMenu: [5, 10, 20, 75, 100],
+                responsive: true,
+                search: "Filtro&nbsp;:",
+               
+               
+                language: {
+                    processing: "Procesando",
+                    search: "Filtro&nbsp;:",
+                    info: "",
+                    infoEmpty: "",
+                    infoFiltered: "",
+                    zeroRecords: "Ningun registro coincide",
+                    lengthMenu: "Mostrar _MENU_ registros",
+                    infoPostFix: "",
+                    loadingRecords: "Cargando...",
+                    emptyTable: "No hay registros",
+                    paginate: {
+                        first: "Primero",
+                        previous: "Anterior",
+                        next: "Siguiente",
+                        last: "Ultimo"
+                    }
+                }
+            }
+            );
+            $("#ModalDetalleReserva").modal();
+        },
+        failure: function (response) {
+            alert(response);
+        }
+
+    });
+
+}

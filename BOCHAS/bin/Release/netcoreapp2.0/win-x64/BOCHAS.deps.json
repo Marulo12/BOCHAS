@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0/win-x64",
-    "signature": "c78adb00411d0737c69990a07ec19999be59c3b1"
+    "signature": "485e72396f06b222c59d34094177f57d3323d6c2"
   },
   "compilationOptions": {
     "defines": [
@@ -29,7 +29,8 @@
           "Microsoft.EntityFrameworkCore.SqlServer": "2.0.3",
           "Microsoft.EntityFrameworkCore.Tools": "2.0.3",
           "Microsoft.NETCore.App": "2.0.0",
-          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.0.3"
+          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.0.3",
+          "Rotativa.AspNetCore": "1.0.6"
         },
         "compile": {
           "BOCHAS.dll": {}
@@ -2184,6 +2185,14 @@
           "lib/netstandard1.0/Remotion.Linq.dll": {}
         }
       },
+      "Rotativa.AspNetCore/1.0.6": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Mvc": "2.0.3"
+        },
+        "compile": {
+          "lib/netstandard2.0/Rotativa.AspNetCore.dll": {}
+        }
+      },
       "runtime.any.System.Collections/4.3.0": {
         "dependencies": {
           "System.Runtime": "4.3.0"
@@ -3496,7 +3505,8 @@
           "Microsoft.EntityFrameworkCore.SqlServer": "2.0.3",
           "Microsoft.EntityFrameworkCore.Tools": "2.0.3",
           "Microsoft.NETCore.App": "2.0.0",
-          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.0.3"
+          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.0.3",
+          "Rotativa.AspNetCore": "1.0.6"
         },
         "runtime": {
           "BOCHAS.dll": {}
@@ -5530,6 +5540,14 @@
         },
         "runtime": {
           "lib/netstandard1.0/Remotion.Linq.dll": {}
+        }
+      },
+      "Rotativa.AspNetCore/1.0.6": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Mvc": "2.0.3"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Rotativa.AspNetCore.dll": {}
         }
       },
       "runtime.any.System.Collections/4.3.0": {
@@ -8151,6 +8169,13 @@
       "sha512": "sha512-IJn0BqkvwEDpP+2qjvci7n4/a9f7DhKESLWb2/uG4xQh3rTkGTBUz69bI4IivCoKkTFAqjXxYDZw2K/npohjsw==",
       "path": "remotion.linq/2.1.1",
       "hashPath": "remotion.linq.2.1.1.nupkg.sha512"
+    },
+    "Rotativa.AspNetCore/1.0.6": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-LtvTaKlyWq4R1g5OxzMYqMS72adypYoHTMJAaQ/Liw5H/ezr5UKxPexOMnb98W5BuohCjokJJiwujr7au4lLBA==",
+      "path": "rotativa.aspnetcore/1.0.6",
+      "hashPath": "rotativa.aspnetcore.1.0.6.nupkg.sha512"
     },
     "runtime.any.System.Collections/4.3.0": {
       "type": "package",

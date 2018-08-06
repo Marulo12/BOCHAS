@@ -3020,6 +3020,18 @@
           "lib/netstandard1.0/Remotion.Linq.dll": {}
         }
       },
+      "Rotativa.AspNetCore/1.0.6": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Mvc": "2.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.0/Rotativa.AspNetCore.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Rotativa.AspNetCore.dll": {}
+        }
+      },
       "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
         "type": "package",
         "runtimeTargets": {
@@ -8101,6 +8113,18 @@
         },
         "runtime": {
           "lib/netstandard1.0/Remotion.Linq.dll": {}
+        }
+      },
+      "Rotativa.AspNetCore/1.0.6": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Mvc": "2.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.0/Rotativa.AspNetCore.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Rotativa.AspNetCore.dll": {}
         }
       },
       "runtime.any.System.Collections/4.3.0": {
@@ -13678,6 +13702,16 @@
         "lib/portable-net45+win+wpa81+wp80/Remotion.Linq.xml",
         "remotion.linq.2.1.1.nupkg.sha512",
         "remotion.linq.nuspec"
+      ]
+    },
+    "Rotativa.AspNetCore/1.0.6": {
+      "sha512": "LtvTaKlyWq4R1g5OxzMYqMS72adypYoHTMJAaQ/Liw5H/ezr5UKxPexOMnb98W5BuohCjokJJiwujr7au4lLBA==",
+      "type": "package",
+      "path": "rotativa.aspnetcore/1.0.6",
+      "files": [
+        "lib/netstandard2.0/Rotativa.AspNetCore.dll",
+        "rotativa.aspnetcore.1.0.6.nupkg.sha512",
+        "rotativa.aspnetcore.nuspec"
       ]
     },
     "runtime.any.System.Collections/4.3.0": {
@@ -19505,7 +19539,8 @@
       "Microsoft.EntityFrameworkCore.SqlServer >= 2.0.3",
       "Microsoft.EntityFrameworkCore.Tools >= 2.0.3",
       "Microsoft.NETCore.App >= 2.0.0",
-      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 2.0.3"
+      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 2.0.3",
+      "Rotativa.AspNetCore >= 1.0.6"
     ]
   },
   "packageFolders": {
@@ -19515,11 +19550,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\mboscatto\\Documents\\GitHub\\BOCHAS\\BOCHAS\\BOCHAS.csproj",
+      "projectUniqueName": "C:\\Users\\mboscatto\\Documents\\GitHub\\BOCHAS\\BOCHAS\\BOCHAS\\BOCHAS.csproj",
       "projectName": "BOCHAS",
-      "projectPath": "C:\\Users\\mboscatto\\Documents\\GitHub\\BOCHAS\\BOCHAS\\BOCHAS.csproj",
+      "projectPath": "C:\\Users\\mboscatto\\Documents\\GitHub\\BOCHAS\\BOCHAS\\BOCHAS\\BOCHAS.csproj",
       "packagesPath": "C:\\Users\\mboscatto\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\mboscatto\\Documents\\GitHub\\BOCHAS\\BOCHAS\\obj\\publish\\win-x64\\",
+      "outputPath": "C:\\Users\\mboscatto\\Documents\\GitHub\\BOCHAS\\BOCHAS\\BOCHAS\\obj\\publish\\win-x64\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -19578,6 +19613,10 @@
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
             "target": "Package",
             "version": "[2.0.3, )"
+          },
+          "Rotativa.AspNetCore": {
+            "target": "Package",
+            "version": "[1.0.6, )"
           }
         },
         "imports": [

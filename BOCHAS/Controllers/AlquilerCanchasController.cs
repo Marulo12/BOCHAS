@@ -349,24 +349,12 @@ namespace BOCHAS.Controllers
             return RedirectToAction("ConsultarReservas");
         }
 
-        public IActionResult ConsultaReservaParticular(string Nreserva , string nombre , string apellido)
-        {
-            var Reserva = _context.AlquilerCancha.Include(a => a.DetalleAlquilerCancha).Include(a => a.IdClienteNavigation).Include(a=>a.IdClienteNavigation.Persona).Include(a=>a.IdEstadoNavigation);
-            if (!string.IsNullOrEmpty(Nreserva) )
-            {
-                int nreserva = Convert.ToInt32( Nreserva);
-                Reserva.Where(a => a.Numero == nreserva);
-
-            }
-            if (!string.IsNullOrEmpty(nombre))
-            {
-                Reserva.Where(a => a.IdClienteNavigation.Persona.SingleOrDefault().Nombre.Contains(nombre));
-            }
-            if (!string.IsNullOrEmpty(apellido))
-            {
-              Reserva.Where(a => a.IdClienteNavigation.Persona.SingleOrDefault().Apellido.Contains(apellido));
-            }
+        public IActionResult ConsultaReservaParticular(string nombreP)
+        { 
+            var Reserva = _context.AlquilerCancha.Include(a => a.DetalleAlquilerCancha).Include(a => a.IdClienteNavigation).Include(a => a.IdClienteNavigation.Persona).Include(a => a.IdEstadoNavigation).Where(a => a.IdClienteNavigation.Persona.Any(p => p.Nombre.Contains( nombreP) || p.Nombre.Contains(nombreP)));
             
+            
+
 
             return PartialView(Reserva.ToList());
         }
