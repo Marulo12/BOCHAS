@@ -311,16 +311,16 @@ function ComprobarCamposDates() {
 
 function ConsultaParticular() {
     var nombreP = $("#nombreP").val();
-    
-    if (nombreP == "" ) {
-        alertify.error("Complete el campo de consulta");
+    var apellidoP = $("#apellidoP").val();
+    if (nombreP === "" || apellidoP === "" ) {
+        alertify.error("Complete los campos de consulta");
        
     } else {
         $("#TablaConPar").empty();
         $("#ImgLoad").css("display", "inline-block");
         $.ajax({
             type: "GET",
-            data: {nombreP},
+            data: {nombreP,apellidoP},
             url: "/AlquilerCanchas/ConsultaReservaParticular",
             success: function (response) {
                 $("#ImgLoad").css("display", "none");
@@ -334,9 +334,19 @@ function ConsultaParticular() {
                     buttons: [
 
                         {
+                            extend: 'excel',
+                            text: 'Excel',
+                            title: 'BOCHAS PADEL - Reservas'
+                        },
+                        {
+                            extend: 'pdfHtml5',
+                            text: 'PDF',
+                            title: 'BOCHAS PADEL - Reservas'
+                        },
+                        {
                             extend: 'print',
                             text: 'Imprimir',
-                            title: 'BOCHAS PADEL - Mis Reservas'
+                            title: 'BOCHAS PADEL - Reservas'
 
                         }
                     ],
