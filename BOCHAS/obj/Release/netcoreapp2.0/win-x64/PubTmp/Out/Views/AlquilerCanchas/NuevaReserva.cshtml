@@ -14,7 +14,6 @@
     .custom-combobox {
         position: relative;
         display: block;
-        
     }
 
     .custom-combobox-toggle {
@@ -23,7 +22,6 @@
         bottom: 0;
         margin-left: -1px;
         padding: 0;
-     
     }
 
     .custom-combobox-input {
@@ -57,8 +55,8 @@
         <hr>
         <div class="row">
             <div class="col-sm-3">
-                <label for="emp">Jugador</label> 
-                <select id="IdCliente" asp-for="IdCliente" class="btn btn-sm form-control " style="width:100%;" asp-items="@{ new SelectList(cliente, "Id", "Client" );}"></select>             
+                <label for="emp">Jugador</label>
+                <select id="IdCliente" asp-for="IdCliente" class="btn btn-sm form-control " style="width:100%;" asp-items="@{ new SelectList(cliente, "Id", "Client" );}"></select>
             </div>
             <div class="col-sm-2"><label for="HD">Hora Desde</label><input type="time" id="HD" class="form-control" /></div>
             <div class="col-sm-2"><label for="HH">Hora Hasta</label><input type="time" id="HH" class="form-control" /></div>
@@ -85,7 +83,7 @@
                 <div style="float:right;"><input id="RegistrarReserva" class="btn btn-sm btn-info" value="Aceptar" /><a asp-action="NuevaReserva" class="btn btn-sm btn-default " asp-controller="AlquilerCanchas">Limpiar</a></div>
             </div>
         </div>
- 
+
     </div>
 </div>
 
@@ -110,8 +108,9 @@
 </div>
 
 @section Scripts{
-   
+
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="~/js/AlquilerDeCanchas.js"></script>
+    <script src="~/js/AutoCompletarCombos-UI.js"></script>
 }
 
