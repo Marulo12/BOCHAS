@@ -1,6 +1,11 @@
 ﻿$(document).ready(function(){
 
     $('#calendar').fullCalendar({
+        header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'month,agendaWeek,basicDay'
+        },
         allDaySlot: false,
         slotEventOverlap:false,
         aspectRatio: 2,

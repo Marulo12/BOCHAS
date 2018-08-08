@@ -79,6 +79,7 @@ namespace BOCHAS
                     name: "default",
                     template: "{controller=Usuarios}/{action=Index}/{id?}");
             });
+            Rotativa.AspNetCore.RotativaConfiguration.Setup(env);
         }
     }
 }

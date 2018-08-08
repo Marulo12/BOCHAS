@@ -45,7 +45,24 @@
                 <img src="~/images/LogoBochas.png" width="50" class="img-fluid" />
             </div>
             <div class="collapse navbar-collapse " id="myNavbar" style="padding-bottom:0px;">
-                <ul id="PermisosNav" class="nav navbar-nav " style="font-size:15px;margin-left:2%;"></ul>
+                <ul i class="nav navbar-nav " style="font-size:15px;margin-left:2%;">
+                    <li class="dropdown">
+
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color:black;">
+                            <i class="fas fa-clipboard-list"></i> Reservas
+                        </a>
+                        <ul class="dropdown-menu">
+
+                            <li> <a asp-action="NuevaReservaJugador" asp-controller="AlquilerCanchas">Nueva Reserva</a></li>
+                            <li><a asp-action="MisReservas" asp-controller="AlquilerCanchas">Mis Reservas</a></li>
+                            <li><a href="#">Anular Reservas</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#" class="text-dark" style="color:black;"><i class="far fa-address-book"></i>  Contactos</a></li>
+                    <li> <a href="#" style="color:black;"> <i class="fas fa-envelope"></i>  Mail</a></li>
+                </ul>
+                <ul id="PermisosNav" class="nav navbar-nav " style="font-size:15px;"></ul>
+
                 <ul class="nav navbar-nav navbar-right">
                     @{
                         if (User.Identity.IsAuthenticated)

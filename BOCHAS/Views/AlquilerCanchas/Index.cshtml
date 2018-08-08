@@ -1,72 +1,96 @@
-﻿@model IEnumerable<BOCHAS.Models.AlquilerCancha>
-
+﻿
 @{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_LayoutJugadores.cshtml";
+    
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    BOCHASContext _context = new BOCHASContext();
+    var cliente = (from p in _context.Persona where p.FechaBaja == null && p.Tipo == "JUGADOR" select new { Id = p.Id, Client = p.Apellido + " " + p.Nombre + " N° Doc: " + p.NroDocumento }).ToList().OrderBy(p => p.Client);
+}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<style>
+    .custom-combobox {
+        position: relative;
+        display: block;
+    }
+
+    .custom-combobox-toggle {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin-left: -1px;
+        padding: 0;
+    }
+
+    .custom-combobox-input {
+        margin: 0;
+        padding: 5px 10px;
+        background-color: darkred;
+        color: white;
+        width: 100%;
+        background-color: rgba(172, 44, 44, 0.9);
+    }
+</style>
+<div class="panel panel-primary" style="padding:0px;margin:0px;">
+    <div class="panel-heading" style="padding-bottom:0px;margin:0px;">
+        <h3 style="padding:0px;margin:0px;margin-bottom:4px;"><i class="fas fa-clipboard-list"></i> Alquiler de Cancha</h3>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <ul class="nav nav-tabs ">
+                <li role="presentation"><a asp-action="NuevaReserva" asp-controller="AlquilerCanchas">Nueva Reserva</a></li>
+                <li role="presentation"><a id="ConsultaReserva" asp-action="ConsultarReservas" asp-controller="AlquilerCanchas">Consulta de Reservas</a></li>
+                <li role="presentation" class="active"><a asp-action="Index" asp-controller="AlquilerCanchas">Consulta Particular</a></li>
+            </ul>
+        </div>
+
+        <div class="row" style="margin-top:20px;">
+            
+                <div class="col-sm-4">
+                    <label>Jugador:</label>
+                    <select id="IdCliente" class="btn btn-sm form-control " asp-items="@{ new SelectList(cliente, "Id", "Client" );}"></select>
+                </div>
+                <div class="col-sm-3" style="padding-top:22px;"> <button id="BtnConPart" type="button" class="btn btn-sm btn-info "><i class="fa fa-search"></i></button></div>
+            </div>
+            <hr />
+            <div class="row">
+                <img id="ImgLoad" src="~/images/extras/dots-2.gif" alt="" width="200" style="display:none;" />
+                <div id="TablaConPar" class="col-sm-12">
+
+
+                </div>
+            </div>
+        </div>
+    <div class="panel-footer">
+        @{ if (TempData["Respuesta"] != null)
+            {
+
+                <input id="Respuesta" value="@TempData["Respuesta"]" style="display:none" />
+            }
+        }
+    </div>
+</div>
+<div id="ModalDetalleReserva" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg ">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="background:-webkit-gradient(linear, 96% 73%, 0% 0%, from(#AD9085), to(#CE2029));">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" style="color:white;">Detalle de la Reserva</h4>
+            </div>
+            <div id="DetalleReservaBody" class="modal-body" style="padding-left:0px;padding-right:0px;">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+@section Scripts{
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="~/js/AlquilerDeCanchas.js"></script>
+    <script src="~/js/AutoCompletarCombos-UI.js"></script>
 }
 
-<h2>Index</h2>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.FechaPedido)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.FechaCancelacion)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.FechaReserva)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Cobro)
-                </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdClienteNavigation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdEmpleadoNavigation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdEstadoNavigation)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaPedido)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaCancelacion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaReserva)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cobro)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdClienteNavigation.Contraseña)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdEmpleadoNavigation.Contraseña)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdEstadoNavigation.Id)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Numero">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Numero">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Numero">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>

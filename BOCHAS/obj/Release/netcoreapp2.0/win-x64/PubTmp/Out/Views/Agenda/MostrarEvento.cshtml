@@ -2,10 +2,16 @@
 
 <div class="row">
     <div class="col-sm-12" style="margin:0px;">
-        <ul class="list-group"  style="margin:0px;">
-            <li class="list-group-item">
-                Responsable:   @Html.DisplayFor(model => model.IdAlquilerCanchaNavigation.IdEmpleadoNavigation.Nombre)
-            </li>
+        <ul class="list-group" style="margin:0px;">
+            @{
+                if (Model.IdAlquilerCanchaNavigation.IdEmpleado != null)
+                {
+                    <li class="list-group-item">
+                        Responsable:   @Html.DisplayFor(model => model.IdAlquilerCanchaNavigation.IdEmpleadoNavigation.Nombre)
+                    </li>
+                }
+            }
+
             <li class="list-group-item">
                 Jugador:
                 @Html.DisplayFor(model => model.IdAlquilerCanchaNavigation.IdClienteNavigation.Nombre)

@@ -1,5 +1,6 @@
 ﻿
 $(document).ready(function () {
+   
     $('[data-toggle="tooltip"]').tooltip(); 
     $("#BtnValida").click(function () {
 
@@ -106,14 +107,22 @@ $(document).ready(function () {
     if ($("#Respuesta").val()==="SI") {
         alertify.success("Reserva Confirmada!!");
     }
+    if ($("#Respuesta").val() === "COMENZADO") {
+        alertify.success("Reserva Comenzada!!");
+    }
     if ($("#Respuesta").val() === "Cancelado") {
         alertify.success("Reserva Cancelada");
     }
     if ($("#Respuesta").val() === "NO") {
         alertify.error("Error en la operacion");
     }
-
-   
+    if ($("#Respuesta").val() === "NoMail") {
+        alertify.error("Se cancelo la reserva pero no se mando mensaje al jugador");
+    }
+    $("#BtnConPart").click(function () {
+        ConsultaParticular();
+    });
+    
 });
 
 function RegistrarReserva() {
@@ -307,7 +316,68 @@ function ComprobarCamposDates() {
 
 }
 
+function ConsultaParticular() {
+    var Jugador = $("#IdCliente option:selected").val();
+        $("#TablaConPar").empty();
+        $("#ImgLoad").css("display", "inline-block");
+        $.ajax({
+            type: "GET",
+            data: {Jugador},
+            url: "/AlquilerCanchas/ConsultaReservaParticular",
+            success: function (response) {
+                $("#ImgLoad").css("display", "none");
+                $("#TablaConPar").html(response);
+                $("#TablaReservasConsP").DataTable({
+                    searching: true,
+                    lengthMenu: [5, 10, 20, 75, 100],
+                    responsive: true,
+                    search: "Filtro&nbsp;:",
+                    dom: 'Bfrtip',
+                    buttons: [
 
+                        {
+                            extend: 'excel',
+                            text: 'Excel',
+                            title: 'BOCHAS PADEL - Reservas'
+                        },
+                        {
+                            extend: 'pdfHtml5',
+                            text: 'PDF',
+                            title: 'BOCHAS PADEL - Reservas'
+                        },
+                        {
+                            extend: 'print',
+                            text: 'Imprimir',
+                            title: 'BOCHAS PADEL - Reservas'
+
+                        }
+                    ],
+                    language: {
+                        processing: "Procesando",
+                        search: "Filtro&nbsp;:",
+                        info: "Pagina _PAGE_ de _PAGES_  / <b>Total de Registros: _MAX_</b> ",
+                        infoEmpty: "",
+                        infoFiltered: "",
+                        zeroRecords: "Ningun registro coincide",
+                        lengthMenu: "Mostrar _MENU_ registros",
+                        infoPostFix: "",
+                        loadingRecords: "Cargando...",
+                        emptyTable: "No hay registros",
+                        paginate: {
+                            first: "Primero",
+                            previous: "Anterior",
+                            next: "Siguiente",
+                            last: "Ultimo"
+                        }
+                    }
+                });
+            },
+            failure: function (response) {
+                alert(response);
+            }
+
+        }); 
+}
 function VerDetalleReserva(numero) {
 
     $.ajax({
@@ -352,3 +422,5 @@ function VerDetalleReserva(numero) {
     });
 
 }
+
+

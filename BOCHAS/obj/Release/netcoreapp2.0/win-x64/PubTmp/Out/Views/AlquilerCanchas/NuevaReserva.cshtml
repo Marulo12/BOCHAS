@@ -4,20 +4,46 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     BOCHASContext _context = new BOCHASContext();
-    var cliente = (from p in _context.Persona where p.FechaBaja == null && p.Tipo == "JUGADOR" select new { Id = p.Id, Client = p.Apellido + " " + p.Nombre }).ToList().OrderBy(p => p.Client);
+    var cliente = (from p in _context.Persona where p.FechaBaja == null && p.Tipo == "JUGADOR" select new { Id = p.Id, Client = p.Apellido + " " + p.Nombre + " N° Doc: " + p.NroDocumento }).ToList().OrderBy(p => p.Client);
 }
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>jQuery UI Autocomplete - Combobox</title>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
+<style>
+    .custom-combobox {
+        position: relative;
+        display: block;
+    }
+
+    .custom-combobox-toggle {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin-left: -1px;
+        padding: 0;
+    }
+
+    .custom-combobox-input {
+        margin: 0;
+        padding: 5px 10px;
+        background-color: darkred;
+        color: white;
+        width: 100%;
+        background-color: rgba(172, 44, 44, 0.9);
+    }
+</style>
 <div class="panel panel-primary" style="padding:0px;margin:0px;">
     <div class="panel-heading" style="padding-bottom:0px;margin:0px;">
-        <h3  style="padding:0px;margin:0px;margin-bottom:4px;"><i class="fas fa-clipboard-list"></i> Alquiler de Cancha</h3>
+        <h3 style="padding:0px;margin:0px;margin-bottom:4px;"><i class="fas fa-clipboard-list"></i> Alquiler de Cancha</h3>
 
     </div>
     <div class="panel-body">
         <div class="row">
             <ul class="nav nav-tabs ">
                 <li role="presentation" class="active"> <a asp-action="NuevaReserva" asp-controller="AlquilerCanchas">Nueva Reserva</a></li>
-                <li role="presentation"><a id="ConsultaEmpleado" asp-action="ConsultarEmpleado" asp-controller="Personas">Consulta</a></li>
-                <li role="presentation"><a asp-action="MostrarEmpleadoBajas" asp-controller="Personas">Consulta Bajas</a></li>
+                <li role="presentation"><a id="ConsultaReserva" asp-action="ConsultarReservas" asp-controller="AlquilerCanchas">Consulta de Reservas</a></li>
+                <li role="presentation"><a asp-action="Index" asp-controller="AlquilerCanchas">Consulta Particular</a></li>
             </ul>
         </div>
         <h3 style="border-bottom:1px solid rgba(0, 14, 44, 0.3);padding:2px 2px 2px 2px;">General</h3>
@@ -28,10 +54,13 @@
         </div>
         <hr>
         <div class="row">
-            <div class="col-sm-3"><label for="emp">Jugador</label> <select id="IdCliente" asp-for="IdCliente" class="btn btn-sm form-control " style="background-color: rgba(172, 44, 44, 0.9);color:white;" asp-items="@{ new SelectList(cliente, "Id", "Client" );}"></select></div>
+            <div class="col-sm-3">
+                <label for="emp">Jugador</label>
+                <select id="IdCliente" asp-for="IdCliente" class="btn btn-sm form-control " style="width:100%;" asp-items="@{ new SelectList(cliente, "Id", "Client" );}"></select>
+            </div>
             <div class="col-sm-2"><label for="HD">Hora Desde</label><input type="time" id="HD" class="form-control" /></div>
             <div class="col-sm-2"><label for="HH">Hora Hasta</label><input type="time" id="HH" class="form-control" /></div>
-            <div class="col-sm-5" style="padding-top:25px;"><div class="btn-group btn-group-sm form-inline" role="group" aria-label="..."><input id="BtnOcupadas" type="button" class="btn btn-sm btn-success form-control" value="Ver Horarios Ocupados" /><input id="BtnValida" type="button" class="btn btn-sm btn-success form-control" value="Comprobar Disponibilidad"  /></div></div>
+            <div class="col-sm-5" style="padding-top:25px;"><div class="btn-group btn-group-sm form-inline" role="group" aria-label="..."><input id="BtnOcupadas" type="button" class="btn btn-sm btn-success form-control" value="Ver Horarios Ocupados" /><input id="BtnValida" type="button" class="btn btn-sm btn-success form-control" value="Comprobar Disponibilidad" /></div></div>
         </div>
 
         <h3 style="border-bottom:1px solid rgba(0, 14, 44, 0.3);padding:2px 2px 2px 2px;"> Seleccionar Canchas</h3>
@@ -44,14 +73,14 @@
                 </table>
                 <img id="ImgLoad" class="img-responsive" width="180" src="~/images/extras/dots-2.gif" style="display:none;" />
             </div>
-            
+
 
         </div>
         <div class="row">
             <div class="col-sm-4"></div>
             <div class="col-sm-2"></div>
             <div class="col-sm-6">
-                <div  style="float:right;"><input id="RegistrarReserva" class="btn btn-sm btn-info" value="Aceptar" /><a asp-action="NuevaReserva" class="btn btn-sm btn-default " asp-controller="AlquilerCanchas">Limpiar</a></div>
+                <div style="float:right;"><input id="RegistrarReserva" class="btn btn-sm btn-info" value="Aceptar" /><a asp-action="NuevaReserva" class="btn btn-sm btn-default " asp-controller="AlquilerCanchas">Limpiar</a></div>
             </div>
         </div>
 
@@ -67,8 +96,8 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 style="color:white;padding:0px;"><i class="fa fa-clock"></i>Horarios Ocupados</h4>
             </div>
-            <div id="ModalHorariosBody"class="modal-body">
-                
+            <div id="ModalHorariosBody" class="modal-body">
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -79,6 +108,9 @@
 </div>
 
 @section Scripts{
+
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="~/js/AlquilerDeCanchas.js"></script>
+    <script src="~/js/AutoCompletarCombos-UI.js"></script>
 }
 
