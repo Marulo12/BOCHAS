@@ -89,25 +89,22 @@
                                 @{
                                     switch (item.IdEstado)
                                     {
-                                        case 1: <a  class="btn btn-success btn-sm confirm" asp-action="ConfirmarReserva" asp-controller="AlquilerCanchas" asp-route-Nreserva="@item.Numero" data-toggle="tooltip" title="Confirmar"><i class="fas fa-check"></i></a>
+                                        case 1: <a class="btn btn-success btn-sm confirm" asp-action="ConfirmarReserva" asp-controller="AlquilerCanchas" asp-route-Nreserva="@item.Numero" data-toggle="tooltip" title="Confirmar"><i class="fas fa-check"></i></a>
                                             <a class="btn btn-danger btn-sm" asp-action="CancelarReserva" asp-controller="AlquilerCanchas" asp-route-Nreserva="@item.Numero" style="color:white" data-toggle="tooltip" title="Cancelar"><i class="fas fa-ban"></i></a>
                                             break;
                                         case 2:
-                                            <button class="btn btn-default btn-sm"><a asp-action="Edit" asp-route-id="@item.Numero" style="color:black" data-toggle="tooltip" title="Comenzar"><i class="fas fa-play"></i></a></button>
+                                            <a class="btn btn-default btn-sm" asp-action="ComenzarReserva" asp-controller="AlquilerCanchas" asp-route-Nreserva="@item.Numero" style="color:black" data-toggle="tooltip" title="Comenzar"><i class="fas fa-play"></i></a>
                                             <a class="btn btn-danger btn-sm" asp-action="CancelarReserva" asp-controller="AlquilerCanchas" asp-route-Nreserva="@item.Numero" style="color:white" data-toggle="tooltip" title="Cancelar"><i class="fas fa-ban"></i></a>
                                             break;
-                                        case 3: <button class="btn btn-warning btn-sm"><a asp-action="Edit" asp-route-id="@item.Numero" style="color:white" data-toggle="tooltip" title="Finalizar"><i class="fas fa-stopwatch"></i></a></button>
+                                        case 3: <button class="btn btn-success btn-sm"><a asp-action="Edit" asp-route-id="@item.Numero" style="color:white" data-toggle="tooltip" title="Finalizar"><i class="fas fa-stopwatch"></i></a></button>
                                             break;
                                         case 4:
                                             break;
                                         case 5:
                                             break;
                                     }
-                                        }
-
-
-
-
+                                }
+                                <a class="btn btn-primary btn-sm " data-toggle="tooltip" title="Generar Reporte" href="/AlquilerCanchas/ReporteReserva?Nreserva=@item.Numero" target="_blank"><i class="fas fa-download"></i></a>
 
                             </div>
                         </td>

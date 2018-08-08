@@ -348,17 +348,45 @@ namespace BOCHAS.Controllers
             TempData["Respuesta"] = "NO";
             return RedirectToAction("ConsultarReservas");
         }
-
-        public IActionResult ConsultaReservaParticular(string nombreP,string apellidoP)
+        public IActionResult ComenzarReserva(int Nreserva)
         {
-                       
-            var Reserva = _context.AlquilerCancha.Include(a => a.DetalleAlquilerCancha).Include(a => a.IdClienteNavigation).Include(a => a.IdClienteNavigation.Persona).Include(a => a.IdEstadoNavigation).Where(a => a.IdClienteNavigation.Persona.Any(p => p.Nombre.Contains( nombreP) && p.Apellido.Contains(apellidoP)));
+
+            var reserva = _context.AlquilerCancha.Include(a => a.DetalleAlquilerCancha).Where(a => a.Numero == Nreserva).SingleOrDefault();
+            reserva.IdEstado = 3;
+            reserva.IdEmpleado = (from p in _context.Persona join u in _context.Usuario on p.IdUsuario equals u.Id where u.Nombre == HttpContext.User.Identity.Name && p.Tipo == "EMPLEADO" && p.FechaBaja == null select u).SingleOrDefault().Id;
+            _context.AlquilerCancha.Update(reserva);
+            if (_context.SaveChanges() == 1)
+            {
+                foreach (var r in reserva.DetalleAlquilerCancha)
+                {
+                    var cancha = _context.Cancha.Where(c => c.Id == r.IdCancha).SingleOrDefault();
+                    cancha.IdEstadoCancha = 1;
+                    _context.Cancha.Update(cancha);
+                    _context.SaveChanges();
+                }
+                TempData["Respuesta"] = "COMENZADO";
+                return RedirectToAction("ConsultarReservas");
+            }
+            else
+            {
+                TempData["Respuesta"] = "NO";
+                return RedirectToAction("ConsultarReservas");
+            }
+        }
+        public IActionResult ConsultaReservaParticular(string Jugador)
+        {
+            int IdJ = Convert.ToInt32(Jugador);
+            var Reserva = _context.AlquilerCancha.Include(a => a.DetalleAlquilerCancha).Include(a => a.IdClienteNavigation).Include(a => a.IdClienteNavigation.Persona).Include(a => a.IdEstadoNavigation).Where(a => a.IdClienteNavigation.Persona.Any(p => p.Id ==IdJ));
             
            
             return PartialView(Reserva.ToList());
         }
-       
 
+        public  IActionResult ReporteReserva(int Nreserva)
+        {
+            var reserva = _context.AlquilerCancha.Include(a => a.DetalleAlquilerCancha).Include(a => a.IdClienteNavigation).Include(a => a.IdClienteNavigation.Persona).Include(a => a.IdEmpleadoNavigation).Include(a => a.IdEstadoNavigation).Where(a => a.Numero == Nreserva).SingleOrDefault();
+            return new Rotativa.AspNetCore.ViewAsPdf("ReporteReserva", reserva);
+        }
 
 
 

@@ -107,6 +107,9 @@ $(document).ready(function () {
     if ($("#Respuesta").val()==="SI") {
         alertify.success("Reserva Confirmada!!");
     }
+    if ($("#Respuesta").val() === "COMENZADO") {
+        alertify.success("Reserva Comenzada!!");
+    }
     if ($("#Respuesta").val() === "Cancelado") {
         alertify.success("Reserva Cancelada");
     }
@@ -116,7 +119,7 @@ $(document).ready(function () {
     $("#BtnConPart").click(function () {
         ConsultaParticular();
     });
-   
+    
 });
 
 function RegistrarReserva() {
@@ -311,17 +314,12 @@ function ComprobarCamposDates() {
 }
 
 function ConsultaParticular() {
-    var nombreP = $("#nombreP").val();
-    var apellidoP = $("#apellidoP").val();
-    if (nombreP === "" || apellidoP === "" ) {
-        alertify.error("Complete los campos de consulta");
-       
-    } else {
+    var Jugador = $("#IdCliente option:selected").val();
         $("#TablaConPar").empty();
         $("#ImgLoad").css("display", "inline-block");
         $.ajax({
             type: "GET",
-            data: {nombreP,apellidoP},
+            data: {Jugador},
             url: "/AlquilerCanchas/ConsultaReservaParticular",
             success: function (response) {
                 $("#ImgLoad").css("display", "none");
@@ -375,7 +373,7 @@ function ConsultaParticular() {
                 alert(response);
             }
 
-        }); }
+        }); 
 }
 function VerDetalleReserva(numero) {
 
@@ -421,4 +419,5 @@ function VerDetalleReserva(numero) {
     });
 
 }
+
 

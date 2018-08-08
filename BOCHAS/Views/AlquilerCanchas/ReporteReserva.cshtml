@@ -1,0 +1,62 @@
+﻿@model BOCHAS.Models.AlquilerCancha
+
+@{
+    Layout = null;
+    BOCHASContext db = new BOCHASContext();
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ReporteReserva</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="container-fluid" >
+
+        <div class="row">
+            <div class="col-sm-12" style="align-content:center;padding-left:0%;">
+                <img class="img-responsive" src="~/images/LogoBochas.png" width="50" style="float:left;position:absolute;z-index:10000" />
+                <label style="float:right;">Fecha: @DateTime.Now.Date.ToString("dd/MM/yyyy")</label>
+                <br />
+                <h1 style="font-size:50px;padding-left:34%;font-family:'Times New Roman', Times, serif">Bochas Padel</h1>
+                <hr />
+                <h2 style="padding-left:17%;"><img src="~/images/extras/padel3.png" width="160"/>Alquiler de Cancha</h2>
+            </div>
+        </div>
+        <hr  style="height:4px;" />
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+               <h3>Informacion General</h3>
+            </div>
+            <div class="panel-body">
+                <p style="font-size:22px;padding-left:30px;">N° Reserva: @Html.DisplayFor(model => model.Numero) &nbsp;&nbsp;&nbsp;  Jugador: @Html.DisplayFor(model => model.IdClienteNavigation.Persona.SingleOrDefault().Nombre)  @Html.DisplayFor(model => model.IdClienteNavigation.Persona.SingleOrDefault().Apellido) &nbsp;&nbsp;&nbsp; N° Documento: @Html.DisplayFor(model => model.IdClienteNavigation.Persona.SingleOrDefault().NroDocumento)</p>
+                <p style="font-size:20px;padding-left:30px;"> Fecha de Pedido:     @Model.FechaPedido.Value.Date.ToString("dd/MM/yyyy")  &nbsp;&nbsp;&nbsp;Fecha de Reserva:    @Model.FechaReserva.Value.Date.ToString("dd/MM/yyyy") </p>
+                <p style="font-size:20px;padding-left:30px;">Estado de la Reserva:  @Html.DisplayFor(model => model.IdEstadoNavigation.Nombre) </p>
+            </div>
+            <div class="panel-footer" style="background-color:rgba(170, 44, 44, 0.9);color:white">
+<h3>Detalle</h3>
+                <table class="table" style="font-size:20px;">
+                    <thead><tr><td>Cancha</td><td>Descripcion</td><td>Hora Desde</td><td>Hora Hasta</td></tr></thead>
+                    <tbody>
+                        @{ 
+                            foreach (var item in Model.DetalleAlquilerCancha)
+                            { 
+                                <tr><td>@db.Cancha.Where(c=>c.Id==item.IdCancha).Single().Numero</td><td>@db.Cancha.Where(c => c.Id == item.IdCancha).Single().Descripcion</td><td>@Html.DisplayFor(model => item.HoraReservaDesde)</td><td>@Html.DisplayFor(model => item.HoraReservaHasta)</td></tr>
+
+                            }
+
+                        }
+                    </tbody>
+                </table>
+</div>
+        </div>
+        
+        </div>
+   
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+</body>
+</html>
