@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewData["Title"] = "Index";
+    
     Layout = "~/Views/Shared/_Layout.cshtml";
     BOCHASContext _context = new BOCHASContext();
     var cliente = (from p in _context.Persona where p.FechaBaja == null && p.Tipo == "JUGADOR" select new { Id = p.Id, Client = p.Apellido + " " + p.Nombre + " N° Doc: " + p.NroDocumento }).ToList().OrderBy(p => p.Client);

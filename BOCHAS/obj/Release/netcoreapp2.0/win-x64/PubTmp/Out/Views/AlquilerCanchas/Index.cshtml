@@ -1,10 +1,35 @@
 ﻿
 @{
-    ViewData["Title"] = "Index";
+    
     Layout = "~/Views/Shared/_Layout.cshtml";
+    BOCHASContext _context = new BOCHASContext();
+    var cliente = (from p in _context.Persona where p.FechaBaja == null && p.Tipo == "JUGADOR" select new { Id = p.Id, Client = p.Apellido + " " + p.Nombre + " N° Doc: " + p.NroDocumento }).ToList().OrderBy(p => p.Client);
 }
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
+<style>
+    .custom-combobox {
+        position: relative;
+        display: block;
+    }
 
+    .custom-combobox-toggle {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin-left: -1px;
+        padding: 0;
+    }
+
+    .custom-combobox-input {
+        margin: 0;
+        padding: 5px 10px;
+        background-color: darkred;
+        color: white;
+        width: 100%;
+        background-color: rgba(172, 44, 44, 0.9);
+    }
+</style>
 <div class="panel panel-primary" style="padding:0px;margin:0px;">
     <div class="panel-heading" style="padding-bottom:0px;margin:0px;">
         <h3 style="padding:0px;margin:0px;margin-bottom:4px;"><i class="fas fa-clipboard-list"></i> Alquiler de Cancha</h3>
@@ -13,23 +38,18 @@
         <div class="row">
             <ul class="nav nav-tabs ">
                 <li role="presentation"><a asp-action="NuevaReserva" asp-controller="AlquilerCanchas">Nueva Reserva</a></li>
-                <li role="presentation" ><a id="ConsultaReserva" asp-action="ConsultarReservas" asp-controller="AlquilerCanchas">Consulta de Reservas</a></li>
+                <li role="presentation"><a id="ConsultaReserva" asp-action="ConsultarReservas" asp-controller="AlquilerCanchas">Consulta de Reservas</a></li>
                 <li role="presentation" class="active"><a asp-action="Index" asp-controller="AlquilerCanchas">Consulta Particular</a></li>
             </ul>
         </div>
 
         <div class="row" style="margin-top:20px;">
-            <div class="col-sm-5">
-                <label for="Jugador">Jugador: </label>
-                <div class="form-inline">
-
-                    <input type="text" id="nombreP" name="nombre" class="form-control input-sm" placeholder="Nombre" />
-                    <input type="text" id="apellidoP" name="nombre" class="form-control input-sm" placeholder="Apellido" />
-                    <button id="BtnConPart" type="button" class="btn btn-sm btn-info"><i class="fa fa-search"></i></button>
-                </div>
-
-            </div>
             
+                <div class="col-sm-4">
+                    <label>Jugador:</label>
+                    <select id="IdCliente" class="btn btn-sm form-control " asp-items="@{ new SelectList(cliente, "Id", "Client" );}"></select>
+                </div>
+                <div class="col-sm-3" style="padding-top:22px;"> <button id="BtnConPart" type="button" class="btn btn-sm btn-info "><i class="fa fa-search"></i></button></div>
             </div>
             <hr />
             <div class="row">
@@ -46,7 +66,7 @@
 
                 <input id="Respuesta" value="@TempData["Respuesta"]" style="display:none" />
             }
-        }     
+        }
     </div>
 </div>
 <div id="ModalDetalleReserva" class="modal fade" role="dialog">
@@ -69,6 +89,8 @@
     </div>
 </div>
 @section Scripts{
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="~/js/AlquilerDeCanchas.js"></script>
+    <script src="~/js/AutoCompletarCombos-UI.js"></script>
 }
 

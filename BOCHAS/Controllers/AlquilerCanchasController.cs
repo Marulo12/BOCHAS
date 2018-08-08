@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BOCHAS.Models;
 using Microsoft.AspNetCore.Authorization;
+using MimeKit;
+using MailKit.Net.Smtp;
 
 namespace BOCHAS.Controllers
 {  [Authorize]
@@ -169,12 +171,12 @@ namespace BOCHAS.Controllers
                 {
                     if (agenda.Where(a => TimeSpan.Parse(hd) >= a.HoraDesde && TimeSpan.Parse(hh) <= a.HoraHasta).ToList().Count() > 0)
                     {
-                       // continue;
+                       
                     }
 
                     if (agenda.Where(a => TimeSpan.Parse(hd) == a.HoraDesde).ToList().Count() > 0)
                     {
-                      //  continue;
+                      
                     }
                     else
                     {
@@ -196,11 +198,7 @@ namespace BOCHAS.Controllers
                         {
                             if (TimeSpan.Parse(hd) == agenda[ii].HoraHasta)
                             {
-                                /*if (ii == agenda.Count() - 1)
-                                {
-                                    IdCanchas.Add(c.Id);
-                                    break;
-                                }*/
+                               
                                 if (TimeSpan.Parse(hh) <= agenda[ii + 1].HoraDesde)
                                 {
                                     IdCanchas.Add(c.Id);
@@ -307,7 +305,11 @@ namespace BOCHAS.Controllers
 
         public IActionResult CancelarReserva(int Nreserva)
         {
-            var reserva = _context.AlquilerCancha.Include(a => a.DetalleAlquilerCancha).Where(a => a.Numero == Nreserva).SingleOrDefault();
+            var reserva = _context.AlquilerCancha.Include(a=>a.IdClienteNavigation.Persona).Include(a => a.DetalleAlquilerCancha).Where(a => a.Numero == Nreserva).SingleOrDefault();
+            
+            int nreserva = reserva.Numero;
+            string apellido = reserva.IdClienteNavigation.Persona.SingleOrDefault().Apellido;
+                string mail = reserva.IdClienteNavigation.Persona.SingleOrDefault().Mail;
 
             if (reserva.IdEstado == 1)
             {
@@ -336,9 +338,29 @@ namespace BOCHAS.Controllers
                 if (_context.SaveChanges() == 1)
 
                 {
-                   
-                    TempData["Respuesta"] = "Cancelado";
-                    return RedirectToAction("ConsultarReservas");
+                    try
+                    {
+                        var mensaje = new MimeMessage();
+                        mensaje.From.Add(new MailboxAddress("Prueba de mail", "bochaspadel@gmail.com"));
+                        mensaje.To.Add(new MailboxAddress("Sistemas", mail));
+                        mensaje.Subject = "Cancelacion de Reserva";
+                        mensaje.Body = new TextPart("plain") { Text = "Buenos dias  Sr/a. " + apellido + " se realizo la cancelacion de la reserva N°" + nreserva + ", Saludos." };
+                        using (var cliente = new SmtpClient())
+                        {
+                            cliente.Connect("smtp.gmail.com", 587, false);
+                            cliente.Authenticate("bochaspadel@gmail.com", "bochas2018");
+                            cliente.Send(mensaje);
+                            cliente.Disconnect(true);
+                        }
+                        TempData["Respuesta"] = "Cancelado";
+                        return RedirectToAction("ConsultarReservas");
+                    }
+                    catch {
+                        TempData["Respuesta"] = "NoMail";
+                        return RedirectToAction("ConsultarReservas");
+                    }
+
+                        
 
                 }
               
@@ -383,13 +405,10 @@ namespace BOCHAS.Controllers
         }
 
         public  IActionResult ReporteReserva(int Nreserva)
-        {
-            var reserva = _context.AlquilerCancha.Include(a => a.DetalleAlquilerCancha).Include(a => a.IdClienteNavigation).Include(a => a.IdClienteNavigation.Persona).Include(a => a.IdEmpleadoNavigation).Include(a => a.IdEstadoNavigation).Where(a => a.Numero == Nreserva).SingleOrDefault();
+        {var reserva = _context.AlquilerCancha.Include(a => a.DetalleAlquilerCancha).Include(a => a.IdClienteNavigation).Include(a => a.IdClienteNavigation.Persona).Include(a => a.IdEmpleadoNavigation).Include(a => a.IdEstadoNavigation).Where(a => a.Numero == Nreserva).SingleOrDefault();
             return new Rotativa.AspNetCore.ViewAsPdf("ReporteReserva", reserva);
         }
-
-
-
+        
         }
 
         }

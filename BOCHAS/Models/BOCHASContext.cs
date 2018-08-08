@@ -32,8 +32,8 @@ namespace BOCHAS.Models
             if (!optionsBuilder.IsConfigured)
             {
 
-                 // optionsBuilder.UseSqlServer(@"Data Source=sistemas04;Initial Catalog=BOCHAS;User ID=bsp;Password=bochas");
-                optionsBuilder.UseSqlServer(@"Data Source=186.124.221.26,1433;Initial Catalog=BOCHAS;User ID=bsp;Password=bochas");
+                optionsBuilder.UseSqlServer(@"Data Source=sistemas04;Initial Catalog=BOCHAS;User ID=bsp;Password=bochas");
+              //  optionsBuilder.UseSqlServer(@"Data Source=186.124.221.26,1433;Initial Catalog=BOCHAS;User ID=bsp;Password=bochas");
             }
         }
 

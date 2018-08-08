@@ -37,9 +37,10 @@
                 <p style="font-size:20px;padding-left:30px;"> Fecha de Pedido:     @Model.FechaPedido.Value.Date.ToString("dd/MM/yyyy")  &nbsp;&nbsp;&nbsp;Fecha de Reserva:    @Model.FechaReserva.Value.Date.ToString("dd/MM/yyyy") </p>
                 <p style="font-size:20px;padding-left:30px;">Estado de la Reserva:  @Html.DisplayFor(model => model.IdEstadoNavigation.Nombre) </p>
             </div>
-            <div class="panel-footer" style="background-color:rgba(170, 44, 44, 0.9);color:white">
-<h3>Detalle</h3>
-                <table class="table" style="font-size:20px;">
+            <div class="panel-footer" style="background-color:rgba(170, 44, 44, 0.9);color:white;padding:0px;">
+<h3 style="padding-left:10px;">Detalle de la Reserva</h3>
+                
+                <table class="table" style="font-size:20px;background-color:white;color:black;">
                     <thead><tr><td>Cancha</td><td>Descripcion</td><td>Hora Desde</td><td>Hora Hasta</td></tr></thead>
                     <tbody>
                         @{ 

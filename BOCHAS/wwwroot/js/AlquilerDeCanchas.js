@@ -116,6 +116,9 @@ $(document).ready(function () {
     if ($("#Respuesta").val() === "NO") {
         alertify.error("Error en la operacion");
     }
+    if ($("#Respuesta").val() === "NoMail") {
+        alertify.error("Se cancelo la reserva pero no se mando mensaje al jugador");
+    }
     $("#BtnConPart").click(function () {
         ConsultaParticular();
     });

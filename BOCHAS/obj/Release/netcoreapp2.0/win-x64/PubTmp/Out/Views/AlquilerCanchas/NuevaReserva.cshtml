@@ -4,12 +4,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     BOCHASContext _context = new BOCHASContext();
-    var cliente = (from p in _context.Persona where p.FechaBaja == null && p.Tipo == "JUGADOR" select new { Id = p.Id, Client = p.Apellido + " " + p.Nombre }).ToList().OrderBy(p => p.Client);
+    var cliente = (from p in _context.Persona where p.FechaBaja == null && p.Tipo == "JUGADOR" select new { Id = p.Id, Client = p.Apellido + " " + p.Nombre + " N° Doc: " + p.NroDocumento }).ToList().OrderBy(p => p.Client);
 }
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>jQuery UI Autocomplete - Combobox</title>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
+
 <style>
     .custom-combobox {
         position: relative;
