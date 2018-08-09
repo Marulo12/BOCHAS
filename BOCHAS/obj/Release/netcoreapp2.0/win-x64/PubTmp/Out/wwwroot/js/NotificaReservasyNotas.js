@@ -19,6 +19,6 @@ var reservaJ = function (reservaJ) {
 hub.on('ReservasJugador', reservaJ);
 connection.start(
     function () {
-       
+        hub.invoke('join', '');
         hub.invoke('ReservasJugador');
     }).done();

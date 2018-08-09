@@ -1,6 +1,6 @@
 ﻿
 
-var connection = $.hubConnection(), hub = connection.createHubProxy('chat');
+//var connection1 = $.hubConnection(), hub = connection1.createHubProxy('chat');
 var user = function (user) {
     if (user.length === 0 ) {
         $("#Sig").empty();
@@ -33,12 +33,12 @@ var reservaJ = function (reservaJ) {
 
 
 hub.on('join', user);
-hub.on('ReservasJugador', reservaJ);
-connection.start(
-    function () {
-        hub.invoke('join', '');
-        hub.invoke('ReservasJugador');
-    }).done();
+//hub.on('ReservasJugador', reservaJ);
+//connection1.start(
+  //  function () {
+      //  
+     //   hub.invoke('ReservasJugador');
+   // }).done();
 
 
 $.ajax({
