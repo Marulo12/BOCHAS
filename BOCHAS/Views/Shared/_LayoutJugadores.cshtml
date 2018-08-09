@@ -53,9 +53,9 @@
                         </a>
                         <ul class="dropdown-menu">
 
-                            <li> <a asp-action="NuevaReservaJugador" asp-controller="AlquilerCanchas">Nueva Reserva</a></li>
-                            <li><a asp-action="MisReservas" asp-controller="AlquilerCanchas">Mis Reservas</a></li>
-                            <li><a href="#">Anular Reservas</a></li>
+                            <li> <a asp-action="NuevaReservaJugador" asp-controller="AlquilerCanchas"><i class="fas fa-plus"></i> &nbsp;Nueva Reserva</a></li>
+                            <li><a asp-action="MisReservas" asp-controller="AlquilerCanchas"><i class="fas fa-list"></i>&nbsp;Mis Reservas</a></li>
+                            <li><a href="#"><i class="fas fa-ban"></i>&nbsp;Anular Reservas</a></li>
                         </ul>
                     </li>
                     <li><a href="#" class="text-dark" style="color:black;"><i class="far fa-address-book"></i>  Contactos</a></li>
@@ -175,7 +175,7 @@
     <script src="~/js/site.js"></script>
     <script src="~/js/JugadorExterno.js"></script>
     <script src="~/lib/signalr/jquery.signalR.min.js"></script>
-    <script src="signalr/hubs"></script>
+    <script src="../signalr/hubs"></script>
     <script>
 
         var connection = $.hubConnection(), hub = connection.createHubProxy('chat');
@@ -184,7 +184,7 @@
 
             hub.invoke('join','@User.Identity.Name');
 
-        });
+        }).done();
 
     </script>
     @RenderSection("Scripts", required: false)

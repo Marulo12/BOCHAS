@@ -9,14 +9,14 @@
         <h3><i class="fas fa-clipboard-list"></i> Alquiler de Cancha</h3>
 
     </div>
-    <div class="panel-body">        
+    <div class="panel-body">
         <h3 style="border-bottom:1px solid rgba(0, 14, 44, 0.3);padding:2px 2px 2px 2px;">General</h3>
-        <div class="row">           
+        <div class="row">
             <div class="col-sm-2" style="display:none;"><label for="FecP">Fecha de Pedido</label> <input id="FecP" type="text" class="form-control" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" readonly /></div>
             <div class="col-sm-2"><label for="FecR">Fecha de Reserva</label> <input id="FecR" type="date" class="form-control" /></div>
         </div>
         <hr>
-        <div class="row">            
+        <div class="row">
             <div class="col-sm-2"><label for="HD">Hora Desde</label><input type="time" id="HD" class="form-control" /></div>
             <div class="col-sm-2"><label for="HH">Hora Hasta</label><input type="time" id="HH" class="form-control" /></div>
             <div class="col-sm-5" style="padding-top:25px;"><div class="btn-group btn-group-sm form-inline" role="group" aria-label="..."><input id="BtnOcupadas" type="button" class="btn btn-sm btn-success form-control" value="Ver Horarios Ocupados" /><input id="BtnValida" type="button" class="btn btn-sm btn-success form-control" value="Comprobar Disponibilidad" /></div></div>
@@ -66,6 +66,7 @@
 </div>
 
 @section Scripts{
+   
     <script src="~/js/AlquilerDeCanchas.js"></script>
 }
 

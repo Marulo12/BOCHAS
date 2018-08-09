@@ -9,16 +9,20 @@ using BOCHAS.Models;
 using Microsoft.AspNetCore.Authorization;
 using MimeKit;
 using MailKit.Net.Smtp;
+using Microsoft.AspNetCore.SignalR;
+using BOCHAS.Hubs;
 
 namespace BOCHAS.Controllers
-{  [Authorize]
+{
+    [Microsoft.AspNetCore.Authorization.AuthorizeAttribute]
     public class AlquilerCanchasController : Controller
     {
         private readonly BOCHASContext _context;
-
-        public AlquilerCanchasController(BOCHASContext context)
+        private readonly IHubContext<Chat> _hubContext;
+        public AlquilerCanchasController(BOCHASContext context, IHubContext<Chat> hubContext)
         {
             _context = context;
+            _hubContext = hubContext;
         }
 
         public IActionResult Index()
@@ -103,7 +107,7 @@ namespace BOCHAS.Controllers
         {
 
             try
-            {
+             {
                 int ResultadoAlquiler = 0;
                 DateTime fechaPedido = DateTime.Now.Date;
                 DateTime fechaReserva = Convert.ToDateTime(fecR).Date;
@@ -147,6 +151,7 @@ namespace BOCHAS.Controllers
 
                 }
 
+               
                 return Json(ResultadoAlquiler);
             }
             catch { return Json("ERROR"); }
