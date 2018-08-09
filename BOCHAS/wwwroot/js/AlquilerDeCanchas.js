@@ -105,6 +105,11 @@ $(document).ready(function () {
         }
     });
 
+    $("#BtnCancelaR").click(function (event) {
+        $("#ModalMail").modal();
+    });
+
+
     if ($("#Respuesta").val()==="SI") {
         alertify.success("Reserva Confirmada!!");
     }
