@@ -9,16 +9,20 @@ using BOCHAS.Models;
 using Microsoft.AspNetCore.Authorization;
 using MimeKit;
 using MailKit.Net.Smtp;
+using Microsoft.AspNetCore.SignalR;
+using BOCHAS.Hubs;
 
 namespace BOCHAS.Controllers
-{  [Authorize]
+{
+    [Microsoft.AspNetCore.Authorization.AuthorizeAttribute]
     public class AlquilerCanchasController : Controller
     {
         private readonly BOCHASContext _context;
-
-        public AlquilerCanchasController(BOCHASContext context)
+        private readonly IHubContext<Chat> _hubContext;
+        public AlquilerCanchasController(BOCHASContext context, IHubContext<Chat> hubContext)
         {
             _context = context;
+            _hubContext = hubContext;
         }
 
         public IActionResult Index()
@@ -103,7 +107,7 @@ namespace BOCHAS.Controllers
         {
 
             try
-            {
+             {
                 int ResultadoAlquiler = 0;
                 DateTime fechaPedido = DateTime.Now.Date;
                 DateTime fechaReserva = Convert.ToDateTime(fecR).Date;
@@ -147,6 +151,7 @@ namespace BOCHAS.Controllers
 
                 }
 
+               
                 return Json(ResultadoAlquiler);
             }
             catch { return Json("ERROR"); }
@@ -370,6 +375,8 @@ namespace BOCHAS.Controllers
             TempData["Respuesta"] = "NO";
             return RedirectToAction("ConsultarReservas");
         }
+
+        
         public IActionResult ComenzarReserva(int Nreserva)
         {
 
@@ -408,8 +415,19 @@ namespace BOCHAS.Controllers
         {var reserva = _context.AlquilerCancha.Include(a => a.DetalleAlquilerCancha).Include(a => a.IdClienteNavigation).Include(a => a.IdClienteNavigation.Persona).Include(a => a.IdEmpleadoNavigation).Include(a => a.IdEstadoNavigation).Where(a => a.Numero == Nreserva).SingleOrDefault();
             return new Rotativa.AspNetCore.ViewAsPdf("ReporteReserva", reserva);
         }
-        
-        }
+
+
+        public async Task<JsonResult> TraerReservasPorDia()
+        {
+            var Reserva = (from a in _context.AlquilerCancha join e in _context.EstadoAlquiler on a.IdEstado equals e.Id join p in _context.Persona on a.IdCliente equals p.IdUsuario where a.FechaReserva.Value.Year == DateTime.Now.Year && a.FechaReserva.Value.Date.Month == DateTime.Now.Date.Month && a.FechaReserva.Value.Day >= DateTime.Now.Day -1 select new { Numero = a.Numero, Nombre = p.Nombre + " " + p.Apellido, Estado = e.Nombre , ide = a.IdEstado }).ToListAsync();
+
+            return Json(await Reserva);
+    }
+
+    }
+
+
+   
 
         }
 

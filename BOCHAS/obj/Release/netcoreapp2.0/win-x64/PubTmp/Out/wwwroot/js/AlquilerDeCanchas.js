@@ -1,4 +1,5 @@
 ﻿
+
 $(document).ready(function () {
    
     $('[data-toggle="tooltip"]').tooltip(); 
@@ -104,6 +105,11 @@ $(document).ready(function () {
         }
     });
 
+    $("#BtnCancelaR").click(function (event) {
+        $("#ModalMail").modal();
+    });
+
+
     if ($("#Respuesta").val()==="SI") {
         alertify.success("Reserva Confirmada!!");
     }
@@ -124,6 +130,17 @@ $(document).ready(function () {
     });
     
 });
+
+
+function NotificaReserva() {
+    var connection = $.hubConnection(), hub = connection.createHubProxy('chat');
+
+    connection.start(function () {
+
+        hub.invoke('ReservasJugador');
+
+    }).done(function () { }).fail(function (e) { alert(e); });
+}
 
 function RegistrarReserva() {
     if ($("#IdCliente").val() === "") {
@@ -190,6 +207,10 @@ function RegistrarReservaJugador() {
                 $("#Canchas").empty();
                 $("#ImgLoad").css("display", "none");
                 if (response !== "ERROR") {
+
+                 
+                    NotificaReserva();
+                   
 
                     alertify.alert('Alerta', "Reserva Generada con exito con Numero de reserva: " + response + ", para ver si la reserva se confirmo verifique la misma en 'Mis Reservas'", function () { window.location = "/AlquilerCanchas/NuevaReservaJugador"; });
                 }
