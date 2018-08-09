@@ -73,7 +73,7 @@ namespace BOCHAS
            
             app.UseStaticFiles();
             app.UseAuthentication();
-            app.UseCookiePolicy();
+          //  app.UseCookiePolicy();
             //app.UseSession();
             app.UseSignalR();
             app.UseMvc(routes =>

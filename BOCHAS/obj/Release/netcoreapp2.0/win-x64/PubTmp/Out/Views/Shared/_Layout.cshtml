@@ -310,7 +310,8 @@
         <script src="~/lib/fullcalendar/dist/fullcalendar.min.js"></script>
         <script src="~/lib/fullcalendar/dist/locale/es.js"></script>
         <script src="~/lib/signalr/jquery.signalR.js"></script>
-        <script src="signalr/hubs"></script>
+        @section hub{
+            <script src="signalr/hubs"></script>}
         <script src="~/js/NotificaReservasyNotas.js"></script>
     </environment>
     <environment exclude="Development">
@@ -337,10 +338,10 @@
         <script src="~/lib/fullcalendar/dist/fullcalendar.min.js"></script>
         <script src="~/lib/fullcalendar/dist/locale/es.js"></script>
         <script src="~/lib/signalr/jquery.signalR.js"></script>
-        <script src="signalr/hubs"></script>
+     @section hub{   <script src="signalr/hubs"></script>}
         <script src="~/js/NotificaReservasyNotas.js"></script>
     </environment>
-
+   
     @RenderSection("Scripts", required: false)
 </body>
 </html>
