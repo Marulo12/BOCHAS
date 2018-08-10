@@ -105,7 +105,7 @@ $(document).ready(function () {
         }
     });
 
-    $("#BtnCancelaR").click(function (event) {
+    $(".BtnCancelaR").click(function (event) {
         $("#ModalMail").modal();
     });
 
@@ -445,3 +445,13 @@ function VerDetalleReserva(numero) {
 }
 
 
+function generaRepo(numero) {
+
+    $(".mb").html(' <iframe id="VisorPDF" src="" style="width:100%; height:100%;display:none;background-color:#515151;"></iframe>');        
+    $("#VisorPDF").attr("src", "/AlquilerCanchas/ReporteReserva?Nreserva=" + numero);
+    $("#VisorPDF").css("display", "inline-block");
+    $("#VisorPDF").css("width", "100%");
+    $("#VisorPDF").css("height", "500px");
+    $("#ModalPdf").modal();   
+
+}

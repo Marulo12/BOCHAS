@@ -11,6 +11,7 @@ using MimeKit;
 using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.SignalR;
 using BOCHAS.Hubs;
+using Rotativa.AspNetCore;
 
 namespace BOCHAS.Controllers
 {
@@ -410,10 +411,10 @@ namespace BOCHAS.Controllers
            
             return PartialView(Reserva.ToList());
         }
-
+       
         public  IActionResult ReporteReserva(int Nreserva)
         {var reserva = _context.AlquilerCancha.Include(a => a.DetalleAlquilerCancha).Include(a => a.IdClienteNavigation).Include(a => a.IdClienteNavigation.Persona).Include(a => a.IdEmpleadoNavigation).Include(a => a.IdEstadoNavigation).Where(a => a.Numero == Nreserva).SingleOrDefault();
-            return new Rotativa.AspNetCore.ViewAsPdf("ReporteReserva", reserva);
+            return new ViewAsPdf("ReporteReserva", reserva);
         }
 
 
