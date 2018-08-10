@@ -411,7 +411,7 @@ namespace BOCHAS.Controllers
            
             return PartialView(Reserva.ToList());
         }
-        [AllowAnonymous]
+       
         public  IActionResult ReporteReserva(int Nreserva)
         {var reserva = _context.AlquilerCancha.Include(a => a.DetalleAlquilerCancha).Include(a => a.IdClienteNavigation).Include(a => a.IdClienteNavigation.Persona).Include(a => a.IdEmpleadoNavigation).Include(a => a.IdEstadoNavigation).Where(a => a.Numero == Nreserva).SingleOrDefault();
             return new ViewAsPdf("ReporteReserva", reserva);
