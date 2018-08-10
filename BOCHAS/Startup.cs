@@ -18,16 +18,18 @@ namespace BOCHAS
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
             Configuration = configuration;
+            Environment = env;
         }
 
         public IConfiguration Configuration { get; }
-
+        public IHostingEnvironment Environment { get; }
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddSession();
             services.AddAuthentication(options =>
             {
@@ -60,21 +62,22 @@ namespace BOCHAS
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-         //   if (env.IsDevelopment())
-           // {
-             //   app.UseBrowserLink();
-       //         app.UseDeveloperExceptionPage();
-           // }
-            //else
-           // {
-     //           app.UseExceptionHandler("/Home/Error");
-           // }
-           
-           
+            if (env.IsDevelopment())
+         {
+               app.UseBrowserLink();
+               app.UseDeveloperExceptionPage();
+           }
+          else
+            {
+            app.UseExceptionHandler("/Home/Error");
+            }
+
+            app.UseCors(builder =>
+       builder.WithOrigins("http://localhost:53502", "http://www.interfileweb.com.ar:10022", "http://marulo12-001-site1.dtempurl.com").AllowAnyHeader());
             app.UseStaticFiles();
             app.UseAuthentication();
           //  app.UseCookiePolicy();
-            //app.UseSession();
+            app.UseSession();
             app.UseSignalR();
             app.UseMvc(routes =>
             {

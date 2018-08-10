@@ -105,7 +105,7 @@ $(document).ready(function () {
         }
     });
 
-    $("#BtnCancelaR").click(function (event) {
+    $(".BtnCancelaR").click(function (event) {
         $("#ModalMail").modal();
     });
 
