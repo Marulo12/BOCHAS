@@ -19,10 +19,10 @@ $(document).ready(function () {
         RegistrarReservaJugador();
 
     });
-
-    $("#TablaReservasCons").ready(function () {
-        $("#ImgLoad").css('display','none');
-        $("#TablaReservasCons").DataTable({
+    $("#ImgLoad").css('display', 'none');
+    $("#TablaReservasCons").css("display","table");
+    //$("#TablaReservasCons").removeAttr('style');
+    $("#TablaReservasCons").DataTable({
             searching: true,
             pageLength: 10,
             lengthMenu: [5, 10, 20, 75, 100],
@@ -67,8 +67,8 @@ $(document).ready(function () {
                 }
             }
         });
-        $("#TablaReservasCons").removeAttr('style');
-    });
+   
+    
     
     $("#TablaMisReservas").DataTable({
         searching: true,
@@ -108,7 +108,7 @@ $(document).ready(function () {
     $(".BtnCancelaR").click(function (event) {
         $("#ModalMail").modal();
     });
-
+    
 
     if ($("#Respuesta").val()==="SI") {
         alertify.success("Reserva Confirmada!!");
@@ -232,6 +232,7 @@ function RegistrarReservaJugador() {
 function MostrarHorariosOcupados() {
     var fecR = $("#FecR").val();
     if (fecR !== "") {
+        $("#ModalHorarios").modal();
         $.ajax({
             type: "GET",
             data: { fecR },
@@ -262,7 +263,7 @@ function MostrarHorariosOcupados() {
                         }
                     }
                 });
-                $("#ModalHorarios").modal();
+               
 
             },
             failure: function (response) {
@@ -400,7 +401,7 @@ function ConsultaParticular() {
         }); 
 }
 function VerDetalleReserva(numero) {
-
+    $("#ModalDetalleReserva").modal();
     $.ajax({
         type: "GET",
         data: { numero },
@@ -434,7 +435,7 @@ function VerDetalleReserva(numero) {
                 }
             }
             );
-            $("#ModalDetalleReserva").modal();
+           
         },
         failure: function (response) {
             alert(response);

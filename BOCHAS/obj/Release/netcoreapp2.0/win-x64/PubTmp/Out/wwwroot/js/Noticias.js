@@ -6,7 +6,7 @@
 });
 
 function TraerNoticias() {
-
+    $("#ModalNoticias").modal();
     $.ajax({
         type: "GET",
         url: "/Noticias/ConocerNoticias",       
@@ -43,7 +43,7 @@ function TraerNoticias() {
                     }
                 }
             }  );
-            $("#ModalNoticias").modal();
+          
             
         }
 
