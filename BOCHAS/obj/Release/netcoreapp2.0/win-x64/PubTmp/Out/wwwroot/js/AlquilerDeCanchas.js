@@ -1,6 +1,4 @@
-﻿
-
-$(document).ready(function () {
+﻿$(document).ready(function () {
    
     $('[data-toggle="tooltip"]').tooltip(); 
     $("#BtnValida").click(function () {
@@ -19,10 +17,9 @@ $(document).ready(function () {
         RegistrarReservaJugador();
 
     });
-
-    $("#TablaReservasCons").ready(function () {
-        $("#ImgLoad").css('display','none');
-        $("#TablaReservasCons").DataTable({
+    $("#ImgLoad").css('display', 'none');
+    $("#TablaReservasCons").css("display","table");
+    $("#TablaReservasCons").DataTable({
             searching: true,
             pageLength: 10,
             lengthMenu: [5, 10, 20, 75, 100],
@@ -66,10 +63,7 @@ $(document).ready(function () {
                     last: "Ultimo"
                 }
             }
-        });
-        $("#TablaReservasCons").removeAttr('style');
-    });
-    
+        });  
     $("#TablaMisReservas").DataTable({
         searching: true,
         lengthMenu: [5, 10, 20, 75, 100],
@@ -104,12 +98,9 @@ $(document).ready(function () {
             }
         }
     });
-
     $(".BtnCancelaR").click(function (event) {
         $("#ModalMail").modal();
     });
-
-
     if ($("#Respuesta").val()==="SI") {
         alertify.success("Reserva Confirmada!!");
     }
@@ -232,6 +223,7 @@ function RegistrarReservaJugador() {
 function MostrarHorariosOcupados() {
     var fecR = $("#FecR").val();
     if (fecR !== "") {
+        $("#ModalHorarios").modal();
         $.ajax({
             type: "GET",
             data: { fecR },
@@ -262,7 +254,7 @@ function MostrarHorariosOcupados() {
                         }
                     }
                 });
-                $("#ModalHorarios").modal();
+               
 
             },
             failure: function (response) {
@@ -400,7 +392,7 @@ function ConsultaParticular() {
         }); 
 }
 function VerDetalleReserva(numero) {
-
+    $("#ModalDetalleReserva").modal();
     $.ajax({
         type: "GET",
         data: { numero },
@@ -434,7 +426,7 @@ function VerDetalleReserva(numero) {
                 }
             }
             );
-            $("#ModalDetalleReserva").modal();
+           
         },
         failure: function (response) {
             alert(response);
@@ -446,12 +438,20 @@ function VerDetalleReserva(numero) {
 
 
 function generaRepo(numero) {
+    $("#ModalPdf").modal();
+    $("#GeneraPDF").css("display", "inline");
+    $("#VisorPDF").attr("src", "");
+    $("#VisorPDF").css("display", "none");
+    setTimeout(function () {
+        $("#GeneraPDF").css("display", "none");
+        $("#VisorPDF").attr("src", "/AlquilerCanchas/ReporteReserva?Nreserva=" + numero);
+        $("#VisorPDF").css("display", "inline-block");
+        $("#VisorPDF").css("width", "100%");
+        $("#VisorPDF").css("height", "500px");
 
-    $(".mb").html(' <iframe id="VisorPDF" src="" style="width:100%; height:100%;display:none;background-color:#515151;"></iframe>');        
-    $("#VisorPDF").attr("src", "/AlquilerCanchas/ReporteReserva?Nreserva=" + numero);
-    $("#VisorPDF").css("display", "inline-block");
-    $("#VisorPDF").css("width", "100%");
-    $("#VisorPDF").css("height", "500px");
-    $("#ModalPdf").modal();   
+    }, 2000);
+    
+   
+   
 
 }

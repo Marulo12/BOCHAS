@@ -347,8 +347,8 @@ namespace BOCHAS.Controllers
                     try
                     {
                         var mensaje = new MimeMessage();
-                        mensaje.From.Add(new MailboxAddress("Prueba de mail", "bochaspadel@gmail.com"));
-                        mensaje.To.Add(new MailboxAddress("Sistemas", mail));
+                        mensaje.From.Add(new MailboxAddress("BOCHAS PADEL", "bochaspadel@gmail.com"));
+                        mensaje.To.Add(new MailboxAddress("Jugador", mail));
                         mensaje.Subject = "Cancelacion de Reserva";
                         mensaje.Body = new TextPart("plain") { Text = "Buenos dias  Sr/a. " + apellido + " se realizo la cancelacion de la reserva N°" + nreserva + ", Saludos." };
                         using (var cliente = new SmtpClient())

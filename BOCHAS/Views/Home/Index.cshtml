@@ -68,7 +68,7 @@
 <div class="row">
     <div class="col-md-6">
         <!-- RECENT PURCHASES -->
-        <div class="panel">
+        <div class="panel ">
             <div class="panel-heading">
                 <h3 class="panel-title">Reservas Recientes</h3>
                 <div class="right">
@@ -76,8 +76,8 @@
                     <button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
                 </div>
             </div>
-            <div class="panel-body no-padding">
-                <table  class="table table-striped">
+            <div class="panel-body no-padding pre-scrollable" style="max-height:245px;">
+                <table  class="table table-striped ">
                     <thead>
                         <tr>
                             <th>Numero</th>
@@ -85,7 +85,7 @@
                             <th>Estado</th>
                         </tr>
                     </thead>
-                    <tbody id="BodyTReservaPorDia">
+                    <tbody id="BodyTReservaPorDia" >
                       
                     </tbody>
                 </table>
@@ -326,28 +326,13 @@
 
             });
 
-
-            // real-time pie chart
-        /*   var sysLoad = $('#system-load').easyPieChart({
-                size: 130,
-                barColor: function (percent) {
-                    return "rgb(" + Math.round(200 * percent / 100) + ", " + Math.round(200 * (1.1 - percent / 100)) + ", 0)";
-                },
-                trackColor: 'rgba(245, 245, 245, 0.8)',
-                scaleColor: false,
-                lineWidth: 5,
-                lineCap: "square",
-                animate: 800
-            });*/
-
+          
             var updateInterval = 3000; // in milliseconds
 
             setInterval(function () {
                 var randomVal;
                 randomVal = getRandomInt(0, 100);
 
-            //    sysLoad.data('easyPieChart').update(randomVal);
-           //     sysLoad.find('.percent').text(randomVal);
             }, updateInterval);
 
             function getRandomInt(min, max) {

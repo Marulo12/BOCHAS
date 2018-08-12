@@ -72,8 +72,7 @@ namespace BOCHAS
             app.UseExceptionHandler("/Home/Error");
             }
 
-            app.UseCors(builder =>
-       builder.WithOrigins("http://localhost:53502", "http://www.interfileweb.com.ar:10022", "http://marulo12-001-site1.dtempurl.com").AllowAnyHeader());
+            app.UseCors(builder => builder.AllowAnyHeader());
             app.UseStaticFiles();
             app.UseAuthentication();
           //  app.UseCookiePolicy();
@@ -83,7 +82,7 @@ namespace BOCHAS
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Usuarios}/{action=Index}/{id?}");
+                    template: "{controller=Presentacion}/{action=Presentacion}/{id?}");
             });
             Rotativa.AspNetCore.RotativaConfiguration.Setup(env);
         }
