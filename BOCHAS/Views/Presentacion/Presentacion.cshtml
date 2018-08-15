@@ -32,9 +32,31 @@
 <body id="page-top" data-spy="scroll" data-target=".navbar-custom">
 
     <!-- page loader -->
-    <div id="page-loader">                   
-         <img class="loadIMGL" src="~/Presentacion/img/LogoBochas.png" style=" z-index: 1000;" />
-         <img class="loadIMG" src="~/Presentacion/img/spinner.gif"  />               
+    <div id="page-loader">
+        <div id="page-loader">
+            <div class="loader">
+                <div class="spinner">
+                    <div class="spinner-container con1">
+                        <div class="circle1"></div>
+                        <div class="circle2"></div>
+                        <div class="circle3"></div>
+                        <div class="circle4"></div>
+                    </div>
+                    <div class="spinner-container con2">
+                        <div class="circle1"></div>
+                        <div class="circle2"></div>
+                        <div class="circle3"></div>
+                        <div class="circle4"></div>
+                    </div>
+                    <div class="spinner-container con3">
+                        <div class="circle1"></div>
+                        <div class="circle2"></div>
+                        <div class="circle3"></div>
+                        <div class="circle4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <!-- /page loader -->
     <!-- Section: home slide -->
@@ -42,14 +64,17 @@
         <ul id="valera-slippry">
             <li>
                 <div>
-                    <img src="~/Presentacion/img/slides/1.jpg" alt="BIENVENIDO A BOCHAS PADEL <br /><a href='#about' class='btn btn-skin btn-slide'>Comenzar</a>">
+                    <label class="ocultar" style="left:18%;">BIENVENIDO A BOCHAS PADEL </label>
+                    <img src="~/Presentacion/img/slides/1.jpg" alt="<a href='#about' class='btn btn-skin btn-slide'>Comenzar</a>">
                 </div>
             </li>
             <li>
-                <div><img src="~/Presentacion/img/slides/2.jpg" alt="Alquiler de canchas de Pádel <br /><a href='#' class='btn btn-skin btn-slide'>Comenzar</a>"></div>
+                <label  class="ocultar" style="left:22%;">Alquiler de canchas de Pádel!!</label>
+                <div><img src="~/Presentacion/img/slides/2.jpg" alt="<a href='#' class='btn btn-skin btn-slide'>Comenzar</a>"></div>
             </li>
             <li>
-                <div><img src="~/Presentacion/img/slides/3.jpg" alt="Ven a visitarnos!! <br /><a href='#' class='btn btn-skin btn-slide'>Comenzar</a>"></div>
+                <label  class="ocultar" style="left:18%;">Ven a visitarnos cuando quieras!!</label>
+                <div><img src="~/Presentacion/img/slides/3.jpg" alt="<a href='#' class='btn btn-skin btn-slide'>Comenzar</a>"></div>
             </li>
         </ul>
     </section>
@@ -57,7 +82,7 @@
     <!-- Navigation -->
     <div id="navigation">
         <nav class="navbar navbar-custom" role="navigation" >
-            <div class="container-fluid">
+            <div class="container">
                 <div class="row" >
                     <div class="col-md-2">
                         <div class="site-logo" >
