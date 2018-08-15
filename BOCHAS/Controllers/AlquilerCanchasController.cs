@@ -403,13 +403,22 @@ namespace BOCHAS.Controllers
                 return RedirectToAction("ConsultarReservas");
             }
         }
-        public IActionResult ConsultaReservaParticular(string Jugador)
+        public IActionResult ConsultaReservaParticular(string Jugador, string fechaD , string fechaH)
         {
+
             int IdJ = Convert.ToInt32(Jugador);
-            var Reserva = _context.AlquilerCancha.Include(a => a.DetalleAlquilerCancha).Include(a => a.IdClienteNavigation).Include(a => a.IdClienteNavigation.Persona).Include(a => a.IdEstadoNavigation).Where(a => a.IdClienteNavigation.Persona.Any(p => p.Id ==IdJ));
-            
-           
-            return PartialView(Reserva.ToList());
+
+            if (!string.IsNullOrEmpty( fechaD))
+            {
+                DateTime fd = Convert.ToDateTime(fechaD);
+                DateTime fh = Convert.ToDateTime(fechaH);
+                var ReservaF = _context.AlquilerCancha.Include(a => a.DetalleAlquilerCancha).Include(a => a.IdClienteNavigation).Include(a => a.IdClienteNavigation.Persona).Include(a => a.IdEstadoNavigation).Where(a => a.IdClienteNavigation.Persona.Any(p => p.Id == IdJ) && a.FechaReserva >= fd.Date && a.FechaReserva <= fh.Date);
+                return PartialView(ReservaF.ToList());
+            }
+                        
+                var Reserva = _context.AlquilerCancha.Include(a => a.DetalleAlquilerCancha).Include(a => a.IdClienteNavigation).Include(a => a.IdClienteNavigation.Persona).Include(a => a.IdEstadoNavigation).Where(a => a.IdClienteNavigation.Persona.Any(p => p.Id == IdJ));
+                return PartialView(Reserva.ToList());
+                       
         }
        
         public  IActionResult ReporteReserva(int Nreserva)

@@ -1,4 +1,6 @@
-﻿$(document).ready(function () {
+﻿
+
+$(document).ready(function () {
    
     $('[data-toggle="tooltip"]').tooltip(); 
     $("#BtnValida").click(function () {
@@ -301,8 +303,9 @@ function TraerCanchas() {
     }
 }
 function ComprobarCamposDates() {
-
-
+    var actual = new Date();
+    var f = new Date();
+    f = f.getHours() + ":" + f.getMinutes() 
     if ($("#FecR").val() === "") {
         alertify.error("Complete el campo fecha de Reserva");
         return false;
@@ -325,17 +328,36 @@ function ComprobarCamposDates() {
         alertify.error("La Hora hasta no puede ser menor o igual que la hora desde");
         return false;
     }
+   
+    if ($("#HD").val() < f && $("#FecR").val() ===  $("#FecP").val()) {
+        alertify.error("La hora desde no puede ser menor a la hora actual");
+        return false;
+    }
+
     return true;
 
 }
 
 function ConsultaParticular() {
     var Jugador = $("#IdCliente option:selected").val();
+    var fechaD = $("#fechaD").val();
+    var fechaH = $("#fechaH").val();
+    if (fechaD != "" && fechaH === "") {
+        alertify.error("Complete el intervalo de fechas");
+        return;
+    } if (fechaD === "" && fechaH != "") {
+        alertify.error("Complete el intervalo de fechas");
+        return;
+    }
+    if (fechaD > fechaH ) {
+        alertify.error("La fecha desde no puede ser mayor que la fecha hasta");
+        return;
+    }
         $("#TablaConPar").empty();
         $("#ImgLoad").css("display", "inline-block");
         $.ajax({
             type: "GET",
-            data: {Jugador},
+            data: {Jugador,fechaD,fechaH},
             url: "/AlquilerCanchas/ConsultaReservaParticular",
             success: function (response) {
                 $("#ImgLoad").css("display", "none");
