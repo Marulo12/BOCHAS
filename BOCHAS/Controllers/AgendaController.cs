@@ -38,6 +38,24 @@ namespace BOCHAS.Controllers
             var agenda = (from a in _context.Agenda select new {id= a.Id , title="Nombre:"+a.IdCanchaNavigation.Nombre + " Numero:" + a.IdCanchaNavigation.Numero + " Descripcion:" + a.IdCanchaNavigation.Descripcion, allDay = false , start=a.Fecha.Date.ToString("yyyy-MM-dd") + "T" + Convert.ToString(a.HoraDesde) , end = a.Fecha.Date.ToString("yyyy-MM-dd") + "T" + Convert.ToString(a.HoraHasta), backgroundColor = ColorXTipodeServicio(a.IdAlquilerCancha, a.IdTorneo , a.IdClasesParticulares) }).ToList();
             return Json(agenda);
         }
+
+        public JsonResult ArmarAgendaXCancha(int cancha)
+        {
+            EliminarReservascaducadas();
+            if (cancha > 0)
+            {
+                var agenda = (from a in _context.Agenda where a.IdCancha == cancha select new { id = a.Id, title = "Nombre:" + a.IdCanchaNavigation.Nombre + " Numero:" + a.IdCanchaNavigation.Numero + " Descripcion:" + a.IdCanchaNavigation.Descripcion, allDay = false, start = a.Fecha.Date.ToString("yyyy-MM-dd") + "T" + Convert.ToString(a.HoraDesde), end = a.Fecha.Date.ToString("yyyy-MM-dd") + "T" + Convert.ToString(a.HoraHasta), backgroundColor = ColorXTipodeServicio(a.IdAlquilerCancha, a.IdTorneo, a.IdClasesParticulares) }).ToList();
+                return Json(agenda);
+            }
+            else
+            {
+                var agenda = (from a in _context.Agenda  select new { id = a.Id, title = "Nombre:" + a.IdCanchaNavigation.Nombre + " Numero:" + a.IdCanchaNavigation.Numero + " Descripcion:" + a.IdCanchaNavigation.Descripcion, allDay = false, start = a.Fecha.Date.ToString("yyyy-MM-dd") + "T" + Convert.ToString(a.HoraDesde), end = a.Fecha.Date.ToString("yyyy-MM-dd") + "T" + Convert.ToString(a.HoraHasta), backgroundColor = ColorXTipodeServicio(a.IdAlquilerCancha, a.IdTorneo, a.IdClasesParticulares) }).ToList();
+                return Json(agenda);
+            }
+            
+         
+        }
+
         public void EliminarReservascaducadas()
         {
             var agenda = _context.Agenda.Where(a => a.Fecha < DateTime.Now.Date).ToList();

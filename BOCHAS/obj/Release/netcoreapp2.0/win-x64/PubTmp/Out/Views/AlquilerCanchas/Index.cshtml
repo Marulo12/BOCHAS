@@ -47,9 +47,14 @@
 
             <div class="col-sm-4">
                 <label>Jugador:</label>
-                <select id="IdCliente" class="btn btn-sm form-control " asp-items="@{ new SelectList(cliente, "Id", "Client" );}"></select>
+                <select id="IdCliente" class="btn btn-sm form-control " asp-items="@{ new SelectList(cliente, "Id", "Client" );}"></select>                
             </div>
-            <div class="col-sm-3" style="padding-top:22px;"> <button id="BtnConPart" type="button" class="btn btn-sm btn-info "><i class="fa fa-search"></i></button></div>
+            <div class="col-sm-5">
+                <div class="col-sm-5"><label>Fecha desde:</label><input type="date" class="form-control" id="fechaD" style="font-size:12px;" /></div>
+                <div class="col-sm-5"><label>Fecha hasta:</label><input type="date" class="form-control" id="fechaH" style="font-size:12px;" /></div>
+                <div class="col-sm-1" style="padding:0px;padding-top:22px;"> <button id="BtnConPart" type="button" class="btn btn-sm btn-info "><i class="fa fa-search"></i></button></div>
+            </div>
+           
         </div>
         <hr />
         <div class="row">
@@ -78,7 +83,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title" style="color:white;">Detalle de la Reserva</h4>
             </div>
-            <div id="DetalleReservaBody" class="modal-body" style="padding-left:0px;padding-right:0px;">
+            <div id="DetalleReservaBody" class="modal-body" >
 
             </div>
             <div class="modal-footer">

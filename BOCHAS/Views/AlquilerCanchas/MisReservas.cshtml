@@ -36,10 +36,10 @@
                             @Html.DisplayFor(modelItem => item.Numero)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.FechaPedido)
+                            @item.FechaPedido.Value.Date.ToString("dd/MM/yyyy")
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.FechaReserva)
+                            @item.FechaReserva.Value.Date.ToString("dd/MM/yyyy")
                         </td>
 
                         <td>

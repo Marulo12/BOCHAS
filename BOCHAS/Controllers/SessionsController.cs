@@ -48,7 +48,7 @@ namespace BOCHAS.Controllers
 
         public async Task<JsonResult> MostrarTotalSesiones() {
 
-            return Json(await _context.Session.CountAsync());
+            return Json(await _context.Session.Where(s=>s.FechaInicio.Month == DateTime.Now.Month).CountAsync());
 
         }
 

@@ -9,8 +9,6 @@ using BOCHAS.Models;
 using Microsoft.AspNetCore.Authorization;
 using MimeKit;
 using MailKit.Net.Smtp;
-using Microsoft.AspNetCore.SignalR;
-using BOCHAS.Hubs;
 using Rotativa.AspNetCore;
 
 namespace BOCHAS.Controllers
@@ -18,12 +16,10 @@ namespace BOCHAS.Controllers
     [Microsoft.AspNetCore.Authorization.AuthorizeAttribute]
     public class AlquilerCanchasController : Controller
     {
-        private readonly BOCHASContext _context;
-        private readonly IHubContext<Chat> _hubContext;
-        public AlquilerCanchasController(BOCHASContext context, IHubContext<Chat> hubContext)
+        private readonly BOCHASContext _context;        
+        public AlquilerCanchasController(BOCHASContext context)
         {
-            _context = context;
-            _hubContext = hubContext;
+            _context = context;           
         }
 
         public IActionResult Index()
@@ -314,6 +310,7 @@ namespace BOCHAS.Controllers
             var reserva = _context.AlquilerCancha.Include(a=>a.IdClienteNavigation.Persona).Include(a => a.DetalleAlquilerCancha).Where(a => a.Numero == Nreserva).SingleOrDefault();
             
             int nreserva = reserva.Numero;
+            DateTime? freserva = reserva.FechaReserva;
             string apellido = reserva.IdClienteNavigation.Persona.SingleOrDefault().Apellido;
                 string mail = reserva.IdClienteNavigation.Persona.SingleOrDefault().Mail;
 
@@ -350,7 +347,7 @@ namespace BOCHAS.Controllers
                         mensaje.From.Add(new MailboxAddress("BOCHAS PADEL", "bochaspadel@gmail.com"));
                         mensaje.To.Add(new MailboxAddress("Jugador", mail));
                         mensaje.Subject = "Cancelacion de Reserva";
-                        mensaje.Body = new TextPart("plain") { Text = "Buenos dias  Sr/a. " + apellido + " se realizo la cancelacion de la reserva N°" + nreserva + ", Saludos." };
+                        mensaje.Body = new TextPart("plain") { Text = "Buenos dias  Sr/a. " + apellido + " se realizo la cancelacion de la reserva N°" + nreserva + " de la fecha " + freserva.Value.Date.ToString("dd/MM/yyyy") +  ", Saludos." };
                         using (var cliente = new SmtpClient())
                         {
                             cliente.Connect("smtp.gmail.com", 587, false);
@@ -403,18 +400,36 @@ namespace BOCHAS.Controllers
                 return RedirectToAction("ConsultarReservas");
             }
         }
-        public IActionResult ConsultaReservaParticular(string Jugador)
+        public IActionResult ConsultaReservaParticular(string Jugador, string fechaD , string fechaH)
         {
+
             int IdJ = Convert.ToInt32(Jugador);
-            var Reserva = _context.AlquilerCancha.Include(a => a.DetalleAlquilerCancha).Include(a => a.IdClienteNavigation).Include(a => a.IdClienteNavigation.Persona).Include(a => a.IdEstadoNavigation).Where(a => a.IdClienteNavigation.Persona.Any(p => p.Id ==IdJ));
-            
-           
-            return PartialView(Reserva.ToList());
+
+            if (!string.IsNullOrEmpty( fechaD))
+            {
+                DateTime fd = Convert.ToDateTime(fechaD);
+                DateTime fh = Convert.ToDateTime(fechaH);
+                var ReservaF = _context.AlquilerCancha.Include(a => a.DetalleAlquilerCancha).Include(a => a.IdClienteNavigation).Include(a => a.IdClienteNavigation.Persona).Include(a => a.IdEstadoNavigation).Where(a => a.IdClienteNavigation.Persona.Any(p => p.Id == IdJ) && a.FechaReserva >= fd.Date && a.FechaReserva <= fh.Date);
+                return PartialView(ReservaF.ToList());
+            }
+                        
+                var Reserva = _context.AlquilerCancha.Include(a => a.DetalleAlquilerCancha).Include(a => a.IdClienteNavigation).Include(a => a.IdClienteNavigation.Persona).Include(a => a.IdEstadoNavigation).Where(a => a.IdClienteNavigation.Persona.Any(p => p.Id == IdJ));
+                return PartialView(Reserva.ToList());
+                       
         }
        
         public  IActionResult ReporteReserva(int Nreserva)
-        {var reserva = _context.AlquilerCancha.Include(a => a.DetalleAlquilerCancha).Include(a => a.IdClienteNavigation).Include(a => a.IdClienteNavigation.Persona).Include(a => a.IdEmpleadoNavigation).Include(a => a.IdEstadoNavigation).Where(a => a.Numero == Nreserva).SingleOrDefault();
-            return new ViewAsPdf("ReporteReserva", reserva);
+        {
+            try
+            {
+                var reserva = _context.AlquilerCancha.Include(a => a.DetalleAlquilerCancha).Include(a => a.IdClienteNavigation).Include(a => a.IdClienteNavigation.Persona).Include(a => a.IdEmpleadoNavigation).Include(a => a.IdEstadoNavigation).Where(a => a.Numero == Nreserva).SingleOrDefault();
+                return new ViewAsPdf("ReporteReserva", reserva);
+            }
+            catch
+            {
+                return NotFound();
+            }
+            
         }
 
 

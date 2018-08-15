@@ -1,5 +1,5 @@
-﻿$(document).ready(function(){
-
+﻿$(document).ready(function () {
+  
     $('#calendar').fullCalendar({
         header: {
             left: 'prev,next today',
@@ -13,7 +13,7 @@
         themeSystem: 'bootstrap4',
         height: "parent",
         defaultView: 'agendaWeek',
-        events: '/Agenda/ArmarAgenda',
+       // events: '/Agenda/ArmarAgenda',
         eventClick: function (calEvent, jsEvent, view) {
             //var stime = calEvent.start.format('MM/DD/YYYY, h:mm a');
             //var etime = calEvent.end.format('MM/DD/YYYY, h:mm a');
@@ -40,5 +40,18 @@
             return false;
         }
        
-  });
+    });
+   
+    MostrarAgendaPorCancha();
 });
+
+
+
+function MostrarAgendaPorCancha() {
+    $('#calendar').fullCalendar('removeEvents');    
+    $('#calendar').fullCalendar('removeEvents');    
+    $('#calendar').fullCalendar('addEventSource', '/Agenda/ArmarAgendaXCancha?cancha=' + $("#CmbCancha option:selected").val()); 
+          }
+
+
+
