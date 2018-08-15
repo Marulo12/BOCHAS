@@ -11,9 +11,9 @@
         <hr />
         <div class="row" style="padding-left:15px;">
             <div class="col-sm-4">
-                <label>Búsqueda por Cancha:</label>&nbsp;
-                <div class="btn-group" role="group" aria-label="...">
-                    <select id="CmbCancha" class="btn btn-sm btn-danger" style="height:30px;" asp-items="@{ new SelectList(bd.Cancha.ToList(), "Id", "Nombre" );}"><option value="0">(TODAS)</option></select>
+                <label>Filtro por Cancha:</label>&nbsp;
+                <div class="btn-group" style="width:100%;" role="group" aria-label="...">
+                    <select id="CmbCancha" class="btn btn-sm btn-danger" style="height:30px;width:80%;" asp-items="@{ new SelectList(bd.Cancha.ToList(), "Id", "Nombre" );}"><option value="0">(TODAS)</option></select>
                     <button class="btn btn-sm btn-info " onclick="MostrarAgendaPorCancha()"><i class="glyphicon glyphicon-search"></i></button>
                 </div>
             </div>

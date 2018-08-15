@@ -4,7 +4,7 @@
         header: {
             left: 'prev,next today',
             center: 'title',
-            right: 'month,agendaWeek,basicDay'
+            right: 'agendaWeek,basicDay'
         },
         allDaySlot: false,
         slotEventOverlap:false,
