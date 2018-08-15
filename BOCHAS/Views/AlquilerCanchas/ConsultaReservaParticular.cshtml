@@ -40,7 +40,8 @@
                 </td>
 
                 <td>
-                    @item.FechaCancelacion.Value.Date.ToString("dd/MM/yyyy")
+                    @{ if (item.FechaCancelacion != null)
+                        { @item.FechaCancelacion.Value.Date.ToString("dd/MM/yyyy")} }
                 </td>
 
                 <td>
