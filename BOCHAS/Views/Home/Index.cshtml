@@ -29,7 +29,7 @@
                     <span class="icon"><i class="fa fa-eye " style="color:white;"></i></span>
                     <p>
                         <span class="number" id="TotalSesiones">0</span>
-                        <span class="title">Sessiones</span>
+                        <span class="title">Sesiones en el mes</span>
                     </p>
                 </div>
             </div>
@@ -185,6 +185,7 @@
         <div class="panel">
             <div class="panel-heading">
                 <h3 class="panel-title">Visitas Pagina Web</h3>
+                <h6>Cantidad de sesiones por dia</h6>
                 <div class="right">
                     <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
                     <button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
@@ -282,8 +283,8 @@
 
                 },
                 axisY: {
-                    showGrid: false,
-                    onlyInteger: true,
+                    showGrid: true,
+                    onlyInteger: false,
                     offset: 0,
                 },
                 chartPadding: {

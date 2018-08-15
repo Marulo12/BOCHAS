@@ -42,3 +42,13 @@
        
   });
 });
+
+
+
+function MostrarAgendaPorCancha() {
+    $('#calendar').fullCalendar('removeEvents');
+    $('#calendar').fullCalendar('addEventSource', '/Agenda/ArmarAgendaXCancha?cancha=' + $("#CmbCancha option:selected").val()); 
+          }
+
+
+

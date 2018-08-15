@@ -2,11 +2,23 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    BOCHASContext bd = new BOCHASContext();
 }
 
 <div class="panel panel-default">
     <div class="panel-body" style="min-height:78vh;padding:0px;margin:0px;">
         <p><h4>Referencia de colores: <i class="fas fa-palette" style="color:CadetBlue"></i>Reservas   <i class="fas fa-palette" style="color:orangered"></i>Torneos  <i class="fas fa-palette" style="color:dimgrey"></i>Clases Particulares</h4></p>
+        <hr />
+        <div class="row" style="padding-left:15px;">
+            <div class="col-sm-4">
+                <label>Búsqueda por Cancha:</label>&nbsp;
+                <div class="btn-group" role="group" aria-label="...">
+                    <select id="CmbCancha" class="btn btn-sm btn-danger" style="height:30px;" asp-items="@{ new SelectList(bd.Cancha.ToList(), "Id", "Nombre" );}"><option value="0">(TODAS)</option></select>
+                    <button class="btn btn-sm btn-info " onclick="MostrarAgendaPorCancha()"><i class="glyphicon glyphicon-search"></i></button>
+                </div>
+            </div>
+        </div>
+        <br />
         <div id="calendar"></div>
     </div>
 </div>
@@ -15,12 +27,12 @@
 
         <!-- Modal content-->
         <div class="modal-content">
-            <div class="modal-header"  style="background:-webkit-gradient(linear, 96% 73%, 0% 0%, from(#AD9085), to(#CE2029));">
+            <div class="modal-header" style="background:-webkit-gradient(linear, 96% 73%, 0% 0%, from(#AD9085), to(#CE2029));">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title" style="color:white;">Informacion del Evento</h4>
             </div>
             <div id="EventoBody" class="modal-body">
-                
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
