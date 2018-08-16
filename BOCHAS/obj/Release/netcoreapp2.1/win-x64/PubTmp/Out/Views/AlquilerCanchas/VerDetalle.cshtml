@@ -1,0 +1,71 @@
+﻿@model IEnumerable<BOCHAS.Models.DetalleAlquilerCancha>
+
+<table id="TablaDetalleReserva" class="table table-striped" style="width:100%;">
+    <thead style="background-color: rgba(0, 61, 110, 0.7);color:white;">
+        <tr>
+          
+            <th>Reserva</th>
+            <th>
+                Cancha
+            </th>
+            <th>
+                Nombre
+            </th>
+            <th>
+                Descripcion
+            </th>
+            <th>
+                Hora Desde
+            </th>
+            <th>
+                Hora Hasta
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.IdAlquilerCanchaNavigation.Numero)</td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdCanchaNavigation.Numero)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdCanchaNavigation.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdCanchaNavigation.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoraReservaDesde)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoraReservaHasta)
+            </td>
+            <td >
+                <div class="btn-group form-group" style="padding:0px;margin:0px;">
+                   
+                    @{
+                        switch (item.IdEstadoDetalle)
+                        {
+                          
+                            case 2:
+                                <a class="btn btn-default btn-sm" asp-action="ComenzarCancha" asp-controller="DetalleAlquilerCanchas" asp-route-NDreserva="@item.Id" style="color:black;display:none" data-toggle="tooltip" title="Comenzar" ><i class="fas fa-play"></i></a>
+                                <a class="btn btn-danger btn-sm BtnCancelaR" asp-action="CancelarCancha" asp-controller="DetalleAlquilerCanchas" asp-route-NDreserva="@item.Id" style="color:white" data-toggle="tooltip" title="Cancelar"><i class="fas fa-ban"></i></a>
+                                break;
+                            case 3: <button class="btn btn-success btn-sm "><a asp-action="Edit" asp-route-id="@item.Id" style="color:white" data-toggle="tooltip" title="Finalizar"><i class="fas fa-stopwatch"></i></a></button>
+                                break;
+                            case 4:
+                                break;
+                            case 5: <label class="label alert alert-danger" >Cancelado</label>
+                                break;
+                        }
+                    }
+                    
+
+                </div>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

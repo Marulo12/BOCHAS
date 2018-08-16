@@ -1,0 +1,74 @@
+body {
+    padding-bottom: 20px;
+}
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.containerImagenJugador {
+    width: 70%;
+}
+
+/* Carousel */
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+/* Make .svg files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".svg"] {
+    width: 100%;
+}
+
+/* QR code generator */
+#qrCode {
+    margin: 15px;
+}
+
+#ImgLoad {
+    margin-left: 40%;
+}
+
+@media screen and (max-width: 800px) {
+    .containerImagenJugador {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
+
+    #ImgLoad {
+        margin-left: 20%;
+    }
+
+    div .col-sm-12 ok {
+        padding-left: 20%;
+    }
+
+    .containerImagenJugador {
+        width: 100%;
+    }
+}
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 400px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
+
+    #ImgLoad {
+        margin-left: 12%;
+    }
+
+    .containerImagenJugador {
+        width: 100%;
+    }
+}

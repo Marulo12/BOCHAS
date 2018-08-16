@@ -1,0 +1,97 @@
+﻿@model IEnumerable<BOCHAS.Models.Session>
+
+<table id="TablaSessiones" class="table display" style="width:100%;">
+    <thead style="background-color: rgba(158, 44, 44, 0.9);color:white">
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.FechaInicio)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FechaFin)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HoraInicio)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HoraFin)
+                </th>
+            <th>
+               Usuario
+            </th>
+            <th>
+                Origen
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model)
+{
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaInicio.Day)/@Html.DisplayFor(modelItem => item.FechaInicio.Month)/@Html.DisplayFor(modelItem => item.FechaInicio.Year)
+            </td>
+            <td>
+                @{ 
+                    string dia = "";
+                    string mes = "";
+                    string anio = "";
+                    string fecha = "-";
+                    DateTime t = new DateTime();
+                    if (item.FechaFin != null)
+                    {
+                        t = (DateTime)item.FechaFin;
+                        dia = t.Day.ToString();
+                        mes = t.Month.ToString();
+                        anio = t.Year.ToString();
+                        fecha = dia + "/" + mes + "/" + anio;
+                    }
+
+
+                }
+                @fecha
+                
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoraInicio.Hours) : @Html.DisplayFor(modelItem => item.HoraInicio.Minutes) : @Html.DisplayFor(modelItem => item.HoraInicio.Seconds)
+            </td>
+            <td>
+                @{
+                    TimeSpan s = new TimeSpan();
+                    string hora = "";
+                    string minutos = "";
+                    string segundos = "";
+                    string horas = "-";
+                    if (item.HoraFin != null)
+                    {
+                        s = (TimeSpan)item.HoraFin;
+                        hora = s.Hours.ToString();
+                        minutos = s.Minutes.ToString();
+                        segundos = s.Seconds.ToString();
+                        horas = hora + ":" + minutos + ":" + segundos;
+                    }
+
+
+                }
+              @horas
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdUsuarioNavigation.Nombre)
+            </td>
+            <td>
+                @{
+                    if (item.Origen == 1)
+                    {
+                        <img class="img-fluid" src="~/images/extras/95-www.png" width="40" />
+                    }
+                    else
+                    {
+                        <img class="img-fluid" src="~/images/extras/android-transparente.png" width="40"/>
+                    }
+                }
+            </td>
+            
+        </tr>
+}
+    </tbody>
+</table>

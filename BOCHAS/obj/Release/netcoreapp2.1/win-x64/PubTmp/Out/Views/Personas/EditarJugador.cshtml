@@ -1,0 +1,121 @@
+﻿@model BOCHAS.Models.Persona
+
+@{
+    ViewData["Title"] = "Editar Jugador";
+}
+
+<div class="row ">
+    <div class="col-sm-12">
+        <form asp-action="EditJugador" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="FechaBaja" />
+            <input type="hidden" asp-for="Tipo" />
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label asp-for="Nombre" class="control-label"></label>
+                    <input asp-for="Nombre" class="form-control" style="border-top:0px;border-right:0px;border-left:0px;" required/>
+                    <span asp-validation-for="Nombre" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="NroDocumento" class="control-label"></label>
+                    <input asp-for="NroDocumento" class="form-control" style="border-top:0px;border-right:0px;border-left:0px;" required />
+                    <span asp-validation-for="NroDocumento" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label asp-for="Apellido" class="control-label"></label>
+                    <input asp-for="Apellido" class="form-control" style="border-top:0px;border-right:0px;border-left:0px;" required/>
+                    <span asp-validation-for="Apellido" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Tipo Documento</label>
+                    @{
+                        BOCHASContext bd = new BOCHASContext();
+                    }
+                    <select asp-for="IdTipoDocumento" class= "form-control" style="background-color: rgba(172, 44, 44, 0.9);color:white;" asp-items="@(new SelectList(bd.TipoDocumento.ToList(),"Id","Nombre"))"></select>
+                    <span asp-validation-for="IdTipoDocumento" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="control-label">Localidad</label>
+                    <select id="Localidad" asp-for="IdDomicilioNavigation.IdLocalidad" class= "form-control" style="background-color: rgba(172, 44, 44, 0.9);color:white;" onchange="MostrarBarrio();" asp-items="@(new SelectList(bd.Localidad.ToList(),"Id","Nombre"))"></select>
+                    <span asp-validation-for="IdDomicilio" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Barrio</label>
+                    <select id="Barrio" asp-for="IdDomicilioNavigation.IdBarrio" class= "form-control" style="background-color: rgba(172, 44, 44, 0.9);color:white;"  asp-items="@(new SelectList(bd.Barrio.Where(b => b.IdLocalidad == Model.IdDomicilioNavigation.IdLocalidad).ToList(),"Id","Nombre")) "></select>
+                    <span asp-validation-for="IdDomicilio" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label asp-for="IdDomicilioNavigation.Calle" class="control-label"></label>
+                    <input asp-for="IdDomicilioNavigation.Calle" class="form-control" style="border-top:0px;border-right:0px;border-left:0px;" required />
+                    <span asp-validation-for="IdDomicilioNavigation.Calle" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label  class="control-label">Número</label>
+                    <input asp-for="IdDomicilioNavigation.Numero" class="form-control" style="border-top:0px;border-right:0px;border-left:0px;" required />
+                    <span asp-validation-for="IdDomicilioNavigation.Numero" class="text-danger"></span>
+                </div>
+
+                
+            </div>
+            <div class="col-sm-12" style="padding:0px;">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                       
+                        <label  class="control-label">Piso</label>
+                        <input asp-for="IdDomicilioNavigation.Piso" style="border-top:0px;border-right:0px;border-left:0px;" class="form-control" />
+                      
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label  class="control-label">Dpto</label>
+                        <input asp-for="IdDomicilioNavigation.Departamento" style="border-top:0px;border-right:0px;border-left:0px;" class="form-control"  />
+                       
+                    </div>
+                    </div>
+                </div>
+                <div class="col-sm-12" style="padding:0px;">
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label asp-for="Mail" class="control-label"></label>
+                            <input asp-for="Mail" class="form-control" style="border-top:0px;border-right:0px;border-left:0px;" required />
+                            <span asp-validation-for="Mail" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label asp-for="Telefono" class="control-label"></label>
+                            <input asp-for="Telefono" class="form-control" style="border-top:0px;border-right:0px;border-left:0px;" required />
+                            <span asp-validation-for="Telefono" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                </div>
+          
+                <div class="col-sm-12" style=" padding:0px;">
+                    <div class="form-group" style=" padding:0px;margin-bottom:0px;float:right;">
+                      
+                            <input type="submit" value="Modificar" class="btn btn-info" />
+
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        
+                    </div>
+                </div>
+</form>
+    </div>
+</div>
+
+
+@section Scripts {
+<script src="~/js/Jugadores.js"></script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

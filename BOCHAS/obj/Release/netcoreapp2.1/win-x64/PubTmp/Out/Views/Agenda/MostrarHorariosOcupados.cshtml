@@ -1,0 +1,50 @@
+﻿@model IEnumerable<BOCHAS.Models.Agenda>
+
+<p><h4>Fecha:   @Convert.ToDateTime(ViewData["fecha"].ToString()).Date.ToString("dd/MM/yyyy")</h4></p>
+<hr />
+<table id="TablaHorariosOcupados" class="table table-bordered table-striped" style="width:100%;">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdCanchaNavigation.Numero)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdCanchaNavigation.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdCanchaNavigation.Descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HoraDesde)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HoraHasta)
+            </th>
+
+
+
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdCanchaNavigation.Numero)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdCanchaNavigation.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdCanchaNavigation.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoraDesde)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoraHasta)
+            </td>
+
+        </tr>
+}
+    </tbody>
+</table>

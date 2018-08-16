@@ -151,19 +151,7 @@ blockquote strong {
 .light {
     font-weight: 400;
 }
-#page-loader .loadIMGL {
-    position: absolute;
-    margin-top: 12%;
-    left: 42%;
-    z-index:10000;
-}
 
-#page-loader .loadIMG {
-    position: absolute;
-    margin-top: 12%;
-   z-index:900;
-    left: 43%;
-}
 
 /* ------- Navigation ------------ */
 #navigation {
@@ -689,15 +677,18 @@ hr.bold {
 --- About
 ============================ */
 
-
-
-
+.ocultar {
+    position: absolute;
+    z-index: 10000;
+    font-size: 60px;
+    top: 30%;
+}
 /* ===========================
 --- Services
 ============================ */
 .service-box {
-	background: #f9f9f9;
-	padding: 20px;
+    background: #f9f9f9;
+    padding: 20px;
 }
 
 .service-icon {
@@ -1802,20 +1793,8 @@ a.btn:focus{
 
 /* Media queries */
 
-@media(min-width:767px) {
-    #page-loader .loadIMGL {
-        position: absolute;
-        margin-top: 12%;
-        left: 42%;
-        z-index: 10000;
-    }
-
-    #page-loader .loadIMG {
-        position: absolute;
-        margin-top: 12%;
-        z-index: 900;
-        left: 43%;
-    }
+@media(min-width:769px) {
+   
     .navbar {
         padding: 20px 0;
         border-bottom: 0;
@@ -1852,6 +1831,13 @@ a.btn:focus{
 
 }
 @media (max-width:768px) {
+    .ocultar {
+     font-size:45px;
+        position: absolute;
+        z-index: 10000;
+        top: 30%;
+        left: 6% !important;
+    }
     #page-loader .loadIMGL {
         position: absolute;
         margin-top: 12%;
@@ -1916,18 +1902,12 @@ a.btn:focus{
 }
 
 @media (max-width:480px) {
-    #page-loader .loadIMGL {
+    .ocultar {
+        font-size: 20px;
         position: absolute;
-        margin-top: 12%;
-        left: 15%;
-        z-index: 10000;
-    }
-
-    #page-loader .loadIMG {
-        position: absolute;
-        margin-top: 12%;
-        z-index: 900;
-        left: 10%;
+        z-index: 10000;        
+        top: 30%;
+        left:10% !important;
     }
 	.navbar-custom .nav.navbar-nav {
     background-color: rgba(255,255,255,.4);
@@ -1951,4 +1931,39 @@ a.btn:focus{
 		font-size: 20px;
 	}
 	
+}
+@media (max-width:320px) {
+    .ocultar {
+        font-size: 20px;
+        position: absolute;
+        z-index: 10000;
+        top: 30%;
+        left: 0% !important;
+      
+    }
+    html {
+        min-width: 108%;
+       
+    }
+    .navbar-custom .nav.navbar-nav {
+        background-color: rgba(255,255,255,.4);
+    }
+
+    .navbar.navbar-custom.navbar-fixed-top {
+        margin-bottom: 30px;
+    }
+
+    .tp-banner-container {
+        padding-top: 40px;
+    }
+
+    .tp-caption .page-scroll a.btn-circle {
+        width: 40px;
+        height: 40px;
+        margin-top: 10px;
+        padding: 7px 0;
+        border: 2px solid #fff;
+        border-radius: 50%;
+        font-size: 20px;
+    }
 }

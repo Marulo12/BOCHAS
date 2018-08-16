@@ -1793,20 +1793,8 @@ a.btn:focus{
 
 /* Media queries */
 
-@media(min-width:767px) {
-    #page-loader .loadIMGL {
-        position: absolute;
-        margin-top: 12%;
-        left: 42%;
-        z-index: 10000;
-    }
-
-    #page-loader .loadIMG {
-        position: absolute;
-        margin-top: 12%;
-        z-index: 900;
-        left: 43%;
-    }
+@media(min-width:769px) {
+   
     .navbar {
         padding: 20px 0;
         border-bottom: 0;
