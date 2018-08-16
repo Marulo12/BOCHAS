@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BOCHAS.Models;
+using System.Security.Cryptography;
 
 namespace BOCHAS.APIS
 {
@@ -87,9 +88,39 @@ namespace BOCHAS.APIS
 
             return NoContent();
         }
+        public class ModContra {
+            public int IdJugador { get; set; }
+            public string contranueva
+            {
+                get; set;
+            }
+            }
 
-        // POST: api/Personas
-      
+        [HttpPut]
+        public JsonResult ModificarPass( [FromBody] ModContra contranueva)
+        {
+          
+              
+               var Usuario = _context.Usuario.Where(u => u.Persona.Any(p=>p.Id == contranueva.IdJugador)).SingleOrDefault();
+
+               string hashNuevo = "";
+               using (MD5 md5Hash = MD5.Create())
+               {
+                   hashNuevo = Encriptador.GetMd5Hash(md5Hash, contranueva.contranueva);
+               }
+
+               Usuario.Contraseña = hashNuevo;
+               _context.Update(Usuario);
+               if (_context.SaveChanges() == 1)
+               {
+                   return Json(Ok());
+               }
+               else
+               {
+                   return Json(NotFound());
+               }
+        }
+
 
         private bool PersonaExists(int id)
         {
