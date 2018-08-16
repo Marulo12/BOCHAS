@@ -120,19 +120,28 @@ namespace BOCHAS.APIS
 
         }
 
+        public class RR {
+            public string fecR { get; set; }
+            public string hd { get; set; }
+            public string hh { get; set; }
+            public string[] Canchas { get; set; }
+            public string Usuario { get; set; }
+        }
+
+
         [HttpPost]
-        public JsonResult RegistrarReserva([FromBody] string fecR, [FromBody] string hd, [FromBody] string hh, [FromBody] string[] Canchas, [FromBody] string Usuario)
+        public JsonResult RegistrarReserva([FromBody] RR reserva)
         {
 
             try
             {
                 int ResultadoAlquiler = 0;
                 DateTime fechaPedido = DateTime.Now.Date;
-                DateTime fechaReserva = Convert.ToDateTime(fecR).Date;
-                TimeSpan HoraDesde = TimeSpan.Parse(hd);
-                TimeSpan HoraHasta = TimeSpan.Parse(hh);
+                DateTime fechaReserva = Convert.ToDateTime(reserva.fecR).Date;
+                TimeSpan HoraDesde = TimeSpan.Parse(reserva.hd);
+                TimeSpan HoraHasta = TimeSpan.Parse(reserva.hh);
 
-                int idCliente = (from u in _context.Usuario join p in _context.Persona on u.Id equals p.IdUsuario where u.Nombre == Usuario && p.Tipo == "JUGADOR" && p.FechaBaja == null select u).SingleOrDefault().Id;
+                int idCliente = (from u in _context.Usuario join p in _context.Persona on u.Id equals p.IdUsuario where u.Nombre == reserva.Usuario && p.Tipo == "JUGADOR" && p.FechaBaja == null select u).SingleOrDefault().Id;
 
 
                 AlquilerCancha al = new AlquilerCancha();
@@ -146,7 +155,7 @@ namespace BOCHAS.APIS
                 {
                     int IdAlquiler = _context.AlquilerCancha.Max(a => a.Numero);
                     ResultadoAlquiler = IdAlquiler;
-                    foreach (var id in Canchas)
+                    foreach (var id in reserva.Canchas)
                     {
                         DetalleAlquilerCancha DetA = new DetalleAlquilerCancha();
                         DetA.IdAlquilerCancha = IdAlquiler;

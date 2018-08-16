@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using BOCHAS.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using BOCHAS.Models;
+using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
+using System.Threading.Tasks;
 
 namespace BOCHAS.APIS
 {
@@ -32,7 +30,11 @@ namespace BOCHAS.APIS
         [HttpGet("{id}")]
         public async Task<IActionResult> GetJugador([FromRoute] int id)
         {
-            var Jugador = (from p in _context.Persona join d in _context.Domicilio on p.IdDomicilio equals d.Id join t in _context.TipoDocumento on p.IdTipoDocumento equals t.Id join b in _context.Barrio on d.IdBarrio equals b.Id join l in _context.Localidad on d.IdLocalidad equals l.Id 
+            var Jugador = (from p in _context.Persona
+                           join d in _context.Domicilio on p.IdDomicilio equals d.Id
+                           join t in _context.TipoDocumento on p.IdTipoDocumento equals t.Id
+                           join b in _context.Barrio on d.IdBarrio equals b.Id
+                           join l in _context.Localidad on d.IdLocalidad equals l.Id
                            where p.Tipo.Contains("JUGADOR") && p.FechaBaja == null && p.Id == id
                            select new
                            {
@@ -51,7 +53,7 @@ namespace BOCHAS.APIS
 
             return Json(await Jugador.ToListAsync());
 
-           
+
         }
 
         // PUT: api/Personas/5
@@ -88,37 +90,27 @@ namespace BOCHAS.APIS
 
             return NoContent();
         }
-        public class ModContra {
-            public int IdJugador { get; set; }
-            public string contranueva
-            {
-                get; set;
-            }
-            }
+
 
         [HttpPut]
-        public JsonResult ModificarPass( [FromBody] ModContra contranueva)
+        public JsonResult ModificarPass([FromBody] ModContra contranueva)
         {
-          
-              
-               var Usuario = _context.Usuario.Where(u => u.Persona.Any(p=>p.Id == contranueva.IdJugador)).SingleOrDefault();
-
-               string hashNuevo = "";
-               using (MD5 md5Hash = MD5.Create())
-               {
-                   hashNuevo = Encriptador.GetMd5Hash(md5Hash, contranueva.contranueva);
-               }
-
-               Usuario.Contraseña = hashNuevo;
-               _context.Update(Usuario);
-               if (_context.SaveChanges() == 1)
-               {
-                   return Json(Ok());
-               }
-               else
-               {
-                   return Json(NotFound());
-               }
+            var Usuario = _context.Usuario.Where(u => u.Persona.Any(p => p.Id == contranueva.IdJugador)).SingleOrDefault();
+            string hashNuevo = "";
+            using (MD5 md5Hash = MD5.Create())
+            {
+                hashNuevo = Encriptador.GetMd5Hash(md5Hash, contranueva.contranueva);
+            }
+            Usuario.Contraseña = hashNuevo;
+            _context.Update(Usuario);
+            if (_context.SaveChanges() == 1)
+            {
+                return Json(Ok());
+            }
+            else
+            {
+                return Json(NotFound());
+            }
         }
 
 
@@ -126,5 +118,17 @@ namespace BOCHAS.APIS
         {
             return _context.Persona.Any(e => e.Id == id);
         }
+
+
+        public class ModContra
+        {
+            public int IdJugador { get; set; }
+            public string contranueva
+            {
+                get; set;
+            }
+        }
+
+
     }
 }

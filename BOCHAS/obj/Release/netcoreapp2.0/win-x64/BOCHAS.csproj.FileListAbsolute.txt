@@ -44,3 +44,6 @@ C:\Users\mlb\Desktop\BOCHAS\BOCHAS\obj\Release\netcoreapp2.0\win-x64\BOCHAS.pdb
 C:\Users\mboscatto\Documents\GitHub\BOCHAS\BOCHAS\BOCHAS\bin\Release\netcoreapp2.0\win-x64\hostpolicy.dll
 C:\Users\mboscatto\Documents\GitHub\BOCHAS\BOCHAS\BOCHAS\bin\Release\netcoreapp2.0\win-x64\hostfxr.dll
 C:\Users\mboscatto\Documents\GitHub\BOCHAS\BOCHAS\BOCHAS\bin\Release\netcoreapp2.0\win-x64\BOCHAS.exe
+C:\Users\mlb\Desktop\BOCHAS\BOCHAS\bin\Release\netcoreapp2.0\win-x64\hostpolicy.dll
+C:\Users\mlb\Desktop\BOCHAS\BOCHAS\bin\Release\netcoreapp2.0\win-x64\hostfxr.dll
+C:\Users\mlb\Desktop\BOCHAS\BOCHAS\bin\Release\netcoreapp2.0\win-x64\BOCHAS.exe
