@@ -73,6 +73,7 @@ namespace BOCHAS.Controllers
                         DetA.IdCancha = Convert.ToInt32(id);
                         DetA.HoraReservaDesde = HoraDesde;
                         DetA.HoraReservaHasta = HoraHasta;
+                        DetA.IdEstadoDetalle = 2;
                         _context.DetalleAlquilerCancha.Add(DetA);
                         if (_context.SaveChanges() == 1)
                         {
@@ -132,9 +133,9 @@ namespace BOCHAS.Controllers
                         DetA.IdCancha = Convert.ToInt32(id);
                         DetA.HoraReservaDesde = HoraDesde;
                         DetA.HoraReservaHasta = HoraHasta;
+                        DetA.IdEstadoDetalle = 2;
                         _context.DetalleAlquilerCancha.Add(DetA);
                         _context.SaveChanges();
-
                         Agenda ag = new Agenda();
                         ag.Fecha = Convert.ToDateTime(al.FechaReserva).Date;
                         ag.IdAlquilerCancha = al.Numero;
@@ -261,6 +262,12 @@ namespace BOCHAS.Controllers
 
             return View(await alquiler);
         }
+        public async Task<IActionResult> VerDetalle(string numero)
+        {
+            int num = Convert.ToInt32(numero);
+            var detalle = _context.DetalleAlquilerCancha.Include(d => d.IdAlquilerCanchaNavigation).Include(d=>d.IdEstadoDetalleNavigation).Include(d => d.IdCanchaNavigation).Where(d => d.IdAlquilerCancha == num).ToListAsync();
+            return PartialView(await detalle);
+        }
 
         public async Task<IActionResult> VerDetalleMiReserva(string numero)
         { int num = Convert.ToInt32(numero);
@@ -338,9 +345,16 @@ namespace BOCHAS.Controllers
                 reserva.IdEstado = 5;
                 reserva.FechaCancelacion = DateTime.Now.Date;
                 _context.AlquilerCancha.Update(reserva);
+                
                 if (_context.SaveChanges() == 1)
 
                 {
+                    foreach (var d in reserva.DetalleAlquilerCancha)
+                    {
+                        d.IdEstadoDetalle = 5;
+                        _context.DetalleAlquilerCancha.Update(d);
+                        _context.SaveChanges();
+                    }
                     try
                     {
                         var mensaje = new MimeMessage();
@@ -389,6 +403,11 @@ namespace BOCHAS.Controllers
                     var cancha = _context.Cancha.Where(c => c.Id == r.IdCancha).SingleOrDefault();
                     cancha.IdEstadoCancha = 1;
                     _context.Cancha.Update(cancha);
+                    if (r.IdEstadoDetalle == 2)
+                    {
+                        r.IdEstadoDetalle = 3;
+                    }
+                    
                     _context.SaveChanges();
                 }
                 TempData["Respuesta"] = "COMENZADO";

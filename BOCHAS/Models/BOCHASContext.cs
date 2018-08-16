@@ -16,6 +16,7 @@ namespace BOCHAS.Models
         public virtual DbSet<Empleado> Empleado { get; set; }
         public virtual DbSet<EstadoAlquiler> EstadoAlquiler { get; set; }
         public virtual DbSet<EstadoCancha> EstadoCancha { get; set; }
+        public virtual DbSet<EstadoDetalleAlquiler> EstadoDetalleAlquiler { get; set; }
         public virtual DbSet<Jugador> Jugador { get; set; }
         public virtual DbSet<Localidad> Localidad { get; set; }
         public virtual DbSet<Noticias> Noticias { get; set; }
@@ -32,9 +33,7 @@ namespace BOCHAS.Models
             if (!optionsBuilder.IsConfigured)
             {
 
-             //   optionsBuilder.UseSqlServer(@"Data Source=sistemas04;Initial Catalog=BOCHAS;User ID=bsp;Password=bochas");
-             //  optionsBuilder.UseSqlServer(@"Data Source=186.124.221.26,1433;Initial Catalog=BOCHAS;User ID=bsp;Password=bochas");
-              optionsBuilder.UseSqlServer(@"Data Source=sql5020.site4now.net;Initial Catalog=DB_A3F6C9_BOCHAS;User ID=DB_A3F6C9_BOCHAS_admin;Password=bochas2018");
+                optionsBuilder.UseSqlServer(@"Data Source=186.124.221.26,1433;Initial Catalog=BOCHAS;User ID=bsp;Password=bochas");
             }
         }
 
@@ -155,6 +154,12 @@ namespace BOCHAS.Models
                     .HasForeignKey(d => d.IdCancha)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Detalle_AlquilerCancha_Cancha");
+
+                entity.HasOne(d => d.IdEstadoDetalleNavigation)
+                    .WithMany(p => p.DetalleAlquilerCancha)
+                    .HasForeignKey(d => d.IdEstadoDetalle)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Detalle_AlquilerCancha_EstadoDetalleAlquiler");
             });
 
             modelBuilder.Entity<Domicilio>(entity =>
@@ -230,6 +235,17 @@ namespace BOCHAS.Models
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<EstadoDetalleAlquiler>(entity =>
+            {
+                entity.Property(e => e.Descripcion)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Nombre)
+                    .IsRequired()
+                    .HasColumnType("nchar(15)");
             });
 
             modelBuilder.Entity<Jugador>(entity =>

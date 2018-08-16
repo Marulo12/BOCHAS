@@ -10,8 +10,10 @@ namespace BOCHAS.Models
         public int IdCancha { get; set; }
         public TimeSpan HoraReservaHasta { get; set; }
         public int IdAlquilerCancha { get; set; }
+        public int IdEstadoDetalle { get; set; }
 
         public AlquilerCancha IdAlquilerCanchaNavigation { get; set; }
         public Cancha IdCanchaNavigation { get; set; }
+        public EstadoDetalleAlquiler IdEstadoDetalleNavigation { get; set; }
     }
 }
