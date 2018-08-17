@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace BOCHAS.APIS
 {
     [Produces("application/json")]
-    [Route("api/Personas")]
+    
     public class PersonasController : Controller
     {
         private readonly BOCHASContext _context;
@@ -27,7 +27,7 @@ namespace BOCHAS.APIS
         }
 
         // GET: api/Personas/5
-        [HttpGet("{id}")]
+        [HttpGet("api/Personas/GetJugador/{id}")]
         public async Task<IActionResult> GetJugador([FromRoute] int id)
         {
             var Jugador = (from p in _context.Persona
@@ -91,8 +91,8 @@ namespace BOCHAS.APIS
             return NoContent();
         }
 
-
-        [HttpPut]
+        
+        [HttpPut("api/Personas/ModificarPass")]
         public JsonResult ModificarPass([FromBody] ModContra contranueva)
         {
             var Usuario = _context.Usuario.Where(u => u.Persona.Any(p => p.Id == contranueva.IdJugador)).SingleOrDefault();

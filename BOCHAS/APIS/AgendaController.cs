@@ -10,7 +10,7 @@ using BOCHAS.Models;
 namespace BOCHAS.APIS
 {
     [Produces("application/json")]
-    [Route("api/Agenda")]
+    
     public class AgendaController : Controller
     {
         private readonly BOCHASContext _context;
@@ -21,8 +21,8 @@ namespace BOCHAS.APIS
         }
 
         //api/Agenda/datetime con formato yyyy-MM-dd
-        [Route("api/Agenda/VerHorariosOcupados")]
-        [HttpGet("{fecR}")]
+       
+        [HttpGet("api/Agenda/VerHorariosOcupados/{fecR}")]
         public JsonResult VerHorariosOcupados([FromRoute] DateTime fecR)
         {
 

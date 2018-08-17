@@ -303,9 +303,10 @@ function TraerCanchas() {
     }
 }
 function ComprobarCamposDates() {
-    var actual = new Date();
-    var f = new Date();
-    f = f.getHours() + ":" + f.getMinutes() 
+   
+   
+   
+
     if ($("#FecR").val() === "") {
         alertify.error("Complete el campo fecha de Reserva");
         return false;
@@ -329,13 +330,13 @@ function ComprobarCamposDates() {
         return false;
     }
    
-    if ($("#HD").val() < f && $("#FecR").val() ===  $("#FecP").val()) {
-        alertify.error("La hora desde no puede ser menor a la hora actual");
-        return false;
+    if ($("#FecR").val() === $("#FecP").val()) {
+        if ($("#HD").val() < $("#HR").val()) {
+            alertify.error("La hora desde no puede ser menor a la hora actual");
+            return false;
+        }
     }
-
     return true;
-
 }
 
 function ConsultaParticular() {
@@ -509,7 +510,7 @@ function generaRepo(numero) {
     $("#VisorPDF").css("display", "none");
     setTimeout(function () {
         $("#GeneraPDF").css("display", "none");
-        $("#VisorPDF").attr("src", "/AlquilerCanchas/ReporteReserva?Nreserva=" + numero);
+        $("#VisorPDF").attr("data", "/Reportes/ReporteReserva?Nreserva=" + numero);
         $("#VisorPDF").css("display", "inline-block");
         $("#VisorPDF").css("width", "100%");
         $("#VisorPDF").css("height", "500px");

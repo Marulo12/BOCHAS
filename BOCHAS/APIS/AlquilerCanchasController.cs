@@ -10,7 +10,7 @@ using BOCHAS.Models;
 namespace BOCHAS.APIS
 {
     [Produces("application/json")]
-    [Route("api/AlquilerCanchas")]
+    
     public class AlquilerCanchasController : Controller
     {
         private readonly BOCHASContext _context;
@@ -20,7 +20,7 @@ namespace BOCHAS.APIS
             _context = context;
         }
 
-        [HttpGet("{fecR}/{hd}/{hh}")]
+        [HttpGet("api/AlquilerCanchas/ComprobarDisponibilidad/{fecR}/{hd}/{hh}")]
         public JsonResult ComprobarDisponibilidad(string fecR, string hd, string hh)
         {
             var cancha = (from c in _context.Cancha join e in _context.EstadoCancha on c.IdEstadoCancha equals e.Id where e.Id == 1 || e.Id == 2 select new { Id = c.Id }).ToList();
@@ -129,7 +129,7 @@ namespace BOCHAS.APIS
         }
 
 
-        [HttpPost]
+        [HttpPost("api/AlquilerCanchas/RegistrarReserva")]
         public JsonResult RegistrarReserva([FromBody] RR reserva)
         {
 
@@ -185,7 +185,7 @@ namespace BOCHAS.APIS
 
         }
 
-        [HttpGet("{Usuario}")]
+        [HttpGet("api/AlquilerCanchas/ListadoReservasPorJugador/{Usuario}")]
         public async Task<JsonResult> ListadoReservasPorJugador([FromRoute] string Usuario)
         {
             int idCliente = (from u in _context.Usuario join p in _context.Persona on u.Id equals p.IdUsuario where u.Nombre == Usuario && p.Tipo == "JUGADOR" && p.FechaBaja == null select u).SingleOrDefault().Id;
@@ -193,8 +193,8 @@ namespace BOCHAS.APIS
             var alquiler = (from a in _context.AlquilerCancha join u in _context.Usuario on a.IdCliente equals u.Id join e in _context.EstadoAlquiler on a.IdEstado equals e.Id where u.Id == idCliente && a.IdEstado == 2 select new { Numero= a.Numero , FechaPedido = a.FechaPedido , FechaReserva = a.FechaReserva , Estado = e.Nombre }).ToListAsync();
             return Json(await alquiler);
         }
-       [Route("api/DetalleReserva")]
-        [HttpGet("{Numero}")]
+       
+        [HttpGet("api/AlquilerCanchas/DetalleReserva/{Numero}")]
         public async Task<JsonResult> DetalleReserva([FromRoute] int Numero)
         {
             int num = Numero;
