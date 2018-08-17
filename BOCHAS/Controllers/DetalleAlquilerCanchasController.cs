@@ -60,9 +60,7 @@ namespace BOCHAS.Controllers
             var agenda = _context.Agenda.Where(a => a.IdAlquilerCancha == detalle.IdAlquilerCancha && a.IdCancha == detalle.IdCancha).SingleOrDefault();
             _context.DetalleAlquilerCancha.Update(detalle);
             _context.Agenda.Remove(agenda);
-           
-              if (_context.SaveChanges() == 1)
-              {
+            _context.SaveChanges();
                   int cantidadCanceladas = 0;
                   foreach (var r in reserva.DetalleAlquilerCancha)
                   {
@@ -100,14 +98,10 @@ namespace BOCHAS.Controllers
                   }
 
               }
-              else
-              {
-                  TempData["Respuesta"] = "NO";
-                  return RedirectToAction("ConsultarReservas", "AlquilerCanchas", "");
-              }
+             
 
 
-        }
+        
 
     }
 
