@@ -56,12 +56,12 @@ namespace BOCHAS.APIS
                                IdTipoDoc = t.Id,
                                IdBarrio = b.Id,
                                IdLocalidad = l.Id,
-                               Imagen =  p.Imagen,
+                               Imagen = HttpContext.Request.Host + "/images/perfiles/jugadores/" + u.Nombre + "/" + p.Imagen,
                                Usuario = u.Nombre
 
         }).OrderBy(p => p.Nombre).OrderBy(p => p.Apellido);
 
-            return Json(await Jugador.ToListAsync());
+            return Json(await Jugador.SingleOrDefaultAsync());
 
 
         }
