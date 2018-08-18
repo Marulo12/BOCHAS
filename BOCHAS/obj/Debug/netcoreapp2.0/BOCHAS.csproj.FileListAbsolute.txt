@@ -86,3 +86,14 @@ C:\Users\mboscatto\Documents\GitHub\BOCHAS\BOCHAS\BOCHAS\obj\Debug\netcoreapp2.0
 C:\Users\mboscatto\Documents\GitHub\BOCHAS\BOCHAS\BOCHAS\obj\Debug\netcoreapp2.0\BOCHAS.AssemblyInfo.cs
 C:\Users\mboscatto\Documents\GitHub\BOCHAS\BOCHAS\BOCHAS\obj\Debug\netcoreapp2.0\BOCHAS.dll
 C:\Users\mboscatto\Documents\GitHub\BOCHAS\BOCHAS\BOCHAS\obj\Debug\netcoreapp2.0\BOCHAS.pdb
+C:\Users\sistemas\Documents\GitHub\BOCHAS\BOCHAS\bin\Debug\netcoreapp2.0\BOCHAS.deps.json
+C:\Users\sistemas\Documents\GitHub\BOCHAS\BOCHAS\bin\Debug\netcoreapp2.0\BOCHAS.runtimeconfig.json
+C:\Users\sistemas\Documents\GitHub\BOCHAS\BOCHAS\bin\Debug\netcoreapp2.0\BOCHAS.runtimeconfig.dev.json
+C:\Users\sistemas\Documents\GitHub\BOCHAS\BOCHAS\bin\Debug\netcoreapp2.0\BOCHAS.dll
+C:\Users\sistemas\Documents\GitHub\BOCHAS\BOCHAS\bin\Debug\netcoreapp2.0\BOCHAS.pdb
+C:\Users\sistemas\Documents\GitHub\BOCHAS\BOCHAS\obj\Debug\netcoreapp2.0\BOCHAS.csprojAssemblyReference.cache
+C:\Users\sistemas\Documents\GitHub\BOCHAS\BOCHAS\obj\Debug\netcoreapp2.0\BOCHAS.csproj.CoreCompileInputs.cache
+C:\Users\sistemas\Documents\GitHub\BOCHAS\BOCHAS\obj\Debug\netcoreapp2.0\BOCHAS.AssemblyInfoInputs.cache
+C:\Users\sistemas\Documents\GitHub\BOCHAS\BOCHAS\obj\Debug\netcoreapp2.0\BOCHAS.AssemblyInfo.cs
+C:\Users\sistemas\Documents\GitHub\BOCHAS\BOCHAS\obj\Debug\netcoreapp2.0\BOCHAS.dll
+C:\Users\sistemas\Documents\GitHub\BOCHAS\BOCHAS\obj\Debug\netcoreapp2.0\BOCHAS.pdb

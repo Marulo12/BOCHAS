@@ -1,7 +1,9 @@
 ﻿using BOCHAS.Models;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
@@ -13,7 +15,7 @@ namespace BOCHAS.APIS
     public class PersonasController : Controller
     {
         private readonly BOCHASContext _context;
-
+        
         public PersonasController(BOCHASContext context)
         {
             _context = context;
@@ -35,7 +37,8 @@ namespace BOCHAS.APIS
                            join t in _context.TipoDocumento on p.IdTipoDocumento equals t.Id
                            join b in _context.Barrio on d.IdBarrio equals b.Id
                            join l in _context.Localidad on d.IdLocalidad equals l.Id
-                           where p.Tipo.Contains("JUGADOR") && p.FechaBaja == null && p.Id == id
+                           join u in _context.Usuario on p.IdUsuario equals u.Id 
+                           where p.Tipo.Contains("JUGADOR") && p.FechaBaja == null && u.Id == id
                            select new
                            {
 
@@ -47,9 +50,16 @@ namespace BOCHAS.APIS
                                TipoDoc = t.Nombre,
                                Telefono = p.Telefono,
                                Localidad = l.Nombre,
-                               Barrio = b.Nombre
+                               Barrio = b.Nombre,
+                               Calle = d.Calle,
+                               Ncalle = d.Numero,
+                               IdTipoDoc = t.Id,
+                               IdBarrio = b.Id,
+                               IdLocalidad = l.Id,
+                               Imagen =  p.Imagen,
+                               Usuario = u.Nombre
 
-                           }).OrderBy(p => p.Nombre).OrderBy(p => p.Apellido);
+        }).OrderBy(p => p.Nombre).OrderBy(p => p.Apellido);
 
             return Json(await Jugador.ToListAsync());
 
