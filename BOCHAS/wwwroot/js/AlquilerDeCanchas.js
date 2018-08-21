@@ -112,6 +112,9 @@ $(document).ready(function () {
     if ($("#Respuesta").val() === "Cancelado") {
         alertify.success("Reserva Cancelada");
     }
+    if ($("#Respuesta").val() === "FINALIZADO") {
+        alertify.success("Reserva Finalizada!!");
+    }
     if ($("#Respuesta").val() === "NO") {
         alertify.error("Error en la operacion");
     }

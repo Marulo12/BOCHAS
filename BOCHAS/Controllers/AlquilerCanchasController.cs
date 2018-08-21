@@ -401,10 +401,11 @@ namespace BOCHAS.Controllers
                 foreach (var r in reserva.DetalleAlquilerCancha)
                 {
                     var cancha = _context.Cancha.Where(c => c.Id == r.IdCancha).SingleOrDefault();
-                    cancha.IdEstadoCancha = 1;
-                    _context.Cancha.Update(cancha);
+                  
                     if (r.IdEstadoDetalle == 2)
                     {
+                        cancha.IdEstadoCancha = 1;
+                        _context.Cancha.Update(cancha);
                         r.IdEstadoDetalle = 3;
                     }
                     
@@ -458,6 +459,49 @@ namespace BOCHAS.Controllers
 
             return Json(await Reserva);
     }
+
+
+        public IActionResult FinalizarReserva(int Nreserva)
+        {
+
+            var reserva = _context.AlquilerCancha.Include(a => a.DetalleAlquilerCancha).Where(a => a.Numero == Nreserva).SingleOrDefault();
+            reserva.IdEstado = 4;
+            reserva.IdEmpleado = (from p in _context.Persona join u in _context.Usuario on p.IdUsuario equals u.Id where u.Nombre == HttpContext.User.Identity.Name && p.Tipo == "EMPLEADO" && p.FechaBaja == null select u).SingleOrDefault().Id;
+            _context.AlquilerCancha.Update(reserva);
+            if (_context.SaveChanges() == 1)
+            {
+                var ag = _context.Agenda.Where(a => a.IdAlquilerCancha == Nreserva).ToList();
+                foreach (var a in ag)
+                {
+                    _context.Agenda.Remove(a);
+                    _context.SaveChanges();
+
+                }
+                foreach (var r in reserva.DetalleAlquilerCancha)
+                {
+                    var cancha = _context.Cancha.Where(c => c.Id == r.IdCancha).SingleOrDefault();
+                   
+                    if (r.IdEstadoDetalle == 3)
+                    {
+                        cancha.IdEstadoCancha = 2;
+                        _context.Cancha.Update(cancha);
+                        r.IdEstadoDetalle = 4;
+                    }
+
+                    _context.SaveChanges();
+                }
+                TempData["Respuesta"] = "FINALIZADO";
+                return RedirectToAction("ConsultarReservas");
+            }
+            else
+            {
+                TempData["Respuesta"] = "NO";
+                return RedirectToAction("ConsultarReservas");
+            }
+        }
+
+
+
 
     }
 

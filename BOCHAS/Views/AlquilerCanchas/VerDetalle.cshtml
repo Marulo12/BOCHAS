@@ -53,7 +53,7 @@
                                 <a class="btn btn-default btn-sm" asp-action="ComenzarCancha" asp-controller="DetalleAlquilerCanchas" asp-route-NDreserva="@item.Id" style="color:black;display:none" data-toggle="tooltip" title="Comenzar" ><i class="fas fa-play"></i></a>
                                 <a class="btn btn-danger btn-sm BtnCancelaR" asp-action="CancelarCancha" asp-controller="DetalleAlquilerCanchas" asp-route-NDreserva="@item.Id" style="color:white" data-toggle="tooltip" title="Cancelar"><i class="fas fa-ban"></i></a>
                                 break;
-                            case 3: <button class="btn btn-success btn-sm " style="display:none;"><a asp-action="Edit" asp-route-id="@item.Id" style="color:white;" data-toggle="tooltip" title="Finalizar"><i class="fas fa-stopwatch"></i></a></button>
+                            case 3: <label class="label label-primary">En Juego</label> 
                                 break;
                             case 4:
                                 break;

@@ -41,12 +41,19 @@
 <h3 style="padding-left:10px;">Detalle de la Reserva</h3>
                 
                 <table class="table" style="font-size:20px;background-color:white;color:black;">
-                    <thead><tr><td>Cancha</td><td>Descripcion</td><td>Hora Desde</td><td>Hora Hasta</td></tr></thead>
+                    <thead><tr><td>Cancha</td><td>Descripcion</td><td>Hora Desde</td><td>Hora Hasta</td><td></td></tr></thead>
                     <tbody>
-                        @{ 
+                        @{
                             foreach (var item in Model.DetalleAlquilerCancha)
-                            { 
-                                <tr><td>@db.Cancha.Where(c=>c.Id==item.IdCancha).Single().Numero</td><td>@db.Cancha.Where(c => c.Id == item.IdCancha).Single().Descripcion</td><td>@Html.DisplayFor(model => item.HoraReservaDesde)</td><td>@Html.DisplayFor(model => item.HoraReservaHasta)</td></tr>
+                            {
+                                if (item.IdEstadoDetalle == 5)
+                                {
+                                    <tr ><td style="text-decoration:line-through;">@db.Cancha.Where(c => c.Id == item.IdCancha).Single().Numero</td><td style="text-decoration:line-through;">@db.Cancha.Where(c => c.Id == item.IdCancha).Single().Descripcion</td><td style="text-decoration:line-through;">@Html.DisplayFor(model => item.HoraReservaDesde)</td><td style="text-decoration:line-through;">@Html.DisplayFor(model => item.HoraReservaHasta)</td><td><label class="label label-danger">Cancelado</label></td></tr>
+                                }
+                                else
+                                {
+                                    <tr><td>@db.Cancha.Where(c => c.Id == item.IdCancha).Single().Numero</td><td>@db.Cancha.Where(c => c.Id == item.IdCancha).Single().Descripcion</td><td>@Html.DisplayFor(model => item.HoraReservaDesde)</td><td>@Html.DisplayFor(model => item.HoraReservaHasta)</td><td></td></tr>
+                                }
 
                             }
 
