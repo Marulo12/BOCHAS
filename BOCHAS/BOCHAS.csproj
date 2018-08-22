@@ -25,4 +25,10 @@
     <Folder Include="wwwroot\Rotativa\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Views\Reportes\ReporteReserva.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+  </ItemGroup>
+
 </Project>

@@ -1,0 +1,90 @@
+﻿@model IEnumerable<BOCHAS.Models.AlquilerCancha>
+
+
+
+<table id="TablaReservasConsP" class="table table-striped" style="width:100%;margin-left:0px;margin-right:0px;">
+    <thead style="background-color: rgba(158, 44, 44, 0.9);color:white;">
+        <tr>
+            <th>Numero Reserva</th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaReserva)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaPedido)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.FechaCancelacion)
+            </th>
+            <th>
+                Jugador
+            </th>
+
+            <th>
+                Estado
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Numero)</td>
+                <td>
+                    @item.FechaReserva.Value.Date.ToString("dd/MM/yyyy")
+
+                </td>
+                <td>
+                    @item.FechaPedido.Value.Date.ToString("dd/MM/yyyy")
+                </td>
+
+                <td>
+                    @{ if (item.FechaCancelacion != null)
+                        { @item.FechaCancelacion.Value.Date.ToString("dd/MM/yyyy")} }
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdClienteNavigation.Persona.Where(p => p.IdUsuario == item.IdClienteNavigation.Id).SingleOrDefault().Nombre),@Html.DisplayFor(modelItem => item.IdClienteNavigation.Persona.Where(p => p.IdUsuario == item.IdClienteNavigation.Id).SingleOrDefault().Apellido)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdEstadoNavigation.Nombre)
+                </td>
+                <td style="width:200px;">
+                    <div class="btn-group form-group" style="padding:0px;margin:0px;">
+                        <button class="btn btn-info btn-sm" onclick="VerDetalleReserva(@item.Numero)" data-toggle="tooltip" title="Ver Detalle"><i class="fas fa-info-circle"></i></button>
+                        @{
+                            switch (item.IdEstado)
+                            {
+                                case 1: <a class="btn btn-success btn-sm confirm" asp-action="ConfirmarReserva" asp-controller="AlquilerCanchas" asp-route-Nreserva="@item.Numero" data-toggle="tooltip" title="Confirmar"><i class="fas fa-check"></i></a>
+                                    <a class="btn btn-danger btn-sm BtnCancelaR" asp-action="CancelarReserva" asp-controller="AlquilerCanchas" asp-route-Nreserva="@item.Numero" style="color:white" data-toggle="tooltip" title="Cancelar"><i class="fas fa-ban"></i></a>
+                                    break;
+                                case 2:
+                                    <a class="btn btn-default btn-sm" asp-action="ComenzarReserva" asp-controller="AlquilerCanchas" asp-route-Nreserva="@item.Numero"  style="color:black" data-toggle="tooltip"  title="Comenzar"><i class="fas fa-play"></i></a>
+                                    <a  class="btn btn-danger btn-sm BtnCancelaR" asp-action="CancelarReserva" asp-controller="AlquilerCanchas" asp-route-Nreserva="@item.Numero" data-toggle="tooltip" style="color:white" title="Cancelar"><i class="fas fa-ban"></i></a>
+                                    break;
+                                case 3: <button class="btn btn-success btn-sm "><a asp-action="Edit" asp-route-id="@item.Numero" style="color:white" data-toggle="tooltip" title="Finalizar"><i class="fas fa-stopwatch"></i></a></button>
+                                    break;
+                                case 4:
+                                    break;
+                                case 5:
+                                    break;
+                            }
+                        }
+                        <a class="btn btn-primary btn-sm " data-toggle="tooltip" title="Generar Reporte" onclick="generaRepo(@item.Numero)"><i class="fas fa-download"></i></a>
+
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+<script>
+    $(".BtnCancelaR").click(function (event) {
+        $("#ModalMail").modal();
+    });
+    $('[data-toggle="tooltip"]').tooltip(); 
+</script>

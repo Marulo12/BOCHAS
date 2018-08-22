@@ -1,0 +1,347 @@
+﻿@using Microsoft.AspNetCore.Authentication;
+@using Microsoft.AspNetCore.Authentication.Cookies;
+@using Microsoft.AspNetCore.Http;
+@using BOCHAS.Models;
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BOCHAS PADEL</title>
+   
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+        <link href="~/lib/fontawesome-free-5.1.0-web/fontawesome-free-5.1.0-web/css/all.css" rel="stylesheet" />
+        <link href="~/lib/DataTables/datatables.css" rel="stylesheet" />
+        <link href="~/lib/DataTables/DataTables-1.10.16/css/dataTables.bootstrap.css" rel="stylesheet" />
+        <link href="~/lib/Alertify/alertify.css" rel="stylesheet" />
+        <link href="~/lib/Alertify/themes/bootstrap.css" rel="stylesheet" />
+        <link href="~/Menu/assets/vendor/pace/themes/red/pace-theme-minimal.css" rel="stylesheet" />
+        <link rel="stylesheet" href="~/Menu/assets/vendor/linearicons/style.css">
+        <link rel="stylesheet" href="~/Menu/assets/vendor/chartist/css/chartist-custom.css">
+        <link rel="stylesheet" href="~/Menu/assets/css/main.css">
+        <link rel="apple-touch-icon" sizes="76x76" href="~/images/LogoBochas.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="~/images/LogoBochas.png">
+        <link href="~/lib/fullcalendar/dist/fullcalendar.css" rel="stylesheet" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+
+        <link href="~/lib/fontawesome-free-5.1.0-web/fontawesome-free-5.1.0-web/css/all.css" rel="stylesheet" />
+        <link href="~/lib/DataTables/datatables.min.css" rel="stylesheet" />
+        <link href="~/Menu/assets/vendor/pace/themes/red/pace-theme-minimal.css" rel="stylesheet" />
+        <link rel="stylesheet" href="~/Menu/assets/vendor/linearicons/style.css">
+        <link rel="stylesheet" href="~/Menu/assets/vendor/chartist/css/chartist-custom.css">
+        <link rel="stylesheet" href="~/Menu/assets/css/main.css">
+        <link rel="apple-touch-icon" sizes="76x76" href="~/images/LogoBochas.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="~/images/LogoBochas.png">
+        <link href="~/lib/Alertify/alertify.css" rel="stylesheet" />
+        <link href="~/lib/Alertify/themes/bootstrap.css" rel="stylesheet" />
+        <link href="~/lib/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet" />
+    </environment>
+</head>
+
+<body>
+
+    <div id="wrapper">
+        <!-- NAVBAR -->
+        <nav class="navbar navbar-default navbar-fixed-top" style="background: linear-gradient(148deg, rgba(249,246,246,1) 0%, rgba(11,115,180,1) 43%);">
+            <div class="navbar-brand" style="padding:10px;padding-top:0px;">
+                <img src="~/images/LogoBochas.png" alt="Klorofil Logo" class="img-responsive logo" width="56" style="margin-top:3px;">
+            </div>
+            <div class="container-fluid">
+                <div class="navbar-btn">
+                    <button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
+                </div>
+
+
+                <div id="navbar-menu">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
+                                <i class="lnr lnr-alarm" style="color:white;"></i>
+                                <span id="SpanNotifica" class="badge bg-danger">4<span class="waves"></span></span>
+                            </a>
+                            <ul class="dropdown-menu notifications">
+                                <li><a href="#" class="notification-item"><span class="dot bg-warning"></span>System space is almost full</a></li>
+                                <li><a href="#" class="notification-item"><span class="dot bg-danger"></span>You have 9 unfinished tasks</a></li>
+                                <li><a href="#" class="notification-item"><span class="dot bg-success"></span>Monthly report is available</a></li>
+                                <li><a href="#" class="notification-item"><span class="dot bg-warning"></span>Weekly meeting in 1 hour</a></li>
+                                <li><a href="#" class="notification-item"><span class="dot bg-success"></span>Your request has been approved</a></li>
+                                <li><a href="#" class="more">See all notifications</a></li>
+
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
+                                <i class="lnr lnr-inbox" style="color:white;"></i>
+                                <span class="badge bg-danger"><label id="Lreserva"><i class="fas fa-sync fa-spin"></i></label>  <span class="waves"></span></span>
+                            </a>
+                            <ul id="Listareserva" class="dropdown-menu notifications">
+                               
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            @{ if (User.Identity.IsAuthenticated)
+                                {
+
+                                    BOCHASContext db = new BOCHASContext();
+                                    var perfil = db.Persona.SingleOrDefault(p => p.IdUsuarioNavigation.Nombre == User.Identity.Name && p.FechaBaja == null);
+                                    if (perfil.Imagen == null)
+                                    {
+
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img src="~/images/usuarioSinfond.png" class="img-circle" alt="Avatar" width="25"><span style="color:white;font-size:15px;"> @User.Identity.Name</span> </a>
+                                    }
+                                    else
+                                    {
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img src="~/images/perfiles/empleados/@User.Identity.Name/@perfil.Imagen" class="img-circle" alt="Avatar" width="40" height="37"><span style="color:white;font-size:15px;"> @User.Identity.Name</span> </a>
+
+                                    }
+                                    <input id="UsuarioConectado" type="text" value="@User.Identity.Name" style="display:none" />
+
+                                }
+
+                            }
+                            <ul class="dropdown-menu">
+                                <li><a id="BtnPerfil" href="#"><i class="lnr lnr-user"></i> <span>Mi Perfil</span></a></li>
+                                <li><a asp-action="AgregarImagenPerfil" asp-controller="Personas"><i class="far fa-user-circle"></i> <span>&nbsp;&nbsp;Imagen de perfil</span></a></li>
+                                <li><a href="#" data-toggle="modal" data-target="#ModalContraseña"><i class="lnr lnr-cog"></i> <span>Cambiar Contraseña</span></a></li>
+                                <li><a asp-action="Logout" asp-controller="Usuarios"><i class="lnr lnr-exit"></i> <span>Salir</span></a></li>
+
+                            </ul>
+
+                        </li>
+
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+        <!-- END NAVBAR -->
+        <!-- LEFT SIDEBAR -->
+        <div id="sidebar-nav" class="sidebar" style="width:160px;background-position:top;background-repeat:no-repeat;background-size:cover;background:linear-gradient(151deg, rgba(2,0,36,1) 25%, rgba(60,60,60,1) 56%, rgba(68,23,23,1) 100%);">
+            <div style="height:100%;">
+                <nav style="height:100%;">
+                    <ul class="nav">
+                        <li><img src="~/images/extras/padel.png" width="35" style="margin-left:10%;margin-bottom:8%;" />&nbsp;<label style="color:white;font-size:20px;">Menú</label></li>
+                        <li style="margin-top:0px;border-bottom:1px solid white;border-top:1px solid white;"><a asp-action="Index" asp-controller="Home" class="active"><i class="lnr lnr-home"></i> <span>Escritorio</span></a></li>
+                        <li><a asp-action="Index" asp-controller="Agenda" class=""><i class="far fa-calendar-alt"></i><span> &nbsp;&nbsp;Agenda</span></a></li>
+                        <li>
+                            <a href="#subPagesReservas" data-toggle="collapse" class="collapsed"><i class="fas fa-clipboard-list"></i> <span>&nbsp;&nbsp;Reservas</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                            <div id="subPagesReservas" class="collapse ">
+                                <ul class="nav">
+                                    <li><a asp-action="NuevaReserva" asp-controller="AlquilerCanchas" class=""><i class="fas fa-plus"></i>&nbsp;&nbsp;Nueva Reserva</a></li>
+                                    <li><a asp-action="ConsultarReservas" asp-controller="AlquilerCanchas" class=""><i class="fas fa-list"></i>&nbsp;&nbsp;Consultar Reservas</a></li>
+                                    <li><a asp-action="Index" asp-controller="AlquilerCanchas" class=""><i class="fab fa-searchengin"></i>&nbsp;&nbsp;Consulta Particular</a></li>
+
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="#subPagesJugadores" data-toggle="collapse" class="collapsed"><i class="fas fa-user-shield"></i><span>&nbsp;&nbsp;Jugadores</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                            <div id="subPagesJugadores" class="collapse ">
+                                <ul class="nav">
+                                    <li><a asp-action="RegistrarJugador" asp-controller="Personas"> <i class="fas fa-user-plus"></i>&nbsp;&nbsp;Nuevo Jugador</a></li>
+                                    <li><a asp-controller="Personas" asp-action="ConsultarJugador"> <i class="fas fa-user-edit"></i>&nbsp;&nbsp;Consultar activos</a></li>
+                                    <li><a asp-controller="Personas" asp-action="MostrarJugadorBajas"> <i class="fas fa-user-times"></i>&nbsp;&nbsp;Consultar Bajas</a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+
+
+                        <li>
+                            <a href="#subPages" data-toggle="collapse" class="collapsed"><i class="fas fa-users"></i> <span>&nbsp;&nbsp;Clases</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                            <div id="subPages" class="collapse ">
+                                <ul class="nav">
+                                    <li><a href="page-profile.html" class="">Profile</a></li>
+                                    <li><a href="page-login.html" class="">Login</a></li>
+                                    <li><a href="page-lockscreen.html" class="">Lockscreen</a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+
+                        <li>
+                            <a href="#subPagesTorneos" data-toggle="collapse" class="collapsed"><i class="fas fa-trophy"></i> <span>&nbsp;&nbsp;Torneos</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                            <div id="subPagesTorneos" class="collapse ">
+                                <ul class="nav">
+                                    <li><a href="page-profile.html" class="">Profile</a></li>
+                                    <li><a href="page-login.html" class="">Login</a></li>
+                                    <li><a href="page-lockscreen.html" class="">Lockscreen</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li><a asp-action="NuevaCancha" asp-controller="Canchas" class=""><i class="fab fa-codepen"></i> <span>&nbsp;&nbsp;Canchas</span></a></li>
+                        <li>
+                            <a href="#subPagesEmpleados" data-toggle="collapse" class="collapsed"><i class="fa fa-fw fa-user-tie"></i><span>&nbsp;&nbsp;Empleados</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                            <div id="subPagesEmpleados" class="collapse ">
+                                <ul class="nav">
+                                    <li><a asp-action="RegistrarEmpleado" asp-controller="Personas"> <i class="fas fa-user-plus"></i>&nbsp;&nbsp;Nuevo Empleado</a></li>
+                                    <li><a asp-controller="Personas" asp-action="ConsultarEmpleado"> <i class="fas fa-user-edit"></i>&nbsp;&nbsp;Consultar activos</a></li>
+                                    <li><a asp-controller="Personas" asp-action="MostrarEmpleadoBajas"> <i class="fas fa-user-times"></i>&nbsp;&nbsp;Consultar Bajas</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="#subPagesReportes" data-toggle="collapse" class="collapsed"><i class="fas fa-file-alt"></i> <span>&nbsp;&nbsp;&nbsp;&nbsp;Reportes</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                            <div id="subPagesReportes" class="collapse ">
+                                <ul class="nav">
+                                    <li><a href="page-profile.html" class="">Profile</a></li>
+                                    <li><a href="page-login.html" class="">Login</a></li>
+                                    <li><a href="page-lockscreen.html" class="">Lockscreen</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li><a href="charts.html"><i class="lnr lnr-chart-bars"></i><span>Estadísticas</span></a></li>
+                       
+                        <li><a asp-action="Index" asp-controller="Sessions"><i class="fab fa-algolia"></i> <span>&nbsp;&nbsp;Sessiones</span></a></li>
+
+                        <li><a href="icons.html" class=""><i class="fas fa-book"></i><span>&nbsp;&nbsp;Ayuda</span></a></li>
+                    </ul>
+
+                </nav>
+
+            </div>
+        </div>
+
+        <!-- END LEFT SIDEBAR -->
+        <!-- MAIN -->
+        <div class="main">
+            <!-- MAIN CONTENT -->
+            <div class="main-content">
+                <div class="container-fluid">
+                    <!-- OVERVIEW -->
+                    @RenderBody()
+                    
+                </div>
+            </div>
+            <!-- END MAIN CONTENT -->
+        </div>
+        <!-- END MAIN -->
+
+    </div>
+   
+   
+
+    <div id="ModalContraseña" class="modal fade" role="dialog">
+        <div class="modal-dialog ">
+
+
+            <div class="modal-content">
+                <div class="modal-header " style="background: linear-gradient(to right, rgba(69,117,214,1) 0%, rgba(55,119,219,1) 2%, rgba(21,123,232,1) 7%, rgba(228,238,240,1) 94%, rgba(228,238,240,1) 100%);">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" style="color:white;"><i class="fas fa-key"></i>   Cambiar contraseña</h4>
+                </div>
+                <div class="modal-body" style="padding-left:40px;">
+
+                    <div class="row">
+                        <div class="col-sm-4"><label>Contraseña actual:</label></div><div class="col-sm-6"><input id="PassActual" type="password" class="form-control" style="float:left" /></div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-4"><label>Nueva Contraseña:</label></div><div class="col-sm-6"><input id="PassNuevo" type="password" class="form-control" style="float:left" /></div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-4"><label>Confirmar Contraseña:</label></div><div class="col-sm-6"><input id="PassConfirma" type="password" class="form-control" style="float:left" /></div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <div class="col-sm-11" style="float:right;">
+                        <input id="BtnCambiaContra" type="button" class="btn btn-info" value="Aceptar" />
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="ModalPerfil" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+
+            <div class="modal-content ">
+                <div class="modal-header " style="background: linear-gradient(to right, rgba(69,117,214,1) 0%, rgba(55,119,219,1) 2%, rgba(21,123,232,1) 7%, rgba(228,238,240,1) 94%, rgba(228,238,240,1) 100%);">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h2 class="modal-title" style="color:white;"><i class="far fa-2x  fa-address-card"></i>&nbsp;&nbsp;Mi Perfil</h2>
+                </div>
+                <div id="BodyPerfil" class="modal-body" style="font-size:17px;padding-left:18px;">
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <div class="col-sm-11">
+
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <environment include="Development">
+
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+        <script src="~/lib/Alertify/alertify.js"></script>
+        <script src="~/lib/DataTables/datatables.js"></script>
+        <script src="~/lib/DataTables/DataTables-1.10.16/js/dataTables.bootstrap.js"></script>
+        <script src="~/Menu/assets/vendor/pace/pace.js"></script>
+        <script src="~/Menu/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+        <script src="~/Menu/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
+        <script src="~/Menu/assets/vendor/chartist/js/chartist.min.js"></script>
+        <script src="~/Menu/assets/scripts/klorofil-common.js"></script>
+        <script src="~/js/Usuarios.js"></script>
+        <script src="~/lib/fontawesome-free-5.1.0-web/fontawesome-free-5.1.0-web/js/all.js"></script>
+        <script src="~/lib/moment/moment.js"></script>
+        <script src="~/lib/fullcalendar/dist/fullcalendar.min.js"></script>
+        <script src="~/lib/fullcalendar/dist/locale/es.js"></script>
+        <script src="~/lib/signalr/jquery.signalR.js"></script>
+        @section hub{
+            <script src="signalr/hubs"></script>}
+        <script src="~/js/NotificaReservasyNotas.js"></script>
+    </environment>
+    <environment exclude="Development">
+
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+        </script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+        <script src="~/lib/DataTables/datatables.min.js"></script>
+        <script src="~/lib/DataTables/DataTables-1.10.16/js/dataTables.bootstrap.js"></script>
+        <script src="~/Menu/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+        <script src="~/Menu/assets/vendor/chartist/js/chartist.min.js"></script>
+        <script src="~/Menu/assets/vendor/jquery.easy-pie-chart/easypiechart.js"></script>
+        <script src="~/Menu/assets/scripts/klorofil-common.js"></script>
+        <script src="~/Menu/assets/vendor/pace/pace.js"></script>
+        <script src="~/lib/Alertify/alertify.js"></script>
+        <script src="~/js/Usuarios.js"></script>
+        <script src="~/lib/fontawesome-free-5.1.0-web/fontawesome-free-5.1.0-web/js/all.js"></script>
+        <script src="~/lib/moment/min/moment.min.js"></script>
+        <script src="~/lib/fullcalendar/dist/fullcalendar.min.js"></script>
+        <script src="~/lib/fullcalendar/dist/locale/es.js"></script>
+        <script src="~/lib/signalr/jquery.signalR.js"></script>
+     @section hub{   <script src="signalr/hubs"></script>}
+        <script src="~/js/NotificaReservasyNotas.js"></script>
+    </environment>
+   
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

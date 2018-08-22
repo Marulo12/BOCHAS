@@ -112,6 +112,9 @@ $(document).ready(function () {
     if ($("#Respuesta").val() === "Cancelado") {
         alertify.success("Reserva Cancelada");
     }
+    if ($("#Respuesta").val() === "FINALIZADO") {
+        alertify.success("Reserva Finalizada!!");
+    }
     if ($("#Respuesta").val() === "NO") {
         alertify.error("Error en la operacion");
     }
@@ -303,9 +306,10 @@ function TraerCanchas() {
     }
 }
 function ComprobarCamposDates() {
-    var actual = new Date();
-    var f = new Date();
-    f = f.getHours() + ":" + f.getMinutes() 
+   
+   
+   
+
     if ($("#FecR").val() === "") {
         alertify.error("Complete el campo fecha de Reserva");
         return false;
@@ -329,13 +333,13 @@ function ComprobarCamposDates() {
         return false;
     }
    
-    if ($("#HD").val() < f && $("#FecR").val() ===  $("#FecP").val()) {
-        alertify.error("La hora desde no puede ser menor a la hora actual");
-        return false;
+    if ($("#FecR").val() === $("#FecP").val()) {
+        if ($("#HD").val() < $("#HR").val()) {
+            alertify.error("La hora desde no puede ser menor a la hora actual");
+            return false;
+        }
     }
-
     return true;
-
 }
 
 function ConsultaParticular() {
@@ -413,7 +417,7 @@ function ConsultaParticular() {
 
         }); 
 }
-function VerDetalleReserva(numero) {
+function VerDetalleMiReserva(numero) {
     $("#ModalDetalleReserva").modal();
     $.ajax({
         type: "GET",
@@ -457,7 +461,50 @@ function VerDetalleReserva(numero) {
     });
 
 }
+function VerDetalleReserva(numero) {
+    $("#ModalDetalleReserva").modal();
+    $.ajax({
+        type: "GET",
+        data: { numero },
+        url: "/AlquilerCanchas/VerDetalle",
+        success: function (response) {
+            $("#DetalleReservaBody").html(response);
+            $("#TablaDetalleReserva").DataTable({
+                searching: true,
+                lengthMenu: [5, 10, 20, 75, 100],
+                responsive: true,
+                search: "Filtro&nbsp;:",
 
+
+                language: {
+                    processing: "Procesando",
+                    search: "Filtro&nbsp;:",
+                    info: "",
+                    infoEmpty: "",
+                    infoFiltered: "",
+                    zeroRecords: "Ningun registro coincide",
+                    lengthMenu: "Mostrar _MENU_ registros",
+                    infoPostFix: "",
+                    loadingRecords: "Cargando...",
+                    emptyTable: "No hay registros",
+                    paginate: {
+                        first: "Primero",
+                        previous: "Anterior",
+                        next: "Siguiente",
+                        last: "Ultimo"
+                    }
+                }
+            }
+            );
+
+        },
+        failure: function (response) {
+            alert(response);
+        }
+
+    });
+
+}
 
 function generaRepo(numero) {
     $("#ModalPdf").modal();
@@ -466,7 +513,7 @@ function generaRepo(numero) {
     $("#VisorPDF").css("display", "none");
     setTimeout(function () {
         $("#GeneraPDF").css("display", "none");
-        $("#VisorPDF").attr("src", "/AlquilerCanchas/ReporteReserva?Nreserva=" + numero);
+        $("#VisorPDF").attr("data", "/Reportes/ReporteReserva?Nreserva=" + numero);
         $("#VisorPDF").css("display", "inline-block");
         $("#VisorPDF").css("width", "100%");
         $("#VisorPDF").css("height", "500px");

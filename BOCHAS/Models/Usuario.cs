@@ -9,6 +9,7 @@ namespace BOCHAS.Models
         {
             AlquilerCanchaIdClienteNavigation = new HashSet<AlquilerCancha>();
             AlquilerCanchaIdEmpleadoNavigation = new HashSet<AlquilerCancha>();
+            Cobro = new HashSet<Cobro>();
             Persona = new HashSet<Persona>();
             Session = new HashSet<Session>();
         }
@@ -19,6 +20,7 @@ namespace BOCHAS.Models
 
         public ICollection<AlquilerCancha> AlquilerCanchaIdClienteNavigation { get; set; }
         public ICollection<AlquilerCancha> AlquilerCanchaIdEmpleadoNavigation { get; set; }
+        public ICollection<Cobro> Cobro { get; set; }
         public ICollection<Persona> Persona { get; set; }
         public ICollection<Session> Session { get; set; }
     }

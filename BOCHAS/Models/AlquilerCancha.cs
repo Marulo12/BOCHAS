@@ -21,6 +21,7 @@ namespace BOCHAS.Models
         public int? IdCobro { get; set; }
 
         public Usuario IdClienteNavigation { get; set; }
+        public Cobro IdCobroNavigation { get; set; }
         public Usuario IdEmpleadoNavigation { get; set; }
         public EstadoAlquiler IdEstadoNavigation { get; set; }
         public ICollection<Agenda> Agenda { get; set; }

@@ -1,0 +1,113 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>BOCHAS PADEL</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="~/images/LogoBochas.png" />
+    <!--===============================================================================================-->
+
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <!--===============================================================================================-->
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Login/fonts/iconic/css/material-design-iconic-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Login/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+
+    <link href="~/lib/fontawesome-free-5.1.0-web/fontawesome-free-5.1.0-web/css/all.css" rel="stylesheet" />
+    <link href="~/lib/fontawesome-free-5.1.0-web/fontawesome-free-5.1.0-web/css/fontawesome.css" rel="stylesheet" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Login/vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Login/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Login/vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Login/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/Login/css/main.css">
+
+    <!--===============================================================================================-->
+</head>
+<body>
+
+
+    <div class="limiter">
+        <div class="container-login100">
+
+            <div class="wrap-login100">
+                <form class="login100-form validate-form" asp-action="ValidarUsuario" asp-controller="Usuarios">
+                    <span class="login100-form-title p-b-10">
+                        <img class="img-fluid" src="~/images/extras/padel3.png" width="150" style="z-index:10000;position:absolute;margin-top:110px;margin-right:300px;margin-left:-120px;" />
+                    </span>
+                    <span class="login100-form-title p-b-10">
+                        <img class="img-fluid" src="~/images/LogoBochas.png" width="150" />
+                    </span>
+
+                    <div class="wrap-input100  validate-input" data-validate="Ingrese el nombre de usuario">
+                        <input class="input100" type="text" name="Usuario">
+                        <span class="focus-input100" data-placeholder="Usuario"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate="Ingrese la contraseña">
+                        <span class="btn-show-pass">
+                            <i class="zmdi zmdi-eye"></i>
+                        </span>
+                        <input class="input100" type="password" name="Contra">
+                        <span class="focus-input100" data-placeholder="Contraseña"></span>
+                    </div>
+
+                    <div class="container-login100-form-btn">
+                        <div class="wrap-login100-form-btn">
+                            <div class="login100-form-bgbtn"></div>
+                            <input type="submit" class="login100-form-btn bg-alizarin" value="Login" />
+                        </div>
+                        <div class="label text-danger mt-4">@TempData["Mensaje"]</div>
+
+                    </div>
+
+                    <div class="text-center p-t-20">
+                        <span class="txt1">
+                            Todavía no estas registrado?
+                        </span>
+
+                        <a class="txt2" asp-action="NuevoJugador" asp-controller="InscripcionCuentaJugador">
+                            Crear Cuenta
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="dropDownSelect1"></div>
+   
+    <!--===============================================================================================-->
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Login/vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Login/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Login/vendor/daterangepicker/moment.min.js"></script>
+    <script src="~/Login/vendor/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Login/vendor/countdowntime/countdowntime.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Login/js/main.js"></script>
+    <script src="~/lib/fontawesome-free-5.1.0-web/fontawesome-free-5.1.0-web/js/all.js"></script>
+
+</body>
+</html>
