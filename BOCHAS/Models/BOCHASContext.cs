@@ -11,7 +11,10 @@ namespace BOCHAS.Models
         public virtual DbSet<Barrio> Barrio { get; set; }
         public virtual DbSet<Cancha> Cancha { get; set; }
         public virtual DbSet<Cargo> Cargo { get; set; }
+        public virtual DbSet<Cobro> Cobro { get; set; }
         public virtual DbSet<DetalleAlquilerCancha> DetalleAlquilerCancha { get; set; }
+        public virtual DbSet<DetalleCobro> DetalleCobro { get; set; }
+        public virtual DbSet<DetalleServicios> DetalleServicios { get; set; }
         public virtual DbSet<Domicilio> Domicilio { get; set; }
         public virtual DbSet<Empleado> Empleado { get; set; }
         public virtual DbSet<EstadoAlquiler> EstadoAlquiler { get; set; }
@@ -19,8 +22,11 @@ namespace BOCHAS.Models
         public virtual DbSet<EstadoDetalleAlquiler> EstadoDetalleAlquiler { get; set; }
         public virtual DbSet<Jugador> Jugador { get; set; }
         public virtual DbSet<Localidad> Localidad { get; set; }
+        public virtual DbSet<MediodePago> MediodePago { get; set; }
         public virtual DbSet<Noticias> Noticias { get; set; }
         public virtual DbSet<Persona> Persona { get; set; }
+        public virtual DbSet<Servicio> Servicio { get; set; }
+        public virtual DbSet<ServiciosAdicionales> ServiciosAdicionales { get; set; }
         public virtual DbSet<Session> Session { get; set; }
         public virtual DbSet<Tarjeta> Tarjeta { get; set; }
         public virtual DbSet<TipoDocumento> TipoDocumento { get; set; }
@@ -32,9 +38,10 @@ namespace BOCHAS.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-              //    optionsBuilder.UseSqlServer(@"Data Source=186.124.221.26,1433;Initial Catalog=BOCHAS;User ID=bsp;Password=bochas");
+
+                //    optionsBuilder.UseSqlServer(@"Data Source=186.124.221.26,1433;Initial Catalog=BOCHAS;User ID=bsp;Password=bochas");
                 optionsBuilder.UseSqlServer(@"Data Source=sql5020.site4now.net;Initial Catalog=DB_A3F6C9_BOCHAS;User ID=DB_A3F6C9_BOCHAS_admin;Password=bochas2018");
-             //  optionsBuilder.UseSqlServer(@"Data Source=sistemas04;Initial Catalog=BOCHAS;User ID=bsp;Password=bochas");
+                //  optionsBuilder.UseSqlServer(@"Data Source=sistemas04;Initial Catalog=BOCHAS;User ID=bsp;Password=bochas");
             }
         }
 
@@ -81,6 +88,11 @@ namespace BOCHAS.Models
                     .HasForeignKey(d => d.IdCliente)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Alquiler_Cancha_Usuario1");
+
+                entity.HasOne(d => d.IdCobroNavigation)
+                    .WithMany(p => p.AlquilerCancha)
+                    .HasForeignKey(d => d.IdCobro)
+                    .HasConstraintName("FK_Alquiler_Cancha_Cobro");
 
                 entity.HasOne(d => d.IdEmpleadoNavigation)
                     .WithMany(p => p.AlquilerCanchaIdEmpleadoNavigation)
@@ -138,6 +150,32 @@ namespace BOCHAS.Models
                     .HasMaxLength(50);
             });
 
+            modelBuilder.Entity<Cobro>(entity =>
+            {
+                entity.HasKey(e => e.Numero);
+
+                entity.Property(e => e.Fecha).HasColumnType("date");
+
+                entity.Property(e => e.MontoTotal).HasColumnType("money");
+
+                entity.HasOne(d => d.IdMedioPagoNavigation)
+                    .WithMany(p => p.Cobro)
+                    .HasForeignKey(d => d.IdMedioPago)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Cobro_MediodePago");
+
+                entity.HasOne(d => d.IdTarjetaNavigation)
+                    .WithMany(p => p.Cobro)
+                    .HasForeignKey(d => d.IdTarjeta)
+                    .HasConstraintName("FK_Cobro_Tarjeta");
+
+                entity.HasOne(d => d.IdUsuarioNavigation)
+                    .WithMany(p => p.Cobro)
+                    .HasForeignKey(d => d.IdUsuario)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Cobro_Usuario");
+            });
+
             modelBuilder.Entity<DetalleAlquilerCancha>(entity =>
             {
                 entity.ToTable("Detalle_AlquilerCancha");
@@ -161,6 +199,41 @@ namespace BOCHAS.Models
                     .HasForeignKey(d => d.IdEstadoDetalle)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Detalle_AlquilerCancha_EstadoDetalleAlquiler");
+            });
+
+            modelBuilder.Entity<DetalleCobro>(entity =>
+            {
+                entity.Property(e => e.IdNumeroCobro).HasColumnName("Id_NumeroCobro");
+
+                entity.Property(e => e.Monto).HasColumnType("money");
+
+                entity.HasOne(d => d.IdNumeroCobroNavigation)
+                    .WithMany(p => p.DetalleCobro)
+                    .HasForeignKey(d => d.IdNumeroCobro)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_DetalleCobro_Cobro");
+
+                entity.HasOne(d => d.IdServicioNavigation)
+                    .WithMany(p => p.DetalleCobro)
+                    .HasForeignKey(d => d.IdServicio)
+                    .HasConstraintName("FK_DetalleCobro_Servicio");
+            });
+
+            modelBuilder.Entity<DetalleServicios>(entity =>
+            {
+                entity.Property(e => e.Cantidad).HasColumnName("cantidad");
+
+                entity.HasOne(d => d.IdServicioNavigation)
+                    .WithMany(p => p.DetalleServicios)
+                    .HasForeignKey(d => d.IdServicio)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_DetalleServicios_Servicio");
+
+                entity.HasOne(d => d.IdServiciosAdicionalesNavigation)
+                    .WithMany(p => p.DetalleServicios)
+                    .HasForeignKey(d => d.IdServiciosAdicionales)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_DetalleServicios_ServiciosAdicionales");
             });
 
             modelBuilder.Entity<Domicilio>(entity =>
@@ -273,6 +346,13 @@ namespace BOCHAS.Models
                     .HasMaxLength(50);
             });
 
+            modelBuilder.Entity<MediodePago>(entity =>
+            {
+                entity.Property(e => e.Nombre)
+                    .IsRequired()
+                    .HasMaxLength(50);
+            });
+
             modelBuilder.Entity<Noticias>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("id");
@@ -351,6 +431,34 @@ namespace BOCHAS.Models
                     .WithMany(p => p.Persona)
                     .HasForeignKey(d => d.IdUsuario)
                     .HasConstraintName("FK_Persona_Usuario");
+            });
+
+            modelBuilder.Entity<Servicio>(entity =>
+            {
+                entity.Property(e => e.Descripcion)
+                    .HasMaxLength(80)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Nombre)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Precio).HasColumnType("money");
+            });
+
+            modelBuilder.Entity<ServiciosAdicionales>(entity =>
+            {
+                entity.Property(e => e.Descripcion)
+                    .HasMaxLength(80)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Nombre)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Precio).HasColumnType("money");
             });
 
             modelBuilder.Entity<Session>(entity =>
