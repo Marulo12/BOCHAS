@@ -14,6 +14,7 @@ using System.Security.Cryptography;
 
 using Microsoft.AspNetCore.SignalR;
 using BOCHAS.Hubs;
+using System.Diagnostics;
 
 namespace BOCHAS.Controllers
 {
@@ -184,6 +185,10 @@ namespace BOCHAS.Controllers
 
             return  Json( jugador);
         }
-
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
     }
 }

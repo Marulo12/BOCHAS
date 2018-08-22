@@ -41,22 +41,26 @@ namespace BOCHAS
             })
         .AddCookie(options => { options.AccessDeniedPath = new PathString("/Usuarios/Index"); options.LoginPath = new PathString("/Usuarios/Index"); options.LogoutPath = new PathString("/Usuarios/Index"); });
 
-        /*.AddJwtBearer(jwtBearerOptions =>
-        {
-            jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters()
+            /*.AddJwtBearer(jwtBearerOptions =>
             {
-                ValidateActor = true,
-                ValidateAudience = true,
-                ValidateLifetime = true,
-                ValidateIssuerSigningKey = true,
-                 ValidIssuer = Configuration["ApiAuth:Issuer"],
-                 ValidAudience = Configuration["ApiAuth:Audience"],
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["ApiAuth:SecretKey"]))
-            };*/
-        //});
+                jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateActor = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                     ValidIssuer = Configuration["ApiAuth:Issuer"],
+                     ValidAudience = Configuration["ApiAuth:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["ApiAuth:SecretKey"]))
+                };*/
+            //});
+            services.Configure<CookiePolicyOptions>(options =>
+            {                              
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
             services.AddSignalR();
             services.AddDbContext<BOCHASContext>();
-            services.AddMvc();                      
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,7 +68,6 @@ namespace BOCHAS
         {
             if (env.IsDevelopment())
          {
-               app.UseBrowserLink();
                app.UseDeveloperExceptionPage();
            }
           else
@@ -75,7 +78,7 @@ namespace BOCHAS
             app.UseCors(builder => builder.AllowAnyHeader());
             app.UseStaticFiles();
             app.UseAuthentication();
-          //  app.UseCookiePolicy();
+            app.UseCookiePolicy();
             app.UseSession();
             app.UseSignalR();
             app.UseMvc(routes =>

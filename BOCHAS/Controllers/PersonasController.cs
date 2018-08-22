@@ -14,6 +14,8 @@ using System.Net.Http.Headers;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 
+using System.Diagnostics;
+
 namespace BOCHAS.Controllers
 {
     [Authorize(Roles = "Empleado")]
@@ -569,6 +571,15 @@ namespace BOCHAS.Controllers
 
 
             }
+
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+
     }
    
 }
