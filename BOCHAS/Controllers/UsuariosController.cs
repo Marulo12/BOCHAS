@@ -53,8 +53,9 @@ namespace BOCHAS.Controllers
                     claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
                 var authProperties = new AuthenticationProperties
-                {
-                    IsPersistent = true,
+                {  // AllowRefresh = true,
+                   // IsPersistent = true,
+
                 };                            
                 RegistrarIngresoSession(Convert.ToInt32(usuario[0].IdUsuario));
                 if (usuario[0].Tipo == "EMPLEADO")

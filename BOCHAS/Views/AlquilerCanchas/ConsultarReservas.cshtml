@@ -2,8 +2,7 @@
 
 @{
     ViewData["Title"] = "ConsultarReservas";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    int NR = 0;
+    Layout = "~/Views/Shared/_Layout.cshtml";   
 }
 
 
@@ -121,11 +120,12 @@
             {
 
                 <input id="Respuesta" value="@TempData["Respuesta"]" style="display:none" />
+                <input id="NReservaFinalizada" value="@TempData["NReservaFinalizada"]" style="display:none" />
             }
         }
 
         <p>Nota: Solo se visualizan los alquileres con fecha de reserva desde la fecha actual para adelante y que no esten cancelados, caso contrario use la consulta particular..</p>
-    
+
     </div>
 </div>
 <div id="ModalDetalleReserva" class="modal fade" role="dialog">

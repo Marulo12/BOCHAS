@@ -1,0 +1,59 @@
+﻿@model BOCHAS.Models.Cobro
+
+@{
+    ViewData["Title"] = "RegistrarCobro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel panel-primary" style="padding:0px;margin:0px;">
+<div class="panel-heading" style="padding-bottom:0px;margin:0px;">
+    <h3 style="padding:0px;margin:0px;margin-bottom:4px;"><i class="fas fa-money-check-alt"></i>  Cobro de Servicios</h3>
+</div>
+<div class="panel-body">
+    <div class="row">
+        <ul class="nav nav-tabs ">
+            <li role="presentation" class="active"><a asp-action="RegistrarCobro" asp-controller="Cobro">Nuevo Cobro</a></li>
+            <li role="presentation" ><a id="ConsultaReserva" asp-action="ConsultarReservas" asp-controller="AlquilerCanchas">Consulta de Reservas</a></li>
+            <li role="presentation"><a asp-action="Index" asp-controller="AlquilerCanchas">Consulta Particular</a></li>
+        </ul>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="RegistrarCobro">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Fecha" class="control-label"></label>
+                    <input asp-for="Fecha" class="form-control" />
+                    <span asp-validation-for="Fecha" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="IdMedioPago" class="control-label"></label>
+                    <select asp-for="IdMedioPago" class="form-control" asp-items="ViewBag.IdMedioPago"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MontoTotal" class="control-label"></label>
+                    <input asp-for="MontoTotal" class="form-control" />
+                    <span asp-validation-for="MontoTotal" class="text-danger"></span>
+                </div>
+               
+                <div class="form-group">
+                    <label asp-for="NroCupon" class="control-label"></label>
+                    <input asp-for="NroCupon" class="form-control" />
+                    <span asp-validation-for="NroCupon" class="text-danger"></span>
+                </div>
+              
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+    </div>
+    
+
+   
+   
+
+    

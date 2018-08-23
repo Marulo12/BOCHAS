@@ -26,6 +26,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Views\Home\Error.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Reportes\ReporteReserva.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
