@@ -9,8 +9,11 @@ namespace BOCHAS.Models
         public int? IdServicio { get; set; }
         public decimal Monto { get; set; }
         public int IdNumeroCobro { get; set; }
+        public int Cantidad { get; set; }
+        public int? IdServiciosAdicionales { get; set; }
 
         public Cobro IdNumeroCobroNavigation { get; set; }
         public Servicio IdServicioNavigation { get; set; }
+        public ServiciosAdicionales IdServiciosAdicionalesNavigation { get; set; }
     }
 }

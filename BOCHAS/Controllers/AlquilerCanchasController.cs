@@ -492,6 +492,7 @@ namespace BOCHAS.Controllers
                     _context.SaveChanges();
                 }
                 TempData["Respuesta"] = "FINALIZADO";
+                TempData["NReservaFinalizada"] = Nreserva;
                 return RedirectToAction("ConsultarReservas");
             }
             else

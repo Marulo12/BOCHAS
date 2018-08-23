@@ -1,0 +1,88 @@
+﻿@model BOCHAS.Models.Cobro
+
+@{
+    Layout = null;
+    BOCHASContext bd = new BOCHASContext();
+    double precioServicio = Convert.ToDouble(bd.Servicio.Where(s => s.Id == 1).SingleOrDefault().Precio);
+    TimeSpan hh = (TimeSpan)ViewBag.horas;
+    int Canchas = ViewBag.canchas;
+    var Stotal = precioServicio * Canchas * hh.TotalHours;
+}
+
+<div class="panel">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label">Responsable de Cobro</label>
+                    <input class="form-control" value="@ViewData["empleado"].ToString()" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="IdMedioPago" class="control-label"></label>
+                    <select asp-for="IdMedioPago" class="form-control" asp-items="ViewBag.IdMedioPago"></select>
+                </div>
+
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Fecha" class="control-label"></label>
+                    <input type="date" class="form-control" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" />
+                    <span asp-validation-for="Fecha" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Servicio</h4>
+                    <table id="Tservicios" class="table">
+                        <thead><tr><td style="width:20%">Servicio</td><td style="width:5%">$Precio Unit.</td><td style="width:5%">Cant.Canchas</td><td style="width:5%">Cant.Horas</td><td style="width:10%">$Total</td></tr></thead>
+                        <tbody>
+                            <tr>
+                                <td>@bd.Servicio.Where(s => s.Id == 1).SingleOrDefault().Nombre.Trim()</td>
+                                <td>@precioServicio</td>
+                                <td><input id="CantC" type="text" value="@Canchas" class="form-control" /></td>
+                                <td><input id="CantH" type="text" class="form-control" value="@hh.TotalHours" /></td>
+                                <td>
+                                    <input id="Stotal" type="text" class="form-control" value="@Stotal" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+
+            <div class="row">
+                <h4>Servicios adicionales</h4>
+                <table id="TserviciosA" class="table" style="width:100%;">
+                    <thead><tr><td>Servicio</td><td>$Precio Unit.</td><td style="width:5%">Cantidad</td><td>$Total</td><td>Agregar</td></tr></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label asp-for="MontoTotal" class="control-label"></label>
+                    <input asp-for="MontoTotal" class="form-control" />
+                    <span asp-validation-for="MontoTotal" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Aceptar" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+
+
+<script src="~/js/Cobros.js"></script>
+
+
+
+
+
+
+
