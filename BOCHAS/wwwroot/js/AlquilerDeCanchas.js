@@ -526,8 +526,9 @@ function MensajesdeAcciones() {
                 data: { Numero },
                 url: "/Cobro/CobroReserva",
                 success: function (response) {
-                    $("#ModalCobro .mb").html(response);
                     $("#ModalCobro").modal();
+                    $("#ModalCobro .mb").html(response);
+                 
                 }
             });
                 }

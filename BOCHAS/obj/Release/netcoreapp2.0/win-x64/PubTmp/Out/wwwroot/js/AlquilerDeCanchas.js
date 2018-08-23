@@ -101,7 +101,7 @@
     $(".BtnCancelaR").click(function (event) {
         $("#ModalMail").modal();
     });
-   
+    MensajesdeAcciones();
     $("#BtnConPart").click(function () {
         ConsultaParticular();
     });
@@ -519,10 +519,18 @@ function MensajesdeAcciones() {
     }
     if ($("#Respuesta").val() === "FINALIZADO") {
         alertify.success("Reserva Finalizada!!");
-        var Nreserva = $("#NReservaFinalizada").val();
+        var Numero = $("#NReservaFinalizada").val();
         alertify.confirm('Realizar Cobro', 'Desea realizar el cobro de la reserva?', function () {
-            window.location = "/Cobro/RegistrarCobro?Numero=" + Nreserva + "&servicio=alquiler";
-        }
+            $.ajax({
+                type: "GET",
+                data: { Numero },
+                url: "/Cobro/CobroReserva",
+                success: function (response) {
+                    $("#ModalCobro .mb").html(response);
+                    $("#ModalCobro").modal();
+                }
+            });
+                }
             , function () { alertify.error('Operacion cancelada'); });
     }
     if ($("#Respuesta").val() === "NO") {
