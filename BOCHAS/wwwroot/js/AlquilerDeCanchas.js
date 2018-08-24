@@ -540,5 +540,8 @@ function MensajesdeAcciones() {
     if ($("#Respuesta").val() === "NoMail") {
         alertify.error("Se cancelo la reserva pero no se mando mensaje al jugador");
     }
+    if ($("#Respuesta").val() === "Cobro") {
+        alertify.success("Cobro realizado con exito");
+    }
 
 }

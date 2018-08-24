@@ -27,7 +27,7 @@ namespace BOCHAS.Controllers
 
      
      
-
+        [HttpGet]
         // GET: Cobro/Create
         public IActionResult CobroReserva(int Numero )
         {
@@ -52,6 +52,52 @@ namespace BOCHAS.Controllers
         private bool CobroExists(int id)
         {
             return _context.Cobro.Any(e => e.Numero == id);
+        }
+        [HttpPost]
+       
+        public IActionResult RegistrarCobroReserva(int Nreserva, DateTime Fecha,int MedioPago,decimal MontoTotal,int NroCupon,int IdTarjeta,decimal MontoServicio,DetalleCobro Servicio,DetalleCobro[] ServiciosAdicionales )
+        {
+            int empleado = (from p in _context.Persona join u in _context.Usuario on p.IdUsuario equals u.Id where u.Nombre == HttpContext.User.Identity.Name && p.Tipo == "EMPLEADO" && p.FechaBaja == null select u).SingleOrDefault().Id;
+
+            Cobro cobro = new Cobro();
+            cobro.Fecha = Fecha.Date;
+            cobro.IdMedioPago = MedioPago;
+            cobro.MontoTotal = MontoTotal;
+            cobro.IdUsuario = empleado;
+            _context.Cobro.Add(cobro);
+
+            if (_context.SaveChanges() == 1)
+            {
+                int numeroCobro = _context.Cobro.Max(c => c.Numero);
+                DetalleCobro dc = new DetalleCobro();
+                dc = Servicio;
+                dc.IdNumeroCobro = numeroCobro;
+                _context.DetalleCobro.Add(dc);
+                _context.SaveChanges();
+
+                foreach (var d in ServiciosAdicionales)
+                {
+                    DetalleCobro dca = new DetalleCobro();
+                    dca = d;
+                    dca.IdNumeroCobro = numeroCobro;
+                    _context.DetalleCobro.Add(dca);
+                    _context.SaveChanges();
+                }
+
+                var reserva = _context.AlquilerCancha.Where(a => a.Numero == Nreserva).SingleOrDefault();
+                reserva.IdCobro = numeroCobro;
+                _context.AlquilerCancha.Update(reserva);
+                _context.SaveChanges();
+
+                TempData["Respuesta"] = "Cobro";
+                return RedirectToAction("ConsultarReservas","AlquilerCanchas","");
+            }
+            else
+            {
+                TempData["Respuesta"] = "NO";
+                return RedirectToAction("ConsultarReservas","AlquilerCanchas", "");
+            }
+
         }
     }
 }
