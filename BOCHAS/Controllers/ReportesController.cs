@@ -34,6 +34,19 @@ namespace BOCHAS.Controllers
             }
 
         }
+        public IActionResult ReporteCobroReserva(int NCobro)
+        {
+            try
+            {
+                var cobro = _context.Cobro.Include(c=>c.DetalleCobro).Include(c=>c.DetalleCobro).Include(c=>c.IdUsuarioNavigation).Include(c=>c.IdMedioPagoNavigation).Where(c=>c.Numero == NCobro ).SingleOrDefault() ;
+                return new ViewAsPdf("ReporteCobroReserva", cobro);
+            }
+            catch
+            {
+                return NotFound();
+            }
+
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
