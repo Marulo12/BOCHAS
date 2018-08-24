@@ -9,9 +9,11 @@ using BOCHAS.Models;
 using MimeKit;
 using MailKit.Net.Smtp;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BOCHAS.Controllers
 {
+    [Authorize]
     public class DetalleAlquilerCanchasController : Controller
     {
         private readonly BOCHASContext _context;
@@ -101,11 +103,7 @@ namespace BOCHAS.Controllers
               }
 
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+       
 
 
     }

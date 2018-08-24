@@ -70,10 +70,12 @@ function RegistrarCobroReserva() {
     var MontoTotal = $("#InputTotalR").val();
     var NroCupon = 0;
     var IdTarjeta = 0;
+   
     // todo para detalle cobro
     // objeto servicio
+    var cantidadCanchas = $("#CantC").val();
     var MontoServicio = $("#Stotal").val();
-    var Servicio = { IdServicio: 1, Monto: MontoServicio, Id_NumeroCobro:0,Cantidad: 1, IdServiciosAdicionales: null };
+    var Servicio = { IdServicio: 1, Monto: MontoServicio, Id_NumeroCobro: 0, Cantidad: cantidadCanchas, IdServiciosAdicionales: null };
     //array de servicios adicionales
     var ServiciosAdicionales = [];
     $(".checkSA ").each(function () {
@@ -94,6 +96,7 @@ function RegistrarCobroReserva() {
         success: function (response) {
             alertify.success("Cobro realizado con exito");
             $("#ModalCobro").modal("hide");
+            window.open("/Reportes/ReporteCobroReserva?NCobro=" + response);
             },
 
     failure: function (response) {

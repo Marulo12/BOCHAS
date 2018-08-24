@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BOCHAS.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BOCHAS.Controllers
 {
+    [Authorize]
     public class CobroController : Controller
     {
         private readonly BOCHASContext _context;
@@ -55,7 +57,7 @@ namespace BOCHAS.Controllers
         }
         [HttpPost]
        
-        public IActionResult RegistrarCobroReserva(int Nreserva, DateTime Fecha,int MedioPago,decimal MontoTotal,int NroCupon,int IdTarjeta,decimal MontoServicio,DetalleCobro Servicio,DetalleCobro[] ServiciosAdicionales )
+        public JsonResult RegistrarCobroReserva(int Nreserva, DateTime Fecha,int MedioPago,decimal MontoTotal,int NroCupon,int IdTarjeta,decimal MontoServicio,DetalleCobro Servicio,DetalleCobro[] ServiciosAdicionales )
         {
             int empleado = (from p in _context.Persona join u in _context.Usuario on p.IdUsuario equals u.Id where u.Nombre == HttpContext.User.Identity.Name && p.Tipo == "EMPLEADO" && p.FechaBaja == null select u).SingleOrDefault().Id;
 
@@ -83,19 +85,19 @@ namespace BOCHAS.Controllers
                     _context.DetalleCobro.Add(dca);
                     _context.SaveChanges();
                 }
-
+                
                 var reserva = _context.AlquilerCancha.Where(a => a.Numero == Nreserva).SingleOrDefault();
                 reserva.IdCobro = numeroCobro;
                 _context.AlquilerCancha.Update(reserva);
                 _context.SaveChanges();
 
                 TempData["Respuesta"] = "Cobro";
-                return RedirectToAction("ConsultarReservas","AlquilerCanchas","");
+                return Json(numeroCobro);
             }
             else
             {
                 TempData["Respuesta"] = "NO";
-                return RedirectToAction("ConsultarReservas","AlquilerCanchas", "");
+                return Json("ERROR");
             }
 
         }
