@@ -3,12 +3,7 @@
 @{
     ViewData["Title"] = "ConsultarReservas";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    int NR = 0;
 }
-
-
-
-
 
 <div class="panel panel-primary" style="padding:0px;margin:0px;">
     <div class="panel-heading" style="padding-bottom:0px;margin:0px;">
@@ -45,7 +40,7 @@
                     <th>
                         Responsable
                     </th>
-                    <th >
+                    <th>
                         Estado
                     </th>
                     <th></th>
@@ -58,7 +53,7 @@
                         <td>@Html.DisplayFor(modelItem => item.Numero)</td>
                         <td>
                             @item.FechaReserva.Value.Date.ToString("dd/MM/yyyy")
-                            
+
                         </td>
                         <td>
                             @item.FechaPedido.Value.Date.ToString("dd/MM/yyyy")
@@ -77,7 +72,7 @@
                                 if (item.IdEmpleado != null)
                                 {
                                     var em = item.IdEmpleadoNavigation.Persona.Where(p => p.IdUsuario == item.IdEmpleadoNavigation.Id).SingleOrDefault().Nombre + " " + item.IdEmpleadoNavigation.Persona.Where(p => p.IdUsuario == item.IdEmpleadoNavigation.Id).SingleOrDefault().Apellido;
-                                 <label>@em</label>
+                                    <label>@em</label>
                                 }
                             }
 
@@ -85,18 +80,18 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.IdEstadoNavigation.Nombre)
                         </td>
-                        <td style="width:200px;" >
+                        <td style="width:200px;">
                             <div class="btn-group form-group" style="padding:0px;margin:0px;">
                                 <button class="btn btn-info btn-sm" onclick="VerDetalleReserva(@item.Numero)" data-toggle="tooltip" title="Ver Detalle"><i class="fas fa-info-circle"></i></button>
                                 @{
                                     switch (item.IdEstado)
                                     {
                                         case 1: <a class="btn btn-success btn-sm confirm" asp-action="ConfirmarReserva" asp-controller="AlquilerCanchas" asp-route-Nreserva="@item.Numero" data-toggle="tooltip" title="Confirmar"><i class="fas fa-check"></i></a>
-                                            <a  class="btn btn-danger btn-sm BtnCancelaR" asp-action="CancelarReserva" asp-controller="AlquilerCanchas" asp-route-Nreserva="@item.Numero" style="color:white" data-toggle="tooltip" title="Cancelar"><i class="fas fa-ban"></i></a>
+                                            <a class="btn btn-danger btn-sm BtnCancelaR" asp-action="CancelarReserva" asp-controller="AlquilerCanchas" asp-route-Nreserva="@item.Numero" style="color:white" data-toggle="tooltip" title="Cancelar"><i class="fas fa-ban"></i></a>
                                             break;
                                         case 2:
                                             <a class="btn btn-default btn-sm" asp-action="ComenzarReserva" asp-controller="AlquilerCanchas" asp-route-Nreserva="@item.Numero" style="color:black" data-toggle="tooltip" title="Comenzar"><i class="fas fa-play"></i></a>
-                                            <a  class="btn btn-danger btn-sm BtnCancelaR" asp-action="CancelarReserva" asp-controller="AlquilerCanchas" asp-route-Nreserva="@item.Numero" style="color:white" data-toggle="tooltip" title="Cancelar"><i class="fas fa-ban"></i></a>
+                                            <a class="btn btn-danger btn-sm BtnCancelaR" asp-action="CancelarReserva" asp-controller="AlquilerCanchas" asp-route-Nreserva="@item.Numero" style="color:white" data-toggle="tooltip" title="Cancelar"><i class="fas fa-ban"></i></a>
                                             break;
                                         case 3: <a class="btn btn-success btn-sm" asp-action="FinalizarReserva" asp-controller="AlquilerCanchas" asp-route-Nreserva="@item.Numero" style="color:white" data-toggle="tooltip" title="Finalizar"><i class="fas fa-stopwatch"></i></a>
                                             break;
@@ -106,7 +101,7 @@
                                             break;
                                     }
                                 }
-                                <a class="btn btn-primary btn-sm " data-toggle="tooltip" title="Generar Reporte"   onclick="generaRepo(@item.Numero)"><i class="fas fa-download"></i></a>
+                                <a class="btn btn-primary btn-sm " data-toggle="tooltip" title="Generar Reporte" onclick="generaRepo(@item.Numero)"><i class="fas fa-download"></i></a>
 
                             </div>
                         </td>
@@ -114,18 +109,21 @@
                 }
             </tbody>
         </table>
+
     </div>
 
     <div class="panel-footer">
+
         @{ if (TempData["Respuesta"] != null)
             {
 
                 <input id="Respuesta" value="@TempData["Respuesta"]" style="display:none" />
+                <input id="NReservaFinalizada" value="@TempData["NReservaFinalizada"]" style="display:none" />
             }
         }
 
         <p>Nota: Solo se visualizan los alquileres con fecha de reserva desde la fecha actual para adelante y que no esten cancelados, caso contrario use la consulta particular..</p>
-    
+
     </div>
 </div>
 <div id="ModalDetalleReserva" class="modal fade" role="dialog">
@@ -137,7 +135,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title" style="color:white;">Detalle de la Reserva</h4>
             </div>
-            <div id="DetalleReservaBody" class="modal-body" >
+            <div id="DetalleReservaBody" class="modal-body">
 
             </div>
             <div class="modal-footer">
@@ -153,16 +151,16 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-            <h3><i class="fas fa-envelope"></i> Mail de Cancelacion</h3>
+                <h3><i class="fas fa-envelope"></i> Mail de Cancelacion</h3>
             </div>
-            <div class="modal-body" >
+            <div class="modal-body">
                 <p>Enviando mail de cancelacion de reserva</p>
                 <div class="progress">
                     <div class="progress-bar progress-bar-striped active" role="progressbar"
-                         aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">                        
+                         aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
                     </div>
                 </div>
-            </div>           
+            </div>
         </div>
 
     </div>
@@ -182,19 +180,38 @@
                         </div>
                     </div>
                 </div>
-                <object  type="application/pdf" id="VisorPDF" src="" style="width:100%; height:100%;display:none;background-color:#515151;">
-                   
-                </object>
-               
+                <object type="application/pdf" id="VisorPDF" src="" style="width:100%; height:100%;display:none;background-color:#515151;"></object>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
-        </div>
-
     </div>
 
-@section Scripts{ 
-<script src="~/js/AlquilerDeCanchas.js"></script>
+</div>
+
+<div id="ModalCobro" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="background:-webkit-gradient(linear, 96% 73%, 0% 0%, from(#AD9085), to(#CE2029));">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" style="color:white;"><i class="far fa-credit-card"></i>  Cobro Alquiler de Cancha</h4>
+            </div>
+            <div class="modal-body mb">
+
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+@section Scripts{
+    <script src="~/js/AlquilerDeCanchas.js"></script>
+    <script src="~/js/Cobros.js"></script>
+
 }

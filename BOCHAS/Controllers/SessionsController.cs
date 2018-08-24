@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using BOCHAS.Models;
 using Microsoft.AspNetCore.Authorization;
 using BOCHAS.Hubs;
+using System.Diagnostics;
 
 namespace BOCHAS.Controllers
 {
@@ -89,6 +90,10 @@ namespace BOCHAS.Controllers
             int[] ls = new int[] { Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday };
             return Json(ls.ToList());
         }
-
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
     }
 }

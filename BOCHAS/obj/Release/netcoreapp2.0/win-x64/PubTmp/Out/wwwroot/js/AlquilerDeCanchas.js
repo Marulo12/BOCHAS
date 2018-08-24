@@ -1,6 +1,4 @@
-﻿
-
-$(document).ready(function () {
+﻿$(document).ready(function () {
    
     $('[data-toggle="tooltip"]').tooltip(); 
     $("#BtnValida").click(function () {
@@ -103,24 +101,7 @@ $(document).ready(function () {
     $(".BtnCancelaR").click(function (event) {
         $("#ModalMail").modal();
     });
-    if ($("#Respuesta").val()==="SI") {
-        alertify.success("Reserva Confirmada!!");
-    }
-    if ($("#Respuesta").val() === "COMENZADO") {
-        alertify.success("Reserva Comenzada!!");
-    }
-    if ($("#Respuesta").val() === "Cancelado") {
-        alertify.success("Reserva Cancelada");
-    }
-    if ($("#Respuesta").val() === "FINALIZADO") {
-        alertify.success("Reserva Finalizada!!");
-    }
-    if ($("#Respuesta").val() === "NO") {
-        alertify.error("Error en la operacion");
-    }
-    if ($("#Respuesta").val() === "NoMail") {
-        alertify.error("Se cancelo la reserva pero no se mando mensaje al jugador");
-    }
+    MensajesdeAcciones();
     $("#BtnConPart").click(function () {
         ConsultaParticular();
     });
@@ -522,5 +503,45 @@ function generaRepo(numero) {
     
    
    
+
+}
+
+function MensajesdeAcciones() {
+
+    if ($("#Respuesta").val() === "SI") {
+        alertify.success("Reserva Confirmada!!");
+    }
+    if ($("#Respuesta").val() === "COMENZADO") {
+        alertify.success("Reserva Comenzada!!");
+    }
+    if ($("#Respuesta").val() === "Cancelado") {
+        alertify.success("Reserva Cancelada");
+    }
+    if ($("#Respuesta").val() === "FINALIZADO") {
+        alertify.success("Reserva Finalizada!!");
+        var Numero = $("#NReservaFinalizada").val();
+        alertify.confirm('Realizar Cobro', 'Desea realizar el cobro de la reserva?', function () {
+            $.ajax({
+                type: "GET",
+                data: { Numero },
+                url: "/Cobro/CobroReserva",
+                success: function (response) {
+                    $("#ModalCobro").modal();
+                    $("#ModalCobro .mb").html(response);
+                 
+                }
+            });
+                }
+            , function () { alertify.error('Operacion cancelada'); });
+    }
+    if ($("#Respuesta").val() === "NO") {
+        alertify.error("Error en la operacion");
+    }
+    if ($("#Respuesta").val() === "NoMail") {
+        alertify.error("Se cancelo la reserva pero no se mando mensaje al jugador");
+    }
+    if ($("#Respuesta").val() === "Cobro") {
+        alertify.success("Cobro realizado con exito");
+    }
 
 }

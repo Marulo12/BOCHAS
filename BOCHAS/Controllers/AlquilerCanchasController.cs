@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using MimeKit;
 using MailKit.Net.Smtp;
 using Rotativa.AspNetCore;
+using System.Diagnostics;
 
 namespace BOCHAS.Controllers
 {
@@ -491,6 +492,7 @@ namespace BOCHAS.Controllers
                     _context.SaveChanges();
                 }
                 TempData["Respuesta"] = "FINALIZADO";
+                TempData["NReservaFinalizada"] = Nreserva;
                 return RedirectToAction("ConsultarReservas");
             }
             else
@@ -501,7 +503,11 @@ namespace BOCHAS.Controllers
         }
 
 
-
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
 
     }
 

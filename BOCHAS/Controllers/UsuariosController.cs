@@ -14,6 +14,7 @@ using System.Security.Cryptography;
 
 using Microsoft.AspNetCore.SignalR;
 using BOCHAS.Hubs;
+using System.Diagnostics;
 
 namespace BOCHAS.Controllers
 {
@@ -52,8 +53,9 @@ namespace BOCHAS.Controllers
                     claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
                 var authProperties = new AuthenticationProperties
-                {
-                    IsPersistent = true,
+                {  // AllowRefresh = true,
+                   // IsPersistent = true,
+
                 };                            
                 RegistrarIngresoSession(Convert.ToInt32(usuario[0].IdUsuario));
                 if (usuario[0].Tipo == "EMPLEADO")
@@ -184,6 +186,10 @@ namespace BOCHAS.Controllers
 
             return  Json( jugador);
         }
-
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
     }
 }

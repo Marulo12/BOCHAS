@@ -29,55 +29,53 @@ namespace BOCHAS
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors();
+            
             services.AddSession();
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                //options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                // options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-                //   options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-
-            })
-        .AddCookie(options => { options.AccessDeniedPath = new PathString("/Usuarios/Index"); options.LoginPath = new PathString("/Usuarios/Index"); options.LogoutPath = new PathString("/Usuarios/Index"); });
-
-        /*.AddJwtBearer(jwtBearerOptions =>
-        {
-            jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters()
-            {
-                ValidateActor = true,
-                ValidateAudience = true,
-                ValidateLifetime = true,
-                ValidateIssuerSigningKey = true,
-                 ValidIssuer = Configuration["ApiAuth:Issuer"],
-                 ValidAudience = Configuration["ApiAuth:Audience"],
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["ApiAuth:SecretKey"]))
-            };*/
-        //});
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie(options => { options.AccessDeniedPath = new PathString("/Usuarios/Index"); options.LoginPath = new PathString("/Usuarios/Index"); options.LogoutPath = new PathString("/Usuarios/Index"); });
+            /*     .AddJwtBearer(jwtBearerOptions =>
+                 {
+                     jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters()
+                     {
+                         ValidateActor = true,
+                         ValidateAudience = true,
+                         ValidateLifetime = true,
+                         ValidateIssuerSigningKey = true,
+                          ValidIssuer = Configuration["ApiAuth:Issuer"],
+                          ValidAudience = Configuration["ApiAuth:Audience"],
+                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["ApiAuth:SecretKey"]))
+                     };
+                 });*/
+            services.Configure<CookiePolicyOptions>(options =>
+            {               
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
             services.AddSignalR();
             services.AddDbContext<BOCHASContext>();
-            services.AddMvc();                      
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
-         {
-               app.UseBrowserLink();
-               app.UseDeveloperExceptionPage();
-           }
-          else
             {
-            app.UseExceptionHandler("/Home/Error");
+                app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
             }
-
-            app.UseCors(builder => builder.AllowAnyHeader());
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+                
+            }
+            
             app.UseStaticFiles();
-            app.UseAuthentication();
-          //  app.UseCookiePolicy();
-            app.UseSession();
+            app.UseCookiePolicy();
             app.UseSignalR();
+            app.UseSession();
+            app.UseAuthentication();        
+            
+           
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

@@ -14,7 +14,6 @@ namespace BOCHAS.Models
         public virtual DbSet<Cobro> Cobro { get; set; }
         public virtual DbSet<DetalleAlquilerCancha> DetalleAlquilerCancha { get; set; }
         public virtual DbSet<DetalleCobro> DetalleCobro { get; set; }
-        public virtual DbSet<DetalleServicios> DetalleServicios { get; set; }
         public virtual DbSet<Domicilio> Domicilio { get; set; }
         public virtual DbSet<Empleado> Empleado { get; set; }
         public virtual DbSet<EstadoAlquiler> EstadoAlquiler { get; set; }
@@ -38,10 +37,9 @@ namespace BOCHAS.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-
-                //    optionsBuilder.UseSqlServer(@"Data Source=186.124.221.26,1433;Initial Catalog=BOCHAS;User ID=bsp;Password=bochas");
-                optionsBuilder.UseSqlServer(@"Data Source=sql5020.site4now.net;Initial Catalog=DB_A3F6C9_BOCHAS;User ID=DB_A3F6C9_BOCHAS_admin;Password=bochas2018");
-                //  optionsBuilder.UseSqlServer(@"Data Source=sistemas04;Initial Catalog=BOCHAS;User ID=bsp;Password=bochas");
+                //   optionsBuilder.UseSqlServer(@"Data Source=186.124.221.26,1433;Initial Catalog=BOCHAS;User ID=bsp;Password=bochas");
+                    optionsBuilder.UseSqlServer(@"Data Source=sql5020.site4now.net;Initial Catalog=DB_A3F6C9_BOCHAS;User ID=DB_A3F6C9_BOCHAS_admin;Password=bochas2018");
+            //    optionsBuilder.UseSqlServer(@"Data Source=sistemas04;Initial Catalog=BOCHAS;User ID=bsp;Password=bochas");
             }
         }
 
@@ -217,23 +215,11 @@ namespace BOCHAS.Models
                     .WithMany(p => p.DetalleCobro)
                     .HasForeignKey(d => d.IdServicio)
                     .HasConstraintName("FK_DetalleCobro_Servicio");
-            });
-
-            modelBuilder.Entity<DetalleServicios>(entity =>
-            {
-                entity.Property(e => e.Cantidad).HasColumnName("cantidad");
-
-                entity.HasOne(d => d.IdServicioNavigation)
-                    .WithMany(p => p.DetalleServicios)
-                    .HasForeignKey(d => d.IdServicio)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_DetalleServicios_Servicio");
 
                 entity.HasOne(d => d.IdServiciosAdicionalesNavigation)
-                    .WithMany(p => p.DetalleServicios)
+                    .WithMany(p => p.DetalleCobro)
                     .HasForeignKey(d => d.IdServiciosAdicionales)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_DetalleServicios_ServiciosAdicionales");
+                    .HasConstraintName("FK_DetalleCobro_ServiciosAdicionales");
             });
 
             modelBuilder.Entity<Domicilio>(entity =>

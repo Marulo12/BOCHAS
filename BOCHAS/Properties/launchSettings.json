@@ -18,10 +18,11 @@
     "BOCHAS": {
       "commandName": "Project",
       "launchBrowser": true,
+
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://localhost:53503/"
+      "applicationUrl": "http://localhost:53503/;http://marulo12-001-site1.dtempurl.com/"
     }
   }
 }

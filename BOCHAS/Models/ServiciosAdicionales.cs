@@ -7,7 +7,7 @@ namespace BOCHAS.Models
     {
         public ServiciosAdicionales()
         {
-            DetalleServicios = new HashSet<DetalleServicios>();
+            DetalleCobro = new HashSet<DetalleCobro>();
         }
 
         public int Id { get; set; }
@@ -15,6 +15,6 @@ namespace BOCHAS.Models
         public string Descripcion { get; set; }
         public decimal Precio { get; set; }
 
-        public ICollection<DetalleServicios> DetalleServicios { get; set; }
+        public ICollection<DetalleCobro> DetalleCobro { get; set; }
     }
 }

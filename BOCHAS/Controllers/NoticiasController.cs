@@ -11,6 +11,7 @@ using System.Net.Http.Headers;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Authorization;
+using System.Diagnostics;
 
 namespace BOCHAS.Controllers
 {   [Authorize]
@@ -82,6 +83,10 @@ namespace BOCHAS.Controllers
             }
             return Json("ERROR");
         }
-
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
     }
 }
