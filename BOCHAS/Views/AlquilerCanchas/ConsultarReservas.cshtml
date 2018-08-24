@@ -31,9 +31,7 @@
                         @Html.DisplayNameFor(model => model.FechaPedido)
                     </th>
 
-                    <th>
-                        @Html.DisplayNameFor(model => model.FechaCancelacion)
-                    </th>
+                    
                     <th>
                         Jugador
                     </th>
@@ -59,10 +57,7 @@
                             @item.FechaPedido.Value.Date.ToString("dd/MM/yyyy")
                         </td>
 
-                        <td>
-                            @{ if (item.FechaCancelacion != null)
-                                { @item.FechaCancelacion.Value.Date.ToString("dd/MM/yyyy")} }
-                        </td>
+                       
 
                         <td>
                             @Html.DisplayFor(modelItem => item.IdClienteNavigation.Persona.Where(p => p.IdUsuario == item.IdClienteNavigation.Id).SingleOrDefault().Nombre),@Html.DisplayFor(modelItem => item.IdClienteNavigation.Persona.Where(p => p.IdUsuario == item.IdClienteNavigation.Id).SingleOrDefault().Apellido)
@@ -101,7 +96,7 @@
                                             break;
                                     }
                                 }
-                                <a class="btn btn-primary btn-sm " data-toggle="tooltip" title="Generar Reporte" onclick="generaRepo(@item.Numero)"><i class="fas fa-download"></i></a>
+                                <a class="btn btn-primary btn-sm " data-toggle="tooltip" title="Reporte Reserva" onclick="generaRepo(@item.Numero)"><i class="fas fa-download"></i></a>
 
                             </div>
                         </td>

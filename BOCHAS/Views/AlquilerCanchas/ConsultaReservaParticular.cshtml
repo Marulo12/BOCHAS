@@ -63,13 +63,13 @@
                                     break;
                                 case 3: <a class="btn btn-success btn-sm" asp-action="FinalizarReserva" asp-controller="AlquilerCanchas" asp-route-Nreserva="@item.Numero" style="color:white" data-toggle="tooltip" title="Finalizar"><i class="fas fa-stopwatch"></i></a>
                                     break;
-                                case 4:
+                                case 4: <button class="btn btn-sm btn-primary" onclick="ReporteCobroReserva(@item.IdCobro)" data-toggle="tooltip" title="Reporte Cobro"><i class="fas fa-money-check-alt"></i></button>
                                     break;
                                 case 5:
                                     break;
                             }
                         }
-                        <a class="btn btn-primary btn-sm " data-toggle="tooltip" title="Generar Reporte" onclick="generaRepo(@item.Numero)"><i class="fas fa-download"></i></a>
+                        <a class="btn btn-primary btn-sm " data-toggle="tooltip" title="Reporte Reserva" onclick="generaRepo(@item.Numero)"><i class="fas fa-download"></i></a>
 
                     </div>
                 </td>

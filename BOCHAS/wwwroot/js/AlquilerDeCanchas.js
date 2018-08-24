@@ -506,6 +506,11 @@ function generaRepo(numero) {
 
 }
 
+function ReporteCobroReserva(NCobro) {
+    window.open("/Reportes/ReporteCobroReserva?NCobro=" + NCobro);
+}
+
+
 function MensajesdeAcciones() {
 
     if ($("#Respuesta").val() === "SI") {
@@ -540,8 +545,5 @@ function MensajesdeAcciones() {
     if ($("#Respuesta").val() === "NoMail") {
         alertify.error("Se cancelo la reserva pero no se mando mensaje al jugador");
     }
-    if ($("#Respuesta").val() === "Cobro") {
-        alertify.success("Cobro realizado con exito");
-    }
-
+   
 }

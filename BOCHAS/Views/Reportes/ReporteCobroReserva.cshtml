@@ -40,7 +40,7 @@
                 <p style="font-size:20px;padding-left:30px;"> Fecha de Cobro:     @Model.Fecha.Date.ToString("dd/MM/yyyy")  &nbsp;&nbsp;&nbsp; </p>
                 <p style="font-size:20px;padding-left:30px;">Medio de Pago:  @Html.DisplayFor(model => model.IdMedioPagoNavigation.Nombre) </p>
             </div>
-            <div class="panel-footer" style="background-color:rgba(170, 44, 44, 0.9);color:white;padding:0px;">
+            <div class="panel-footer" style="background-color:rgba(170, 44, 44, 0.9);color:white;padding-left:0px;padding-right:0px;">
                 <h3 style="padding-left:10px;">Detalle de Cobro</h3>
 
                 <table class="table" style="font-size:20px;background-color:white;color:black;">
@@ -68,7 +68,7 @@
                     </tbody>
                 </table>
                 <br />
-                <h3 style="text-align:right;padding-right:20px;">$Total: @Convert.ToInt32(Model.MontoTotal)</h3>
+                <h2 style="text-align:right;padding-right:20px;">$Total: @Convert.ToInt32(Model.MontoTotal)</h2>
             </div>
         </div>
 
