@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Rotativa.AspNetCore;
 
 namespace BOCHAS
 {
@@ -32,7 +33,7 @@ namespace BOCHAS
             
             services.AddSession();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            .AddCookie(options => { options.AccessDeniedPath = new PathString("/Usuarios/Index"); options.LoginPath = new PathString("/Usuarios/Index"); options.LogoutPath = new PathString("/Usuarios/Index"); });
+            .AddCookie(options => { options.AccessDeniedPath = new PathString("/Usuarios/Index"); options.LoginPath = new PathString("/Usuarios/Index"); options.LogoutPath = new PathString("/Usuarios/Index"); options.Cookie.HttpOnly = false;options.ExpireTimeSpan = TimeSpan.FromMinutes(9999); options.SlidingExpiration = true; });
             /*     .AddJwtBearer(jwtBearerOptions =>
                  {
                      jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters()
@@ -46,10 +47,7 @@ namespace BOCHAS
                          IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["ApiAuth:SecretKey"]))
                      };
                  });*/
-            services.Configure<CookiePolicyOptions>(options =>
-            {               
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
+           
             services.AddSignalR();
             services.AddDbContext<BOCHASContext>();
             services.AddMvc();
@@ -69,10 +67,8 @@ namespace BOCHAS
                 
             }
             
-            app.UseStaticFiles();
-            app.UseCookiePolicy();
-            app.UseSignalR();
-            app.UseSession();
+            app.UseStaticFiles();        
+            app.UseSignalR();           
             app.UseAuthentication();        
             
            
@@ -82,7 +78,8 @@ namespace BOCHAS
                     name: "default",
                     template: "{controller=Presentacion}/{action=Presentacion}/{id?}");
             });
-            Rotativa.AspNetCore.RotativaConfiguration.Setup(env);
+           RotativaConfiguration.Setup(env);
+            
         }
     }
 }

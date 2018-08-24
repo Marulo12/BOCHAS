@@ -15,7 +15,7 @@
 </head>
 <body>
 
-    <div class="container-fluid" >
+    <div class="container-fluid">
 
         <div class="row">
             <div class="col-sm-12" style="align-content:center;padding-left:0%;">
@@ -24,13 +24,13 @@
                 <br />
                 <h1 style="font-size:50px;padding-left:34%;font-family:'Times New Roman', Times, serif">Bochas Padel</h1>
                 <hr />
-                <h2 style="padding-left:17%;"><img src="~/images/extras/padel3.png" width="160"/>Alquiler de Cancha</h2>
+                <h2 style="padding-left:17%;"><img src="~/images/extras/padel3.png" width="160" />Alquiler de Cancha</h2>
             </div>
         </div>
-        <hr  style="height:4px;" />
+        <hr style="height:4px;" />
         <div class="panel panel-primary">
             <div class="panel-heading">
-               <h3>Informacion General</h3>
+                <h3>Informacion General</h3>
             </div>
             <div class="panel-body">
                 <p style="font-size:22px;padding-left:30px;">N° Reserva: @Html.DisplayFor(model => model.Numero) &nbsp;&nbsp;&nbsp;  Jugador: @Html.DisplayFor(model => model.IdClienteNavigation.Persona.SingleOrDefault().Nombre)  @Html.DisplayFor(model => model.IdClienteNavigation.Persona.SingleOrDefault().Apellido) &nbsp;&nbsp;&nbsp; N° Documento: @Html.DisplayFor(model => model.IdClienteNavigation.Persona.SingleOrDefault().NroDocumento)</p>
@@ -38,8 +38,8 @@
                 <p style="font-size:20px;padding-left:30px;">Estado de la Reserva:  @Html.DisplayFor(model => model.IdEstadoNavigation.Nombre) </p>
             </div>
             <div class="panel-footer" style="background-color:rgba(170, 44, 44, 0.9);color:white;padding:0px;">
-<h3 style="padding-left:10px;">Detalle de la Reserva</h3>
-                
+                <h3 style="padding-left:10px;">Detalle de la Reserva</h3>
+
                 <table class="table" style="font-size:20px;background-color:white;color:black;">
                     <thead><tr><td>Cancha</td><td>Descripcion</td><td>Hora Desde</td><td>Hora Hasta</td><td></td></tr></thead>
                     <tbody>
@@ -48,7 +48,7 @@
                             {
                                 if (item.IdEstadoDetalle == 5)
                                 {
-                                    <tr ><td style="text-decoration:line-through;">@db.Cancha.Where(c => c.Id == item.IdCancha).Single().Numero</td><td style="text-decoration:line-through;">@db.Cancha.Where(c => c.Id == item.IdCancha).Single().Descripcion</td><td style="text-decoration:line-through;">@Html.DisplayFor(model => item.HoraReservaDesde)</td><td style="text-decoration:line-through;">@Html.DisplayFor(model => item.HoraReservaHasta)</td><td><label class="label label-danger">Cancelado</label></td></tr>
+                                    <tr><td style="text-decoration:line-through;">@db.Cancha.Where(c => c.Id == item.IdCancha).Single().Numero</td><td style="text-decoration:line-through;">@db.Cancha.Where(c => c.Id == item.IdCancha).Single().Descripcion</td><td style="text-decoration:line-through;">@Html.DisplayFor(model => item.HoraReservaDesde)</td><td style="text-decoration:line-through;">@Html.DisplayFor(model => item.HoraReservaHasta)</td><td><label class="label label-danger">Cancelado</label></td></tr>
                                 }
                                 else
                                 {
@@ -60,11 +60,11 @@
                         }
                     </tbody>
                 </table>
-</div>
+            </div>
         </div>
-        
-        </div>
-   
+
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
 </body>
 </html>
