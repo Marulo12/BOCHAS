@@ -96,7 +96,7 @@
                                             break;
                                     }
                                 }
-                                <a class="btn btn-primary btn-sm " data-toggle="tooltip" title="Reporte Reserva" onclick="generaRepo(@item.Numero)"><i class="fas fa-download"></i></a>
+                                <a class="btn btn-primary btn-sm " data-toggle="tooltip" title="Reporte Reserva" onclick="generaRepo(@item.Numero)"><i class="fas fa-clipboard-list"></i></a>
 
                             </div>
                         </td>
@@ -129,11 +129,13 @@
             <div class="modal-header" style="background:-webkit-gradient(linear, 96% 73%, 0% 0%, from(#AD9085), to(#CE2029));">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title" style="color:white;">Detalle de la Reserva</h4>
+              
             </div>
             <div id="DetalleReservaBody" class="modal-body">
-
+               
             </div>
             <div class="modal-footer">
+              
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
@@ -207,6 +209,6 @@
 
 @section Scripts{
     <script src="~/js/AlquilerDeCanchas.js"></script>
-    <script src="~/js/Cobros.js"></script>
+   
 
 }

@@ -97,8 +97,8 @@ function RegistrarCobroReserva() {
           
             $("#ModalCobro").modal("hide");
             alertify.success("Cobro realizado con exito");
-            window.open("/Reportes/ReporteCobroReserva?NCobro=" + response);
-            
+          //  window.open("/Reportes/ReporteCobroReserva?NCobro=" + response);
+            ReporteCobroReserva(response);
             },
 
     failure: function (response) {

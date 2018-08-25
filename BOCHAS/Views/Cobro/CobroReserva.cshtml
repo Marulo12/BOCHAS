@@ -57,20 +57,22 @@
                          <tbody></tbody>
                      </table>
                      <hr />
-                     <div class="input-group">
-                         <span class="input-group-btn">
-                             <button class="btn btn-sm btn-info" type="button" onclick="CalcularTotal()">=</button>
-                         </span>
-                         <div class="row">
-                             <div class="col-md-4"><input id="InputTotalR" type="text"  class="form-control" placeholder="El total es" readonly></div>
-                             <div class="col-md-3"> <input id="RegCobro" type="button" value="Generar Cobro" class="btn btn-primary" onclick="RegistrarCobroReserva()"/></div>
+                     <div class="row">
+                         <div class="col-md-4">
+                             <div class="input-group">
+                                 <span class="input-group-btn">
+                                     <button class="btn  btn-info" type="button" onclick="CalcularTotal()">=</button>
+                                 </span>
+                                 <input id="InputTotalR" type="text" class="form-control" placeholder="El total es" readonly>
+                             </div>
                          </div>
+                         <div class="col-md-3"> <input id="RegCobro" type="button" value="Generar Cobro" class="btn btn-primary" onclick="RegistrarCobroReserva()" /></div>
                      </div>
                  </div>
-             </div>
          </div>
      </div>
- </div>         
+ </div> 
+     </div>
 <script src="~/js/Cobros.js"></script>
 
 

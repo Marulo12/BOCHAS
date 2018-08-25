@@ -399,6 +399,8 @@ function ConsultaParticular() {
         }); 
 }
 function VerDetalleMiReserva(numero) {
+    $(".modal-footer .progress").css("display", "block");
+    $("#DetalleReservaBody").empty();    
     $("#ModalDetalleReserva").modal();
     $.ajax({
         type: "GET",
@@ -433,7 +435,7 @@ function VerDetalleMiReserva(numero) {
                 }
             }
             );
-           
+            $(".modal-footer .progress").css("display", "none");
         },
         failure: function (response) {
             alert(response);
@@ -442,21 +444,22 @@ function VerDetalleMiReserva(numero) {
     });
 
 }
-function VerDetalleReserva(numero) {
-    $("#ModalDetalleReserva").modal();
+function VerDetalleReserva(numero) {     
+    $(".modal-footer .progress").css("display", "block");
+    $("#DetalleReservaBody").empty();    
+    $("#ModalDetalleReserva").modal();    
     $.ajax({
         type: "GET",
         data: { numero },
         url: "/AlquilerCanchas/VerDetalle",
         success: function (response) {
+           
             $("#DetalleReservaBody").html(response);
             $("#TablaDetalleReserva").DataTable({
                 searching: true,
                 lengthMenu: [5, 10, 20, 75, 100],
                 responsive: true,
                 search: "Filtro&nbsp;:",
-
-
                 language: {
                     processing: "Procesando",
                     search: "Filtro&nbsp;:",
@@ -477,7 +480,7 @@ function VerDetalleReserva(numero) {
                 }
             }
             );
-
+            $(".modal-footer .progress").css("display", "none");
         },
         failure: function (response) {
             alert(response);
@@ -507,7 +510,19 @@ function generaRepo(numero) {
 }
 
 function ReporteCobroReserva(NCobro) {
-    window.open("/Reportes/ReporteCobroReserva?NCobro=" + NCobro);
+   
+    $("#ModalPdf").modal();
+    $("#GeneraPDF").css("display", "inline");
+    $("#VisorPDF").attr("src", "");
+    $("#VisorPDF").css("display", "none");
+    setTimeout(function () {
+        $("#GeneraPDF").css("display", "none");
+        $("#VisorPDF").attr("data","/Reportes/ReporteCobroReserva?NCobro=" + NCobro);
+        $("#VisorPDF").css("display", "inline-block");
+        $("#VisorPDF").css("width", "100%");
+        $("#VisorPDF").css("height", "500px");
+
+    }, 2000);
 }
 
 
@@ -545,5 +560,5 @@ function MensajesdeAcciones() {
     if ($("#Respuesta").val() === "NoMail") {
         alertify.error("Se cancelo la reserva pero no se mando mensaje al jugador");
     }
-   
+    $("#Respuesta").val("");
 }
