@@ -1,0 +1,98 @@
+﻿@model IEnumerable<BOCHAS.Models.Cobro>
+
+@{
+
+    Layout = null;
+    BOCHASContext bd = new BOCHASContext();
+}
+-
+
+<table id="TablaCobros" class="table">
+    <thead style="background-color: rgba(158, 44, 44, 0.9);color:white;">
+        <tr>
+            <th>
+                Numero
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fecha)
+            </th>
+            <th>
+                Monto Total
+            </th>
+            <th>
+                Medio de Pago
+            </th>
+            <th>
+                Cupon
+            </th>
+
+            <th>
+                Tarjeta
+            </th>
+            <th>
+                Responsable de Cobro
+            </th>
+            <th style="text-align:center">Detalle del cobro</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Numero)
+                </td>
+                <td>
+                    @item.Fecha.Date.ToString("dd/MM/yyyy")
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.NroCupon)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MontoTotal)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdMedioPagoNavigation.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdTarjetaNavigation.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => bd.Persona.Where(p => p.IdUsuario == item.IdUsuarioNavigation.Id).SingleOrDefault().Nombre) @Html.DisplayFor(modelItem => bd.Persona.Where(p => p.IdUsuario == item.IdUsuarioNavigation.Id).SingleOrDefault().Apellido)
+
+                </td>
+                <td >
+                    <button class="btn btn-sm btn-default form-control" style="width:100%;" data-toggle="collapse" data-target="#@item.Numero">
+                        Abrir
+                    </button>
+                    <div id="@item.Numero" class="collapse " style="padding:0px;margin:0px;">
+                        <ul class="list-group">
+                            @{foreach (var dt in item.DetalleCobro)
+                                {
+
+                                    if (dt.IdServicio != null)
+                                    {
+                                        <li class="list-group-item">
+                                            @Html.DisplayFor(modelItem => bd.Servicio.Where(s => s.Id == dt.IdServicio).SingleOrDefault().Nombre)  Cantidad:@Html.DisplayFor(modelItem => dt.Cantidad) $Monto: @Html.DisplayFor(modelItem => dt.Monto)
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li class="list-group-item">
+                                            @Html.DisplayFor(modelItem => bd.ServiciosAdicionales.Where(s => s.Id == dt.IdServiciosAdicionales).SingleOrDefault().Nombre)  Cantidad:@Html.DisplayFor(modelItem => dt.Cantidad) $Monto:@Html.DisplayFor(modelItem => dt.Monto)
+                                        </li>
+                                    }
+
+                                }
+                            }
+                        </ul>
+                    </div>
+
+                </td>
+            </tr>
+
+        }
+    </tbody>
+</table>
+

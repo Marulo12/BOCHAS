@@ -60,10 +60,10 @@
                                 </td>
 
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.FechaComienzo)
+                                    @item.FechaComienzo.Date.ToString("dd/MM/yyyy")
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.IdPersonaNavigation.FechaBaja)
+                                   @item.IdPersonaNavigation.FechaBaja.Value.Date.ToString("dd/MM/yyyy")
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.IdPersonaNavigation.IdDomicilioNavigation.IdLocalidadNavigation.Nombre)

@@ -1,7 +1,4 @@
-﻿
-
-//var connection1 = $.hubConnection(), hub = connection1.createHubProxy('chat');
-var user = function (user) {
+﻿var user = function (user) {
     if (user.length === 0 ) {
         $("#Sig").empty();
         $("#Sig").append('<li><a asp-action="Index" asp-controller="Sessions" class="notification-item"><span class="dot bg-danger"></span> No hay jugadores  Conectados</a></li>');
@@ -31,15 +28,7 @@ var reservaJ = function (reservaJ) {
     }
 }
 
-
 hub.on('join', user);
-//hub.on('ReservasJugador', reservaJ);
-//connection1.start(
-  //  function () {
-      //  
-     //   hub.invoke('ReservasJugador');
-   // }).done();
-
 
 $.ajax({
     type: "GET",
@@ -78,6 +67,15 @@ $.ajax({
 
             $("#BodyTReservaPorDia").append('<tr><td>' + response[i].numero + '</td><td>' + response[i].nombre + '</td><td><label class="label ' + label + ' " style="font-size:12px;">' + response[i].estado + '</label></td></tr>');
         }
+    }
+
+});
+
+$.ajax({
+    type: "GET",
+    url: "/AlquilerCanchas/MostrarPorcentajeReservas",
+    success: function (response) {
+        $("#PorcentajeReservas").text(response + "%");
     }
 
 });

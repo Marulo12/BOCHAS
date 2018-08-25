@@ -1,5 +1,9 @@
-﻿$(document).ready(function() {
+﻿
+$(document).ready(function () {
     ArmarListadoAdicionales();   
+    $("#BtnBuscarCobro").click(function () {
+        MostrarCobros();
+    });
 });
 
 function ArmarListadoAdicionales(){    
@@ -109,4 +113,72 @@ function RegistrarCobroReserva() {
 
 }
 
+function MostrarCobros() {
+    var fecD = $("#fechadesde").val();
+    var fecH = $("#fechahasta").val();
+    $("#ImgLoad").css("display", "inline-block");
+    $("#Bodicobro").empty();
+    $.ajax({
+        type: "GET",
+        data: { fecD, fecH },
+        url: "/Cobro/ConsultarCobros",
+        success: function (response) {
+            $("#Bodicobro").html(response);
+            
+            $("#ImgLoad").css("display", "none");
+            $("#TablaCobros").DataTable({
+                searching: true,
+                pageLength: 10,
+                lengthMenu: [5, 10, 20, 75, 100],
+                responsive: true,
+                search: "Filtro&nbsp;:",
+                dom: 'Bfrtip',
 
+                buttons: [
+
+                    {
+                        extend: 'print',
+                        text: 'Imprimir',
+                        title: 'BOCHAS PADEL - Cobros Alquiler de Canchas'
+
+                    }, {
+                        extend: 'excel',
+                        text: 'Excel',
+                        title: 'BOCHAS PADEL - Cobros Alquiler de Canchas'
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        text: 'PDF',
+                        title: 'BOCHAS PADEL - Cobros Alquiler de Canchas'
+
+                    }
+                ],
+                language: {
+                    processing: "Procesando",
+                    search: "Filtro&nbsp;:",
+                    info: "Pagina _PAGE_ de _PAGES_  / <b>Total de Registros: _MAX_</b> ",
+                    infoEmpty: "",
+                    infoFiltered: "",
+                    zeroRecords: "Ningun registro coincide",
+                    lengthMenu: "Mostrar _MENU_ registros",
+                    infoPostFix: "",
+                    loadingRecords: "Cargando...",
+                    emptyTable: "No hay registros",
+                    paginate: {
+                        first: "Primero",
+                        previous: "Anterior",
+                        next: "Siguiente",
+                        last: "Ultimo"
+                    }
+                }
+            });  
+        },
+
+        failure: function (response) {
+            alert(response);
+        }
+
+    });
+
+
+}

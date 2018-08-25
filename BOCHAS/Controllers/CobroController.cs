@@ -101,5 +101,27 @@ namespace BOCHAS.Controllers
             }
 
         }
+
+        public IActionResult MostrarCobros()
+        {
+            return View();
+        }
+        public async Task<IActionResult> ConsultarCobros(DateTime? fecD, DateTime? fecH)
+        {
+            if (fecD != null || fecH != null)
+            {
+                var cobro = _context.Cobro.Include(c => c.AlquilerCancha).Include(c => c.DetalleCobro).Include(c => c.IdMedioPagoNavigation).Include(c => c.IdTarjetaNavigation).Include(c => c.IdUsuarioNavigation).Where(c => c.Fecha >= fecD.Value.Date && c.Fecha <= fecH.Value.Date).ToListAsync();
+                return PartialView(await cobro);
+            }
+            else
+            {
+                var cobro = _context.Cobro.Include(c => c.AlquilerCancha).Include(c => c.DetalleCobro).Include(c => c.IdMedioPagoNavigation).Include(c => c.IdTarjetaNavigation).Include(c => c.IdUsuarioNavigation).ToListAsync();
+                return PartialView(await cobro);
+
+            }
+
+
+
+        }
     }
 }

@@ -31,9 +31,7 @@
                         @Html.DisplayNameFor(model => model.FechaPedido)
                     </th>
 
-                    <th>
-                        @Html.DisplayNameFor(model => model.FechaCancelacion)
-                    </th>
+                    
                     <th>
                         Jugador
                     </th>
@@ -59,10 +57,7 @@
                             @item.FechaPedido.Value.Date.ToString("dd/MM/yyyy")
                         </td>
 
-                        <td>
-                            @{ if (item.FechaCancelacion != null)
-                                { @item.FechaCancelacion.Value.Date.ToString("dd/MM/yyyy")} }
-                        </td>
+                       
 
                         <td>
                             @Html.DisplayFor(modelItem => item.IdClienteNavigation.Persona.Where(p => p.IdUsuario == item.IdClienteNavigation.Id).SingleOrDefault().Nombre),@Html.DisplayFor(modelItem => item.IdClienteNavigation.Persona.Where(p => p.IdUsuario == item.IdClienteNavigation.Id).SingleOrDefault().Apellido)
@@ -101,7 +96,7 @@
                                             break;
                                     }
                                 }
-                                <a class="btn btn-primary btn-sm " data-toggle="tooltip" title="Generar Reporte" onclick="generaRepo(@item.Numero)"><i class="fas fa-download"></i></a>
+                                <a class="btn btn-primary btn-sm " data-toggle="tooltip" title="Reporte Reserva" onclick="generaRepo(@item.Numero)"><i class="fas fa-clipboard-list"></i></a>
 
                             </div>
                         </td>
@@ -134,11 +129,13 @@
             <div class="modal-header" style="background:-webkit-gradient(linear, 96% 73%, 0% 0%, from(#AD9085), to(#CE2029));">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title" style="color:white;">Detalle de la Reserva</h4>
+              
             </div>
             <div id="DetalleReservaBody" class="modal-body">
-
+               
             </div>
             <div class="modal-footer">
+              
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
@@ -212,6 +209,6 @@
 
 @section Scripts{
     <script src="~/js/AlquilerDeCanchas.js"></script>
-    <script src="~/js/Cobros.js"></script>
+   
 
 }

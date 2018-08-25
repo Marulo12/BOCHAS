@@ -58,18 +58,23 @@
                                     <a class="btn btn-danger btn-sm BtnCancelaR" asp-action="CancelarReserva" asp-controller="AlquilerCanchas" asp-route-Nreserva="@item.Numero" style="color:white" data-toggle="tooltip" title="Cancelar"><i class="fas fa-ban"></i></a>
                                     break;
                                 case 2:
-                                    <a class="btn btn-default btn-sm" asp-action="ComenzarReserva" asp-controller="AlquilerCanchas" asp-route-Nreserva="@item.Numero"  style="color:black" data-toggle="tooltip"  title="Comenzar"><i class="fas fa-play"></i></a>
-                                    <a  class="btn btn-danger btn-sm BtnCancelaR" asp-action="CancelarReserva" asp-controller="AlquilerCanchas" asp-route-Nreserva="@item.Numero" data-toggle="tooltip" style="color:white" title="Cancelar"><i class="fas fa-ban"></i></a>
+                                    <a class="btn btn-default btn-sm" asp-action="ComenzarReserva" asp-controller="AlquilerCanchas" asp-route-Nreserva="@item.Numero" style="color:black" data-toggle="tooltip" title="Comenzar"><i class="fas fa-play"></i></a>
+                                    <a class="btn btn-danger btn-sm BtnCancelaR" asp-action="CancelarReserva" asp-controller="AlquilerCanchas" asp-route-Nreserva="@item.Numero" data-toggle="tooltip" style="color:white" title="Cancelar"><i class="fas fa-ban"></i></a>
                                     break;
                                 case 3: <a class="btn btn-success btn-sm" asp-action="FinalizarReserva" asp-controller="AlquilerCanchas" asp-route-Nreserva="@item.Numero" style="color:white" data-toggle="tooltip" title="Finalizar"><i class="fas fa-stopwatch"></i></a>
                                     break;
                                 case 4:
+                                    if (item.IdCobro != null)
+                                    {
+                                        <button class="btn btn-sm btn-primary" onclick="ReporteCobroReserva(@item.IdCobro)" data-toggle="tooltip" title="Reporte Cobro"><i class="fas fa-money-check-alt"></i></button>
+                                    }
+
                                     break;
                                 case 5:
                                     break;
                             }
                         }
-                        <a class="btn btn-primary btn-sm " data-toggle="tooltip" title="Generar Reporte" onclick="generaRepo(@item.Numero)"><i class="fas fa-download"></i></a>
+                        <a class="btn btn-primary btn-sm " data-toggle="tooltip" title="Reporte Reserva" onclick="generaRepo(@item.Numero)"><i class="fas fa-clipboard-list"></i></a>
 
                     </div>
                 </td>
