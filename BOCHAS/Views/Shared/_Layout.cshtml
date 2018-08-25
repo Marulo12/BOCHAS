@@ -176,6 +176,16 @@
                                 </ul>
                             </div>
                         </li>
+                        <li>
+                            <a href="#subPagesCobro" data-toggle="collapse" class="collapsed"><i class="fas fa-money-bill"></i><span>&nbsp;&nbsp;Cobros</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                            <div id="subPagesCobro" class="collapse ">
+                                <ul class="nav">
+                                    <li><a asp-action="RegistrarJugador" asp-controller="Personas"> <i class="fas fa-user-plus"></i>&nbsp;&nbsp;Nuevo Cobro</a></li>
+                                    <li><a asp-controller="Cobro" asp-action="MostrarCobros"> <i class="fab fa-searchengin"></i>&nbsp;&nbsp;Consultar Cobros</a></li>
+                                    
+                                </ul>
+                            </div>
+                        </li>
                         <li><a asp-action="NuevaCancha" asp-controller="Canchas" class=""><i class="fab fa-codepen"></i> <span>&nbsp;&nbsp;Canchas</span></a></li>
                         <li>
                             <a href="#subPagesEmpleados" data-toggle="collapse" class="collapsed"><i class="fa fa-fw fa-user-tie"></i><span>&nbsp;&nbsp;Empleados</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
@@ -198,7 +208,7 @@
                             </div>
                         </li>
                         <li><a href="charts.html"><i class="lnr lnr-chart-bars"></i><span>Estadísticas</span></a></li>
-                       
+
                         <li><a asp-action="Index" asp-controller="Sessions"><i class="fab fa-algolia"></i> <span>&nbsp;&nbsp;Sessiones</span></a></li>
 
                         <li><a href="icons.html" class=""><i class="fas fa-book"></i><span>&nbsp;&nbsp;Ayuda</span></a></li>
