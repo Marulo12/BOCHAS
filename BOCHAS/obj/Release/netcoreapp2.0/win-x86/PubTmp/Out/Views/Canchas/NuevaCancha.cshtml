@@ -1,0 +1,77 @@
+﻿@model BOCHAS.Models.Cancha
+
+@{
+    ViewData["Title"] = "Create";
+}
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 style="padding:0px;margin:0px;"><i class="fab fa-codepen"></i>  Administración de canchas</h3>
+
+
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <ul class="nav nav-tabs ">
+                <li role="presentation" class="active"> <a asp-action="NuevaCancha">Nueva Cancha</a></li>
+                <li role="presentation"><a asp-action="Index">Consulta</a></li>
+
+            </ul>
+            <br />
+
+        </div>
+        <div class="row">
+            <form id="NuevaCancha" asp-action="Create">
+                <div class="col-md-4">
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label class="control-label">Número</label>
+                        <input id="Numero" asp-for="Numero" class="form-control" />
+
+                    </div>
+                   
+
+                    <div class="form-group">
+                        <label class="control-label">Descripción</label>
+                        <input asp-for="Descripcion" class="form-control" />
+
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="Nombre" class="control-label"></label>
+                        <input id="Nombre" asp-for="Nombre" class="form-control" />
+
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Tipo de Material</label>
+                        <select asp-for="IdTipoMaterial" class="form-control" asp-items="ViewBag.IdTipoMaterial" style="background-color: rgba(172, 44, 44, 0.9);color:white;"></select>
+
+                    </div>
+
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group" style="display:none;">
+                        <label class="control-label">Estado</label>
+                        <select asp-for="IdEstadoCancha" class="form-control" asp-items="ViewBag.IdEstadoCancha" style="background-color: rgba(172, 44, 44, 0.9);color:white;"></select>
+
+                    </div>
+                    <div class="btn-group" >
+                        <input type="submit" value="Aceptar" class="btn btn-primary" style="margin-top:100px;" />
+                        <a asp-action="NuevaCancha" asp-controller="Canchas"> <input type="button" value="Limpiar" class="btn btn-primary" style="margin-top:100px;" /></a>
+                    </div>
+                    </div>
+</form>
+        </div>
+
+
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="~/js/Canchas.js"></script>
+
+}
+
