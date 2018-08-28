@@ -58,6 +58,7 @@ namespace BOCHAS.Controllers
         {
             if (ModelState.IsValid)
             {
+                serviciosAdicionales.Activo = true;
                 _context.Add(serviciosAdicionales);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -86,7 +87,7 @@ namespace BOCHAS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Descripcion,Precio")] ServiciosAdicionales serviciosAdicionales)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Descripcion,Precio,Activo")] ServiciosAdicionales serviciosAdicionales)
         {
             if (id != serviciosAdicionales.Id)
             {
@@ -141,7 +142,8 @@ namespace BOCHAS.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var serviciosAdicionales = await _context.ServiciosAdicionales.SingleOrDefaultAsync(m => m.Id == id);
-            _context.ServiciosAdicionales.Remove(serviciosAdicionales);
+            serviciosAdicionales.Activo = false;
+            _context.ServiciosAdicionales.Update(serviciosAdicionales);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

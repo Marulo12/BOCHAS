@@ -47,7 +47,7 @@ namespace BOCHAS.Controllers
 
         public async Task<JsonResult> ListadoServiciosAdicionales() {
 
-            var listado = await _context.ServiciosAdicionales.ToListAsync();
+            var listado = await _context.ServiciosAdicionales.Where(l=>l.Activo == true).ToListAsync();
             return Json(listado);
         }
 

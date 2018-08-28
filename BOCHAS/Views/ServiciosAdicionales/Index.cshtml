@@ -30,27 +30,36 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Precio)
                     </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Activo)
+                    </th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Nombre)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Descripcion)
-                        </td>
-                        <td>
-                            $@Html.DisplayFor(modelItem => item.Precio)
-                        </td>
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@item.Id" data-toggle="tooltip" title="Editar"  style="font-size:13px;"><i class="far fa-edit" style="font-size:20px;"></i></a> 
-                            <a asp-action="Delete" asp-route-id="@item.Id" data-toggle="tooltip" title="Eliminar"><i class="fas fa-trash-alt" style="font-size:20px;"></i></a>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Descripcion)
+                    </td>
+                    <td>
+                        $@Html.DisplayFor(modelItem => item.Precio)
+                    </td>
+                    <td>
+                        @{ if (item.Activo == true)
+                            { <i class="far fa-thumbs-up" style="font-size:20px;"></i> }
+                            else { <i class="fas fa-thumbs-down" style="font-size:20px;"></i>}
+                        }
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id" data-toggle="tooltip" title="Editar" style="font-size:13px;"><i class="far fa-edit" style="font-size:20px;"></i></a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" data-toggle="tooltip" title="Eliminar"><i class="fas fa-trash-alt" style="font-size:20px;"></i></a>
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>
