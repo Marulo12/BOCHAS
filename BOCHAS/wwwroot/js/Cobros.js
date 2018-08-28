@@ -1,8 +1,21 @@
 ﻿
 $(document).ready(function () {
+    
     ArmarListadoAdicionales();   
     $("#BtnBuscarCobro").click(function () {
         MostrarCobros();
+    });
+
+
+    $("#MedioPago").change(function () {        
+        
+        if ($("#MedioPago option:selected").val() === "2") {
+            $("#DivTarjeta").show();
+        }
+        if ($("#MedioPago option:selected").val() === "1") {
+            $("#DivTarjeta").hide();
+        }
+    
     });
 });
 
@@ -72,9 +85,12 @@ function RegistrarCobroReserva() {
     var Fecha = $("#FechaCobro").val();
     var MedioPago = $("#MedioPago option:selected").val();
     var MontoTotal = $("#InputTotalR").val();
-    var NroCupon = 0;
-    var IdTarjeta = 0;
-   
+    var NroCupon = null;
+    var IdTarjeta = null;
+    if (MedioPago === "2") {
+        NroCupon = $("#Ncupon").val();
+        IdTarjeta=$("#IdTarjeta option:selected").val();
+    }
     // todo para detalle cobro
     // objeto servicio
     var cantidadCanchas = $("#CantC").val();

@@ -36,9 +36,14 @@
                 <h3>Informacion General</h3>
             </div>
             <div class="panel-body">
-                <p style="font-size:22px;padding-left:30px;">N° Cobro: @Html.DisplayFor(model => model.Numero) &nbsp;&nbsp;&nbsp;  Jugador: @db.Persona.Where(p => p.IdUsuario == db.AlquilerCancha.Where(a => a.IdCobro == Model.Numero).SingleOrDefault().IdCliente).SingleOrDefault().Nombre  @db.Persona.Where(p => p.IdUsuario == db.AlquilerCancha.Where(a => a.IdCobro == Model.Numero).SingleOrDefault().IdCliente).SingleOrDefault().Apellido &nbsp;&nbsp;&nbsp; N° Documento: @db.Persona.Where(p => p.IdUsuario == db.AlquilerCancha.Where(a => a.IdCobro == Model.Numero).SingleOrDefault().IdCliente).SingleOrDefault().NroDocumento</p>
+                <p style="font-size:22px;padding-left:30px;">N° Recibo: @Html.DisplayFor(model => model.Numero) &nbsp;&nbsp;&nbsp;  Jugador: @db.Persona.Where(p => p.IdUsuario == db.AlquilerCancha.Where(a => a.IdCobro == Model.Numero).SingleOrDefault().IdCliente).SingleOrDefault().Nombre  @db.Persona.Where(p => p.IdUsuario == db.AlquilerCancha.Where(a => a.IdCobro == Model.Numero).SingleOrDefault().IdCliente).SingleOrDefault().Apellido &nbsp;&nbsp;&nbsp; N° Documento: @db.Persona.Where(p => p.IdUsuario == db.AlquilerCancha.Where(a => a.IdCobro == Model.Numero).SingleOrDefault().IdCliente).SingleOrDefault().NroDocumento</p>
                 <p style="font-size:20px;padding-left:30px;"> Fecha de Cobro:     @Model.Fecha.Date.ToString("dd/MM/yyyy")  &nbsp;&nbsp;&nbsp; </p>
                 <p style="font-size:20px;padding-left:30px;">Medio de Pago:  @Html.DisplayFor(model => model.IdMedioPagoNavigation.Nombre) </p>
+                @{ if (Model.IdMedioPago == 2)
+                    {
+                <p style="font-size:20px;padding-left:30px;">N° Cupon: @Model.NroCupon.ToString()  Empresa: @db.Tarjeta.Where(t => t.Id == Model.IdTarjeta).SingleOrDefault().Nombre   Tipo:@db.Tarjeta.Where(t => t.Id == Model.IdTarjeta).SingleOrDefault().TipoTarjeta </p>
+                    } }
+
             </div>
             <div class="panel-footer" style="background-color:rgba(170, 44, 44, 0.9);color:white;padding-left:0px;padding-right:0px;">
                 <h3 style="padding-left:10px;">Detalle de Cobro</h3>
@@ -68,7 +73,7 @@
                     </tbody>
                 </table>
                 <br />
-                <h2 style="text-align:right;padding-right:20px;">$Total: @Convert.ToInt32(Model.MontoTotal)</h2>
+                <h2 style="text-align:right;padding-right:20px;">Total: $@Convert.ToInt32(Model.MontoTotal)</h2>
             </div>
         </div>
 

@@ -8,6 +8,7 @@
     int Canchas = ViewBag.canchas;
     var Stotal = precioServicio * Canchas * hh.TotalHours;
 }
+
  <div class="panel" style="border:none;">
      <div class="panel-body">
          <div class="row">
@@ -22,11 +23,23 @@
                  </div>
 
              </div>
-             <div class="col-md-3">
+             <div class="col-md-5">
                  <div class="form-group">
                      <label asp-for="Fecha" class="control-label"></label>
                      <input id="FechaCobro" type="date" class="form-control" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" readonly />
                     
+                 </div>
+                 <div id="DivTarjeta" class="form-group" style="display:none;">
+                     <div class="col-sm-6">
+                         <label>N° Cupon:</label>
+                         <input id="Ncupon" class="form-control"/>
+                     </div>
+                     <div class="col-sm-6">
+                         <label>Tipo de Tarjeta</label>
+                         <select id="IdTarjeta" class="form-control" asp-items="ViewBag.IdTarjeta"></select>
+                     </div>
+                     
+                     
                  </div>
              </div>
              <div class="row">
