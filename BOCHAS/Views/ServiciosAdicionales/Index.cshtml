@@ -18,7 +18,7 @@
             <a class="btn btn-sm btn-default" asp-action="Create"><i class="fas fa-plus"></i> Nuevo Servicio</a>
         </p>
         <div class="row" style="height:100%;"><img id="ImgLoad" src="~/images/extras/dots-2.gif" width="200" /></div>
-        <table id="TablaServicios" class="table ocultar">
+        <table id="TablaServicios" class="table ocultar" style="width:100%;">
             <thead style="background-color: rgba(158, 44, 44, 0.9);color:white;">
                 <tr>
                     <th>
@@ -115,7 +115,10 @@
                          last: "Ultimo"
                      }
                  }
-             });
+          
+                 });
+                 $("#TablaServicios_filter").append($("div .btn-group"));
+                 $("div .btn-group").css("float", "left");
          });
     $('[data-toggle="tooltip"]').tooltip();
 

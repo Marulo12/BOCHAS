@@ -6,7 +6,7 @@
     BOCHASContext bd = new BOCHASContext();
 }
 
-<table id="TablaCobros" class="table">
+<table id="TablaCobros" class="table" style="width:100%;">
     <thead style="background-color: rgba(158, 44, 44, 0.9);color:white;">
         <tr>
             <th>
@@ -31,6 +31,7 @@
             <th>
                 Responsable de Cobro
             </th>
+           
             <th style="text-align:center">Detalle del cobro</th>
         </tr>
     </thead>
@@ -60,7 +61,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => bd.Persona.Where(p => p.IdUsuario == item.IdUsuarioNavigation.Id).SingleOrDefault().Nombre) @Html.DisplayFor(modelItem => bd.Persona.Where(p => p.IdUsuario == item.IdUsuarioNavigation.Id).SingleOrDefault().Apellido)
-
             </td>
             <td>
                 <button class="btn btn-sm btn-default form-control" style="width:100%;" data-toggle="collapse" data-target="#@item.Numero">
@@ -85,9 +85,9 @@
                                 }
 
                             }
-                                    <li class="list-group-item">
-                                        <button class="btn btn-sm btn-primary" style="width:100%;" onclick="ReporteCobroReserva(@item.Numero)" data-toggle="tooltip" title="Reporte Cobro"><i class="fas fa-money-check-alt"></i></button>
-                                    </li>
+                            <li class="list-group-item">
+                                <button class="btn btn-sm btn-primary" style="width:100%;" onclick="ReporteCobroReserva(@item.Numero)" data-toggle="tooltip" title="Reporte Cobro"><i class="fas fa-money-check-alt"></i></button>
+                            </li>
                         }
                     </ul>
                 </div>
