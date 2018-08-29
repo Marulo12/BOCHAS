@@ -1,0 +1,46 @@
+﻿@model BOCHAS.Models.Agenda
+
+<div class="row">
+    <div class="col-sm-12" style="margin:0px;">
+        <ul class="list-group" style="margin:0px;">
+            @{
+                if (Model.IdAlquilerCanchaNavigation.IdEmpleado != null)
+                {
+                    <li class="list-group-item">
+                        Responsable:   @Html.DisplayFor(model => model.IdAlquilerCanchaNavigation.IdEmpleadoNavigation.Nombre)
+                    </li>
+                }
+            }
+
+            <li class="list-group-item">
+                Jugador:
+                @Html.DisplayFor(model => model.IdAlquilerCanchaNavigation.IdClienteNavigation.Nombre)
+            </li>
+            <li class="list-group-item">
+                Cancha:
+                @Html.DisplayFor(model => model.IdCanchaNavigation.Nombre), @Html.DisplayFor(model => model.IdCanchaNavigation.Descripcion)
+            </li>
+
+            <li class="list-group-item">
+                Fecha:
+                @Html.DisplayFor(model => model.Fecha.Day)/@Html.DisplayFor(model => model.Fecha.Month)/@Html.DisplayFor(model => model.Fecha.Year)
+            </li>
+            <li class="list-group-item">
+                Hora Desde:
+                @Html.DisplayFor(model => model.HoraDesde)
+            </li>
+            <li class="list-group-item">
+                Hora Hasta:
+                @Html.DisplayFor(model => model.HoraHasta)
+            </li>
+        </ul>
+
+
+
+    </div>
+          
+   
+        
+    
+</div>
+

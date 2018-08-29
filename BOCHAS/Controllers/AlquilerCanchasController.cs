@@ -278,7 +278,7 @@ namespace BOCHAS.Controllers
 
         public async Task<IActionResult> ConsultarReservas()
         { 
-            var alquiler = _context.AlquilerCancha.Include(a => a.IdEstadoNavigation).Include(a => a.IdClienteNavigation.Persona).Include(a=>a.IdEmpleadoNavigation.Persona).Include(a=>a.IdClienteNavigation).Include(a=>a.IdEmpleadoNavigation).Where(a=>a.FechaReserva >= DateTime.Now.Date && a.IdEstado != 5).OrderByDescending(a => a.Numero).ToListAsync();
+            var alquiler = _context.AlquilerCancha.Include(a => a.IdEstadoNavigation).Include(a => a.IdClienteNavigation.Persona).Include(a=>a.IdEmpleadoNavigation.Persona).Include(a=>a.IdClienteNavigation).Include(a=>a.IdEmpleadoNavigation).Where(a=>a.FechaReserva >= DateTime.Now.Date && a.IdEstado != 5 && a.IdEstado != 4).OrderByDescending(a => a.Numero).ToListAsync();
 
             return View(await alquiler);
         }
@@ -456,7 +456,7 @@ namespace BOCHAS.Controllers
 
         public async Task<JsonResult> TraerReservasPorDia()
         {
-            var Reserva = (from a in _context.AlquilerCancha join e in _context.EstadoAlquiler on a.IdEstado equals e.Id join p in _context.Persona on a.IdCliente equals p.IdUsuario where a.FechaReserva.Value.Year == DateTime.Now.Year && a.FechaReserva.Value.Date.Month == DateTime.Now.Date.Month && a.FechaReserva.Value.Day >= DateTime.Now.Day -1 select new { Numero = a.Numero, Nombre = p.Nombre + " " + p.Apellido, Estado = e.Nombre , ide = a.IdEstado }).ToListAsync();
+            var Reserva = (from a in _context.AlquilerCancha join e in _context.EstadoAlquiler on a.IdEstado equals e.Id join p in _context.Persona on a.IdCliente equals p.IdUsuario where a.FechaReserva.Value.Year == DateTime.Now.Year && a.FechaReserva.Value.Date.Month == DateTime.Now.Date.Month && a.FechaReserva.Value.Day >= DateTime.Now.Day -1 orderby a.Numero descending select new { Numero = a.Numero, Nombre = p.Nombre + " " + p.Apellido, Estado = e.Nombre , ide = a.IdEstado }).ToListAsync();
 
             return Json(await Reserva);
     }
@@ -503,12 +503,25 @@ namespace BOCHAS.Controllers
         }
 
 
-      
+        public JsonResult MostrarPorcentajeReservas() {
+
+            int Totalreservas = _context.AlquilerCancha.Where(r => r.FechaReserva.Value.Year == DateTime.Now.Year && r.FechaReserva.Value.Month == DateTime.Now.Month).ToList().Count();
+            int ReservasFinalizadas = _context.AlquilerCancha.Where(r => r.FechaReserva.Value.Year == DateTime.Now.Year && r.FechaReserva.Value.Month == DateTime.Now.Month && r.IdEstado==4).ToList().Count();
+            decimal Resultado = (ReservasFinalizadas * 100) / Totalreservas;
+            return Json(Resultado);
+        }
+
+
+        public async Task<JsonResult> GraficoProyeccion()
+        {
+            var real = await (from a in _context.AlquilerCancha where a.IdEstado == 4 group a by a.FechaReserva.Value.Month into g select new { mes =g.Key.ToString() , cantidad = g.Count() }).ToArrayAsync();
+            var proy = await (from a in _context.AlquilerCancha group a by a.FechaReserva.Value.Month into g select new { mes = g.Key.ToString() , cantidad = g.Count() }).ToArrayAsync();
+            var R = new[] { real , proy};            
+            return Json(R);
+        }
+
 
     }
-
-
-   
 
         }
 

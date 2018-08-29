@@ -37,8 +37,8 @@
                 <div class="metric">
                     <span class="icon"><i class="fas fa-chart-bar" style="color:white;"></i></span>
                     <p>
-                        <span class="number">35%</span>
-                        <span class="title">Reservas</span>
+                        <span class="number" id="PorcentajeReservas">0%</span>
+                        <span class="title">Reservas finalizadas en el mes</span>
                     </p>
                 </div>
             </div>
@@ -252,48 +252,69 @@
 
             new Chartist.Line('#headline-chart', data, options);
 
+            var real = [0,0,0,0,0,0,0,0,0,0,0,0];
+            var proy = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+            $.ajax({
+               
+                type: "GET",
+                url: "/AlquilerCanchas/GraficoProyeccion",
 
-            // visits trend charts
-            data = {
-                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-                series: [{
-                    name: 'series-real',
-                    data: [200, 380, 350, 320, 410, 450, 570, 400, 555, 620, 750, 900],
-                }, {
-                    name: 'series-projection',
-                    data: [240, 350, 360, 380, 400, 450, 480, 523, 555, 600, 700, 800],
-                }]
-            };
+                success: function (response) {
+                    
+                    for(var i = 0; i < response[0].length; i++) {
+                        real[response[0][i].mes - 1] = response[0][i].cantidad;
+                    }                    
 
-            options = {
-                fullWidth: true,
-                lineSmooth: false,
-                height: "270px",
-                low: 0,
-                high: 'auto',
-                series: {
-                    'series-projection': {
-                        showArea: true,
-                        showPoint: false,
-                        showLine: false
-                    },
-                },
-                axisX: {
-                    showGrid: false,
+                    for (var ii = 0; ii < response[1].length; ii++) {
+                        proy[response[1][ii].mes - 1] = response[1][ii].cantidad;
+                    }                 
 
-                },
-                axisY: {
-                    showGrid: true,
-                    onlyInteger: false,
-                    offset: 0,
-                },
-                chartPadding: {
-                    left: 20,
-                    right: 20
+                   
+                    data = {
+                        labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+                        series: [{
+                            name: 'series-real',
+                            data: real,
+                        }, {
+                            name: 'series-projection',
+                            data: proy,
+                        }]
+                    };
+
+                    options = {
+                        fullWidth: true,
+                        lineSmooth: false,
+                        height: "270px",
+                        low: 0,
+                        high: 'auto',
+                        series: {
+                            'series-projection': {
+                                showArea: true,
+                                showPoint: false,
+                                showLine: false
+                            },
+                        },
+                        axisX: {
+                            showGrid: false,
+
+                        },
+                        axisY: {
+                            showGrid: true,
+                            onlyInteger: false,
+                            offset: 0,
+                        },
+                        chartPadding: {
+                            left: 20,
+                            right: 20
+                        }
+                    };
+
+                    new Chartist.Line('#visits-trends-chart', data, options);
                 }
-            };
 
-            new Chartist.Line('#visits-trends-chart', data, options);
+            });
+            // visits trend charts
+          
 
 
             // visits chart

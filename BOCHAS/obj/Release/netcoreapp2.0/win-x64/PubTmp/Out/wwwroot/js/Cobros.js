@@ -94,9 +94,11 @@ function RegistrarCobroReserva() {
         data: { Nreserva, Fecha, MedioPago, MontoTotal, NroCupon, IdTarjeta, MontoServicio, Servicio, ServiciosAdicionales },
         url: "/Cobro/RegistrarCobroReserva",
         success: function (response) {
-            alertify.success("Cobro realizado con exito");
+          
             $("#ModalCobro").modal("hide");
-            window.open("/Reportes/ReporteCobroReserva?NCobro=" + response);
+            alertify.success("Cobro realizado con exito");
+          //  window.open("/Reportes/ReporteCobroReserva?NCobro=" + response);
+            ReporteCobroReserva(response);
             },
 
     failure: function (response) {

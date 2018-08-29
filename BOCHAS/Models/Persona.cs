@@ -7,6 +7,8 @@ namespace BOCHAS.Models
     {
         public Persona()
         {
+            ClaseParticularIdJugadorNavigation = new HashSet<ClaseParticular>();
+            ClaseParticularIdProfesorNavigation = new HashSet<ClaseParticular>();
             Jugador = new HashSet<Jugador>();
         }
 
@@ -27,6 +29,8 @@ namespace BOCHAS.Models
         public TipoDocumento IdTipoDocumentoNavigation { get; set; }
         public Usuario IdUsuarioNavigation { get; set; }
         public Empleado Empleado { get; set; }
+        public ICollection<ClaseParticular> ClaseParticularIdJugadorNavigation { get; set; }
+        public ICollection<ClaseParticular> ClaseParticularIdProfesorNavigation { get; set; }
         public ICollection<Jugador> Jugador { get; set; }
     }
 }

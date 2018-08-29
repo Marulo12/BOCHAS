@@ -8,6 +8,7 @@ namespace BOCHAS.Models
         public Cancha()
         {
             Agenda = new HashSet<Agenda>();
+            ClaseParticular = new HashSet<ClaseParticular>();
             DetalleAlquilerCancha = new HashSet<DetalleAlquilerCancha>();
         }
 
@@ -21,6 +22,7 @@ namespace BOCHAS.Models
         public EstadoCancha IdEstadoCanchaNavigation { get; set; }
         public TipoMaterial IdTipoMaterialNavigation { get; set; }
         public ICollection<Agenda> Agenda { get; set; }
+        public ICollection<ClaseParticular> ClaseParticular { get; set; }
         public ICollection<DetalleAlquilerCancha> DetalleAlquilerCancha { get; set; }
     }
 }

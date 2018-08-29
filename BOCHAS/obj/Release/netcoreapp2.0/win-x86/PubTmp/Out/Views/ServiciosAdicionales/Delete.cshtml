@@ -1,0 +1,40 @@
+﻿@model BOCHAS.Models.ServiciosAdicionales
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 style="padding:0px;margin:0px;"><i class="fab fa-dribbble"></i> Servicios Adicionales</h3>
+    </div>
+    <div class="panel-body">
+        <h3>Baja de Servicio</h3>
+        <h4>Esta seguro de darlo de baja?</h4>
+        <hr />
+        <div class="row">
+            <div class="col-sm-4">
+                <ul class="list-group">
+                    <li class="list-group-item"> @Html.DisplayNameFor(model => model.Nombre): @Html.DisplayFor(model => model.Nombre)</li>
+                    <li class="list-group-item"> @Html.DisplayNameFor(model => model.Descripcion):  @Html.DisplayFor(model => model.Descripcion)</li>
+                    <li class="list-group-item"> @Html.DisplayNameFor(model => model.Precio):  @Html.DisplayFor(model => model.Precio)</li>
+                </ul>
+            </div>
+        </div>
+        
+      
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="Id" />
+            <div class="input-group">
+                <input type="submit" value="Aceptar" class="btn btn-sm btn-danger" />
+                <a class="btn btn-sm btn-default" asp-action="Index">Cancelar</a>
+            </div>
+
+        </form>
+    </div>
+    </div>
+        
+          
+        

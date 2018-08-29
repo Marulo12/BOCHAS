@@ -47,7 +47,7 @@ namespace BOCHAS.Controllers
 
         public async Task<JsonResult> ListadoServiciosAdicionales() {
 
-            var listado = await _context.ServiciosAdicionales.ToListAsync();
+            var listado = await _context.ServiciosAdicionales.Where(l=>l.Activo == true).ToListAsync();
             return Json(listado);
         }
 
@@ -57,7 +57,7 @@ namespace BOCHAS.Controllers
         }
         [HttpPost]
        
-        public JsonResult RegistrarCobroReserva(int Nreserva, DateTime Fecha,int MedioPago,decimal MontoTotal,int NroCupon,int IdTarjeta,decimal MontoServicio,DetalleCobro Servicio,DetalleCobro[] ServiciosAdicionales )
+        public JsonResult RegistrarCobroReserva(int Nreserva, DateTime Fecha,int MedioPago,decimal MontoTotal,int? NroCupon,int? IdTarjeta,decimal MontoServicio,DetalleCobro Servicio,DetalleCobro[] ServiciosAdicionales )
         {
             int empleado = (from p in _context.Persona join u in _context.Usuario on p.IdUsuario equals u.Id where u.Nombre == HttpContext.User.Identity.Name && p.Tipo == "EMPLEADO" && p.FechaBaja == null select u).SingleOrDefault().Id;
 
@@ -66,6 +66,11 @@ namespace BOCHAS.Controllers
             cobro.IdMedioPago = MedioPago;
             cobro.MontoTotal = MontoTotal;
             cobro.IdUsuario = empleado;
+            if (MedioPago == 2)
+            {
+                cobro.IdTarjeta = IdTarjeta;
+                cobro.NroCupon = NroCupon;
+            }
             _context.Cobro.Add(cobro);
 
             if (_context.SaveChanges() == 1)
@@ -99,6 +104,28 @@ namespace BOCHAS.Controllers
                 TempData["Respuesta"] = "NO";
                 return Json("ERROR");
             }
+
+        }
+
+        public IActionResult MostrarCobros()
+        {
+            return View();
+        }
+        public async Task<IActionResult> ConsultarCobros(DateTime? fecD, DateTime? fecH)
+        {
+            if (fecD != null || fecH != null)
+            {
+                var cobro = _context.Cobro.Include(c => c.AlquilerCancha).Include(c => c.DetalleCobro).Include(c => c.IdMedioPagoNavigation).Include(c => c.IdTarjetaNavigation).Include(c => c.IdUsuarioNavigation).Where(c => c.Fecha >= fecD.Value.Date && c.Fecha <= fecH.Value.Date).ToListAsync();
+                return PartialView(await cobro);
+            }
+            else
+            {
+                var cobro = _context.Cobro.Include(c => c.AlquilerCancha).Include(c => c.DetalleCobro).Include(c => c.IdMedioPagoNavigation).Include(c => c.IdTarjetaNavigation).Include(c => c.IdUsuarioNavigation).ToListAsync();
+                return PartialView(await cobro);
+
+            }
+
+
 
         }
     }

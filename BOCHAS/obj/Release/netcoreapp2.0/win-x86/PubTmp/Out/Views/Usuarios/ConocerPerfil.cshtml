@@ -1,0 +1,26 @@
+﻿@model BOCHAS.Models.Persona
+
+
+<div class="row">
+    <div class="col-sm-6"><label>@Html.DisplayNameFor(model => model.Nombre): </label>&nbsp;@Html.DisplayFor(model => model.Nombre)</div>
+    <div class="col-sm-6"><label>@Html.DisplayNameFor(model => model.Apellido): </label>&nbsp; @Html.DisplayFor(model => model.Apellido)</div>
+</div>
+<div class="row">
+    <div class="col-sm-6"><label> Tipo de Documento: </label>&nbsp; @Html.DisplayFor(model => model.IdTipoDocumentoNavigation.Nombre)</div>
+    <div class="col-sm-6"><label>N° Documento: </label>&nbsp;  @Html.DisplayFor(model => model.NroDocumento)</div>
+</div>
+<div class="row">
+
+    <div class="col-sm-6"><label>@Html.DisplayNameFor(model => model.Telefono):</label>&nbsp;@Html.DisplayFor(model => model.Telefono)</div>
+    <div class="col-sm-6"><label> @Html.DisplayNameFor(model => model.Mail):</label>&nbsp;  @Html.DisplayFor(model => model.Mail)</div>
+</div>
+<div class="row">
+    <div class="col-sm-6"><label>Localidad:</label>&nbsp;   @Html.DisplayFor(model => model.IdDomicilioNavigation.IdLocalidadNavigation.Nombre)</div>
+    <div class="col-sm-6"><label>Barrio:</label>&nbsp;  @Html.DisplayFor(model => model.IdDomicilioNavigation.IdBarrioNavigation.Nombre)</div>
+</div>
+<div class="row">
+    <div class="col-sm-6"><label> @Html.DisplayNameFor(model => model.IdDomicilioNavigation.Calle):</label>&nbsp; @Html.DisplayFor(model => model.IdDomicilioNavigation.Calle)</div>
+    <div class="col-sm-6"><label>Usuario:</label>&nbsp; @Html.DisplayFor(model => model.IdUsuarioNavigation.Nombre)</div>
+</div>
+
+
