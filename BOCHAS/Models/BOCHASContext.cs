@@ -38,11 +38,12 @@ namespace BOCHAS.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                //    optionsBuilder.UseSqlServer(@"Data Source=186.124.221.26,1433;Initial Catalog=BOCHAS;User ID=bsp;Password=bochas");
-                optionsBuilder.UseSqlServer(@"Data Source=sql5020.site4now.net;Initial Catalog=DB_A3F6C9_BOCHAS;User ID=DB_A3F6C9_BOCHAS_admin;Password=bochas2018");
-               //  optionsBuilder.UseSqlServer(@"Data Source=sistemas04;Initial Catalog=BOCHAS;User ID=bsp;Password=bochas");        
+             //   optionsBuilder.UseSqlServer(@"Data Source=186.124.221.26,1433;Initial Catalog=BOCHAS;User ID=bsp;Password=bochas");
+                  optionsBuilder.UseSqlServer(@"Data Source=sql5020.site4now.net;Initial Catalog=DB_A3F6C9_BOCHAS;User ID=DB_A3F6C9_BOCHAS_admin;Password=bochas2018");
+                //  optionsBuilder.UseSqlServer(@"Data Source=sistemas04;Initial Catalog=BOCHAS;User ID=bsp;Password=bochas");    
             }
         }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Agenda>(entity =>
@@ -61,6 +62,11 @@ namespace BOCHAS.Models
                     .HasForeignKey(d => d.IdCancha)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Agenda_Cancha");
+
+                entity.HasOne(d => d.IdClasesParticularesNavigation)
+                    .WithMany(p => p.Agenda)
+                    .HasForeignKey(d => d.IdClasesParticulares)
+                    .HasConstraintName("FK_Agenda_ClaseParticular");
             });
 
             modelBuilder.Entity<AlquilerCancha>(entity =>

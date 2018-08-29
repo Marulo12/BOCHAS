@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using BOCHAS.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using BOCHAS.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BOCHAS.Controllers
 {
@@ -19,10 +17,10 @@ namespace BOCHAS.Controllers
         }
 
         // GET: ClaseParticulars
-        public  IActionResult Index()
+        public IActionResult Index()
         {
-            ViewData["IdJugador"] = new SelectList(_context.Persona.Where(p=>p.Tipo =="JUGADOR" && p.FechaBaja == null &&  _context.Jugador.Where(j=>j.IdPersona == p.Id && j.IdTipoJugador == 2).Count() > 0).Select( x => new { Id = x.Id , persona = x.Nombre + " " + x.Apellido + ", Nro doc: " + x.NroDocumento  }), "Id", "persona");
-            ViewData["IdProfesor"] = new SelectList(_context.Persona.Where(p=>p.FechaBaja == null && p.Tipo =="EMPLEADO").Select(x => new { Id = x.Id, persona = x.Nombre + " " + x.Apellido + ", Nro doc: " + x.NroDocumento }), "Id", "persona");
+            ViewData["IdJugador"] = new SelectList(_context.Persona.Where(p => p.Tipo == "JUGADOR" && p.FechaBaja == null && _context.Jugador.Where(j => j.IdPersona == p.Id && j.IdTipoJugador == 2).Count() > 0).Select(x => new { Id = x.Id, persona = x.Nombre + " " + x.Apellido + ", Nro doc: " + x.NroDocumento }), "Id", "persona");
+            ViewData["IdProfesor"] = new SelectList(_context.Persona.Where(p => p.FechaBaja == null && p.Tipo == "EMPLEADO").Select(x => new { Id = x.Id, persona = x.Nombre + " " + x.Apellido + ", Nro doc: " + x.NroDocumento }), "Id", "persona");
             return View();
         }
         public JsonResult MostrarCanchas(string fecR, string hd, string hh)
@@ -120,6 +118,49 @@ namespace BOCHAS.Controllers
             {
                 return Json("VACIO");
             }
+
+        }
+
+
+        [HttpPost]
+        public JsonResult RegistrarClase(int IdJugador, int IdProfesor, DateTime FechaReserva, TimeSpan HoraInicio, TimeSpan HoraFin, int IdCancha, string Obs)
+        {
+
+            try
+            {
+
+                ClaseParticular Cp = new ClaseParticular();
+                Cp.FechaReserva = FechaReserva;
+                Cp.HoraFinPrevista = HoraFin;
+                Cp.HoraInicioPrevista = HoraInicio;
+                Cp.IdCancha = IdCancha;
+                Cp.IdJugador = IdJugador;
+                Cp.IdProfesor = IdProfesor;
+                Cp.Observacion = Obs;
+                _context.ClaseParticular.Add(Cp);
+
+                if (_context.SaveChanges() == 1)
+                {
+                    int IdClaseParticular = _context.ClaseParticular.Max(a => a.Id);
+
+
+                    Agenda Ag = new Agenda();
+                    Ag.IdClasesParticulares = IdClaseParticular;
+                    Ag.IdCancha = Convert.ToInt32(IdCancha);
+                    Ag.Fecha = FechaReserva;
+                    Ag.HoraDesde = HoraInicio;
+                    Ag.HoraHasta = HoraFin;
+                    _context.Agenda.Add(Ag);
+                    _context.SaveChanges();
+                    return Json("EXITO");
+                }
+                else
+                {
+                    return Json("ERROR");
+                }
+
+            }
+            catch { return Json("ERROR"); }
 
         }
 

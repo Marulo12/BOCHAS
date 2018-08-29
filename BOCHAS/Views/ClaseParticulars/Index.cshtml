@@ -42,6 +42,7 @@
         <br />
         <div class="row">
             <input id="FecP" type="text" class="form-control" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" readonly style="display:none;" />
+            <input id="HR" type="time" value="@DateTime.Now.ToString("HH:mm")" style="display:none" readonly />
             <div class="col-sm-5">
                 <div class="form-group">
                     <label class="control-label">Jugador</label>
@@ -90,6 +91,7 @@
                 </div>
             </div>
             <div class="col-sm-6">
+                <img id="ImgLoad" class="img-responsive" width="180" src="~/images/extras/dots-2.gif" style="display:none;" />
                 <div id="FormCancha" class="form-group" style="min-height:100%;display:none;">
                     <label for="ListCancha">Canchas Disponibles:</label>
                     <select class="form-control" id="ListCancha" style="min-height:50px;border: 0.7px solid rgba(137, 130, 128, 0.8);"></select>

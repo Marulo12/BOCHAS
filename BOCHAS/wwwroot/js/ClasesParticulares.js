@@ -10,8 +10,10 @@
         MostrarHorariosOcupados();
     });
     
-    
-    
+
+    $("#RegistrarClase").click(function () {
+        RegistrarClase();
+    });
 
 });
 
@@ -29,7 +31,7 @@ function TraerCanchas() {
             success: function (response) {
                 $("#FormCancha").hide();
                 $("#ListCancha").empty();
-                
+                $("#ImgLoad").css("display", "none");          
                 if (response === "VACIO") {
                     alertify.alert("Alerta", "No hay canchas disponibles para ese horario");
                 } else {
@@ -99,9 +101,53 @@ function MostrarHorariosOcupados() {
     } else { alertify.error("Para consultar horarios tiene que incorporar una fecha de reserva"); }
 }
 
+function RegistrarClase() {
+    if ($("#IdCliente").val() === "") {
+        alert.error("Seleccione un Jugador");
+        return;
+    }
+       
+    if (ComprobarCamposDates()) {
+        var FechaReserva = $("#FecR").val();
+        var HoraInicio = $("#HD").val();
+        var HoraFin = $("#HH").val();
+        var IdJugador = $("#IdCliente option:selected").val();
+        var IdProfesor = $("#IdProfesor option:selected").val();
+        var IdCancha = $("#ListCancha option:selected").val();
+        var Obs = $("#Obs").val();
+        $("#ImgLoad").css("display", "inline-block");
+        $("#FormCancha").hide();
+        $.ajax({
+            type: "POST",
+            data: { IdJugador, IdProfesor, FechaReserva, HoraInicio, HoraFin, IdCancha, Obs },
+            url: "/ClaseParticulars/RegistrarClase",
+            success: function (response) {
+
+              //  $("#Canchas").empty();
+                $("#ImgLoad").css("display", "none");
+                
+                if (response !== "ERROR") {
+
+                    alertify
+                        .alert("Clase particular registrada con exito", function () {
+                            window.location = "/ClaseParticulars/Index";
+                        });
+                }
+                else {
+
+                    alertify.error("Error en la operacion");
+                }
+            },
+            failure: function (response) {
+                alertify.error(response);
+            }
+
+        });
+
+    }
 
 
-
+}
 
 
 

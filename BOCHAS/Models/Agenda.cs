@@ -16,5 +16,6 @@ namespace BOCHAS.Models
 
         public AlquilerCancha IdAlquilerCanchaNavigation { get; set; }
         public Cancha IdCanchaNavigation { get; set; }
+        public ClaseParticular IdClasesParticularesNavigation { get; set; }
     }
 }
