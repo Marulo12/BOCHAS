@@ -131,6 +131,16 @@
                         <li style="margin-top:0px;border-bottom:1px solid white;border-top:1px solid white;"><a asp-action="Index" asp-controller="Home" class="active"><i class="lnr lnr-home"></i> <span>Escritorio</span></a></li>
                         <li><a asp-action="Index" asp-controller="Agenda" class=""><i class="far fa-calendar-alt"></i><span> &nbsp;&nbsp;Agenda</span></a></li>
                         <li>
+                            <a href="#subPagesJugadores" data-toggle="collapse" class="collapsed"><i class="fas fa-user-shield"></i><span>&nbsp;&nbsp;Jugadores</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                            <div id="subPagesJugadores" class="collapse ">
+                                <ul class="nav">
+                                    <li><a asp-action="RegistrarJugador" asp-controller="Personas"> <i class="fas fa-user-plus"></i>&nbsp;&nbsp;Nuevo Jugador</a></li>
+                                    <li><a asp-controller="Personas" asp-action="ConsultarJugador"> <i class="fas fa-user-edit"></i>&nbsp;&nbsp;Consultar activos</a></li>
+                                    <li><a asp-controller="Personas" asp-action="MostrarJugadorBajas"> <i class="fas fa-user-times"></i>&nbsp;&nbsp;Consultar Bajas</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
                             <a href="#subPagesReservas" data-toggle="collapse" class="collapsed"><i class="fas fa-clipboard-list"></i> <span>&nbsp;&nbsp;Reservas</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                             <div id="subPagesReservas" class="collapse ">
                                 <ul class="nav">
@@ -142,20 +152,7 @@
                             </div>
                         </li>
                         <li>
-                            <a href="#subPagesJugadores" data-toggle="collapse" class="collapsed"><i class="fas fa-user-shield"></i><span>&nbsp;&nbsp;Jugadores</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-                            <div id="subPagesJugadores" class="collapse ">
-                                <ul class="nav">
-                                    <li><a asp-action="RegistrarJugador" asp-controller="Personas"> <i class="fas fa-user-plus"></i>&nbsp;&nbsp;Nuevo Jugador</a></li>
-                                    <li><a asp-controller="Personas" asp-action="ConsultarJugador"> <i class="fas fa-user-edit"></i>&nbsp;&nbsp;Consultar activos</a></li>
-                                    <li><a asp-controller="Personas" asp-action="MostrarJugadorBajas"> <i class="fas fa-user-times"></i>&nbsp;&nbsp;Consultar Bajas</a></li>
-                                </ul>
-                            </div>
-                        </li>
-
-
-
-                        <li>
-                            <a href="#subPages" data-toggle="collapse" class="collapsed"><i class="fas fa-users"></i> <span>&nbsp;&nbsp;Clases</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                            <a href="#subPages" data-toggle="collapse" class="collapsed"><i class="fas fa-users"></i> <span>&nbsp;Clases</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                             <div id="subPages" class="collapse ">
                                 <ul class="nav">
                                     <li><a href="page-profile.html" class="">Profile</a></li>
@@ -166,7 +163,8 @@
                         </li>
 
 
-                        <li>
+
+                        <li style="display:none;">
                             <a href="#subPagesTorneos" data-toggle="collapse" class="collapsed"><i class="fas fa-trophy"></i> <span>&nbsp;&nbsp;Torneos</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                             <div id="subPagesTorneos" class="collapse ">
                                 <ul class="nav">
@@ -186,31 +184,50 @@
                                 </ul>
                             </div>
                         </li>
-                        <li><a asp-action="NuevaCancha" asp-controller="Canchas" class=""><i class="fab fa-codepen"></i> <span>&nbsp;&nbsp;Canchas</span></a></li>
-                        <li><a asp-action="Index" asp-controller="ServiciosAdicionales" class=""><i class="fab fa-dribbble"></i> <span>&nbsp;&nbsp;Servicios</span></a></li>
+                   
                         <li>
-                            <a href="#subPagesEmpleados" data-toggle="collapse" class="collapsed"><i class="fa fa-fw fa-user-tie"></i><span>&nbsp;&nbsp;Empleados</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-                            <div id="subPagesEmpleados" class="collapse ">
+                            <a href="#subPagesInfo" data-toggle="collapse" class="collapsed"><i class="fas fa-file-alt"></i><span>&nbsp;&nbsp;&nbsp;Informes</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                            <div id="subPagesInfo" class="collapse ">
                                 <ul class="nav">
-                                    <li><a asp-action="RegistrarEmpleado" asp-controller="Personas"> <i class="fas fa-user-plus"></i>&nbsp;&nbsp;Nuevo Empleado</a></li>
-                                    <li><a asp-controller="Personas" asp-action="ConsultarEmpleado"> <i class="fas fa-user-edit"></i>&nbsp;&nbsp;Consultar activos</a></li>
-                                    <li><a asp-controller="Personas" asp-action="MostrarEmpleadoBajas"> <i class="fas fa-user-times"></i>&nbsp;&nbsp;Consultar Bajas</a></li>
+                                    <li>
+                                        <a href="#subPagesReportes" data-toggle="collapse" class="collapsed"><i class="fas fa-file-alt"></i> <span>&nbsp;&nbsp;Reportes</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                                        <div id="subPagesReportes" class="collapse ">
+                                            <ul class="nav">
+                                                <li><a href="page-profile.html" class="">Profile</a></li>
+                                                <li><a href="page-login.html" class="">Login</a></li>
+                                                <li><a href="page-lockscreen.html" class="">Lockscreen</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li><a href="charts.html"><i class="lnr lnr-chart-bars"></i><span>Estadísticas</span></a></li>
                                 </ul>
                             </div>
-                        </li>
-                        <li>
-                            <a href="#subPagesReportes" data-toggle="collapse" class="collapsed"><i class="fas fa-file-alt"></i> <span>&nbsp;&nbsp;&nbsp;&nbsp;Reportes</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-                            <div id="subPagesReportes" class="collapse ">
-                                <ul class="nav">
-                                    <li><a href="page-profile.html" class="">Profile</a></li>
-                                    <li><a href="page-login.html" class="">Login</a></li>
-                                    <li><a href="page-lockscreen.html" class="">Lockscreen</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li><a href="charts.html"><i class="lnr lnr-chart-bars"></i><span>Estadísticas</span></a></li>
 
-                        <li><a asp-action="Index" asp-controller="Sessions"><i class="fab fa-algolia"></i> <span>&nbsp;&nbsp;Sessiones</span></a></li>
+                        </li>
+
+
+                        <li>
+                            <a href="#subPagesAdmin" data-toggle="collapse" class="collapsed"><i class="fas fa-cog fa-spin"></i><span>&nbsp;Administracion</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                            <div id="subPagesAdmin" class="collapse ">
+                                <ul class="nav">
+                                    <li><a asp-action="NuevaCancha" asp-controller="Canchas" class=""><i class="fab fa-codepen"></i> <span>&nbsp;&nbsp;Canchas</span></a></li>
+                                    <li><a asp-action="Index" asp-controller="ServiciosAdicionales" class=""><i class="fab fa-dribbble"></i> <span>&nbsp;&nbsp;Servicios</span></a></li>
+                                    <li>
+                                        <a href="#subPagesEmpleados" data-toggle="collapse" class="collapsed"><i class="fa fa-fw fa-user-tie"></i><span>&nbsp;&nbsp;Empleados</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                                        <div id="subPagesEmpleados" class="collapse ">
+                                            <ul class="nav">
+                                                <li><a asp-action="RegistrarEmpleado" asp-controller="Personas"> <i class="fas fa-user-plus"></i>&nbsp;&nbsp;Nuevo Empleado</a></li>
+                                                <li><a asp-controller="Personas" asp-action="ConsultarEmpleado"> <i class="fas fa-user-edit"></i>&nbsp;&nbsp;Consultar activos</a></li>
+                                                <li><a asp-controller="Personas" asp-action="MostrarEmpleadoBajas"> <i class="fas fa-user-times"></i>&nbsp;&nbsp;Consultar Bajas</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li><a asp-action="Index" asp-controller="Sessions"><i class="fab fa-algolia"></i> <span>&nbsp;&nbsp;Sessiones</span></a></li>
+                                </ul>
+                            </div>
+
+                        </li>
+
 
                         <li><a href="icons.html" class=""><i class="fas fa-book"></i><span>&nbsp;&nbsp;Ayuda</span></a></li>
                     </ul>
