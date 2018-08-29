@@ -6,7 +6,7 @@ html {
 body {
     background-color: #F3F5F8;
   
-    font-size: 13px;
+    font-size: 12px;
     color: #676a6d;
 }
 
@@ -471,7 +471,6 @@ ul.notifications > li {
       position: relative;
       top: 5px;
       font-size: 10px;
-
       line-height: 1.1;
       -moz-transform: rotate(-90deg);
       -ms-transform: rotate(-90deg);
@@ -501,11 +500,11 @@ ul.notifications > li {
     .sidebar .nav .nav {
         background-color: rgba(255, 255, 255, 0.1);
        
-        font-size: 18px;
+        font-size: 12px;
     }
       .sidebar .nav .nav > li > a {
         padding-left: 11px;
-        font-size:12px;
+        font-size:11px;
         padding-top: 10px;
         padding-bottom: 10px; }
         .sidebar .nav .nav > li > a > i {

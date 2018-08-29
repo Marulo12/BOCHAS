@@ -8,6 +8,7 @@ namespace BOCHAS.Models
         public Cobro()
         {
             AlquilerCancha = new HashSet<AlquilerCancha>();
+            ClaseParticular = new HashSet<ClaseParticular>();
             DetalleCobro = new HashSet<DetalleCobro>();
         }
 
@@ -23,6 +24,7 @@ namespace BOCHAS.Models
         public Tarjeta IdTarjetaNavigation { get; set; }
         public Usuario IdUsuarioNavigation { get; set; }
         public ICollection<AlquilerCancha> AlquilerCancha { get; set; }
+        public ICollection<ClaseParticular> ClaseParticular { get; set; }
         public ICollection<DetalleCobro> DetalleCobro { get; set; }
     }
 }

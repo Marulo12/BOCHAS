@@ -11,6 +11,7 @@ namespace BOCHAS.Models
         public virtual DbSet<Barrio> Barrio { get; set; }
         public virtual DbSet<Cancha> Cancha { get; set; }
         public virtual DbSet<Cargo> Cargo { get; set; }
+        public virtual DbSet<ClaseParticular> ClaseParticular { get; set; }
         public virtual DbSet<Cobro> Cobro { get; set; }
         public virtual DbSet<DetalleAlquilerCancha> DetalleAlquilerCancha { get; set; }
         public virtual DbSet<DetalleCobro> DetalleCobro { get; set; }
@@ -37,12 +38,11 @@ namespace BOCHAS.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                   optionsBuilder.UseSqlServer(@"Data Source=186.124.221.26,1433;Initial Catalog=BOCHAS;User ID=bsp;Password=bochas");
-                //   optionsBuilder.UseSqlServer(@"Data Source=sql5020.site4now.net;Initial Catalog=DB_A3F6C9_BOCHAS;User ID=DB_A3F6C9_BOCHAS_admin;Password=bochas2018");
-               // optionsBuilder.UseSqlServer(@"Data Source=sistemas04;Initial Catalog=BOCHAS;User ID=bsp;Password=bochas");
+                //    optionsBuilder.UseSqlServer(@"Data Source=186.124.221.26,1433;Initial Catalog=BOCHAS;User ID=bsp;Password=bochas");
+                optionsBuilder.UseSqlServer(@"Data Source=sql5020.site4now.net;Initial Catalog=DB_A3F6C9_BOCHAS;User ID=DB_A3F6C9_BOCHAS_admin;Password=bochas2018");
+                // optionsBuilder.UseSqlServer(@"Data Source=sistemas04;Initial Catalog=BOCHAS;User ID=bsp;Password=bochas");        
             }
         }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Agenda>(entity =>
@@ -146,6 +146,42 @@ namespace BOCHAS.Models
                 entity.Property(e => e.Nombre)
                     .IsRequired()
                     .HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<ClaseParticular>(entity =>
+            {
+                entity.Property(e => e.FechaCancelacion).HasColumnType("date");
+
+                entity.Property(e => e.FechaRealRealizacion).HasColumnType("date");
+
+                entity.Property(e => e.FechaReserva).HasColumnType("date");
+
+                entity.Property(e => e.Observacion)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.IdCanchaNavigation)
+                    .WithMany(p => p.ClaseParticular)
+                    .HasForeignKey(d => d.IdCancha)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ClaseParticular_Cancha");
+
+                entity.HasOne(d => d.IdCobroNavigation)
+                    .WithMany(p => p.ClaseParticular)
+                    .HasForeignKey(d => d.IdCobro)
+                    .HasConstraintName("FK_ClaseParticular_Cobro");
+
+                entity.HasOne(d => d.IdJugadorNavigation)
+                    .WithMany(p => p.ClaseParticularIdJugadorNavigation)
+                    .HasForeignKey(d => d.IdJugador)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ClaseParticular_Persona");
+
+                entity.HasOne(d => d.IdProfesorNavigation)
+                    .WithMany(p => p.ClaseParticularIdProfesorNavigation)
+                    .HasForeignKey(d => d.IdProfesor)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ClaseParticular_Persona1");
             });
 
             modelBuilder.Entity<Cobro>(entity =>

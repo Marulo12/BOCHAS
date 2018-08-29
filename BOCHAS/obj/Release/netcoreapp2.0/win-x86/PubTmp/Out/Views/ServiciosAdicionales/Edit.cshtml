@@ -1,0 +1,72 @@
+﻿@model BOCHAS.Models.ServiciosAdicionales
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 style="padding:0px;margin:0px;"><i class="fab fa-dribbble"></i> Servicios Adicionales</h3>
+    </div>
+    <div class="panel-body">
+        <h4>Editar Servicio</h4>
+        <hr />
+        <form asp-action="Edit">
+            <div class="row">
+
+                <div class="col-md-4">
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <div class="form-group">
+                        <label asp-for="Nombre" class="control-label"></label>
+                        <input asp-for="Nombre" class="form-control" />
+                        <span asp-validation-for="Nombre" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Descripcion" class="control-label"></label>
+                        <input asp-for="Descripcion" class="form-control" />
+                        <span asp-validation-for="Descripcion" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="Precio" class="control-label"></label>
+                        <input type="text" name="Precio" value="@Model.Precio" class="form-control" />
+                        <span asp-validation-for="Precio" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label>Estado</label>
+                        <select name="Activo" class="btn btn-sm form-control">
+                            <option value="True">Activar</option>
+                            <option value="False">Desactivar</option>
+                        </select>
+
+                    </div>
+                </div>
+
+
+
+
+            </div>
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="input-group" style="float:right;">
+                        <input type="submit" value="Aceptar" class="btn btn-sm btn-primary" />
+                        <a class="btn btn-sm btn-default" asp-action="Index">Volver a la lista</a>
+                    </div>
+                </div>
+            </div>
+            
+        </form>
+    </div>
+    
+    </div>
+        
+
+        
+     
+
+        @section Scripts {
+            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        }
