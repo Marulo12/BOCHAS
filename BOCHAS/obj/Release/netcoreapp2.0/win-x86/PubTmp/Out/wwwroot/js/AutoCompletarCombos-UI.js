@@ -129,7 +129,9 @@
         }
     });
 
-    $("#IdCliente").combobox();
+$("#IdCliente").combobox();
+$("#IdProfesor").combobox();
+
     $("#toggle").on("click", function () {
         $("#IdCliente").toggle();
     });
