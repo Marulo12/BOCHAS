@@ -1,0 +1,112 @@
+﻿@model BOCHAS.Models.ClaseParticular
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<style>
+    .custom-combobox {
+        position: relative;
+        display: block;
+    }
+
+    .custom-combobox-toggle {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin-left: -1px;
+        padding: 0;
+    }
+
+    .custom-combobox-input {
+        margin: 0;
+        padding: 5px 10px;
+        background-color: darkred;
+        color: white;
+        width: 100%;
+        background-color: rgba(172, 44, 44, 0.9);
+    }
+</style>
+<div class="panel panel-primary">
+    <div class="panel-heading" style="padding-bottom:0px;">
+        <h3 style="padding:0px;margin:0px;margin-bottom:4px;"><i class="fas fa-user-shield"></i> Clases Particulares</h3>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <label class="control-label">Jugador</label>
+                    <select id="IdCliente" asp-for="IdJugador" class="form-control" asp-items="ViewBag.IdJugador"></select>
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <label class="control-label">Profesor</label>
+                    <select id="IdProfesor" asp-for="IdProfesor" class="form-control" asp-items="ViewBag.IdProfesor"></select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-sm-2">
+
+                <div class="form-group">
+                    <label class="control-label">Fecha</label>
+                    <input id="FecR" type="date" class="form-control" />
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label class="control-label">Hora Desde</label>
+                    <input type="time" class="form-control" />
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label class="control-label">Hora Hasta</label>
+                    <input type="time" class="form-control" />
+                </div>
+
+            </div>
+            <div class="col-sm-5" style="padding-top:25px;"><div class="btn-group btn-group-sm form-inline" role="group" aria-label="..."><input id="BtnOcupadas" type="button" class="btn btn-sm btn-primary form-control" value="Ver Horarios Ocupados" /><input id="BtnValida" type="button" class="btn btn-sm btn-success form-control" value="Comprobar Disponibilidad" /></div></div>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label class="control-label">Observacion</label>
+                    <textarea class="form-control"></textarea>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div id="ModalHorarios" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="background:-webkit-gradient(linear, 96% 73%, 0% 0%, from(#AD9085), to(#CE2029));padding-bottom:0px;">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 style="color:white;padding:0px;"><i class="fa fa-clock"></i>Horarios Ocupados</h4>
+            </div>
+            <div id="ModalHorariosBody" class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="~/js/AutoCompletarCombos-UI.js"></script>
+    <script src="~/js/ClasesParticulares.js"></script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
