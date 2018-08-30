@@ -1,0 +1,142 @@
+﻿@model IEnumerable<BOCHAS.Models.ClaseParticular>
+
+<table id="TconsClase" class="table" style="width:100%;">
+    <thead style="background-color: rgba(158, 44, 44, 0.9);color:white">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaReserva)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HoraInicioPrevista)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HoraFinPrevista)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Observacion)
+            </th>
+            <th>
+                Profesor
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.FechaReserva.Date.ToString("dd/MM/yyyy")
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HoraInicioPrevista)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HoraFinPrevista)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Observacion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdProfesorNavigation.Nombre)  @Html.DisplayFor(modelItem => item.IdProfesorNavigation.Apellido)
+                </td>
+                <td style="width:200px;">
+                    <div class="btn-group form-group" style="padding:0px;margin:0px;">
+                        <button class="btn btn-info btn-sm" onclick="VerDetalleClase(@item.Id)" data-toggle="tooltip" title="Ver Detalle"><i class="fas fa-info-circle"></i></button>
+                        @{
+
+                            if (item.HoraInicioReal == null && item.FechaCancelacion == null)
+                            {
+                                <a class="btn btn-default btn-sm" asp-action="ComenzarClase" asp-controller="ClaseParticulars" asp-route-Nclase="@item.Id" style="color:black" data-toggle="tooltip" title="Comenzar"><i class="fas fa-play"></i></a>
+                                <a class="btn btn-danger btn-sm BtnCancelaR" asp-action="CancelarClase" asp-controller="ClaseParticulars" asp-route-Nclase="@item.Id" data-toggle="tooltip" style="color:white" title="Cancelar"><i class="fas fa-ban"></i></a>
+                            }
+
+                            if (item.FechaCancelacion == null && item.HoraInicioReal != null)
+                            {
+                                <a class="btn btn-success btn-sm" asp-action="FinalizarClase" asp-controller="ClaseParticulars" asp-route-Nclase="@item.Id" style="color:white" data-toggle="tooltip" title="Finalizar"><i class="fas fa-stopwatch"></i></a>
+                            }
+
+                        }
+                        <a class="btn btn-primary btn-sm " data-toggle="tooltip" title="Reporte Clase" onclick="generaRepo(@item.Id)"><i class="fas fa-clipboard-list"></i></a>
+
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div id="ModalDetalleClaseP" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="background:-webkit-gradient(linear, 96% 73%, 0% 0%, from(#AD9085), to(#CE2029));">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" style="color:white;">Detalle de clase particular</h4>
+            </div>
+            <div id="DetalleClaseBody" class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped active" role="progressbar"
+                         aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+                    </div>
+                </div>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="ModalPdf" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+
+            <div class="modal-body mb">
+                <div id="GeneraPDF">
+                    <p>Generando PDF</p>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped active" role="progressbar"
+                             aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+                        </div>
+                    </div>
+                </div>
+                <object type="application/pdf" id="VisorPDF" src="" style="width:100%; height:100%;display:none;background-color:#515151;"></object>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div id="ModalMail" class="modal fade mail" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-envelope"></i> Mail de Cancelación</h3>
+            </div>
+            <div class="modal-body">
+                <p>Enviando mail de cancelación de clase particular</p>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped active" role="progressbar"
+                         aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="~/js/AutoCompletarCombos-UI.js"></script>
+<script src="~/js/ClasesParticulares.js"></script>
+<script>
+    $('[data-toggle="tooltip"]').tooltip();
+</script>

@@ -1,0 +1,57 @@
+﻿@model BOCHAS.Models.ClaseParticular
+
+<dl class="dl-horizontal" style="width:100%;padding:0px;margin:0px;font-size:15px;">
+    <dt>
+        Fecha de Realizacion
+    </dt>
+    <dd>
+        @{ if (Model.FechaRealRealizacion == null)
+            { <label>-</label> }
+            else
+            { @Model.FechaRealRealizacion.Value.Date.ToString("dd/MM/yyyy") } }
+
+    </dd>
+    <dt>
+        Hora de Inicio
+    </dt>
+    <dd>
+        @{ if (Model.FechaRealRealizacion == null)
+            { <label>-</label> }
+            else
+            { @Html.DisplayFor(model => model.HoraInicioReal) } }
+    </dd>
+    <dt>
+        Hora de Finalizacion
+    </dt>
+    <dd>
+        @{ if (Model.HoraFinReal == null)
+            { <label>-</label> }
+            else
+            { @Html.DisplayFor(model => model.HoraFinReal) } }
+    </dd>
+
+    <dt>
+        Fecha cancelacion:
+    </dt>
+    <dd>
+        @{ if (Model.FechaCancelacion == null)
+            { <label>-</label> }
+            else
+            { @Model.FechaCancelacion.Value.Date.ToString("dd/MM/yyyy") } }
+    </dd>
+    <dt>
+        Observacion:
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.Observacion)
+    </dd>
+    <dt>
+       N° Cancha:
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.IdCanchaNavigation.Numero)
+    </dd>
+
+</dl>
+
+

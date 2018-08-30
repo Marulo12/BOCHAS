@@ -9,12 +9,17 @@
 
         MostrarHorariosOcupados();
     });
-    
+    $("#BtnConPart").click(function () {
+        ConsultarClases();
+    });
 
     $("#RegistrarClase").click(function () {
         RegistrarClase();
     });
-
+    $(".BtnCancelaR").click(function (event) {
+        $("#ModalMail").modal();
+    });
+    MensajesdeAcciones();
 });
 
 function TraerCanchas() {
@@ -149,10 +154,116 @@ function RegistrarClase() {
 
 }
 
+function ConsultarClases() {
+    var IdJugador = $("#IdCliente option:selected").val();
+    var fechaD = $("#fechaD").val();
+    var fechaH = $("#fechaH").val();
+    $("#TablaCobros").empty();
+    $("#ImgLoad").css("display", "inline-block");
+    $.ajax({
+        type: "GET",
+        data: { IdJugador, fechaD, fechaH },
+        url: "/ClaseParticulars/MostrarClases",
+        success: function (response) {
+            $("#ImgLoad").css("display","none");
+            $("#TablaCobros").empty();
+            $("#TablaCobros").html(response);
+            $("#TconsClase").DataTable({
+                searching: true,
+                lengthMenu: [5, 10, 20, 75, 100],
+                responsive: true,
+                search: "Filtro&nbsp;:",
+                dom: 'Bfrtip',
+                buttons: [
+
+                    {
+                        extend: 'print',
+                        text: 'Imprimir',
+                        title: 'BOCHAS PADEL - Mis Reservas'
+
+                    }
+                ],
+                language: {
+                    processing: "Procesando",
+                    search: "Filtro&nbsp;:",
+                    info: "Pagina _PAGE_ de _PAGES_  / <b>Total de Registros: _MAX_</b> ",
+                    infoEmpty: "",
+                    infoFiltered: "",
+                    zeroRecords: "Ningun registro coincide",
+                    lengthMenu: "Mostrar _MENU_ registros",
+                    infoPostFix: "",
+                    loadingRecords: "Cargando...",
+                    emptyTable: "No hay registros",
+                    paginate: {
+                        first: "Primero",
+                        previous: "Anterior",
+                        next: "Siguiente",
+                        last: "Ultimo"
+                    }
+                }
+            });
+        }
+
+    });
+}
 
 
+function VerDetalleClase(id) {
+    $(".modal-footer .progress").css("display", "block");
+    $("#DetalleClaseBody").empty();
+    $("#ModalDetalleClaseP").modal();
+    $.ajax({
+        type: "GET",
+        data: { id },
+        url: "/ClaseParticulars/VerDetalle",
+        success: function (response) {
+            $("#DetalleClaseBody").html(response);           
+            $(".modal-footer .progress").css("display", "none");
+        },
+        failure: function (response) {
+            alert(response);
+        }
 
+    });
 
+}
+
+function MensajesdeAcciones() {
+
+    if ($("#Respuesta").val() === "SI") {
+        alertify.success("Reserva Confirmada!!");
+    }
+    if ($("#Respuesta").val() === "COMENZADO") {
+        alertify.success("Reserva Comenzada!!");
+    }
+    if ($("#Respuesta").val() === "Cancelado") {
+        alertify.success("Reserva Cancelada");
+    }
+    if ($("#Respuesta").val() === "FINALIZADO") {
+        alertify.success("Reserva Finalizada!!");
+        var Numero = $("#NReservaFinalizada").val();
+        alertify.confirm('Realizar Cobro', 'Desea realizar el cobro de la reserva?', function () {
+            $.ajax({
+                type: "GET",
+                data: { Numero },
+                url: "/Cobro/CobroReserva",
+                success: function (response) {
+                    $("#ModalCobro").modal();
+                    $("#ModalCobro .mb").html(response);
+
+                }
+            });
+        }
+            , function () { alertify.error('Operacion cancelada'); });
+    }
+    if ($("#Respuesta").val() === "NO") {
+        alertify.error("Error en la operacion");
+    }
+    if ($("#Respuesta").val() === "NoMail") {
+        alertify.error("Se cancelo la reserva pero no se mando mensaje al jugador");
+    }
+    $("#Respuesta").val("");
+}
 
 function ComprobarCamposDates() {
 

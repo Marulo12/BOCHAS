@@ -49,7 +49,7 @@
                             if (item.HoraInicioReal == null && item.FechaCancelacion == null)
                             {
                                 <a class="btn btn-default btn-sm" asp-action="ComenzarClase" asp-controller="ClaseParticulars" asp-route-Nclase="@item.Id" style="color:black" data-toggle="tooltip" title="Comenzar"><i class="fas fa-play"></i></a>
-                                <a class="btn btn-danger btn-sm BtnCancelaR" asp-action="CancelarClase" asp-controller="ClaseParticulars" asp-route-NClase="@item.Id" data-toggle="tooltip" style="color:white" title="Cancelar"><i class="fas fa-ban"></i></a>
+                                <a class="btn btn-danger btn-sm BtnCancelaR" asp-action="CancelarClase" asp-controller="ClaseParticulars" asp-route-Nclase="@item.Id" data-toggle="tooltip" style="color:white" title="Cancelar"><i class="fas fa-ban"></i></a>
                             }
 
                             if (item.FechaCancelacion == null && item.HoraInicioReal != null)
@@ -114,9 +114,29 @@
     </div>
 
 </div>
-@section Scripts{
-    <script>$('[data-toggle="tooltip"]').tooltip(); $(".BtnCancelaR").click(function (event) {
-            $("#ModalMail").modal();
-        });</script> 
-    
-    }
+<div id="ModalMail" class="modal fade mail" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-envelope"></i> Mail de Cancelación</h3>
+            </div>
+            <div class="modal-body">
+                <p>Enviando mail de cancelación de clase particular</p>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped active" role="progressbar"
+                         aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="~/js/AutoCompletarCombos-UI.js"></script>
+<script src="~/js/ClasesParticulares.js"></script>
+<script>
+    $('[data-toggle="tooltip"]').tooltip();
+</script>
