@@ -128,7 +128,55 @@ function RegistrarCobroReserva() {
 });
 
 }
+function RegistrarCobroClase() {
+    // todo para clase cobro 
+    var Nclase = $("#NClaseFinalizada").val();
+    var Fecha = $("#FechaCobro").val();
+    var MedioPago = $("#MedioPago option:selected").val();
+    var MontoTotal = $("#InputTotalR").val();
+    var NroCupon = null;
+    var IdTarjeta = null;
+    if (MedioPago === "2") {
+        NroCupon = $("#Ncupon").val();
+        IdTarjeta = $("#IdTarjeta option:selected").val();
+    }
+    // todo para detalle cobro
+    // objeto servicio
+    var cantidadCanchas = $("#CantC").val();
+    var MontoServicio = $("#Stotal").val();
+    var Servicio = { IdServicio: 2, Monto: MontoServicio, Id_NumeroCobro: 0, Cantidad: cantidadCanchas, IdServiciosAdicionales: null };
+    //array de servicios adicionales
+    var ServiciosAdicionales = [];
+    $(".checkSA ").each(function () {
+        if ($(this).is(':checked')) {
+            var tr = $(this).closest('tr');
+            var tot = $(tr).find('td:nth-child(4) .SAtot').val();
+            var idservicio = $(tr).find('td:nth-child(6)').text();
+            var cantidad = $(tr).find('td:nth-child(3) .SAcant').val();
+            var servicioadicional = { IdServicio: null, Monto: tot, Id_NumeroCobro: 0, Cantidad: cantidad, IdServiciosAdicionales: idservicio };
+            ServiciosAdicionales.push(servicioadicional);
+        }
 
+    });
+    $.ajax({
+        type: "POST",
+        data: { Nclase, Fecha, MedioPago, MontoTotal, NroCupon, IdTarjeta, MontoServicio, Servicio, ServiciosAdicionales },
+        url: "/Cobro/RegistrarCobroClase",
+        success: function (response) {
+
+            $("#ModalCobro").modal("hide");
+            alertify.success("Cobro realizado con exito");
+            //  window.open("/Reportes/ReporteCobroReserva?NCobro=" + response);
+            ReporteCobroClase(response);
+        },
+
+        failure: function (response) {
+            alert(response);
+        }
+
+    });
+
+}
 function MostrarCobros() {
     var fecD = $("#fechadesde").val();
     var fecH = $("#fechahasta").val();

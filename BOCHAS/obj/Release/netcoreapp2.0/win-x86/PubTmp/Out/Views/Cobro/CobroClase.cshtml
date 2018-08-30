@@ -1,0 +1,96 @@
+﻿@model BOCHAS.Models.Cobro
+
+@{
+    Layout = null;
+    BOCHASContext bd = new BOCHASContext();
+    double precioServicio = Convert.ToDouble(bd.Servicio.Where(s => s.Id == 2).SingleOrDefault().Precio);
+    TimeSpan hh = (TimeSpan)ViewBag.horas;
+    int Canchas = ViewBag.canchas;
+    var Stotal = precioServicio * Canchas * hh.TotalHours;
+}
+
+ <div class="panel" style="border:none;">
+     <div class="panel-body">
+         <div class="row">
+             <div class="col-md-4">
+                 <div class="form-group">
+                     <label class="control-label">Responsable de Cobro</label>
+                     <input class="form-control" value="@ViewData["empleado"].ToString()" readonly />
+                 </div>
+                 <div class="form-group">
+                     <label class="control-label">Medio de Pago</label>
+                     <select id="MedioPago" class="form-control" asp-items="ViewBag.IdMedioPago"></select>
+                 </div>
+
+             </div>
+             <div class="col-md-5">
+                 <div class="form-group">
+                     <label asp-for="Fecha" class="control-label"></label>
+                     <input id="FechaCobro" type="date" class="form-control" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" readonly />
+                    
+                 </div>
+                 <div id="DivTarjeta" class="form-group" style="display:none;">
+                     <div class="col-sm-6">
+                         <label>N° Cupon:</label>
+                         <input id="Ncupon" class="form-control"/>
+                     </div>
+                     <div class="col-sm-6">
+                         <label>Tipo de Tarjeta</label>
+                         <select id="IdTarjeta" class="form-control" asp-items="ViewBag.IdTarjeta"></select>
+                     </div>
+                     
+                     
+                 </div>
+             </div>
+             <div class="row">
+                 <div class="col-md-12">
+                     <h4>Servicio</h4>
+                     <table id="Tservicios" class="table">
+                         <thead class="alert alert-info"><tr><td style="width:20%">Servicio</td><td style="width:5%">$Precio Unit.</td><td style="width:5%">Cant.Canchas</td><td style="width:5%">Cant.Horas</td><td style="width:10%">$Total</td></tr></thead>
+                         <tbody>
+                             <tr>
+                                 <td>@bd.Servicio.Where(s => s.Id == 2).SingleOrDefault().Nombre.Trim()</td>
+                                 <td>@precioServicio</td>
+                                 <td><input id="CantC" type="text" value="@Canchas" class="form-control" readonly/></td>
+                                 <td><input id="CantH" type="text" class="form-control" value="@hh.TotalHours" readonly/></td>
+                                 <td>
+                                     <input id="Stotal" type="text" class="form-control" value="@Stotal" readonly/>
+                                 </td>
+                             </tr>
+                         </tbody>
+                     </table>
+
+                 </div>
+             </div>
+             <div class="row">
+                 <div class="col-md-12">
+                     <h4>Servicios adicionales  <button class="btn btn-xs btn-default" data-toggle="collapse" data-target="#TserviciosA"><i class="fa fa-list"></i></button></h4>
+                     <table id="TserviciosA" class="table  collapse" style="width:100%;">
+                         <thead class="alert alert-info"><tr><td>Servicio</td><td>$Precio Unit.</td><td style="width:5%">Cantidad</td><td style="width:10%">$Total</td><td>Agregar</td><td style="display:none;"></td></tr></thead>
+                         <tbody></tbody>
+                     </table>
+                     <hr />
+                     <div class="row">
+                         <div class="col-md-4">
+                             <div class="input-group">
+                                 <span class="input-group-btn">
+                                     <button class="btn  btn-info" type="button" onclick="CalcularTotal()">=</button>
+                                 </span>
+                                 <input id="InputTotalR" type="text" class="form-control" placeholder="El total es" readonly>
+                             </div>
+                         </div>
+                         <div class="col-md-3"> <input id="RegCobro" type="button" value="Generar Cobro" class="btn btn-primary" onclick="RegistrarCobroClase()" /></div>
+                     </div>
+                 </div>
+         </div>
+     </div>
+ </div> 
+     </div>
+<script src="~/js/Cobros.js"></script>
+
+
+
+
+
+
+

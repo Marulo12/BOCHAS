@@ -134,7 +134,7 @@ function RegistrarClase() {
                 if (response !== "ERROR") {
 
                     alertify
-                        .alert("Clase particular registrada con exito", function () {
+                        .alert("Notificacion","Clase particular registrada con exito", function () {
                             window.location = "/ClaseParticulars/Index";
                         });
                 }
@@ -230,23 +230,23 @@ function VerDetalleClase(id) {
 
 function MensajesdeAcciones() {
 
-    if ($("#Respuesta").val() === "SI") {
-        alertify.success("Reserva Confirmada!!");
+    if ($("#Resultado").val() === "SI") {
+        alertify.success("Clase Confirmada!!");
     }
-    if ($("#Respuesta").val() === "COMENZADO") {
-        alertify.success("Reserva Comenzada!!");
+    if ($("#Resultado").val() === "COMENZADO") {
+        alertify.success("Clase Comenzada!!");
     }
-    if ($("#Respuesta").val() === "Cancelado") {
-        alertify.success("Reserva Cancelada");
+    if ($("#Resultado").val() === "Cancelado") {
+        alertify.success("Clase Cancelada");
     }
-    if ($("#Respuesta").val() === "FINALIZADO") {
-        alertify.success("Reserva Finalizada!!");
-        var Numero = $("#NReservaFinalizada").val();
-        alertify.confirm('Realizar Cobro', 'Desea realizar el cobro de la reserva?', function () {
+    if ($("#Resultado").val() === "FINALIZADO") {
+        alertify.success("Clase Finalizada!!");
+        var Numero = $("#NClaseFinalizada").val();
+        alertify.confirm('Realizar Cobro', 'Desea realizar el cobro de la clase?', function () {
             $.ajax({
                 type: "GET",
                 data: { Numero },
-                url: "/Cobro/CobroReserva",
+                url: "/Cobro/CobroClase",
                 success: function (response) {
                     $("#ModalCobro").modal();
                     $("#ModalCobro .mb").html(response);
@@ -256,13 +256,13 @@ function MensajesdeAcciones() {
         }
             , function () { alertify.error('Operacion cancelada'); });
     }
-    if ($("#Respuesta").val() === "NO") {
+    if ($("#Resultado").val() === "NO") {
         alertify.error("Error en la operacion");
     }
-    if ($("#Respuesta").val() === "NoMail") {
+    if ($("#Resultado").val() === "NoMail") {
         alertify.error("Se cancelo la reserva pero no se mando mensaje al jugador");
     }
-    $("#Respuesta").val("");
+    $("#Resultado").val("");
 }
 
 function ComprobarCamposDates() {
@@ -297,4 +297,20 @@ function ComprobarCamposDates() {
         }
     }
     return true;
+}
+
+function ReporteCobroClase(NCobro) {
+
+    $("#ModalPdf").modal();
+    $("#GeneraPDF").css("display", "inline");
+    $("#VisorPDF").attr("src", "");
+    $("#VisorPDF").css("display", "none");
+    setTimeout(function () {
+        $("#GeneraPDF").css("display", "none");
+        $("#VisorPDF").attr("data", "/Reportes/ReporteCobroClase?NCobro=" + NCobro);
+        $("#VisorPDF").css("display", "inline-block");
+        $("#VisorPDF").css("width", "100%");
+        $("#VisorPDF").css("height", "500px");
+
+    }, 2000);
 }

@@ -205,6 +205,10 @@ namespace BOCHAS.Controllers
             _context.ClaseParticular.Update(clase);
             if (_context.SaveChanges() == 1)
             {
+                var cancha = _context.Cancha.Where(c => c.Id == clase.IdCancha).SingleOrDefault();
+                cancha.IdEstadoCancha = 1;
+                _context.Cancha.Update(cancha);
+                _context.SaveChanges();
                 TempData["Resultado"] = "COMENZADO";
                 return RedirectToAction("ConsultarClases");
             }
@@ -242,12 +246,12 @@ namespace BOCHAS.Controllers
                             cliente.Send(mensaje);
                             cliente.Disconnect(true);
                         }
-                        TempData["Respuesta"] = "Cancelado";
+                        TempData["Resultado"] = "Cancelado";
                         return RedirectToAction("ConsultarClases");
                     }
                     catch
                     {
-                        TempData["Respuesta"] = "NoMail";
+                        TempData["Resultado"] = "NoMail";
                         return RedirectToAction("ConsultarClases");
                     }
 
@@ -258,6 +262,31 @@ namespace BOCHAS.Controllers
                     return RedirectToAction("ConsultarClases");
                 }
                 
+            }
+            else
+            {
+                TempData["Resultado"] = "NO";
+                return RedirectToAction("ConsultarClases");
+            }
+        }
+
+        public IActionResult FinalizarClase(int Nclase) {
+            var clase = _context.ClaseParticular.Where(c => c.Id == Nclase).SingleOrDefault();
+            clase.HoraFinReal = TimeSpan.Parse(DateTime.Now.ToString("HH:mm"));
+            
+            _context.ClaseParticular.Update(clase);
+            if (_context.SaveChanges() == 1)
+            {
+                Agenda ag = _context.Agenda.Where(a => a.IdClasesParticulares == Nclase).SingleOrDefault();
+                _context.Agenda.Remove(ag);
+                var cancha = _context.Cancha.Where(c => c.Id == clase.IdCancha).SingleOrDefault();
+                cancha.IdEstadoCancha = 2;
+                _context.Cancha.Update(cancha);
+                
+                _context.SaveChanges();
+                TempData["Resultado"] = "FINALIZADO";
+                TempData["NClaseFinalizada"] = Nclase;
+                return RedirectToAction("ConsultarClases");
             }
             else
             {

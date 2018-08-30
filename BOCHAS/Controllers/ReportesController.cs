@@ -47,6 +47,18 @@ namespace BOCHAS.Controllers
             }
 
         }
-      
+        public IActionResult ReporteCobroClase(int NCobro)
+        {
+            try
+            {
+                var cobro = _context.Cobro.Include(c => c.DetalleCobro).Include(c => c.DetalleCobro).Include(c => c.IdUsuarioNavigation).Include(c => c.IdMedioPagoNavigation).Where(c => c.Numero == NCobro).SingleOrDefault();
+                return new ViewAsPdf("ReporteCobroClase", cobro);
+            }
+            catch
+            {
+                return NotFound();
+            }
+
+        }
     }
 }
