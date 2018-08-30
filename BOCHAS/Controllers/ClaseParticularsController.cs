@@ -1,9 +1,13 @@
 ﻿using BOCHAS.Models;
+using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using MimeKit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BOCHAS.Controllers
 {
@@ -162,6 +166,104 @@ namespace BOCHAS.Controllers
             }
             catch { return Json("ERROR"); }
 
+        }
+
+
+        public IActionResult ConsultarClases()
+        {
+            ViewData["IdJugador"] = new SelectList(_context.Persona.Where(p => p.Tipo == "JUGADOR" && p.FechaBaja == null && _context.Jugador.Where(j => j.IdPersona == p.Id && j.IdTipoJugador == 2).Count() > 0).Select(x => new { Id = x.Id, persona = x.Nombre + " " + x.Apellido + ", Nro doc: " + x.NroDocumento }), "Id", "persona");
+            return View();
+        }
+
+        public async Task<IActionResult> MostrarClases(int IdJugador , DateTime? fechaD , DateTime? fechaH)
+        {
+            if (fechaD != null && fechaH != null)
+            {
+                var clases = await _context.ClaseParticular.Include(c => c.IdCanchaNavigation).Include(c => c.IdProfesorNavigation).Where(c => c.IdJugador == IdJugador && c.FechaReserva >= fechaD && c.FechaReserva <= fechaH).ToListAsync();
+                return PartialView(clases);
+            }
+            else
+            {
+                var clases = await _context.ClaseParticular.Include(c=>c.IdCanchaNavigation).Include(c=>c.IdProfesorNavigation).Where(c => c.IdJugador == IdJugador).ToListAsync();
+                return PartialView(clases);
+            }
+            
+        }
+
+        public async Task<IActionResult> VerDetalle(int id)
+        {            
+                var clases = await _context.ClaseParticular.Include(c => c.IdCanchaNavigation).Include(c => c.IdProfesorNavigation).Where(c => c.Id == id).SingleOrDefaultAsync();
+                return PartialView(clases);            
+        }
+
+        public IActionResult ComenzarClase(int Nclase)
+        {
+            
+               var clase = _context.ClaseParticular.Where(c => c.Id == Nclase).SingleOrDefault();
+            clase.HoraInicioReal = TimeSpan.Parse( DateTime.Now.ToString("HH:mm"));
+            clase.FechaRealRealizacion = DateTime.Now.Date;
+            _context.ClaseParticular.Update(clase);
+            if (_context.SaveChanges() == 1)
+            {
+                TempData["Resultado"] = "COMENZADO";
+                return RedirectToAction("ConsultarClases");
+            }
+            else
+            {
+                TempData["Resultado"] = "NO";
+                return RedirectToAction("ConsultarClases");
+            }
+        }
+
+        public IActionResult CancelarClase(int Nclase) {
+
+            var clase = _context.ClaseParticular.Where(c => c.Id == Nclase).SingleOrDefault();
+            
+            clase.FechaCancelacion = DateTime.Now.Date;
+            _context.ClaseParticular.Update(clase);
+            if (_context.SaveChanges() == 1)
+            {
+                Agenda ag = _context.Agenda.Where(a => a.IdClasesParticulares == Nclase).SingleOrDefault();
+                _context.Agenda.Remove(ag);
+                if (_context.SaveChanges() == 1)
+                {
+                    try
+                    {
+                        var persona = _context.ClaseParticular.Where(c => c.Id == Nclase).Include(c => c.IdJugadorNavigation).SingleOrDefault();
+                        var mensaje = new MimeMessage();
+                        mensaje.From.Add(new MailboxAddress("BOCHAS PADEL", "bochaspadel@gmail.com"));
+                        mensaje.To.Add(new MailboxAddress("Alumno", persona.IdJugadorNavigation.Mail));
+                        mensaje.Subject = "Cancelacion de Reserva";
+                        mensaje.Body = new TextPart("plain") { Text = "Buenos dias  Sr/a. " + persona.IdJugadorNavigation.Apellido + " se realizo la cancelacion de la clase particular para la fecha" + persona.FechaReserva.Date.ToString("dd/MM/yyyy") + ", Saludos." };
+                        using (var cliente = new SmtpClient())
+                        {
+                            cliente.Connect("smtp.gmail.com", 587, false);
+                            cliente.Authenticate("bochaspadel@gmail.com", "bochas2018");
+                            cliente.Send(mensaje);
+                            cliente.Disconnect(true);
+                        }
+                        TempData["Respuesta"] = "Cancelado";
+                        return RedirectToAction("ConsultarClases");
+                    }
+                    catch
+                    {
+                        TempData["Respuesta"] = "NoMail";
+                        return RedirectToAction("ConsultarClases");
+                    }
+
+                }
+                else
+                {
+                    TempData["Resultado"] = "NO";
+                    return RedirectToAction("ConsultarClases");
+                }
+                
+            }
+            else
+            {
+                TempData["Resultado"] = "NO";
+                return RedirectToAction("ConsultarClases");
+            }
         }
 
     }
