@@ -5,7 +5,7 @@
     BOCHASContext db = new BOCHASContext();
 
 
-    var totalhoras = db.ClaseParticular.Where(d => d.IdCobro ==  Model.Numero).SingleOrDefault().HoraFinPrevista - db.ClaseParticular.Where(d => d.IdCobro == Model.Numero).SingleOrDefault().HoraInicioPrevista;
+    var totalhoras = db.ClaseParticular.Where(d => d.IdCobro ==  Model.Numero).SingleOrDefault().HoraFinPrevista.Hours - db.ClaseParticular.Where(d => d.IdCobro == Model.Numero).SingleOrDefault().HoraInicioPrevista.Hours;
 }
 
 <!DOCTYPE html>

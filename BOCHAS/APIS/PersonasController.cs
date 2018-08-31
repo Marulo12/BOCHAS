@@ -7,18 +7,23 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using System.Net.Http.Headers;
+using System;
 
 namespace BOCHAS.APIS
 {
-    [Produces("application/json")]
+    [Produces("application/json", "application/octet-stream", "image/svg+xml")]
     
+
     public class PersonasController : Controller
     {
         private readonly BOCHASContext _context;
-        
-        public PersonasController(BOCHASContext context)
+        private IHostingEnvironment _hostingEnv;
+        public PersonasController(BOCHASContext context , IHostingEnvironment host)
         {
             _context = context;
+            _hostingEnv = host;
         }
 
         // GET: api/Personas
@@ -139,6 +144,38 @@ namespace BOCHAS.APIS
             }
         }
 
+        [Produces("image/svg+xml", "application/octet-stream")]
+        [HttpPost("api/Personas/SubirImagenJugador/{Usuario}")]
+        public IActionResult SubirImagenJugador( [FromRoute] string Usuario   , [FromBody]  IFormFile ImageFile)
+        {           
+           try
+           {
 
+                
+              //  FileInfo file = new FileInfo(img.ImageFile);
+                
+                var persona = (from u in _context.Usuario join p in _context.Persona on u.Id equals p.IdUsuario where u.Nombre == Usuario && p.Tipo == "JUGADOR" && p.FechaBaja == null select p).SingleOrDefault();
+                var filename = ContentDispositionHeaderValue.Parse(ImageFile.ContentDisposition).FileName.Trim('"');
+                var targetDirectory = Path.Combine(_hostingEnv.WebRootPath, string.Format("Images\\perfiles\\jugadores\\" + HttpContext.User.Identity.Name + "\\"));
+                if (!Directory.Exists(targetDirectory))
+                {
+                    Directory.CreateDirectory(targetDirectory);
+                }
+                var savePath = Path.Combine(targetDirectory, filename);
+                ImageFile.CopyTo(new FileStream(savePath, FileMode.Create));
+                persona.Imagen = filename;
+                _context.Persona.Update(persona);
+                _context.SaveChanges();
+                
+               return Ok();
+           }
+            catch
+            {
+                
+                return NotFound();
+            }
+
+
+        }
     }
 }

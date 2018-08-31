@@ -186,12 +186,33 @@ namespace BOCHAS.APIS
         }
 
         [HttpGet("api/AlquilerCanchas/ListadoReservasPorJugador/{Usuario}")]
-        public async Task<JsonResult> ListadoReservasPorJugador([FromRoute] string Usuario)
+        [HttpGet("api/AlquilerCanchas/ListadoReservasPorJugador/{Usuario}/{Dias}")]
+        public async Task<JsonResult> ListadoReservasPorJugador([FromRoute] string Usuario, int? Dias)
         {
             int idCliente = (from u in _context.Usuario join p in _context.Persona on u.Id equals p.IdUsuario where u.Nombre == Usuario && p.Tipo == "JUGADOR" && p.FechaBaja == null select u).SingleOrDefault().Id;
-           
-            var alquiler = (from a in _context.AlquilerCancha join u in _context.Usuario on a.IdCliente equals u.Id join e in _context.EstadoAlquiler on a.IdEstado equals e.Id where u.Id == idCliente  select new { Numero= a.Numero , FechaPedido = a.FechaPedido , FechaReserva = a.FechaReserva , Estado = e.Nombre , IdEstado = e.Id }).ToListAsync();
-            return Json(await alquiler);
+            if (Dias == null)
+            {
+                var alquiler = (from a in _context.AlquilerCancha join u in _context.Usuario on a.IdCliente equals u.Id join e in _context.EstadoAlquiler on a.IdEstado equals e.Id where u.Id == idCliente select new { Numero = a.Numero, FechaPedido = a.FechaPedido, FechaReserva = a.FechaReserva, Estado = e.Nombre, IdEstado = e.Id }).ToListAsync();
+                return Json(await alquiler);
+            }
+            else
+            {
+                if (Dias > 0)
+                {
+                    int totalday = DateTime.Now.Day + (int)Dias;
+                    var alquiler = (from a in _context.AlquilerCancha join u in _context.Usuario on a.IdCliente equals u.Id join e in _context.EstadoAlquiler on a.IdEstado equals e.Id where u.Id == idCliente && a.FechaReserva.Value.Year == DateTime.Now.Year && a.FechaReserva.Value.Month == DateTime.Now.Month && a.FechaReserva.Value.Day >= DateTime.Now.Day && a.FechaReserva.Value.Day <= totalday select new { Numero = a.Numero, FechaPedido = a.FechaPedido, FechaReserva = a.FechaReserva, Estado = e.Nombre, IdEstado = e.Id }).ToListAsync();
+                    return Json(await alquiler);
+                }
+                else
+                {
+
+                    int totalday = DateTime.Now.Day + (int)Dias;
+                    var alquiler = (from a in _context.AlquilerCancha join u in _context.Usuario on a.IdCliente equals u.Id join e in _context.EstadoAlquiler on a.IdEstado equals e.Id where u.Id == idCliente && a.FechaReserva.Value.Year == DateTime.Now.Year && a.FechaReserva.Value.Month == DateTime.Now.Month && a.FechaReserva.Value.Day <= DateTime.Now.Day && a.FechaReserva.Value.Day >= totalday select new { Numero = a.Numero, FechaPedido = a.FechaPedido, FechaReserva = a.FechaReserva, Estado = e.Nombre, IdEstado = e.Id }).ToListAsync();
+                    return Json(await alquiler);
+                }
+                
+            }
+            
         }
        
         [HttpGet("api/AlquilerCanchas/DetalleReserva/{Numero}")]

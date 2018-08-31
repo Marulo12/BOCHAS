@@ -34,6 +34,19 @@ namespace BOCHAS.Controllers
             }
 
         }
+        public IActionResult ReporteClase(int Nclase)
+        {
+            try
+            {
+                var clase = _context.ClaseParticular.Include(a => a.IdCanchaNavigation).Include(a => a.IdJugadorNavigation).Include(a => a.IdProfesorNavigation).Where(a => a.Id == Nclase).SingleOrDefault();
+                return new ViewAsPdf("ReporteClase", clase);
+            }
+            catch
+            {
+                return NotFound();
+            }
+
+        }
         public IActionResult ReporteCobroReserva(int NCobro)
         {
             try

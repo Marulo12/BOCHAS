@@ -1,57 +1,32 @@
 ﻿@model BOCHAS.Models.ClaseParticular
-
-<dl class="dl-horizontal" style="width:100%;padding:0px;margin:0px;font-size:15px;">
-    <dt>
-        Fecha de Realizacion
-    </dt>
-    <dd>
-        @{ if (Model.FechaRealRealizacion == null)
+<ul class="list-group" style="font-size:16px;">
+    <li class="list-group-item"> N° Cancha: @Html.DisplayFor(model => model.IdCanchaNavigation.Numero), Nombre: @Html.DisplayFor(model => model.IdCanchaNavigation.Nombre)</li>
+    <li class="list-group-item">
+        Fecha de Realizacion:  @{ if (Model.FechaRealRealizacion == null)
             { <label>-</label> }
             else
             { @Model.FechaRealRealizacion.Value.Date.ToString("dd/MM/yyyy") } }
-
-    </dd>
-    <dt>
-        Hora de Inicio
-    </dt>
-    <dd>
-        @{ if (Model.FechaRealRealizacion == null)
+    </li>
+    <li class="list-group-item">
+        Hora de Inicio:    @{ if (Model.FechaRealRealizacion == null)
             { <label>-</label> }
             else
             { @Html.DisplayFor(model => model.HoraInicioReal) } }
-    </dd>
-    <dt>
-        Hora de Finalizacion
-    </dt>
-    <dd>
-        @{ if (Model.HoraFinReal == null)
+    </li>
+    <li class="list-group-item">
+        Hora de Finalizacion:   @{ if (Model.HoraFinReal == null)
             { <label>-</label> }
             else
             { @Html.DisplayFor(model => model.HoraFinReal) } }
-    </dd>
-
-    <dt>
-        Fecha cancelacion:
-    </dt>
-    <dd>
-        @{ if (Model.FechaCancelacion == null)
+    </li>
+    <li class="list-group-item">
+        Fecha cancelacion:  @{ if (Model.FechaCancelacion == null)
             { <label>-</label> }
             else
             { @Model.FechaCancelacion.Value.Date.ToString("dd/MM/yyyy") } }
-    </dd>
-    <dt>
-        Observacion:
-    </dt>
-    <dd>
-        @Html.DisplayFor(model => model.Observacion)
-    </dd>
-    <dt>
-       N° Cancha:
-    </dt>
-    <dd>
-        @Html.DisplayFor(model => model.IdCanchaNavigation.Numero)
-    </dd>
+    </li>
+    <li class="list-group-item">Observacion:  @Html.DisplayFor(model => model.Observacion)</li>
+</ul>
 
-</dl>
 
 
