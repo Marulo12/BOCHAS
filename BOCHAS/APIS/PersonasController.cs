@@ -146,8 +146,8 @@ namespace BOCHAS.APIS
         }
 
 
-        [HttpPost("api/Personas/SubirImagenJugador")]
-        public JsonResult SubirImagenJugador(  IFormFile file)
+        [HttpPost("api/Personas/SubirImagen")]
+        public JsonResult SubirImagen(  IFormFile file)
         {
             string Usuario = HttpContext.Request.Query["Usuario"].ToString();
             try
