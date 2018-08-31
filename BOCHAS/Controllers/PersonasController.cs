@@ -537,7 +537,7 @@ namespace BOCHAS.Controllers
             catch
             {
                 TempData["Mensaje"] ="Ingrese una imagen";
-                return RedirectToAction("AgregarImagenPerfilJugador");
+                return RedirectToAction("AgregarImagenPerfilJugador","Personas","");
             }
 
 
