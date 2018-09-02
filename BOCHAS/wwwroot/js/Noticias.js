@@ -1,6 +1,6 @@
 ﻿$("#AdministrarNoticias").click(function () {
     $("#AdministrarNoticias").tooltip("hide");
-    
+     
     TraerNoticias();
 
 });

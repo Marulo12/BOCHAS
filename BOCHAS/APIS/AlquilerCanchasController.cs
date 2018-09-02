@@ -197,17 +197,19 @@ namespace BOCHAS.APIS
             }
             else
             {
+                DateTime FechaLimite = DateTime.Now.Date.AddDays((double)Dias);
                 if (Dias > 0)
                 {
-                    int totalday = DateTime.Now.Day + (int)Dias;
-                    var alquiler = (from a in _context.AlquilerCancha join u in _context.Usuario on a.IdCliente equals u.Id join e in _context.EstadoAlquiler on a.IdEstado equals e.Id where u.Id == idCliente && a.FechaReserva.Value.Year == DateTime.Now.Year && a.FechaReserva.Value.Month == DateTime.Now.Month && a.FechaReserva.Value.Day >= DateTime.Now.Day && a.FechaReserva.Value.Day <= totalday select new { Numero = a.Numero, FechaPedido = a.FechaPedido.Value.Day + "/" + a.FechaPedido.Value.Month + "/" + a.FechaPedido.Value.Year, FechaReserva = a.FechaReserva.Value.Day + "/" + a.FechaReserva.Value.Month + "/" + a.FechaReserva.Value.Year, Estado = e.Nombre, IdEstado = e.Id }).ToListAsync();
+                   
+                  
+                    var alquiler = (from a in _context.AlquilerCancha join u in _context.Usuario on a.IdCliente equals u.Id join e in _context.EstadoAlquiler on a.IdEstado equals e.Id where u.Id == idCliente && a.FechaReserva >= DateTime.Now.Date && a.FechaReserva <= FechaLimite select new { Numero = a.Numero, FechaPedido = a.FechaPedido.Value.Day + "/" + a.FechaPedido.Value.Month + "/" + a.FechaPedido.Value.Year, FechaReserva = a.FechaReserva.Value.Day + "/" + a.FechaReserva.Value.Month + "/" + a.FechaReserva.Value.Year, Estado = e.Nombre, IdEstado = e.Id }).ToListAsync();
                     return Json(await alquiler);
                 }
                 else
                 {
 
-                    int totalday = DateTime.Now.Day + (int)Dias;
-                    var alquiler = (from a in _context.AlquilerCancha join u in _context.Usuario on a.IdCliente equals u.Id join e in _context.EstadoAlquiler on a.IdEstado equals e.Id where u.Id == idCliente && a.FechaReserva.Value.Year == DateTime.Now.Year && a.FechaReserva.Value.Month == DateTime.Now.Month && a.FechaReserva.Value.Day <= DateTime.Now.Day && a.FechaReserva.Value.Day >= totalday select new { Numero = a.Numero, FechaPedido = a.FechaPedido.Value.Day + "/" + a.FechaPedido.Value.Month + "/" + a.FechaPedido.Value.Year, FechaReserva = a.FechaReserva.Value.Day + "/" + a.FechaReserva.Value.Month + "/" + a.FechaReserva.Value.Year, Estado = e.Nombre, IdEstado = e.Id }).ToListAsync();
+                 
+                    var alquiler = (from a in _context.AlquilerCancha join u in _context.Usuario on a.IdCliente equals u.Id join e in _context.EstadoAlquiler on a.IdEstado equals e.Id where u.Id == idCliente && a.FechaReserva <= DateTime.Now.Date && a.FechaReserva >= FechaLimite select new { Numero = a.Numero, FechaPedido = a.FechaPedido.Value.Day + "/" + a.FechaPedido.Value.Month + "/" + a.FechaPedido.Value.Year, FechaReserva = a.FechaReserva.Value.Day + "/" + a.FechaReserva.Value.Month + "/" + a.FechaReserva.Value.Year, Estado = e.Nombre, IdEstado = e.Id }).ToListAsync();
                     return Json(await alquiler);
                 }
                 

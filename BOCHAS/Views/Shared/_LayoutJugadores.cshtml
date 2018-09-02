@@ -1,6 +1,7 @@
 ﻿
 @{
     Layout = null;
+    BOCHASContext db = new BOCHASContext();
 }
 @using Microsoft.AspNetCore.Authentication;
 @using Microsoft.AspNetCore.Authentication.Cookies;
@@ -10,11 +11,10 @@
 
 <html>
 <head>
-    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
 
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/lib/fontawesome-free-5.1.0-web/fontawesome-free-5.1.0-web/css/all.css" rel="stylesheet" />
-    <link href="~/lib/DataTables/datatables.css" rel="stylesheet" />
-    <link href="~/lib/DataTables/DataTables-1.10.16/css/dataTables.bootstrap.css" rel="stylesheet" />
+    <link href="~/lib/DataTables/datatables.min.css" rel="stylesheet" />
     <link href="~/lib/Alertify/alertify.css" rel="stylesheet" />
     <link href="~/lib/Alertify/themes/bootstrap.css" rel="stylesheet" />
     <link rel="apple-touch-icon" sizes="76x76" href="~/images/LogoBochas.png">
@@ -55,11 +55,22 @@
 
                             <li> <a asp-action="NuevaReservaJugador" asp-controller="AlquilerCanchas"><i class="fas fa-plus"></i> &nbsp;Nueva Reserva</a></li>
                             <li><a asp-action="MisReservas" asp-controller="AlquilerCanchas"><i class="fas fa-list"></i>&nbsp;Mis Reservas</a></li>
-                            <li><a href="#"><i class="fas fa-ban"></i>&nbsp;Anular Reservas</a></li>
+                            
                         </ul>
                     </li>
                     <li><a href="#" class="text-dark" style="color:black;"><i class="far fa-address-book"></i>  Contactos</a></li>
                     <li> <a href="#" style="color:black;"> <i class="fas fa-envelope"></i>  Mail</a></li>
+                    @{
+                        if (User.Identity.IsAuthenticated)
+                        {
+                            var persona = (from p in db.Persona join u in db.Usuario on p.IdUsuario equals u.Id where u.Nombre == User.Identity.Name && p.FechaBaja == null && p.Tipo == "JUGADOR" select p).SingleOrDefault();
+                            var jugador = db.Jugador.Where(c => c.IdPersona == persona.Id && c.IdTipoJugador == 1).SingleOrDefault();
+                            if (jugador != null)
+                            {
+                                <li><a asp-action="MostrarClasesParticular" asp-controller="ClaseParticulars" asp-route-IdJugador="@persona.Id" style="color:black;"><i class="fas fa-chalkboard-teacher"></i>&nbsp;Mis Clases</a></li>
+                            }
+                        }
+                    }
                 </ul>
                 <ul id="PermisosNav" class="nav navbar-nav " style="font-size:15px;"></ul>
 
@@ -68,7 +79,7 @@
                         if (User.Identity.IsAuthenticated)
                         {
                             <li style="background-color:transparent;">
-                                @{ BOCHASContext db = new BOCHASContext();
+                                @{
                                     var perfil = db.Persona.SingleOrDefault(p => p.IdUsuarioNavigation.Nombre == User.Identity.Name && p.FechaBaja == null);
                                     if (perfil.Imagen == null)
                                     {
@@ -166,7 +177,6 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/fontawesome-free-5.1.0-web/fontawesome-free-5.1.0-web/js/all.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-    
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
     <script src="~/lib/Alertify/alertify.js"></script>
@@ -175,6 +185,7 @@
     <script src="~/js/Usuarios.js"></script>
     <script src="~/js/site.js"></script>
     <script src="~/js/JugadorExterno.js"></script>
+    <script src="~/js/ClasesParticulares.js"></script>
     <script src="~/lib/signalr/jquery.signalR.min.js"></script>
     @section hub{
         <script src="signalr/hubs"></script>}

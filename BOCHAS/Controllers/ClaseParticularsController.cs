@@ -189,6 +189,20 @@ namespace BOCHAS.Controllers
             }
             
         }
+        public async Task<IActionResult> MostrarClasesParticular(int IdJugador, DateTime? fechaD, DateTime? fechaH)
+        {
+            if (fechaD != null && fechaH != null)
+            {
+                var clases = await _context.ClaseParticular.Include(c => c.IdCanchaNavigation).Include(c => c.IdProfesorNavigation).Where(c => c.IdJugador == IdJugador && c.FechaReserva >= fechaD && c.FechaReserva <= fechaH).ToListAsync();
+                return PartialView(clases);
+            }
+            else
+            {
+                var clases = await _context.ClaseParticular.Include(c => c.IdCanchaNavigation).Include(c => c.IdProfesorNavigation).Where(c => c.IdJugador == IdJugador).ToListAsync();
+                return PartialView(clases);
+            }
+
+        }
 
         public async Task<IActionResult> VerDetalle(int id)
         {            
@@ -293,6 +307,13 @@ namespace BOCHAS.Controllers
                 TempData["Resultado"] = "NO";
                 return RedirectToAction("ConsultarClases");
             }
+        }
+
+        public async Task<JsonResult> FinalizadasMensual()
+        {
+            int Cantidad = await _context.ClaseParticular.Where(c => c.HoraFinReal != null && c.FechaCancelacion == null && c.FechaReserva.Year == DateTime.Now.Year && c.FechaReserva.Month == DateTime.Now.Month).CountAsync();
+
+            return Json(Cantidad);
         }
 
     }
