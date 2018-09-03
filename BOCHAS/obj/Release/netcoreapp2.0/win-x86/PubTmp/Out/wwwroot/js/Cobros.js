@@ -103,7 +103,8 @@ function RegistrarCobroReserva() {
     // objeto servicio
     var cantidadCanchas = $("#CantC").val();
     var MontoServicio = $("#Stotal").val();
-    var Servicio = { IdServicio: 1, Monto: MontoServicio, Id_NumeroCobro: 0, Cantidad: cantidadCanchas, IdServiciosAdicionales: null };
+    var TotalHoras = $("#CantH").val();
+    var Servicio = { IdServicio: 1, Monto: MontoServicio, Id_NumeroCobro: 0, Cantidad: cantidadCanchas, IdServiciosAdicionales: null, TotalHoras: TotalHoras };
     //array de servicios adicionales
     var ServiciosAdicionales = [];
     $(".checkSA ").each(function () {
@@ -144,6 +145,7 @@ function RegistrarCobroClase() {
     var MontoTotal = $("#InputTotalR").val();
     var NroCupon = null;
     var IdTarjeta = null;
+    var TotalHoras = $("#CantH").val();
     if (MedioPago === "2") {
         NroCupon = $("#Ncupon").val();
         IdTarjeta = $("#IdTarjeta option:selected").val();
@@ -152,7 +154,7 @@ function RegistrarCobroClase() {
     // objeto servicio
     var cantidadCanchas = $("#CantC").val();
     var MontoServicio = $("#Stotal").val();
-    var Servicio = { IdServicio: 2, Monto: MontoServicio, Id_NumeroCobro: 0, Cantidad: cantidadCanchas, IdServiciosAdicionales: null };
+    var Servicio = { IdServicio: 2, Monto: MontoServicio, Id_NumeroCobro: 0, Cantidad: cantidadCanchas, IdServiciosAdicionales: null, TotalHoras: TotalHoras };
     //array de servicios adicionales
     var ServiciosAdicionales = [];
     $(".checkSA ").each(function () {
@@ -326,8 +328,9 @@ function RegistrarCobroReservaManual() {
     $(".Nres").each(function () {
         var tr = $(this).closest('tr');
         var canchas = $(tr).find('td:nth-child(4)').text();
-        var monto = $(tr).find('td:nth-child(6)').text();        
-        servicio = { IdServicio: 1, Monto: monto, Id_NumeroCobro: 0, Cantidad: canchas, IdServiciosAdicionales: null };
+        var monto = $(tr).find('td:nth-child(6)').text();
+        var TotalHoras = $(tr).find('td:nth-child(5)').text();
+        servicio = { IdServicio: 1, Monto: monto, Id_NumeroCobro: 0, Cantidad: canchas, IdServiciosAdicionales: null, TotalHoras: TotalHoras};
         Servicio.push(servicio);
     });
     //array de servicios adicionales

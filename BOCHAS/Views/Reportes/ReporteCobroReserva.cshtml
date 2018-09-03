@@ -2,10 +2,7 @@
 
 @{
     Layout = null;
-    BOCHASContext db = new BOCHASContext();
-
-
-    var totalhoras = db.DetalleAlquilerCancha.Where(d => d.IdAlquilerCancha == db.AlquilerCancha.Where(a => a.IdCobro == Model.Numero).First().Numero).ToList()[0].HoraReservaHasta.Hours - db.DetalleAlquilerCancha.Where(d => d.IdAlquilerCancha == db.AlquilerCancha.Where(a => a.IdCobro == Model.Numero).First().Numero).ToList()[0].HoraReservaDesde.Hours;
+    BOCHASContext db = new BOCHASContext();  
 }
 
 <!DOCTYPE html>
@@ -56,7 +53,7 @@
                             {
                                 if (item.IdServicio != null)
                                 {
-                                    <tr><td>@db.Servicio.Where(s=>s.Id == item.IdServicio).Single().Nombre</td><td>@Convert.ToInt32(db.Servicio.Where(s => s.Id == item.IdServicio).Single().Precio)</td><td>@item.Cantidad</td><td>@totalhoras</td><td>@Convert.ToInt32(item.Monto)</td></tr>
+                                    <tr><td>@db.Servicio.Where(s=>s.Id == item.IdServicio).Single().Nombre</td><td>@Convert.ToInt32(db.Servicio.Where(s => s.Id == item.IdServicio).Single().Precio)</td><td>@item.Cantidad</td><td>@item.TotalHoras</td><td>@Convert.ToInt32(item.Monto)</td></tr>
                                 }
                                 else
                                 {
