@@ -6,6 +6,10 @@ $(document).ready(function () {
         MostrarCobros();
     });
 
+    $("#CerrarModalReporte").click(function () {
+        setTimeout('nada()', 2000); 
+        window.location = "/Cobro/CobroManual";
+    });
 
     $("#MedioPago").change(function () {        
         
@@ -16,6 +20,10 @@ $(document).ready(function () {
             $("#DivTarjeta").hide();
         }
     
+    });
+    $(document).on('click', '.borrar', function (event) {
+        event.preventDefault();
+        $(this).closest('tr').remove();
     });
 });
 
@@ -245,4 +253,114 @@ function MostrarCobros() {
     });
 
 
+}
+function CalcularXReserva() {   
+    var IdReserva = $("#Reservas option:selected").val();
+    $.ajax({
+        type: "GET",
+        data: { IdReserva },
+        url: "/Cobro/TraerPorReserva",
+        success: function (response) {
+            var existe = false;
+            var tr = "";
+
+            tr = '<tr><td class="Nres">' + IdReserva + '</td><td>' + response.servicio + '</td><td>' + response.precio + '</td><td>' + response.canchas + '</td><td>' + Number.parseFloat(response.horas) + '</td><td class="Stotal">' + response.total + '</td><td><button class="btn btn-sm btn-danger borrar"><i class="fas fa-backspace"></i></button></td></tr>';
+            $(".Nres").each(function () {
+                var tr = $(this).closest('tr');
+                var tot = $(tr).find('td:nth-child(1)').text();
+
+                if (tot === IdReserva) {
+                    
+                    existe = true;
+                }
+               
+            });
+            if (existe) { alertify.error("Esa reserva ya esta incorporada para el cobro"); } else { $("#TDetalleR").append(tr); }
+            
+        }
+    });
+}
+function CalcularTotalReservas() {
+    $("#InputTotalR").val("");
+    var TotalServicio = 0;
+    var ServiciosAdicionales = 0;
+    $(".Stotal ").each(function () {        
+        var tr = $(this).closest('tr');
+        var tot = $(tr).find('td:nth-child(6)').text();
+        TotalServicio = parseInt(TotalServicio) + parseInt(tot);        
+    });
+
+    $(".checkSA ").each(function () {
+        if ($(this).is(':checked')) {
+            var tr = $(this).closest('tr');
+            var tot = $(tr).find('td:nth-child(4) .SAtot').val();
+            ServiciosAdicionales = parseInt(ServiciosAdicionales) + parseInt(tot);
+        }
+
+    });
+    var Total = parseInt(TotalServicio) + parseInt(ServiciosAdicionales);
+    $("#InputTotalR").val(Total);
+}
+
+function RegistrarCobroReservaManual() {
+    // todo para clase cobro 
+    var Nreserva = [];
+    $(".Nres").each(function () {
+        var tr = $(this).closest('tr');
+        var tot = $(tr).find('td:nth-child(1)').text();
+        Nreserva.push ( tot );      
+    });
+    var Fecha = $("#FechaCobro").val();
+    var MedioPago = $("#MedioPago option:selected").val();
+    var MontoTotal = $("#InputTotalR").val();
+    var NroCupon = null;
+    var IdTarjeta = null;
+    if (MedioPago === "2") {
+        NroCupon = $("#Ncupon").val();
+        IdTarjeta = $("#IdTarjeta option:selected").val();
+    }
+    // todo para detalle cobro
+    // objeto servicio    
+    var MontoServicio = $("#Stotal").val();
+    var Servicio = []; 
+    $(".Nres").each(function () {
+        var tr = $(this).closest('tr');
+        var canchas = $(tr).find('td:nth-child(4)').text();
+        var monto = $(tr).find('td:nth-child(6)').text();        
+        servicio = { IdServicio: 1, Monto: monto, Id_NumeroCobro: 0, Cantidad: canchas, IdServiciosAdicionales: null };
+        Servicio.push(servicio);
+    });
+    //array de servicios adicionales
+    var ServiciosAdicionales = [];
+    $(".checkSA ").each(function () {
+        if ($(this).is(':checked')) {
+            var tr = $(this).closest('tr');
+            var tot = $(tr).find('td:nth-child(4) .SAtot').val();
+            var idservicio = $(tr).find('td:nth-child(6)').text();
+            var cantidad = $(tr).find('td:nth-child(3) .SAcant').val();
+            var servicioadicional = { IdServicio: null, Monto: tot, Id_NumeroCobro: 0, Cantidad: cantidad, IdServiciosAdicionales: idservicio };
+            ServiciosAdicionales.push(servicioadicional);
+        }
+
+    });
+    $.ajax({
+        type: "POST",
+        data: { Nreserva, Fecha, MedioPago, MontoTotal, NroCupon, IdTarjeta, MontoServicio, Servicio, ServiciosAdicionales },
+        url: "/Cobro/RegistrarCobroReservaManual",
+        success: function (response) {          
+           
+            alertify.success("Cobro realizado con exito");
+            //  window.open("/Reportes/ReporteCobroReserva?NCobro=" + response);
+            ReporteCobroReserva(response);
+        },
+        failure: function (response) {
+            alert(response);
+        }
+
+    });
+
+}
+
+function Limpiar() {
+    window.location = "/Cobro/CobroManual";
 }

@@ -204,6 +204,101 @@ namespace BOCHAS.Controllers
         }
 
 
+        public async Task<JsonResult> TraerPorReserva(int IdReserva)
+        {
+
+            var servicio = await _context.Servicio.Where(s => s.Id == 1).SingleOrDefaultAsync();
+            decimal canchas = await _context.DetalleAlquilerCancha.Where(d => d.IdAlquilerCancha == IdReserva && d.IdEstadoDetalle == 4).CountAsync();
+            TimeSpan horas =_context.DetalleAlquilerCancha.Where(d => d.IdAlquilerCancha == IdReserva && d.IdEstadoDetalle == 4).ToList()[0].HoraReservaHasta - _context.DetalleAlquilerCancha.Where(d => d.IdAlquilerCancha == IdReserva && d.IdEstadoDetalle == 4).ToList()[0].HoraReservaDesde;
+            var total = Convert.ToDecimal(servicio.Precio) * Convert.ToDecimal(horas.TotalHours) * canchas;
+
+            Subtotal sub = new Subtotal();
+            sub.canchas = canchas;
+            sub.horas = horas;
+            sub.precio = servicio.Precio;
+            sub.servicio = servicio.Nombre;
+            sub.total = total;
+
+            return Json(sub);
+        }
+
+        class Subtotal
+        {
+            public string servicio { set; get; }
+            public decimal precio { set; get; }
+            public TimeSpan horas { set; get; }
+            public decimal canchas { set; get; }
+            public decimal total { set; get; }
+        }
+
+
+
+        [HttpPost]
+
+        public JsonResult RegistrarCobroReservaManual(int[] Nreserva, DateTime Fecha, int MedioPago, decimal MontoTotal, int? NroCupon, int? IdTarjeta, decimal MontoServicio, DetalleCobro[] Servicio, DetalleCobro[] ServiciosAdicionales)
+        {
+            int empleado = (from p in _context.Persona join u in _context.Usuario on p.IdUsuario equals u.Id where u.Nombre == HttpContext.User.Identity.Name && p.Tipo == "EMPLEADO" && p.FechaBaja == null select u).SingleOrDefault().Id;
+
+            Cobro cobro = new Cobro();
+            cobro.Fecha = Fecha.Date;
+            cobro.IdMedioPago = MedioPago;
+            cobro.MontoTotal = MontoTotal;
+            cobro.IdUsuario = empleado;
+            if (MedioPago == 2)
+            {
+                cobro.IdTarjeta = IdTarjeta;
+                cobro.NroCupon = NroCupon;
+            }
+            _context.Cobro.Add(cobro);
+
+            if (_context.SaveChanges() == 1)
+            {
+                int numeroCobro = _context.Cobro.Max(c => c.Numero);
+                foreach (var serv in Servicio)
+                {
+                    DetalleCobro dc = new DetalleCobro();
+                    dc = serv;
+                    dc.IdNumeroCobro = numeroCobro;
+                    _context.DetalleCobro.Add(dc);
+                    _context.SaveChanges();
+                }
+                               
+                foreach (var d in ServiciosAdicionales)
+                {
+                    DetalleCobro dca = new DetalleCobro();
+                    dca = d;
+                    dca.IdNumeroCobro = numeroCobro;
+                    _context.DetalleCobro.Add(dca);
+                    _context.SaveChanges();
+                }
+                foreach (var res in Nreserva)
+                {
+                    var reserva = _context.AlquilerCancha.Where(a => a.Numero == res).SingleOrDefault();
+                    reserva.IdCobro = numeroCobro;
+                    _context.AlquilerCancha.Update(reserva);
+                    _context.SaveChanges();
+                }
+                
+
+                TempData["Respuesta"] = "Cobro";
+                return Json(numeroCobro);
+            }
+            else
+            {
+                TempData["Respuesta"] = "NO";
+                return Json("ERROR");
+            }
+
+        }
+
+
+        public async Task<JsonResult> ConsultarCobroMensual()
+        {
+            var cobro = await _context.Cobro.Where(c => c.Fecha.Year == DateTime.Now.Year && c.Fecha.Month == DateTime.Now.Month).CountAsync();
+
+            return Json(cobro);
+        }
+
 
     }
 }
