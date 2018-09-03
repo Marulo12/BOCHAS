@@ -202,7 +202,16 @@ namespace BOCHAS.Controllers
             ViewData["IdTarjeta"] = new SelectList(_context.Tarjeta, "Id", "Nombre");
             return View();
         }
+        public IActionResult CobroManualClases()
+        {
 
+
+            var empleado = _context.Persona.Include(p => p.IdUsuarioNavigation).Where(u => u.IdUsuarioNavigation.Nombre == HttpContext.User.Identity.Name && u.Tipo == "EMPLEADO" && u.FechaBaja == null).SingleOrDefault();
+            ViewData["empleado"] = empleado.Nombre + " " + empleado.Apellido;
+            ViewData["IdMedioPago"] = new SelectList(_context.MediodePago, "Id", "Nombre");
+            ViewData["IdTarjeta"] = new SelectList(_context.Tarjeta, "Id", "Nombre");
+            return View();
+        }
 
         public async Task<JsonResult> TraerPorReserva(int IdReserva)
         {
@@ -221,6 +230,18 @@ namespace BOCHAS.Controllers
 
             return Json(sub);
         }
+
+
+
+        public async Task<JsonResult> ConsultarClasesPendientedeCobro(int idJugador)
+        {
+
+            var servicio = await _context.Servicio.Where(s => s.Id == 2).SingleOrDefaultAsync();
+           
+            var clases = await (from c in _context.ClaseParticular join p in _context.Persona on c.IdJugador equals p.Id where c.HoraFinReal != null && c.IdCobro == null && c.IdJugador == idJugador select new { numero = c.Id, servicio = servicio.Nombre, precio = servicio.Precio, canchas = 1, horas = c.HoraFinPrevista.TotalHours - c.HoraInicioPrevista.TotalHours, total = servicio.Precio * (Convert.ToDecimal(c.HoraFinPrevista.TotalHours) - Convert.ToDecimal(c.HoraInicioPrevista.TotalHours)) }).ToListAsync();
+            return Json(clases);
+        }
+
 
         class Subtotal
         {
@@ -298,7 +319,63 @@ namespace BOCHAS.Controllers
 
             return Json(cobro);
         }
+        [HttpPost]
 
+        public JsonResult RegistrarCobroClaseManual(int[] Nrclase, DateTime Fecha, int MedioPago, decimal MontoTotal, int? NroCupon, int? IdTarjeta, decimal MontoServicio, DetalleCobro[] Servicio, DetalleCobro[] ServiciosAdicionales)
+        {
+            int empleado = (from p in _context.Persona join u in _context.Usuario on p.IdUsuario equals u.Id where u.Nombre == HttpContext.User.Identity.Name && p.Tipo == "EMPLEADO" && p.FechaBaja == null select u).SingleOrDefault().Id;
+
+            Cobro cobro = new Cobro();
+            cobro.Fecha = Fecha.Date;
+            cobro.IdMedioPago = MedioPago;
+            cobro.MontoTotal = MontoTotal;
+            cobro.IdUsuario = empleado;
+            if (MedioPago == 2)
+            {
+                cobro.IdTarjeta = IdTarjeta;
+                cobro.NroCupon = NroCupon;
+            }
+            _context.Cobro.Add(cobro);
+
+            if (_context.SaveChanges() == 1)
+            {
+                int numeroCobro = _context.Cobro.Max(c => c.Numero);
+                foreach (var serv in Servicio)
+                {
+                    DetalleCobro dc = new DetalleCobro();
+                    dc = serv;
+                    dc.IdNumeroCobro = numeroCobro;
+                    _context.DetalleCobro.Add(dc);
+                    _context.SaveChanges();
+                }
+
+                foreach (var d in ServiciosAdicionales)
+                {
+                    DetalleCobro dca = new DetalleCobro();
+                    dca = d;
+                    dca.IdNumeroCobro = numeroCobro;
+                    _context.DetalleCobro.Add(dca);
+                    _context.SaveChanges();
+                }
+                foreach (var res in Nrclase)
+                {
+                    var clase = _context.ClaseParticular.Where(a => a.Id == res).SingleOrDefault();
+                    clase.IdCobro = numeroCobro;
+                    _context.ClaseParticular.Update(clase);
+                    _context.SaveChanges();
+                }
+
+
+                TempData["Respuesta"] = "Cobro";
+                return Json(numeroCobro);
+            }
+            else
+            {
+                TempData["Respuesta"] = "NO";
+                return Json("ERROR");
+            }
+
+        }
 
     }
 }

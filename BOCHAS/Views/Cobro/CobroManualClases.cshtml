@@ -2,7 +2,7 @@
 @{
     BOCHASContext bd = new BOCHASContext();
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var reservas = (from a in bd.AlquilerCancha join p in bd.Persona on a.IdCliente equals p.IdUsuario where a.IdEstado == 4 && a.IdCobro == null select new { NroReserva = a.Numero, jugador = "Reserva:" + a.Numero + ", Jugador: " + p.Nombre + " " + p.Apellido + ", Fecha:" + a.FechaReserva.Value.Date.ToString("dd/MM/yyyy") }).ToList();
+    var reservas = (from p in bd.Persona join j in bd.Jugador on p.Id equals j.IdPersona where j.IdTipoJugador == 2 && p.FechaBaja == null && p.Tipo == "JUGADOR" select new { IdJugador = p.Id, Alumno = p.Nombre + " " + p.Apellido + ", N° Doc:" + p.NroDocumento }).ToList().OrderBy(a => a.Alumno);
 }
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <style>
@@ -10,6 +10,10 @@
         position: relative;
         display: inline-block;
         width: 80%;
+    }
+
+    .ocultar {
+        display: none;
     }
 
     .custom-combobox-toggle {
@@ -36,8 +40,8 @@
     <div class="panel-body">
         <div class="row">
             <ul class="nav nav-tabs ">
-                <li role="presentation" class="active"><a asp-action="NuevaReserva" asp-controller="AlquilerCanchas">Cobro de Alquiler de cancha</a></li>
-                <li role="presentation"><a id="CobroManualClases" asp-action="CobroManualClases" asp-controller="Cobro">Cobro de Clases particulares</a></li>
+                <li role="presentation"><a asp-action="CobroManual" asp-controller="Cobro">Cobro de Alquiler de cancha</a></li>
+                <li role="presentation" class="active"><a id="CobroManualClases" asp-action="CobroManualClases" asp-controller="Cobro">Cobro de Clases particulares</a></li>
             </ul>
         </div>
         <br />
@@ -75,32 +79,53 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <h4>Servicio</h4>
+
                 <div class="row">
                     <div class="col-sm-6">
-                        <label>Reservas</label>
+                        <label>Alumno:</label>
                         @{ if (reservas != null)
                             {
                                 <div class="btn-group-sm">
-                                    <select id="Reservas" class="btn btn-sm" asp-items="@{new SelectList(reservas, "NroReserva", "jugador")}"></select><button class="btn btn-sm btn-success" style="margin-left:20px;" onclick="CalcularXReserva()"><i class="fa fa-plus"></i></button>
+                                    <select id="Clases" class="btn btn-sm" asp-items="@{new SelectList(reservas, "IdJugador", "Alumno")}"></select><button class="btn btn-sm btn-primary" style="margin-left:20px;" onclick="TraerClases()"><i class="fas fa-search-plus"></i></button>
                                 </div>
 
                             }
                             else
                             {
-                                <select class="btn btn-sm form-control"><option style="color:white;">No hay reservas pendientes de cobro</option></select>
+                                <select class="btn btn-sm form-control"><option style="color:white;">No hay Clases pendientes de cobro</option></select>
                             }
                         }
 
                     </div>
 
-                    <div class="col-sm-6"></div>
+                    <div class="col-sm-6">
+
+
+
+                        <table id="CobroxClase" class="table table-bordered table-hover ocultar">
+                            <thead class="alert alert-success"><tr><td style="width:4%;">N°</td><td style="width:20%">Servicio</td><td style="width:5%">$Precio Unit.</td><td style="width:5%">Cant.Canchas</td><td style="width:5%">Cant.Horas</td><td style="width:10%">$Total</td><td style="width:4%;"></td></tr></thead>
+                            <tbody id="TDetalleC"></tbody>
+                        </table>
+
+
+                    </div>
                 </div>
+
+
                 <hr />
-                <table id="Tservicios" class="table">
-                    <thead class="alert alert-info"><tr><td style="width:4%;">N°</td><td style="width:20%">Servicio</td><td style="width:5%">$Precio Unit.</td><td style="width:5%">Cant.Canchas</td><td style="width:5%">Cant.Horas</td><td style="width:10%">$Total</td><td style="width:4%;"></td></tr></thead>
-                    <tbody id="TDetalleR"></tbody>
-                </table>
+
+                <div class="row">
+
+                    <div class="col-sm-12">
+                        <h4>Servicio</h4>
+                        <table id="Tservicios" class="table ">
+                            <thead class="alert alert-info"><tr><td style="width:4%;">N°</td><td style="width:20%">Servicio</td><td style="width:5%">$Precio Unit.</td><td style="width:5%">Cant.Canchas</td><td style="width:5%">Cant.Horas</td><td style="width:10%">$Total</td><td style="width:4%;"></td></tr></thead>
+                            <tbody id="TDetalleSC"></tbody>
+                        </table>
+
+                    </div>
+                </div>
+
 
             </div>
         </div>
@@ -124,8 +149,8 @@
                     <div class="col-md-3">
                         <div class="btn-group">
 
-                            <input id="RegCobro" type="button" value="Generar Cobro" class="btn btn-primary" onclick="RegistrarCobroReservaManual()" />
-                            <input type="button" value="Limpiar" class="btn btn-default" onclick="Limpiar()" />
+                            <input id="RegCobro" type="button" value="Generar Cobro" class="btn btn-primary" onclick="RegistrarCobroClaseManual()" />
+                            <input type="button" value="Limpiar" class="btn btn-default" onclick="LimpiarClase()" />
                         </div>
                     </div>
                 </div>
@@ -154,18 +179,18 @@
 
             </div>
             <div class="modal-footer">
-                <button id="CerrarModalReporte" type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button id="CerrarModalReporteClase" type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
-    </div>
+</div>
 
-    @section Scripts{
-        <script src="~/js/AlquilerDeCanchas.js"></script>
-        <script src="~/js/Cobros.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-        <script src="~/js/AutoCompletarCombos-UI.js"></script>
+@section Scripts{
+    <script src="~/js/ClasesParticulares.js"></script>
+    <script src="~/js/Cobros.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="~/js/AutoCompletarCombos-UI.js"></script>
 
-    }
+}
 
 

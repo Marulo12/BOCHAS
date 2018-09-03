@@ -131,6 +131,7 @@
 
 $("#IdCliente").combobox();
 $("#IdProfesor").combobox();
+$("#Clases").combobox();
 $("#Reservas").combobox();
     $("#toggle").on("click", function () {
         $("#IdCliente").toggle();
