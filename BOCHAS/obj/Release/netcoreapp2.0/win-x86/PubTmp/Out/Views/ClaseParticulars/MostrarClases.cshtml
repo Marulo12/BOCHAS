@@ -20,49 +20,70 @@
                 Profesor
             </th>
             <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @item.FechaReserva.Date.ToString("dd/MM/yyyy")
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HoraInicioPrevista)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HoraFinPrevista)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Observacion)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IdProfesorNavigation.Nombre)  @Html.DisplayFor(modelItem => item.IdProfesorNavigation.Apellido)
-                </td>
-                <td style="width:200px;">
-                    <div class="btn-group form-group" style="padding:0px;margin:0px;">
-                        <button class="btn btn-info btn-sm" onclick="VerDetalleClase(@item.Id)" data-toggle="tooltip" title="Ver Detalle"><i class="fas fa-info-circle"></i></button>
-                        @{
+        <tr>
+            <td>
+                @item.FechaReserva.Date.ToString("dd/MM/yyyy")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoraInicioPrevista)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoraFinPrevista)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Observacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdProfesorNavigation.Nombre)  @Html.DisplayFor(modelItem => item.IdProfesorNavigation.Apellido)
+            </td>
+            <td>
+                @{
+                    if (item.FechaRealRealizacion == null && item.FechaCancelacion == null)
+                    {
+                        <label class="label label-warning">Confirmada</label>
+                    }
+                    if (item.FechaRealRealizacion != null && item.HoraFinReal == null)
+                    {
+                        <label class="label label-default">En Juego</label>
+                    }
+                    if (item.FechaRealRealizacion != null && item.HoraFinReal != null)
+                    {
+                        <label class="label label-success">Finalizado</label>
+                    }
+                    if (item.FechaCancelacion != null)
+                    {
+                        <label class="label label-danger">Cancelado</label>
+                    }
+                }
+            </td>
+            <td style="width:200px;">
+                <div class="btn-group form-group" style="padding:0px;margin:0px;">
+                    <button class="btn btn-info btn-sm" onclick="VerDetalleClase(@item.Id)" data-toggle="tooltip" title="Ver Detalle"><i class="fas fa-info-circle"></i></button>
+                    @{
 
-                            if (item.HoraInicioReal == null && item.FechaCancelacion == null)
-                            {
-                                <a class="btn btn-default btn-sm" asp-action="ComenzarClase" asp-controller="ClaseParticulars" asp-route-Nclase="@item.Id" style="color:black" data-toggle="tooltip" title="Comenzar"><i class="fas fa-play"></i></a>
-                                <a class="btn btn-danger btn-sm BtnCancelaR" asp-action="CancelarClase" asp-controller="ClaseParticulars" asp-route-Nclase="@item.Id" data-toggle="tooltip" style="color:white" title="Cancelar"><i class="fas fa-ban"></i></a>
-                            }
-
-                            if (item.FechaCancelacion == null && item.HoraInicioReal != null && item.HoraFinReal == null)
-                            {
-                                <a class="btn btn-success btn-sm" asp-action="FinalizarClase" asp-controller="ClaseParticulars" asp-route-Nclase="@item.Id" style="color:white" data-toggle="tooltip" title="Finalizar"><i class="fas fa-stopwatch"></i></a>
-                            }
-
+                        if (item.HoraInicioReal == null && item.FechaCancelacion == null)
+                        {
+                            <a class="btn btn-default btn-sm" asp-action="ComenzarClase" asp-controller="ClaseParticulars" asp-route-Nclase="@item.Id" style="color:black" data-toggle="tooltip" title="Comenzar"><i class="fas fa-play"></i></a>
+                            <a class="btn btn-danger btn-sm BtnCancelaR" asp-action="CancelarClase" asp-controller="ClaseParticulars" asp-route-Nclase="@item.Id" data-toggle="tooltip" style="color:white" title="Cancelar"><i class="fas fa-ban"></i></a>
                         }
-                        <a class="btn btn-primary btn-sm " data-toggle="tooltip" title="Reporte Clase" onclick="generaRepo(@item.Id)"><i class="fas fa-clipboard-list"></i></a>
 
-                    </div>
-                </td>
-            </tr>
+                        if (item.FechaCancelacion == null && item.HoraInicioReal != null && item.HoraFinReal == null)
+                        {
+                            <a class="btn btn-success btn-sm" asp-action="FinalizarClase" asp-controller="ClaseParticulars" asp-route-Nclase="@item.Id" style="color:white" data-toggle="tooltip" title="Finalizar"><i class="fas fa-stopwatch"></i></a>
+                        }
+
+                    }
+                    <a class="btn btn-primary btn-sm " data-toggle="tooltip" title="Reporte Clase" onclick="generaRepo(@item.Id)"><i class="fas fa-clipboard-list"></i></a>
+
+                </div>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

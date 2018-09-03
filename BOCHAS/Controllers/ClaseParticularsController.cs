@@ -189,18 +189,12 @@ namespace BOCHAS.Controllers
             }
             
         }
-        public async Task<IActionResult> MostrarClasesParticular(int IdJugador, DateTime? fechaD, DateTime? fechaH)
+        public async Task<IActionResult> MostrarClasesParticular(int IdJugador)
         {
-            if (fechaD != null && fechaH != null)
-            {
-                var clases = await _context.ClaseParticular.Include(c => c.IdCanchaNavigation).Include(c => c.IdProfesorNavigation).Where(c => c.IdJugador == IdJugador && c.FechaReserva >= fechaD && c.FechaReserva <= fechaH).ToListAsync();
+           
+                var clases = await _context.ClaseParticular.Include(c => c.IdCanchaNavigation).Include(c => c.IdProfesorNavigation).Where(c => c.IdJugador == IdJugador && c.FechaReserva >= DateTime.Now.Date).ToListAsync();
                 return PartialView(clases);
-            }
-            else
-            {
-                var clases = await _context.ClaseParticular.Include(c => c.IdCanchaNavigation).Include(c => c.IdProfesorNavigation).Where(c => c.IdJugador == IdJugador).ToListAsync();
-                return PartialView(clases);
-            }
+            
 
         }
 

@@ -191,5 +191,19 @@ namespace BOCHAS.Controllers
 
 
         }
+
+
+        public IActionResult CobroManual() {
+
+           
+            var empleado = _context.Persona.Include(p => p.IdUsuarioNavigation).Where(u => u.IdUsuarioNavigation.Nombre == HttpContext.User.Identity.Name && u.Tipo == "EMPLEADO" && u.FechaBaja == null).SingleOrDefault();
+            ViewData["empleado"] = empleado.Nombre + " " + empleado.Apellido;
+            ViewData["IdMedioPago"] = new SelectList(_context.MediodePago, "Id", "Nombre");
+            ViewData["IdTarjeta"] = new SelectList(_context.Tarjeta, "Id", "Nombre");
+            return View();
+        }
+
+
+
     }
 }

@@ -79,3 +79,13 @@ $.ajax({
     }
 
 });
+
+$.ajax({
+    type: "GET",
+    url: "/ClaseParticulars/FinalizadasMensual",
+    success: function (response) {
+       
+        $("#TotalClases").text(response);
+    }
+
+});

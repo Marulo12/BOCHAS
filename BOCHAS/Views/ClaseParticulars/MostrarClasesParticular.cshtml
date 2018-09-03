@@ -25,6 +25,7 @@
                         Profesor
                     </th>
                     <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -45,6 +46,26 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.IdProfesorNavigation.Nombre)  @Html.DisplayFor(modelItem => item.IdProfesorNavigation.Apellido)
+                        </td>
+                        <td>
+                            @{
+                                if (item.FechaRealRealizacion == null && item.FechaCancelacion == null)
+                                {
+                                    <label class="label label-warning">Confirmada</label>
+                                }
+                                if (item.FechaRealRealizacion != null && item.HoraFinReal == null)
+                                {
+                                    <label class="label label-default">En Juego</label>
+                                }
+                                if (item.FechaRealRealizacion != null && item.HoraFinReal != null)
+                                {
+                                    <label class="label label-success">Finalizado</label>
+                                }
+                                if (item.FechaCancelacion != null)
+                                {
+                                    <label class="label label-danger">Cancelado</label>
+                                }
+                            }
                         </td>
                         <td style="width:200px;">
                             <div class=" form-group" style="padding:0px;margin:0px;">
@@ -121,17 +142,7 @@
                 searching: true,
                 lengthMenu: [5, 10, 20, 75, 100],
                 responsive: true,
-                search: "Filtro&nbsp;:",
-                dom: 'Bfrtip',
-                buttons: [
-
-                    {
-                        extend: 'print',
-                        text: 'Imprimir',
-                        title: 'BOCHAS PADEL - Mis Reservas'
-
-                    }
-                ],
+                search: "Filtro&nbsp;:",               
                 language: {
                     processing: "Procesando",
                     search: "Filtro&nbsp;:",
