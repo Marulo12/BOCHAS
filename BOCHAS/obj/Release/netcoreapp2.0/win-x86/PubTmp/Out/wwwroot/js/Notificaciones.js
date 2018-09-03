@@ -89,3 +89,13 @@ $.ajax({
     }
 
 });
+
+$.ajax({
+    type: "GET",
+    url: "/Cobro/ConsultarCobroMensual",
+    success: function (response) {
+
+        $("#TotalCobro").text(response);
+    }
+
+});
