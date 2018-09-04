@@ -99,3 +99,15 @@ $.ajax({
     }
 
 });
+
+$.ajax({
+    type: "GET",
+    url: "/Cobro/InfoVentas",
+    success: function (response) {
+       
+        $("#ventaDiaria").text("$"+response.diario);
+        $("#ventaMensual").text("$" +response.mensual);
+        $("#ventaTotal").text("$" +response.anual);
+    }
+
+});

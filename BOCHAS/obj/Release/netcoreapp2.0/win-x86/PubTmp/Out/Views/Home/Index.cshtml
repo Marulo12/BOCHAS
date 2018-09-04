@@ -1,4 +1,23 @@
-﻿
+﻿<style>
+    .ct-series-a .ct-slice-pie, .ct-series-a .ct-area {
+        stroke: rgba(57, 99, 255, 1);
+        fill: rgba(46, 44, 185, 0.7);
+    }
+
+    .ct-series-b .ct-slice-pie, .ct-series-b .ct-area {
+        stroke: rgba(169, 56, 57, 1);
+        fill: rgba(158, 44, 44, 0.7);
+    }
+    .ct-series-a .ct-line,
+    .ct-series-a .ct-point {
+        stroke: rgba(57, 99, 255, 1);
+    }
+
+    .ct-series-b .ct-line,
+    .ct-series-b .ct-point {
+        stroke: rgba(169, 56, 57, 1);
+    }
+</style>
 <div class="panel">
     <div class="panel-heading">
         <h3 class="panel-title">Inicio</h3>
@@ -17,7 +36,7 @@
             </div>
             <div class="col-md-3">
                 <div class="metric" style="height:110px;">
-                    <span class="icon"><i class="fa fa-shopping-bag" style="color:white;"></i></span>
+                    <span class="icon"><i class="fab fa-sellcast" style="color:white;"></i></span>
                     <p>
                         <span class="number" id="TotalCobro">0</span>
                         <span class="title">Ventas en el mes</span>
@@ -38,27 +57,29 @@
                     <span class="icon"><i class="fas fa-chart-bar" style="color:white;"></i></span>
                     <p>
                         <span class="number" id="PorcentajeReservas">0%</span>
-                        <span class="title" >Reservas finalizadas en el mes</span>
+                        <span class="title">Reservas finalizadas en el mes</span>
                     </p>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-9">
+            <div class="col-md-10">
+                <h4>Comparacion de las ventas del Mes actual con el Mes anterior</h4>
                 <div id="headline-chart" class="ct-chart"></div>
+                <p><label class="label label-primary" >Mes Actual</label><label class="label label-danger">Mes Anterior</label></p>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <div class="weekly-summary text-right">
-                    <span class="number">2,315</span> <span class="percentage"><i class="fa fa-caret-up text-success"></i> 12%</span>
-                    <span class="info-label">Ventas diarias</span>
+                    <span class="number" id="ventaDiaria">$0</span>
+                    <span class="info-label">Venta Diaria</span>
                 </div>
                 <div class="weekly-summary text-right">
-                    <span class="number">$5,758</span> <span class="percentage"><i class="fa fa-caret-up text-success"></i> 23%</span>
+                    <span class="number" id="ventaMensual">$0</span>
                     <span class="info-label">Mensual</span>
                 </div>
                 <div class="weekly-summary text-right">
-                    <span class="number">$65,938</span> <span class="percentage"><i class="fa fa-caret-down text-danger"></i> 8%</span>
-                    <span class="info-label">Total</span>
+                    <span class="number" id="ventaTotal">$0</span>
+                    <span class="info-label">Anual</span>
                 </div>
             </div>
         </div>
@@ -77,23 +98,21 @@
                 </div>
             </div>
             <div class="panel-body no-padding pre-scrollable" style="max-height:245px;">
-                <table  class="table table-striped ">
+                <table class="table table-striped ">
                     <thead>
                         <tr>
                             <th>Numero</th>
-                            <th>Jugador</th>                                                        
+                            <th>Jugador</th>
                             <th>Estado</th>
                         </tr>
                     </thead>
-                    <tbody id="BodyTReservaPorDia" >
-                      
-                    </tbody>
+                    <tbody id="BodyTReservaPorDia"></tbody>
                 </table>
             </div>
             <div class="panel-footer">
                 <div class="row">
                     <div class="col-md-6"><span class="panel-note"><i class="fas fa-database"></i> Ultimas 24hs</span></div>
-                    <div class="col-md-6 text-right"><a asp-action="ConsultarReservas"  asp-controller="AlquilerCanchas" class="btn btn-primary">Ver todas las reservas</a></div>
+                    <div class="col-md-6 text-right"><a asp-action="ConsultarReservas" asp-controller="AlquilerCanchas" class="btn btn-primary">Ver todas las reservas</a></div>
                 </div>
             </div>
         </div>
@@ -132,55 +151,55 @@
             </div>
             <div class="panel-body pre-scrollable" style="max-height:100px;">
                 <ul id="Sig" class="list-unstyled task-list "></ul>
-                
+
             </div>
         </div>
-       
-            <div class="panel">
-                <div class="panel-heading">
-                    <div class="panel-title"><h3 class="panel-title">Agregar Noticia  <button id="AdministrarNoticias" class="btn btn-sm btn-info" style="border-radius:100px;width:30px;height:30px;background-color:dodgerblue;float:right;" data-toggle="tooltip" ><i class="fas fa-clipboard-list"></i></button></h3> </div>                   
-                
-                </div>
-                <div class="panel-body">
-                    <form id="FormImagen" class="form-group" method="POST" asp-action="CrearNoticia" asp-controller="Noticias" enctype="multipart/form-data">
-                        <div class="row">
-                            <div class="col-sm-1"></div>
-                            <div class="col-sm-10" ><img id="imgSalida" src="~/images/extras/noticia.png" class="img-responsive" style="width:90%; height:200px; background-size:auto;background-repeat:no-repeat;" /></div>
-                            <div class="col-sm-1"></div>
-                            
-                        </div>
-                        <br />
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label>Título</label>
-                                <input type="text" name="titulo" class="form-control" required />
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label>Descripción</label>
-                                <textarea class="form-control" name="descripcion" title="Descripcion"></textarea>
-                            </div>
-                        </div>
-                        <hr style="border:1px solid red;" />
-                        <div class="row ">
-                            <div class="col-md-12">
-                                <div class="form-group  btn-group">
-                                    <input id="InputImagen" class="btn btn-default form-control " type="file" name="ImageFile" required">
-                                    <input id="BtnSubirImagen" type="submit" class="btn btn-success form-control  " value="Subir" />
-                                    <p>@TempData["Mensaje"]</p>
-                                </div>
 
-                            </div>
-                        </div>
-                    </form>
+        <div class="panel">
+            <div class="panel-heading">
+                <div class="panel-title"><h3 class="panel-title">Agregar Noticia  <button id="AdministrarNoticias" class="btn btn-sm btn-info" style="border-radius:100px;width:30px;height:30px;background-color:dodgerblue;float:right;" data-toggle="tooltip"><i class="fas fa-clipboard-list"></i></button></h3> </div>
 
-                </div>
             </div>
-       
+            <div class="panel-body">
+                <form id="FormImagen" class="form-group" method="POST" asp-action="CrearNoticia" asp-controller="Noticias" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-10"><img id="imgSalida" src="~/images/extras/noticia.png" class="img-responsive" style="width:90%; height:200px; background-size:auto;background-repeat:no-repeat;" /></div>
+                        <div class="col-sm-1"></div>
+
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>Título</label>
+                            <input type="text" name="titulo" class="form-control" required />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>Descripción</label>
+                            <textarea class="form-control" name="descripcion" title="Descripcion"></textarea>
+                        </div>
+                    </div>
+                    <hr style="border:1px solid red;" />
+                    <div class="row ">
+                        <div class="col-md-12">
+                            <div class="form-group  btn-group">
+                                <input id="InputImagen" class="btn btn-default form-control " type="file" name="ImageFile" required">
+                                <input id="BtnSubirImagen" type="submit" class="btn btn-success form-control  " value="Subir" />
+                                <p>@TempData["Mensaje"]</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
         <!-- END TASKS -->
     </div>
-   
+
     <div class="col-md-8">
         <!-- VISIT CHART -->
         <div class="panel">
@@ -206,11 +225,11 @@
     <div class="modal-dialog modal-lg">
         <!-- Modal content-->
         <div class="modal-content">
-            <div class="modal-header"style="background: linear-gradient(to right, rgba(69,117,214,1) 0%, rgba(55,119,219,1) 2%, rgba(21,123,232,1) 7%, rgba(228,238,240,1) 94%, rgba(228,238,240,1) 100%);" >
+            <div class="modal-header" style="background: linear-gradient(to right, rgba(69,117,214,1) 0%, rgba(55,119,219,1) 2%, rgba(21,123,232,1) 7%, rgba(228,238,240,1) 94%, rgba(228,238,240,1) 100%);">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title" style="color:white"><i class="fas fa-2x fa-images"></i>  Administrar Noticias</h4>
             </div>
-            <div class="modal-body">                
+            <div class="modal-body">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -222,55 +241,126 @@
 @section Scripts
     {
 
-    
+
     <script src="~/js/Notificaciones.js"></script>
     <script src="~/js/Noticias.js"></script>
     <script>
-        $('#AdministrarNoticias').tooltip({ title: "Administrar Noticias", animation: false, placement: "bottom"}); 
+        $('#AdministrarNoticias').tooltip({ title: "Administrar Noticias", animation: false, placement: "bottom" });
         $(function () {
             var data, options;
 
             // headline charts
-            data = {
-                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-                series: [
-                    [23, 29, 24, 40, 25, 24, 35],
-                    [14, 25, 18, 34, 29, 38, 44],
-                ]
-            };
+            var actual = [0, 0, 0, 0, 0, 0, 0];
+            var anterior = [0, 0, 0, 0, 0, 0, 0];
+            $.ajax({
+                type: "GET",
+                url: "/Cobro/GraficoSemanal",
+                success: function (response) {
+                  
+                    for (var i = 0; i < response[0].length; i++) {
+                        switch (response[0][i].dia) {
+                            case "Monday":
+                                actual[0] = response[0][i].precio;
+                                break;
+                            case "Tuesday":
+                                actual[1] = response[0][i].precio;
+                                break;
+                            case "Wednesday":
+                                actual[2] = response[0][i].precio;
+                                break;
+                            case "Thursday":
+                                actual[3] = response[0][i].precio;
+                                break;
+                            case "Friday":
+                                actual[4] = response[0][i].precio;
+                                break;
+                            case "Saturday":
+                                actual[5] = response[0][i].precio;
+                                break;
+                            case "Sunday":
+                                actual[6] = response[0][i].precio;
+                                break;
+                        }
 
-            options = {
-                height: 300,
-                showArea: true,
-                showLine: false,
-                showPoint: false,
-                fullWidth: true,
-                axisX: {
-                    showGrid: false
-                },
-                lineSmooth: false,
-            };
+                    }
 
-            new Chartist.Line('#headline-chart', data, options);
+                    for (var ii = 0; ii < response[1].length; ii++) {
+                        switch (response[1][ii].dia) {
+                            case "Monday":
+                                anterior[0] = response[1][ii].precio;
+                                break;
+                            case "Tuesday":
+                                anterior[1] = response[1][ii].precio;
+                                break;
+                            case "Wednesday":
+                                anterior[2] = response[1][ii].precio;
+                                break;
+                            case "Thursday":
+                                anterior[3] = response[1][ii].precio;
+                                break;
+                            case "Friday":
+                                anterior[4] = response[1][ii].precio;
+                                break;
+                            case "Saturday":
+                                anterior[5] = response[1][ii].precio;
+                                break;
+                            case "Sunday":
+                                anterior[6] = response[1][i].precio;
+                                break;
+                        }
+                    }
 
-            var real = [0,0,0,0,0,0,0,0,0,0,0,0];
+                    data = {
+                        labels: ['Lun', 'Mar', 'Mier', 'Jue', 'Vie', 'Sab', 'Dom'],
+                        series: [
+                            actual,
+                            anterior
+                        ]
+                    };
+
+                    options = {
+                        height: 300,
+                        showArea: true,
+                        showLine: true,
+                        showPoint: true,
+                        fullWidth: true,
+                       
+                        axisX: {
+                            showGrid: false
+                        },
+                        axisY: {                                                       
+                            labelInterpolationFnc: function (value) {
+                              
+                                return "$" + value;
+                            }
+                        }
+                        ,
+                        lineSmooth: true
+                    };
+
+                    new Chartist.Line('#headline-chart', data, options);
+                }
+            });
+
+
+            var real = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
             var proy = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
             $.ajax({
-               
+
                 type: "GET",
                 url: "/AlquilerCanchas/GraficoProyeccion",
 
                 success: function (response) {
-                    
-                    for(var i = 0; i < response[0].length; i++) {
+
+                    for (var i = 0; i < response[0].length; i++) {
                         real[response[0][i].mes - 1] = response[0][i].cantidad;
-                    }                    
+                    }
 
                     for (var ii = 0; ii < response[1].length; ii++) {
                         proy[response[1][ii].mes - 1] = response[1][ii].cantidad;
-                    }                 
+                    }
 
-                   
+
                     data = {
                         labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
                         series: [{
@@ -293,16 +383,16 @@
                                 showArea: true,
                                 showPoint: false,
                                 showLine: false
-                            },
+                            }
                         },
                         axisX: {
-                            showGrid: false,
+                            showGrid: false
 
                         },
                         axisY: {
                             showGrid: true,
-                            onlyInteger: false,
-                            offset: 0,
+                            onlyInteger: true,
+                            offset: 0
                         },
                         chartPadding: {
                             left: 20,
@@ -315,7 +405,7 @@
 
             });
             // visits trend charts
-          
+
 
 
             // visits chart
@@ -349,7 +439,7 @@
 
             });
 
-          
+
             var updateInterval = 3000; // in milliseconds
 
             setInterval(function () {
@@ -361,9 +451,9 @@
             function getRandomInt(min, max) {
                 return Math.floor(Math.random() * (max - min + 1)) + min;
             }
-        
+
         });
-        
+
 
     </script>
 

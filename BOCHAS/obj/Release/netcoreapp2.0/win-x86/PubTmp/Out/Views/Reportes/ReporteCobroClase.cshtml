@@ -36,7 +36,7 @@
                 <h3>Informacion General</h3>
             </div>
             <div class="panel-body">
-                <p style="font-size:22px;padding-left:30px;">N° Recibo: @Html.DisplayFor(model => model.Numero) &nbsp;&nbsp;&nbsp;  Jugador: @db.Persona.Where(p => p.Id == db.ClaseParticular.Where(a => a.IdCobro == Model.Numero).SingleOrDefault().IdJugador).SingleOrDefault().Nombre  @db.Persona.Where(p => p.Id == db.ClaseParticular.Where(a => a.IdCobro == Model.Numero).SingleOrDefault().IdJugador).SingleOrDefault().Apellido &nbsp;&nbsp;&nbsp; N° Documento: @db.Persona.Where(p => p.Id == db.ClaseParticular.Where(a => a.IdCobro == Model.Numero).SingleOrDefault().IdJugador).SingleOrDefault().NroDocumento</p>
+                <p style="font-size:22px;padding-left:30px;">N° Recibo: @Html.DisplayFor(model => model.Numero) &nbsp;&nbsp;&nbsp;  Jugador: @db.Persona.Where(p => p.Id == db.ClaseParticular.Where(a => a.IdCobro == Model.Numero).ToList()[0].IdJugador).ToList()[0].Nombre  @db.Persona.Where(p => p.Id == db.ClaseParticular.Where(a => a.IdCobro == Model.Numero).ToList()[0].IdJugador).ToList()[0].Apellido &nbsp;&nbsp;&nbsp; N° Documento: @db.Persona.Where(p => p.Id == db.ClaseParticular.Where(a => a.IdCobro == Model.Numero).ToList()[0].IdJugador).ToList()[0].NroDocumento</p>
                 <p style="font-size:20px;padding-left:30px;"> Fecha de Cobro:     @Model.Fecha.Date.ToString("dd/MM/yyyy")  &nbsp;&nbsp;&nbsp; </p>
                 <p style="font-size:20px;padding-left:30px;">Medio de Pago:  @Html.DisplayFor(model => model.IdMedioPagoNavigation.Nombre) </p>
                 @{ if (Model.IdMedioPago == 2)
