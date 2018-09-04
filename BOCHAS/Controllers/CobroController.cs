@@ -377,5 +377,36 @@ namespace BOCHAS.Controllers
 
         }
 
+        public JsonResult InfoVentas() {
+
+            decimal? diario = 0;
+            decimal? mensual = 0;
+            decimal? anual = 0;
+            foreach (var i in _context.Cobro.Where(c=>c.Fecha == DateTime.Now.Date).ToList())
+            {
+                diario += i.MontoTotal;
+            }
+            foreach (var i in _context.Cobro.Where(c => c.Fecha.Month == DateTime.Now.Month && c.Fecha.Year == DateTime.Now.Year).ToList())
+            {
+                mensual += i.MontoTotal;
+            }
+            foreach (var i in _context.Cobro.Where(c =>  c.Fecha.Year == DateTime.Now.Year).ToList())
+            {
+                anual += i.MontoTotal;
+            }
+
+            var lista = new { diario = diario, mensual = mensual, anual = anual };
+
+            return Json(lista);
+        }
+
+        public async Task< JsonResult> GraficoSemanal()
+        {
+            var actual = await(from a in _context.Cobro where a.Fecha.Year == DateTime.Now.Year && a.Fecha.Month == DateTime.Now.Month group a by a.Fecha.DayOfWeek into g select new { dia = g.Key.ToString(), precio = g.Sum(a=>a.MontoTotal) }).ToArrayAsync();
+            var anterior = await (from a in _context.Cobro where a.Fecha.Year == DateTime.Now.Year && a.Fecha.Month == DateTime.Now.Month - 1 group a by a.Fecha.DayOfWeek into g select new { dia = g.Key.ToString(), precio = g.Sum(a => a.MontoTotal) }).ToArrayAsync();
+            var R = new[] { actual, anterior };
+            return Json(R);
+        }
+
     }
 }
