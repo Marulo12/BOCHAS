@@ -131,18 +131,19 @@
 
 </div>
 @section Scripts{
+    <script src="~/js/ClasesParticulares.js"></script>
     <script>$('[data-toggle="tooltip"]').tooltip();</script>
     <script>
     $(".BtnCancelaR").click(function (event) {
         $("#ModalMail").modal();
     });
     </script>
-<script>
+    <script>
       $("#TconsClase").DataTable({
                 searching: true,
                 lengthMenu: [5, 10, 20, 75, 100],
                 responsive: true,
-                search: "Filtro&nbsp;:",               
+                search: "Filtro&nbsp;:",
                 language: {
                     processing: "Procesando",
                     search: "Filtro&nbsp;:",
@@ -162,6 +163,6 @@
                     }
                 }
             });
-     
+
     </script>
 }

@@ -114,6 +114,10 @@ function CalcularTotal() {
 }
 
 function RegistrarCobroReserva() {
+    if ($("#InputTotalR").val() === "" || $("#InputTotalR").val() === "0") {
+        alertify.error("Ingrese un servicio");
+        return;
+    }
     // todo para clase cobro 
     var Nreserva = $("#NReservaFinalizada").val();
     var Fecha = $("#FechaCobro").val();
@@ -164,6 +168,10 @@ function RegistrarCobroReserva() {
 
 }
 function RegistrarCobroClase() {
+    if ($("#InputTotalR").val() === "" || $("#InputTotalR").val() === "0") {
+        alertify.error("Ingrese un servicio");
+        return;
+    }
     // todo para clase cobro 
     var Nclase = $("#NClaseFinalizada").val();
     var Fecha = $("#FechaCobro").val();
@@ -284,6 +292,11 @@ function MostrarCobros() {
 }
 function CalcularXReserva() {
     var IdReserva = $("#Reservas option:selected").val();
+    
+    if (IdReserva === "undefined" || $("#Reservas").val() === null) {
+        alertify.error("No hay reservas pendientes de cobro");
+        return;
+    }
     $.ajax({
         type: "GET",
         data: { IdReserva },
@@ -331,6 +344,10 @@ function CalcularTotalReservas() {
 }
 
 function RegistrarCobroReservaManual() {
+    if ($("#InputTotalR").val() === "" || $("#InputTotalR").val() === "0" || !$("#TDetalleR").html()) {
+        alertify.error("Ingrese un servicio");
+        return;
+    }
     // todo para clase cobro 
     var Nreserva = [];
     $(".Nres").each(function () {
@@ -399,10 +416,10 @@ function TraerClases() {
         data: { idJugador },
         url: "/Cobro/ConsultarClasesPendientedeCobro",
         success: function (response) {
-
+         
             $("#CobroxClase").removeClass("ocultar");
             $("#TDetalleC").empty();
-            var tr = "";
+            var tr = "";                                
             for (var i = 0; i < response.length; i++) {
                 tr += '<tr><td >' + response[i].numero + '</td><td>' + response[i].servicio + '</td><td>' + response[i].precio + '</td><td>' + response[i].canchas + '</td><td>' + Number.parseFloat(response[i].horas) + '</td><td >' + response[i].total + '</td><td><button class="btn btn-sm btn-success Aclases"><i class="fas fa-plus"></i></button></td></tr>';
             }
@@ -419,6 +436,11 @@ function TraerClases() {
 
 function RegistrarCobroClaseManual() {
     // todo para clase cobro 
+
+    if ($("#InputTotalR").val() === "" || $("#InputTotalR").val() === "0" || !$("#TDetalleSC").html()) {
+        alertify.error("Ingrese un servicio");
+        return;
+    }
     var Nrclase = [];
     $(".Nrclase").each(function () {
         var tr = $(this).closest('tr');

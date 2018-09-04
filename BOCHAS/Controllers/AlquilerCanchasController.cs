@@ -431,11 +431,11 @@ namespace BOCHAS.Controllers
                 DateTime fd = Convert.ToDateTime(fechaD);
                 DateTime fh = Convert.ToDateTime(fechaH);
                 var ReservaF = _context.AlquilerCancha.Include(a => a.DetalleAlquilerCancha).Include(a => a.IdClienteNavigation).Include(a => a.IdClienteNavigation.Persona).Include(a => a.IdEstadoNavigation).Where(a => a.IdClienteNavigation.Persona.Any(p => p.Id == IdJ) && a.FechaReserva >= fd.Date && a.FechaReserva <= fh.Date);
-                return PartialView(ReservaF.ToList());
+                return PartialView(ReservaF.ToList().OrderByDescending(a=>a.Numero));
             }
                         
                 var Reserva = _context.AlquilerCancha.Include(a => a.DetalleAlquilerCancha).Include(a => a.IdClienteNavigation).Include(a => a.IdClienteNavigation.Persona).Include(a => a.IdEstadoNavigation).Where(a => a.IdClienteNavigation.Persona.Any(p => p.Id == IdJ));
-                return PartialView(Reserva.ToList());
+                return PartialView(Reserva.ToList().OrderByDescending(a => a.Numero));
                        
         }
        
