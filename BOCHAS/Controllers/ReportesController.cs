@@ -82,8 +82,12 @@ namespace BOCHAS.Controllers
         {
             try
             {
-                var reserva = _context.AlquilerCancha.Include(a => a.DetalleAlquilerCancha).Include(a => a.IdClienteNavigation).Include(a => a.IdClienteNavigation.Persona).Include(a => a.IdEmpleadoNavigation).Include(a => a.IdEstadoNavigation).Where(a => a.FechaReserva >= FecD && a.FechaReserva <= FecH).ToList();
-                return new ViewAsPdf("ReporteReservas", reserva) {FileName = "ReporteReservas.pdf" };
+                var reserva = _context.AlquilerCancha.Include(a => a.DetalleAlquilerCancha).Include(a => a.IdClienteNavigation).Include(a => a.IdClienteNavigation.Persona).Include(a => a.IdEmpleadoNavigation).Include(a=>a.IdCobroNavigation).Include(a => a.IdEstadoNavigation).Where(a => a.FechaReserva >= FecD && a.FechaReserva <= FecH).ToList();
+                return new ViewAsPdf("ReporteReservas", reserva) {//FileName = "ReporteReservas.pdf" 
+                    PageOrientation = Rotativa.AspNetCore.Options.Orientation.Landscape,
+                    CustomSwitches = "--page-offset 0 --footer-center [page] --footer-font-size 12"
+
+                };
             }
             catch
             {
