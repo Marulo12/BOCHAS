@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-3">
+        <div class="panel panel-primary" style="height:318px;">
+            <div class="panel-heading"><h4 style="text-align:center;">Reservas</h4></div>
+            <div class="panel-body" style="background-image:url('../images/extras/reservas.jpg');height:200px;background-position:center;background-size:contain;background-repeat:no-repeat;"></div>
+            <div class="panel-footer" style="padding:0px;"><input type="button" value="Generar" onclick="visor('ReporteReservas')" class="btn btn-sm btn-default form-control" /></div>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="panel panel-primary" style="height:318px;">
+            <div class="panel-heading"><h4 style="text-align:center;">Jugadores Frecuentes</h4></div>
+            <div class="panel-body" style="background-image:url('../images/extras/chico.png');height:200px;background-position:center;background-size:contain;background-repeat:no-repeat;"></div>
+            <div class="panel-footer" style="padding:0px;"><input type="button" value="Generar" class="btn btn-sm btn-default form-control" /></div>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="panel panel-primary" style="height:318px;">
+            <div class="panel-heading"><h4 style="text-align:center;">Clases Particulares</h4></div>
+            <div class="panel-body" style="background-image:url('../images/extras/particular1.jpg');height:200px;background-position:center;background-size:contain;background-repeat:no-repeat;"></div>
+            <div class="panel-footer" style="padding:0px;"><input type="button" value="Generar" class="btn btn-sm btn-default form-control" /></div>
+        </div>
+    </div>
+
+    <div class="col-sm-1"></div>
+
+</div>
+<br />
+<div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-3">
+        <div class="panel panel-primary" style="height:318px;">
+            <div class="panel-heading"><h4 style="text-align:center;">Uso Efectivo de canchas</h4></div>
+            <div class="panel-body" style="background-image:url('../images/extras/cancha.jpg');height:200px;background-position:center;background-size:contain;background-repeat:no-repeat;"></div>
+            <div class="panel-footer" style="padding:0px;"><input type="button" value="Generar" class="btn btn-sm btn-default form-control" /></div>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="panel panel-primary" style="height:318px;">
+            <div class="panel-heading"><h4 style="text-align:center;">Ingresos Diarios</h4></div>
+            <div class="panel-body" style="background-image:url('../images/extras/ingresos.png');height:200px;background-position:center;background-size:contain;background-repeat:no-repeat;"></div>
+            <div class="panel-footer" style="padding:0px;"><input type="button" value="Generar" class="btn btn-sm btn-default form-control" /></div>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="panel panel-primary" style="height:318px;">
+            <div class="panel-heading"><h4 style="text-align:center;">Servicios</h4></div>
+            <div class="panel-body" style="background-image:url('../images/extras/servicios.png');height:200px;background-position:center;background-size:contain;background-repeat:no-repeat;"></div>
+            <div class="panel-footer" style="padding:0px;"><input type="button" value="Generar" class="btn btn-sm btn-default form-control" /></div>
+        </div>
+    </div>
+
+    <div class="col-sm-1"></div>
+
+</div>
+<div style="display:none;">
+    <form id="loginForm" class="form-group">
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-4">
+                <label> Fecha desde: </label>
+                <input id="FecD" type="date" class="form-control" />
+            </div>
+            <div class="col-sm-4">
+                <label> Fecha hasta: </label>
+                <input id="FecH" type="date"  class="form-control" />
+            </div>
+            <div class="col-sm-2" style="padding-top:23px;"><input id="aceptar" class="btn btn-sm btn-primary form-control" onclick="Generar()" type="button" value="Aceptar" /></div>
+            <input type="text" id="servicio" style="display:none;"/>
+        </div>
+        
+    </form>
+</div>
+@section Scripts{ 
+<script src="~/js/Reportes.js"></script>}

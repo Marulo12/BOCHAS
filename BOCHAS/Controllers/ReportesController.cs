@@ -21,6 +21,10 @@ namespace BOCHAS.Controllers
             _context = context;
         }
 
+        public IActionResult Index()
+        {
+            return View();
+        }
         public IActionResult ReporteReserva(int Nreserva)
         {
             try
@@ -66,6 +70,20 @@ namespace BOCHAS.Controllers
             {
                 var cobro = _context.Cobro.Include(c => c.DetalleCobro).Include(c => c.DetalleCobro).Include(c => c.IdUsuarioNavigation).Include(c => c.IdMedioPagoNavigation).Where(c => c.Numero == NCobro).SingleOrDefault();
                 return new ViewAsPdf("ReporteCobroClase", cobro);
+            }
+            catch
+            {
+                return NotFound();
+            }
+
+        }
+
+        public IActionResult ReporteReservas(DateTime FecD , DateTime FecH)
+        {
+            try
+            {
+                var reserva = _context.AlquilerCancha.Include(a => a.DetalleAlquilerCancha).Include(a => a.IdClienteNavigation).Include(a => a.IdClienteNavigation.Persona).Include(a => a.IdEmpleadoNavigation).Include(a => a.IdEstadoNavigation).Where(a => a.FechaReserva >= FecD && a.FechaReserva <= FecH).ToList();
+                return new ViewAsPdf("ReporteReservas", reserva) {FileName = "ReporteReservas.pdf" };
             }
             catch
             {
