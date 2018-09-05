@@ -1,0 +1,65 @@
+﻿@model BOCHAS.Models.ClaseParticular
+
+@{
+    Layout = null;
+    BOCHASContext db = new BOCHASContext();
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Reporte Clase Particulares</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-sm-12" style="align-content:center;padding-left:0%;">
+                <img class="img-responsive" src="~/images/LogoBochas.png" width="50" style="float:left;position:absolute;z-index:10000" />
+                <label style="float:right;">Fecha: @DateTime.Now.Date.ToString("dd/MM/yyyy")</label>
+                <br />
+                <h1 style="font-size:50px;padding-left:34%;font-family:'Times New Roman', Times, serif">Bochas Padel</h1>
+                <hr />
+                <h2 style="padding-left:17%;"><img src="~/images/extras/padel3.png" width="160" />&nbsp;&nbsp;&nbsp;  Clase Particular</h2>
+            </div>
+        </div>
+        <hr style="height:4px;" />
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3>Informacion General</h3>
+            </div>
+            <div class="panel-body">
+                <p style="font-size:22px;padding-left:30px;">  Jugador: @Html.DisplayFor(model => model.IdJugadorNavigation.Nombre)  @Html.DisplayFor(model => model.IdJugadorNavigation.Apellido) &nbsp;&nbsp;&nbsp; N° Documento: @Html.DisplayFor(model => model.IdJugadorNavigation.NroDocumento)</p>
+                <p style="font-size:22px;padding-left:30px;">  Profesor asignado: @Html.DisplayFor(model => model.IdProfesorNavigation.Nombre)  @Html.DisplayFor(model => model.IdProfesorNavigation.Apellido) &nbsp;&nbsp;&nbsp; N° Documento: @Html.DisplayFor(model => model.IdProfesorNavigation.NroDocumento)</p>
+                <p style="font-size:20px;padding-left:30px;"> Fecha de Reserva:    @Model.FechaReserva.Date.ToString("dd/MM/yyyy") </p>
+                
+            </div>
+            <div class="panel-footer" style="background-color:rgba(170, 44, 44, 0.9);color:white;">
+                <h3 style="padding-left:10px;">Detalle</h3>
+                <ul class="list-group" style="color:black;font-size:17px;">
+                    @{ if (Model.FechaCancelacion == null)
+                        {
+                            <li class="list-group-item">Cancha asignada: N° @Model.IdCanchaNavigation.Numero, @Model.IdCanchaNavigation.Nombre</li>
+                            <li class="list-group-item">Hora de inicio prevista: @Model.HoraInicioPrevista</li>
+                            <li class="list-group-item">Hora de finalizacion prevista: @Model.HoraFinPrevista</li>
+                        }
+                        else
+                        {
+                            <li class="list-group-item"><label class="label label-danger">CLASE CANCELADA</label></li>
+                        }
+                    }
+
+                </ul>
+
+            </div>
+        </div>
+
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+</body>
+</html>

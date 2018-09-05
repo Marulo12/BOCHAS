@@ -5,6 +5,11 @@ namespace BOCHAS.Models
 {
     public partial class ClaseParticular
     {
+        public ClaseParticular()
+        {
+            Agenda = new HashSet<Agenda>();
+        }
+
         public int Id { get; set; }
         public int IdJugador { get; set; }
         public int IdProfesor { get; set; }
@@ -23,5 +28,6 @@ namespace BOCHAS.Models
         public Cobro IdCobroNavigation { get; set; }
         public Persona IdJugadorNavigation { get; set; }
         public Persona IdProfesorNavigation { get; set; }
+        public ICollection<Agenda> Agenda { get; set; }
     }
 }

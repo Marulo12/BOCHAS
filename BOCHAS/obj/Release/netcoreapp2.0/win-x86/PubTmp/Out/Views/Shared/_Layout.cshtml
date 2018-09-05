@@ -155,9 +155,8 @@
                             <a href="#subPages" data-toggle="collapse" class="collapsed"><i class="fas fa-users"></i> <span>&nbsp;Clases</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                             <div id="subPages" class="collapse ">
                                 <ul class="nav">
-                                    <li><a href="page-profile.html" class="">Profile</a></li>
-                                    <li><a href="page-login.html" class="">Login</a></li>
-                                    <li><a href="page-lockscreen.html" class="">Lockscreen</a></li>
+                                    <li><a asp-action="Index" asp-controller="ClaseParticulars" class=""><i class="fas fa-plus"></i>&nbsp;&nbsp;Nueva Clase</a></li>
+                                    <li><a asp-action="ConsultarClases" asp-controller="ClaseParticulars" class=""><i class="fab fa-searchengin"></i>&nbsp;&nbsp;Consultar Clase</a></li>                                    
                                 </ul>
                             </div>
                         </li>
@@ -178,7 +177,7 @@
                             <a href="#subPagesCobro" data-toggle="collapse" class="collapsed"><i class="fas fa-money-bill"></i><span>&nbsp;&nbsp;Cobros</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                             <div id="subPagesCobro" class="collapse ">
                                 <ul class="nav">
-                                    <li><a asp-action="RegistrarJugador" asp-controller="Personas"> <i class="fas fa-user-plus"></i>&nbsp;&nbsp;Nuevo Cobro</a></li>
+                                    <li><a asp-action="CobroManual" asp-controller="Cobro"> <i class="fa fa-plus"></i>&nbsp;&nbsp;Nuevo Cobro</a></li>
                                     <li><a asp-controller="Cobro" asp-action="MostrarCobros"> <i class="fab fa-searchengin"></i>&nbsp;&nbsp;Consultar Cobros</a></li>
 
                                 </ul>
@@ -190,14 +189,8 @@
                             <div id="subPagesInfo" class="collapse ">
                                 <ul class="nav">
                                     <li>
-                                        <a href="#subPagesReportes" data-toggle="collapse" class="collapsed"><i class="fas fa-file-alt"></i> <span>&nbsp;&nbsp;Reportes</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-                                        <div id="subPagesReportes" class="collapse ">
-                                            <ul class="nav">
-                                                <li><a href="page-profile.html" class="">Profile</a></li>
-                                                <li><a href="page-login.html" class="">Login</a></li>
-                                                <li><a href="page-lockscreen.html" class="">Lockscreen</a></li>
-                                            </ul>
-                                        </div>
+                                        <a asp-action="Index" asp-controller="Reportes"><i class="fas fa-file-alt"></i> <span>&nbsp;&nbsp;Reportes</span></a>
+                                        
                                     </li>
                                     <li><a href="charts.html"><i class="lnr lnr-chart-bars"></i><span>Estadísticas</span></a></li>
                                 </ul>

@@ -33,7 +33,7 @@ namespace BOCHAS
             
             services.AddSession();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            .AddCookie(options => { options.AccessDeniedPath = new PathString("/Usuarios/Index"); options.LoginPath = new PathString("/Usuarios/Index"); options.LogoutPath = new PathString("/Usuarios/Index"); options.Cookie.HttpOnly = false;options.ExpireTimeSpan = TimeSpan.FromMinutes(9999); options.SlidingExpiration = true; });
+            .AddCookie(options => { options.AccessDeniedPath = new PathString("/Usuarios/Index"); options.LoginPath = new PathString("/Usuarios/Index"); options.LogoutPath = new PathString("/Usuarios/Index");options.ExpireTimeSpan = TimeSpan.FromMinutes(120); });
             /*     .AddJwtBearer(jwtBearerOptions =>
                  {
                      jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters()

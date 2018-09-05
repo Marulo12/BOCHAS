@@ -7,18 +7,24 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using System.Net.Http.Headers;
+using System;
+using System.Net.Http;
 
 namespace BOCHAS.APIS
 {
-    [Produces("application/json")]
+    [Produces("application/json", "multipart/form-data", "application/x-www-form-urlencoded", "application/octet-stream", "image/svg+xml")]
     
+
     public class PersonasController : Controller
     {
         private readonly BOCHASContext _context;
-        
-        public PersonasController(BOCHASContext context)
+        private IHostingEnvironment _hostingEnv;
+        public PersonasController(BOCHASContext context , IHostingEnvironment host)
         {
             _context = context;
+            _hostingEnv = host;
         }
 
         // GET: api/Personas
@@ -140,5 +146,38 @@ namespace BOCHAS.APIS
         }
 
 
+        [HttpPost("api/Personas/SubirImagen")]
+        public JsonResult SubirImagen(  IFormFile file)
+        {
+            string Usuario = HttpContext.Request.Query["Usuario"].ToString();
+            try
+            {
+                var persona = _context.Persona.SingleOrDefault(p => p.IdUsuarioNavigation.Nombre == Usuario && p.FechaBaja == null);
+                var filename = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                var uploads = Path.Combine(_hostingEnv.WebRootPath, string.Format("Images\\perfiles\\jugadores\\" + Usuario));
+                if (file.Length > 0)
+                {
+                    if (!Directory.Exists(uploads))
+                    {
+                        Directory.CreateDirectory(uploads);
+                    }
+                    using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
+                    {
+                        file.CopyToAsync(fileStream);
+                    }
+                    persona.Imagen = filename;
+                    _context.Persona.Update(persona);
+                    _context.SaveChanges();
+                }
+
+                return Json(Ok());
+            }
+            catch {
+                return Json(NotFound());
+            }
+        }
+        
+
+      
     }
 }

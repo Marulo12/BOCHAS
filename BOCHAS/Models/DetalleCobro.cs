@@ -11,6 +11,7 @@ namespace BOCHAS.Models
         public int IdNumeroCobro { get; set; }
         public int Cantidad { get; set; }
         public int? IdServiciosAdicionales { get; set; }
+        public double? TotalHoras { get; set; }
 
         public Cobro IdNumeroCobroNavigation { get; set; }
         public Servicio IdServicioNavigation { get; set; }

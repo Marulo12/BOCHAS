@@ -86,7 +86,7 @@ namespace BOCHAS.Controllers
 
         public async Task<IActionResult> MostrarEvento(string evento) {
             int even = Convert.ToInt32(evento);
-            var eventos = _context.Agenda.Include(a => a.IdAlquilerCanchaNavigation).Include(a=>a.IdAlquilerCanchaNavigation.IdClienteNavigation).Include(a=>a.IdAlquilerCanchaNavigation.IdEmpleadoNavigation).Include(a => a.IdCanchaNavigation).Where(a => a.Id == even).SingleOrDefaultAsync();
+            var eventos = _context.Agenda.Include(a => a.IdAlquilerCanchaNavigation).Include(a=>a.IdClasesParticularesNavigation).Include(a=>a.IdAlquilerCanchaNavigation.IdClienteNavigation).Include(a=>a.IdAlquilerCanchaNavigation.IdEmpleadoNavigation).Include(a => a.IdClasesParticularesNavigation.IdJugadorNavigation).Include(a => a.IdClasesParticularesNavigation.IdProfesorNavigation).Include(a => a.IdCanchaNavigation).Where(a => a.Id == even).SingleOrDefaultAsync();
 
             return PartialView(await eventos);
 

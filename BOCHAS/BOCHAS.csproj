@@ -21,12 +21,20 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\images\Noticias\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <Content Update="Views\ClaseParticulars\MostrarClasesParticular.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Cobro\CobroClase.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Home\Error.cshtml">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Reportes\ReporteCobroClase.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Reportes\ReporteClase.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Reportes\ReporteReserva.cshtml">

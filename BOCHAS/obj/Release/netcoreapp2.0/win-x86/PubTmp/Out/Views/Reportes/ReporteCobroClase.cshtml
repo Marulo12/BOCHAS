@@ -1,0 +1,84 @@
+﻿@model BOCHAS.Models.Cobro
+
+@{
+    Layout = null;
+    BOCHASContext db = new BOCHASContext();
+
+
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Reporte Cobro de alquiler</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-sm-12" style="align-content:center;padding-left:0%;">
+                <img class="img-responsive" src="~/images/LogoBochas.png" width="50" style="float:left;position:absolute;z-index:10000" />
+                <label style="float:right;">Fecha: @DateTime.Now.Date.ToString("dd/MM/yyyy")</label>
+                <br />
+                <h1 style="font-size:50px;padding-left:34%;font-family:'Times New Roman', Times, serif">Bochas Padel</h1>
+                <hr />
+                <h2 style="padding-left:12%;"><img src="~/images/extras/padel3.png" width="160" />Cobro de Clase Particular</h2>
+            </div>
+        </div>
+        <hr style="height:4px;" />
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3>Informacion General</h3>
+            </div>
+            <div class="panel-body">
+                <p style="font-size:22px;padding-left:30px;">N° Recibo: @Html.DisplayFor(model => model.Numero) &nbsp;&nbsp;&nbsp;  Jugador: @db.Persona.Where(p => p.Id == db.ClaseParticular.Where(a => a.IdCobro == Model.Numero).ToList()[0].IdJugador).ToList()[0].Nombre  @db.Persona.Where(p => p.Id == db.ClaseParticular.Where(a => a.IdCobro == Model.Numero).ToList()[0].IdJugador).ToList()[0].Apellido &nbsp;&nbsp;&nbsp; N° Documento: @db.Persona.Where(p => p.Id == db.ClaseParticular.Where(a => a.IdCobro == Model.Numero).ToList()[0].IdJugador).ToList()[0].NroDocumento</p>
+                <p style="font-size:20px;padding-left:30px;"> Fecha de Cobro:     @Model.Fecha.Date.ToString("dd/MM/yyyy")  &nbsp;&nbsp;&nbsp; </p>
+                <p style="font-size:20px;padding-left:30px;">Medio de Pago:  @Html.DisplayFor(model => model.IdMedioPagoNavigation.Nombre) </p>
+                @{ if (Model.IdMedioPago == 2)
+                    {
+                <p style="font-size:20px;padding-left:30px;">N° Cupon: @Model.NroCupon.ToString()  Empresa: @db.Tarjeta.Where(t => t.Id == Model.IdTarjeta).SingleOrDefault().Nombre   Tipo:@db.Tarjeta.Where(t => t.Id == Model.IdTarjeta).SingleOrDefault().TipoTarjeta </p>
+                    } }
+
+            </div>
+            <div class="panel-footer" style="background-color:rgba(170, 44, 44, 0.9);color:white;padding-left:0px;padding-right:0px;">
+                <h3 style="padding-left:10px;">Detalle de Cobro</h3>
+
+                <table class="table" style="font-size:20px;background-color:white;color:black;">
+                    <thead><tr><td>Servicio</td><td>$Precio Unitario</td><td>Cantidad</td><td>Horas</td><td>$Monto</td><td></td></tr></thead>
+                    <tbody>
+                        @{
+                            foreach (var item in Model.DetalleCobro)
+                            {
+                                if (item.IdServicio != null)
+                                {
+                                    <tr><td>@db.Servicio.Where(s=>s.Id == item.IdServicio).Single().Nombre</td><td>@Convert.ToInt32(db.Servicio.Where(s => s.Id == item.IdServicio).Single().Precio)</td><td>@item.Cantidad</td><td>@item.TotalHoras</td><td>@Convert.ToInt32(item.Monto)</td></tr>
+                                }
+                                else
+                                {
+                                    if (item.IdServiciosAdicionales != null)
+                                    {
+                                        <tr><td>@db.ServiciosAdicionales.Where(s => s.Id == item.IdServiciosAdicionales).Single().Nombre</td><td>@Convert.ToInt32(db.ServiciosAdicionales.Where(s => s.Id == item.IdServiciosAdicionales).Single().Precio)</td><td>@item.Cantidad</td><td>-</td><td>@Convert.ToInt32(item.Monto)</td></tr>
+                                    }
+
+                                }
+
+                            }
+
+                        }
+                    </tbody>
+                </table>
+                <br />
+                <h2 style="text-align:right;padding-right:20px;">Total: $@Convert.ToInt32(Model.MontoTotal)</h2>
+            </div>
+        </div>
+
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+</body>
+</html>

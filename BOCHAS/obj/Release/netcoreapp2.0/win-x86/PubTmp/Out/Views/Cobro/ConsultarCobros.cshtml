@@ -85,9 +85,20 @@
                                 }
 
                             }
-                            <li class="list-group-item">
-                                <button class="btn btn-sm btn-primary" style="width:100%;" onclick="ReporteCobroReserva(@item.Numero)" data-toggle="tooltip" title="Reporte Cobro"><i class="fas fa-money-check-alt"></i></button>
-                            </li>
+                                    <li class="list-group-item">
+                                        @{
+                                            if (item.DetalleCobro.ToList()[0].IdServicio == 1)
+                                            {
+                                                <button class="btn btn-sm btn-primary" style="width:100%;" onclick="ReporteCobroReserva(@item.Numero)" data-toggle="tooltip" title="Reporte Cobro"><i class="fas fa-money-check-alt"></i></button>
+
+                                            }
+                                            if (item.DetalleCobro.ToList()[0].IdServicio == 2)
+                                            {
+                                                <button class="btn btn-sm btn-primary" style="width:100%;" onclick="ReporteCobroClase(@item.Numero)" data-toggle="tooltip" title="Reporte Cobro"><i class="fas fa-money-check-alt"></i></button>
+                                            }
+                                        }
+
+                                    </li>
                         }
                     </ul>
                 </div>
@@ -99,3 +110,4 @@
     </tbody>
 </table>
 <script src="~/js/AlquilerDeCanchas.js"></script>
+<script src="~/js/ClasesParticulares.js"></script>

@@ -1,9 +1,9 @@
 ﻿$(document).ready(function () {
     $("#altaJugador").after(function () {
-        MostrarTipoDocumento(); MostrarLocalidades(); MostrarTipoJugador(); 
+        MostrarTipoDocumento(); MostrarLocalidades(); MostrarTipoJugador();
     });
 
-   
+
 
     $("#Localidad").change(function () {
         MostrarBarrio();
@@ -15,38 +15,8 @@
         LimpiarCampos();
     });
 
-
-    $("#IndexJ").ready(function () {
-        $.ajax({
-
-            type: "GET",
-            url: "/Usuarios/PermisosNavBar",
-
-            success: function (response) {
-                var Items = "";
-
-                for (var i = 0; i < response.length; i++) {
-                    
-                       if (response[i].jugador === 1) {
-                    
-                           Items += '<li>' +
-                               '<a href="#" style="color:black;"> <i class="fas fa-chalkboard-teacher"></i>  Mis Clases' +
-                               '</a></li>'; 
-                               
-                       }
-                      
-                    
-                   
-                }
-                
-                $("#PermisosNav").html(Items);
-
-            }
-        });
-
-    });
-
 });
+   
 
 
 function MostrarTipoJugador() {
@@ -273,7 +243,8 @@ function ComprobarCampos() {
     }
 
     return true;
-}
+    }
+
 function LimpiarCampos() {
     window.location = "/Usuarios/Index";
-}
+    }

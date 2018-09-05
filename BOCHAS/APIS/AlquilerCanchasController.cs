@@ -186,12 +186,35 @@ namespace BOCHAS.APIS
         }
 
         [HttpGet("api/AlquilerCanchas/ListadoReservasPorJugador/{Usuario}")]
-        public async Task<JsonResult> ListadoReservasPorJugador([FromRoute] string Usuario)
+        [HttpGet("api/AlquilerCanchas/ListadoReservasPorJugador/{Usuario}/{Dias}")]
+        public async Task<JsonResult> ListadoReservasPorJugador([FromRoute] string Usuario, int? Dias)
         {
             int idCliente = (from u in _context.Usuario join p in _context.Persona on u.Id equals p.IdUsuario where u.Nombre == Usuario && p.Tipo == "JUGADOR" && p.FechaBaja == null select u).SingleOrDefault().Id;
-           
-            var alquiler = (from a in _context.AlquilerCancha join u in _context.Usuario on a.IdCliente equals u.Id join e in _context.EstadoAlquiler on a.IdEstado equals e.Id where u.Id == idCliente  select new { Numero= a.Numero , FechaPedido = a.FechaPedido , FechaReserva = a.FechaReserva , Estado = e.Nombre , IdEstado = e.Id }).ToListAsync();
-            return Json(await alquiler);
+            if (Dias == null)
+            {
+                var alquiler = (from a in _context.AlquilerCancha join u in _context.Usuario on a.IdCliente equals u.Id join e in _context.EstadoAlquiler on a.IdEstado equals e.Id where u.Id == idCliente select new { Numero = a.Numero, FechaPedido = a.FechaPedido.Value.Day + "/" + a.FechaPedido.Value.Month + "/" + a.FechaPedido.Value.Year, FechaReserva = a.FechaReserva.Value.Day + "/" + a.FechaReserva.Value.Month + "/" + a.FechaReserva.Value.Year, Estado = e.Nombre, IdEstado = e.Id }).ToListAsync();
+                return Json(await alquiler);
+            }
+            else
+            {
+                DateTime FechaLimite = DateTime.Now.Date.AddDays((double)Dias);
+                if (Dias > 0)
+                {
+                   
+                  
+                    var alquiler = (from a in _context.AlquilerCancha join u in _context.Usuario on a.IdCliente equals u.Id join e in _context.EstadoAlquiler on a.IdEstado equals e.Id where u.Id == idCliente && a.FechaReserva >= DateTime.Now.Date && a.FechaReserva <= FechaLimite select new { Numero = a.Numero, FechaPedido = a.FechaPedido.Value.Day + "/" + a.FechaPedido.Value.Month + "/" + a.FechaPedido.Value.Year, FechaReserva = a.FechaReserva.Value.Day + "/" + a.FechaReserva.Value.Month + "/" + a.FechaReserva.Value.Year, Estado = e.Nombre, IdEstado = e.Id }).ToListAsync();
+                    return Json(await alquiler);
+                }
+                else
+                {
+
+                 
+                    var alquiler = (from a in _context.AlquilerCancha join u in _context.Usuario on a.IdCliente equals u.Id join e in _context.EstadoAlquiler on a.IdEstado equals e.Id where u.Id == idCliente && a.FechaReserva <= DateTime.Now.Date && a.FechaReserva >= FechaLimite select new { Numero = a.Numero, FechaPedido = a.FechaPedido.Value.Day + "/" + a.FechaPedido.Value.Month + "/" + a.FechaPedido.Value.Year, FechaReserva = a.FechaReserva.Value.Day + "/" + a.FechaReserva.Value.Month + "/" + a.FechaReserva.Value.Year, Estado = e.Nombre, IdEstado = e.Id }).ToListAsync();
+                    return Json(await alquiler);
+                }
+                
+            }
+            
         }
        
         [HttpGet("api/AlquilerCanchas/DetalleReserva/{Numero}")]
@@ -199,7 +222,7 @@ namespace BOCHAS.APIS
         {
             int num = Numero;
             
-            var detalle = (from d in _context.DetalleAlquilerCancha join c in _context.Cancha on d.IdCancha equals c.Id join e in _context.EstadoDetalleAlquiler on d.IdEstadoDetalle equals e.Id where d.IdAlquilerCancha == num select new {IdCancha= c.Id , NumCancha = c.Numero , Nombre = c.Nombre , Descripcion = c.Descripcion , HoraDesde = d.HoraReservaDesde , HoraHasta = d.HoraReservaHasta , Estado = e.Nombre , IdEstadoDetalleReserva = e.Id }).ToListAsync();
+            var detalle = (from d in _context.DetalleAlquilerCancha join c in _context.Cancha on d.IdCancha equals c.Id join e in _context.EstadoDetalleAlquiler on d.IdEstadoDetalle equals e.Id where d.IdAlquilerCancha == num select new {IdCancha= c.Id , NumCancha = c.Numero , Nombre = c.Nombre , Descripcion = c.Descripcion , HoraDesde = d.HoraReservaDesde.Hours + ":" + d.HoraReservaDesde.Minutes , HoraHasta = d.HoraReservaHasta.Hours + ":" + d.HoraReservaHasta.Minutes , Estado = e.Nombre , IdEstadoDetalleReserva = e.Id }).ToListAsync();
             return Json(await detalle);
         }
 

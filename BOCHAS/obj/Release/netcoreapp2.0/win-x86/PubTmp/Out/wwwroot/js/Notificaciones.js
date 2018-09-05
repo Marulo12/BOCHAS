@@ -79,3 +79,35 @@ $.ajax({
     }
 
 });
+
+$.ajax({
+    type: "GET",
+    url: "/ClaseParticulars/FinalizadasMensual",
+    success: function (response) {
+       
+        $("#TotalClases").text(response);
+    }
+
+});
+
+$.ajax({
+    type: "GET",
+    url: "/Cobro/ConsultarCobroMensual",
+    success: function (response) {
+
+        $("#TotalCobro").text(response);
+    }
+
+});
+
+$.ajax({
+    type: "GET",
+    url: "/Cobro/InfoVentas",
+    success: function (response) {
+       
+        $("#ventaDiaria").text("$"+response.diario);
+        $("#ventaMensual").text("$" +response.mensual);
+        $("#ventaTotal").text("$" +response.anual);
+    }
+
+});
