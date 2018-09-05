@@ -1,0 +1,368 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .ct-series-a .ct-slice-pie, .ct-series-a .ct-area {
+        stroke: rgba(57, 99, 255, 1);
+        fill: rgba(46, 44, 185, 0.7);
+    }
+
+    .ct-series-b .ct-slice-pie, .ct-series-b .ct-area {
+        stroke: rgba(169, 56, 57, 1);
+        fill: rgba(158, 44, 44, 0.7);
+    }
+
+    .ct-series-a .ct-line,
+    .ct-series-a .ct-point {
+        stroke: rgba(57, 99, 255, 1);
+    }
+
+    .ct-series-b .ct-line,
+    .ct-series-b .ct-point {
+        stroke: rgba(169, 56, 57, 1);
+    }
+
+
+    #pie-chart {        
+        width: 100%;
+        height: 350px;
+        font-family: Lato, Helvetica-Neue, monospace;
+    }
+
+    #pie-canvas {
+        position: absolute;
+        top: 75px;
+        left: 120px;
+    }
+
+
+    .ct-series-a .ct-slice-pie {
+        fill: #00a79d;
+    }
+
+    .ct-series-b .ct-slice-pie {
+        fill: #1c75bc;
+    }
+
+    .ct-series-c .ct-slice-pie {
+        fill: #92278f;
+    }
+
+    .ct-series-d .ct-slice-pie {
+        fill: #fbb040;
+    }
+
+    .ct-series-e .ct-slice-pie {
+        fill: #f15a29;
+    }
+
+    .ct-series-f .ct-slice-pie {
+        fill: #be1e2d;
+    }
+
+    .ct-label {
+        fill: white;
+    }
+</style>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="right">
+                    <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
+
+                </div>
+                <h4 class="panel-title">Ingresos</h4>
+                <h5>Comparacion de las ventas del Mes actual con el Mes anterior</h5>
+            </div>
+            <div class="panel-body">
+                <div class="col-sm-12">
+
+                    <div id="headline-chart" class="ct-chart" style="height:300px;"></div>
+                    <p><label class="label label-primary">Mes Actual</label><label class="label label-danger">Mes Anterior</label></p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h4 class="panel-title">Visitas Pagina Web</h4>
+                <h6>Cantidad de sesiones por dia</h6>
+                <div class="right">
+                    <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
+
+                </div>
+            </div>
+            <div class="panel-body">
+                <div id="visits-chart" class="ct-chart" style="height:327px;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="right">
+                    <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
+                    <button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
+                </div>
+                <h3 class="panel-title">Proyeccion vs Realizado</h3>
+                <h5>Cantidad de reservas finalizadas</h5>
+
+            </div>
+            <div class="panel-body" style="padding:0px;margin:0px;">
+                <p><label class="label label-primary">Realizado</label><label class="label label-danger">Proyeccion</label></p>
+                <div id="visits-trends-chart" class="ct-chart" style="height:327px;margin:0px;padding:0px;"></div>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h4 class="panel-title">Visitas Pagina Web</h4>
+                <h6>Cantidad de sesiones por dia</h6>
+                <div class="right">
+                    <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
+
+                </div>
+            </div>
+            <div class="panel-body">
+                <div id="pie-container">
+                    <div id="pie-chart" style="height:327px"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+@section Scripts
+    {
+    <script>
+        $('#AdministrarNoticias').tooltip({ title: "Administrar Noticias", animation: false, placement: "bottom" });
+        $(function () {
+            var data, options;
+
+            // headline charts
+            var actual = [0, 0, 0, 0, 0, 0, 0];
+            var anterior = [0, 0, 0, 0, 0, 0, 0];
+            $.ajax({
+                type: "GET",
+                url: "/Cobro/GraficoSemanal",
+                success: function (response) {
+
+                    for (var i = 0; i < response[0].length; i++) {
+                        switch (response[0][i].dia) {
+                            case "Monday":
+                                actual[0] = response[0][i].precio;
+                                break;
+                            case "Tuesday":
+                                actual[1] = response[0][i].precio;
+                                break;
+                            case "Wednesday":
+                                actual[2] = response[0][i].precio;
+                                break;
+                            case "Thursday":
+                                actual[3] = response[0][i].precio;
+                                break;
+                            case "Friday":
+                                actual[4] = response[0][i].precio;
+                                break;
+                            case "Saturday":
+                                actual[5] = response[0][i].precio;
+                                break;
+                            case "Sunday":
+                                actual[6] = response[0][i].precio;
+                                break;
+                        }
+
+                    }
+
+                    for (var ii = 0; ii < response[1].length; ii++) {
+                        switch (response[1][ii].dia) {
+                            case "Monday":
+                                anterior[0] = response[1][ii].precio;
+                                break;
+                            case "Tuesday":
+                                anterior[1] = response[1][ii].precio;
+                                break;
+                            case "Wednesday":
+                                anterior[2] = response[1][ii].precio;
+                                break;
+                            case "Thursday":
+                                anterior[3] = response[1][ii].precio;
+                                break;
+                            case "Friday":
+                                anterior[4] = response[1][ii].precio;
+                                break;
+                            case "Saturday":
+                                anterior[5] = response[1][ii].precio;
+                                break;
+                            case "Sunday":
+                                anterior[6] = response[1][i].precio;
+                                break;
+                        }
+                    }
+
+                    data = {
+                        labels: ['Lun', 'Mar', 'Mier', 'Jue', 'Vie', 'Sab', 'Dom'],
+                        series: [
+                            actual,
+                            anterior
+                        ]
+                    };
+
+                    options = {
+                        height: 300,
+                        showArea: true,
+                        showLine: true,
+                        showPoint: true,
+                        fullWidth: true,
+
+                        axisX: {
+                            showGrid: false
+                        },
+                        axisY: {
+                            labelInterpolationFnc: function (value) {
+
+                                return "$" + value;
+                            }
+                        }
+                        ,
+                        lineSmooth: true
+                    };
+
+                    new Chartist.Line('#headline-chart', data, options);
+                }
+            });
+
+
+         $.ajax({
+                type: "GET",
+                url: "/Sessions/MostrarSesionesMensuales",
+
+                success: function (response) {
+
+                    var data = {
+                        labels: ['Lun', 'Mar', 'Mier', 'Jue', 'Vier', 'Sab', 'Dom'],
+                        series: [
+                            [response[0], response[1], response[2], response[3], response[4], response[5], response[6]]
+                        ],
+
+                    };
+
+                    options = {
+                        height: 300,
+
+                        axisX: {
+                            showGrid: false
+                        },
+                        axisY: {
+                            onlyInteger: true
+                        }
+                    };
+
+                    new Chartist.Bar('#visits-chart', data, options);
+                }
+
+            });
+
+         var real = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+            var proy = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+            $.ajax({
+
+                type: "GET",
+                url: "/AlquilerCanchas/GraficoProyeccion",
+
+                success: function (response) {
+
+                    for (var i = 0; i < response[0].length; i++) {
+                        real[response[0][i].mes - 1] = response[0][i].cantidad;
+                    }
+
+                    for (var ii = 0; ii < response[1].length; ii++) {
+                        proy[response[1][ii].mes - 1] = response[1][ii].cantidad;
+                    }
+
+
+                    data = {
+                        labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+                        series: [{
+                            name: 'series-real',
+                            data: real,
+                        }, {
+                            name: 'series-projection',
+                            data: proy,
+                        }]
+                    };
+
+                    options = {
+                        fullWidth: true,
+                        lineSmooth: false,
+                        height: "270px",
+                        low: 0,
+                        high: 'auto',
+                        series: {
+                            'series-projection': {
+                                showArea: true,
+                                showPoint: false,
+                                showLine: false
+                            }
+                        },
+                        axisX: {
+                            showGrid: false
+
+                        },
+                        axisY: {
+                            showGrid: true,
+                            onlyInteger: true,
+                            offset: 0
+                        },
+                        chartPadding: {
+                            left: 20,
+                            right: 20
+                        }
+                    };
+
+                    new Chartist.Line('#visits-trends-chart', data, options);
+                }
+
+            });
+
+
+       var data = {  
+  series: [934000, 1004000, 1500000,1600000,2100000,2500000]
+};
+
+var data = {
+  series: [5, 3, 4]
+};
+
+var sum = function(a, b) { return a + b };
+
+new Chartist.Pie('#pie-chart', data, {
+  labelInterpolationFnc: function(value) {
+    return Math.round(value / data.series.reduce(sum) * 100) + '%';
+  }
+});
+        });
+
+
+
+
+    </script>
+
+}

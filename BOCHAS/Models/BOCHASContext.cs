@@ -36,6 +36,7 @@ namespace BOCHAS.Models
         public virtual DbSet<Usuario> Usuario { get; set; }
         public virtual DbSet<RepoJugador> RepoJugadores { get; set; }
         public virtual DbSet<CanchasEfectivas> ReporCanchas { get; set; }
+        public virtual DbSet<Estadisticas> Estadisticas { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
