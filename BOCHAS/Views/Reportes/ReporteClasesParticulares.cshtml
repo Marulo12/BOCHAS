@@ -1,0 +1,126 @@
+﻿@model IEnumerable<BOCHAS.Models.ClaseParticular>
+@{ Layout = null;}
+<!DOCTYPE html>
+
+<html style="padding:0px;margin:0px;">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Reporte Jugadores</title>
+
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body style="padding:0px;margin:0px;">
+    <img class="img-responsive" src="~/images/LogoBochas.png" width="50" style="float:left;position:absolute;z-index:10000" />
+    <label style="float:right;">Fecha: @DateTime.Now.Date.ToString("dd/MM/yyyy")</label>
+    <br />
+    <h1 style="font-size:50px;padding-left:38%;font-family:'Times New Roman', Times, serif">Bochas Padel</h1>
+    <hr />
+    <h2 style="padding-left:20%;"><img src="~/images/extras/padel3.png" width="160" />&nbsp;&nbsp;&nbsp;Listado de Clases Particulares</h2>
+    <div class="container-fluid">
+        <h5>Desde el @TempData["fecD"] Hasta @TempData["fecH"]</h5>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Jugador
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FechaReserva)
+                    </th>
+                    <th>
+                        Hora Inicio Prevista
+                    </th>
+                    <th>
+                        Hora Fin Prevista
+                    </th>
+
+                    <th>
+                        Fecha Cancelacion
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Observacion)
+                    </th>
+                    <th>
+                        Cancha
+                    </th>
+                    <th>
+                        Recibo
+                    </th>
+
+                    <th>
+                        Profesor
+                    </th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IdJugadorNavigation.Nombre)  @Html.DisplayFor(modelItem => item.IdJugadorNavigation.Apellido)
+                        </td>
+                        <td>
+                            @item.FechaReserva.Date.ToString("dd/MM/yyyy")
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.HoraInicioPrevista)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.HoraFinPrevista)
+                        </td>
+
+                        <td>
+                            @{
+                                if (item.FechaCancelacion != null)
+                                {
+                                    <labe>@item.FechaCancelacion.Value.Date.ToString("dd/MM/yyyy")</labe>
+                                }
+                                else
+                                {
+                                    <label>-</label>
+                                }
+
+                            }
+
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Observacion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IdCanchaNavigation.Nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IdCobroNavigation.Numero)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IdProfesorNavigation.Nombre)  @Html.DisplayFor(modelItem => item.IdProfesorNavigation.Apellido)
+                        </td>
+                        <td>
+                            @{
+                                if (item.FechaRealRealizacion == null && item.FechaCancelacion == null)
+                                {
+                                    <label>Confirmado</label>
+                                }
+                                if (item.FechaRealRealizacion != null && item.HoraFinReal == null)
+                                {
+                                    <label>En Juego</label>
+                                }
+                                if (item.FechaRealRealizacion != null && item.HoraFinReal != null)
+                                {
+                                    <label>Finalizado</label>
+                                }
+                                if (item.FechaCancelacion != null)
+                                {
+                                    <label>Cancelado</label>
+                                }
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

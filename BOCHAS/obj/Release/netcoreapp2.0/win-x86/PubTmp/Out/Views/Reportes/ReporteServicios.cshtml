@@ -1,0 +1,110 @@
+﻿
+@{
+    Layout = null;
+    BOCHASContext bd = new BOCHASContext();
+}
+<!DOCTYPE html>
+
+<html style="padding:0px;margin:0px;">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Reporte Servicio</title>
+
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body style="padding:0px;margin:0px;">
+
+    <img class="img-responsive" src="~/images/LogoBochas.png" width="50" style="float:left;position:absolute;z-index:10000" />
+    <label style="float:right;">Fecha: @DateTime.Now.Date.ToString("dd/MM/yyyy")</label>
+    <br />
+    <h1 style="font-size:50px;padding-left:33%;font-family:'Times New Roman', Times, serif">Bochas Padel</h1>
+    <hr />
+    <h2 style="padding-left:15%;"><img src="~/images/extras/padel3.png" width="160" />&nbsp;&nbsp;&nbsp;Listado Servicios</h2>
+
+    <div class="container-fluid">
+        <h3>Servicios</h3>
+        <table class="table">
+            <thead style="background-color: rgba(0, 104, 253, 0.8);color:white;">
+                <tr>
+                    <th style="width:20%;">
+                        Nombre
+                    </th>
+                    <th>
+                        Descripcion
+                    </th>
+                    <th>
+                        Precio
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in bd.Servicio.ToList())
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Descripcion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Precio)
+                    </td>
+                    
+                </tr>
+                }
+            </tbody>
+        </table>
+        <hr />
+        <h3>Servicios Adicionales</h3>
+        <table class="table">
+            <thead style="background-color: rgba(0, 104, 253, 0.8);color:white;">
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Descripcion
+                    </th>
+                    <th>
+                        Precio
+                    </th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in bd.ServiciosAdicionales.ToList())
+                {
+                    <tr>
+                        <td>
+                            @item.Nombre
+                        </td>
+                        <td>
+                            @item.Descripcion
+                        </td>
+                        <td>
+                            @item.Precio
+                        </td>
+                        <td>
+                            @{ if (item.Activo == true)
+                                {
+                                    <label>Activo</label>
+                                }
+                                else
+                                { <label>Desactivado</label>
+                                }
+                            }
+                            
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

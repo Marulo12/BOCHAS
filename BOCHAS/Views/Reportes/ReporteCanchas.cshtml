@@ -1,0 +1,100 @@
+﻿@model IEnumerable<BOCHAS.Models.CanchasEfectivas>
+@{ Layout = null;
+    int total = 0;
+    }
+
+
+<!DOCTYPE html>
+
+<html style="padding:0px;margin:0px;">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Reporte Canchas en uso</title>
+
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body style="padding:0px;margin:0px;">
+
+    <img class="img-responsive" src="~/images/LogoBochas.png" width="50" style="float:left;position:absolute;z-index:10000" />
+    <label style="float:right;">Fecha: @DateTime.Now.Date.ToString("dd/MM/yyyy")</label>
+    <br />
+    <h1 style="font-size:50px;padding-left:33%;font-family:'Times New Roman', Times, serif">Bochas Padel</h1>
+    <hr />
+    <h2 style="padding-left:9%;"><img src="~/images/extras/padel3.png" width="160" />&nbsp;&nbsp;&nbsp;Listado Uso de Canchas</h2>
+    
+    <div class="container-fluid">
+        <h5>Desde el @TempData["fecD"] Hasta @TempData["fecH"]</h5>
+        <h3>Servicio de Alquiler de Canchas</h3>
+        <table class="table">
+            <thead style="background-color: rgba(0, 104, 253, 0.8);color:white;">
+                <tr>
+                    <th>
+                        Cancha
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Cantidad)
+                    </th>
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Where(d => d.servicio == "ALQUILER"))
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cantidad)
+                        </td>
+
+                    </tr>
+
+                    total = total + item.Cantidad;
+                }
+            </tbody>
+        </table>
+        <hr />
+
+        <h3>Servicio de Clases Particulares</h3>
+        <table class="table">
+            <thead style="background-color: rgba(0, 104, 253, 0.8);color:white;">
+                <tr>
+                    <th>
+                        Cancha
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Cantidad)
+                    </th>
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Where(d => d.servicio == "CLASES"))
+                {
+
+
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cantidad)
+                        </td>
+
+                    </tr>
+
+
+                    total = total + item.Cantidad;
+                }
+            </tbody>
+        </table>
+        <hr />
+        <h3 style="text-align:right;padding-right:120px;background-color: rgba(215, 44, 44, 0.7);color:white;">Total de uso: @total.ToString()</h3>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

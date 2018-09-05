@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
+
 namespace BOCHAS.Models
 {
     public partial class BOCHASContext : DbContext
@@ -33,6 +34,8 @@ namespace BOCHAS.Models
         public virtual DbSet<TipoJugador> TipoJugador { get; set; }
         public virtual DbSet<TipoMaterial> TipoMaterial { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
+        public virtual DbSet<RepoJugador> RepoJugadores { get; set; }
+        public virtual DbSet<CanchasEfectivas> ReporCanchas { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

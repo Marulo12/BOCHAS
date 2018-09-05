@@ -1,4 +1,6 @@
-﻿function visor(nombre) {
+﻿
+
+function visor(nombre) {
     $("#servicio").val(nombre);
 alertify.genericDialog || alertify.dialog('genericDialog', function () {
     return {
@@ -33,16 +35,26 @@ alertify.genericDialog || alertify.dialog('genericDialog', function () {
 function Generar() {
     var FecD = $("#FecD").val();
     var FecH = $("#FecH").val();
+    
     if ($("#FecD").val() !== "" && $("#FecH").val() !== "") {
-
-        window.open("/Reportes/" + $("#servicio").val() + "?FecD=" + FecD + "&FecH=" + FecH);
-        window.location = "/Reportes/Index";
-        /* $.ajax({
-            type: "Get",
-            data: { FecD, FecH },
-            url: "/Reportes/" + $("#servicio").val()            
-        });*/
+        if (ComprobarFechas()) {
+            window.open("/Reportes/" + $("#servicio").val() + "?FecD=" + FecD + "&FecH=" + FecH);
+            alertify.genericDialog().close();
+        }
 
     }
+     else { alertify.error("Complete los campos de fechas"); }
+    
+}
 
+function ComprobarFechas() {
+    if ($("#FecD").val() > $("#FecH").val()) {
+        alertify.error("La fecha desde no puede ser mayor que el hasta");
+        return false;
+    }
+    return true;
+}
+
+function ReporteServicio() {
+    window.open("/Reportes/ReporteServicios");
 }
