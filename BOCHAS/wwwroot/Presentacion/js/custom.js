@@ -76,8 +76,22 @@
             itemsTablet: [768,5],
             itemsTabletSmall: [550,2],
             itemsMobile : [480,2],
-        });
-	
+    });
+    
+    $.ajax({
+        type: "GET",
+        url: "/Presentacion/noticias",
+        success: function (response) {
+            var div = "";
+            for (var i = 0; i < response.length; i++) {
+                div += '<div class="item"><img src ="' + response[i].url + '" alt="' + response[i].titulo +'" /></div>';
+            }
+            $("#Noticias").html(div);
+            $('#Noticias').owlCarousel();
+        }
+    });
+
+  
 	//nivo lightbox
 	$('.owl-carousel .item a').nivoLightbox({
 		effect: 'fadeScale',                             // The effect to use when showing the lightbox
