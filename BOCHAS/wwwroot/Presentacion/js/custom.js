@@ -1,11 +1,5 @@
 /*global jQuery:false */
-$(document).ready(function () {
-    var audio = new Audio("/Sonidos/Partido de padel.mp3"); //or you can get it with getelementbyid
 
-    audio.addEventListener('canplay', function () {
-        //code, when audio can play
-        audio.play(); //this function will start the music
-    }); });
 (function ($) {
 
 
