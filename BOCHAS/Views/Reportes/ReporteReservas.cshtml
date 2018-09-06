@@ -23,48 +23,48 @@
     <div class="container-fluid">
         <h5>Desde el @TempData["fecD"] Hasta @TempData["fecH"]</h5>
 
-        <table class="table" style="margin:0px;width:100%;">
-            <thead style="background-color: rgba(0, 104, 253, 0.8);color:white;">
+        <table class="table table-condensed" style="margin:0px;width:100%;">
+            <thead style="background-color: rgba(0, 104, 253, 0.8);color:white;display: table-caption">
                 <tr>
-                    <th>
+                    <th style="width:10%">
                         @Html.DisplayNameFor(model => model.Numero)
                     </th>
-                    <th>
+                    <th style="width:10%">
                         @Html.DisplayNameFor(model => model.FechaPedido)
                     </th>
-                    <th>
+                    <th style="width:10%">
                         @Html.DisplayNameFor(model => model.FechaReserva)
                     </th>
-                    <th>
+                    <th style="width:10%">
                         @Html.DisplayNameFor(model => model.FechaCancelacion)
                     </th>
 
-                    <th style="width:15%;">
+                    <th style="width:10%">
                         Jugador
                     </th>
-                    <th>
+                    <th style="width:10%;text-align:center">
                         Recibo
                     </th>
-                    <th>
+                    <th style="width:10%">
                         Estado
                     </th>
-                    <th style="text-align:center;">Canchas</th>
+                    <th style="width:20%;text-align:center;">Canchas</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td>
+                        <td style="width:10%">
                             @Html.DisplayFor(modelItem => item.Numero)
                         </td>
-                        <td>
+                        <td style="width:10%">
                             @item.FechaPedido.Value.Date.ToString("dd/MM/yyyy")
                         </td>
-                        <td>
+                        <td style="width:10%">
                             @item.FechaReserva.Value.Date.ToString("dd/MM/yyyy")
                         </td>
-                        <td>
+                        <td style="width:10%">
                             @{ if (item.FechaCancelacion != null)
                                 {
                                     <label>
@@ -76,17 +76,17 @@
                             }
                         </td>
 
-                        <td>
+                        <td style="width:10%">
                             @Html.DisplayFor(modelItem => item.IdClienteNavigation.Persona.SingleOrDefault().Nombre) @Html.DisplayFor(modelItem => item.IdClienteNavigation.Persona.SingleOrDefault().Apellido)
                         </td>
-                        <td style="text-align:center;">
+                        <td style="text-align:center;width:10%;">
                             @Html.DisplayFor(modelItem => item.IdCobroNavigation.Numero)
                         </td>
 
-                        <td>
+                        <td style="width:10%">
                             @Html.DisplayFor(modelItem => item.IdEstadoNavigation.Nombre)
                         </td>
-                        <td>
+                        <td style="width:20%">
                             <ul class="list-group">
                                 @{
                                     foreach (var det in bd.DetalleAlquilerCancha.Where(d => d.IdAlquilerCancha == item.Numero).ToList())

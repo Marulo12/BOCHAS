@@ -88,6 +88,7 @@ namespace BOCHAS.Controllers
                 TempData["fecH"] = FecH.Date.ToString("dd/MM/yyyy");
                 return new ViewAsPdf("ReporteReservas", reserva) {//FileName = "ReporteReservas.pdf" 
                     PageOrientation = Rotativa.AspNetCore.Options.Orientation.Landscape,
+                   
                     CustomSwitches = "--page-offset 0 --footer-center [page] --footer-font-size 12"
 
                 };
