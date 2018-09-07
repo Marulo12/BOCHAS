@@ -5,7 +5,7 @@
 <html style="padding:0px;margin:0px;">
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Reporte Jugadores</title>
+    <title>Reporte Clases Particulares</title>
 
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
 </head>
@@ -19,58 +19,58 @@
     <div class="container-fluid">
         <h5>Desde el @TempData["fecD"] Hasta @TempData["fecH"]</h5>
         <table class="table">
-            <thead style="background-color: rgba(0, 104, 253, 0.8);color:white;">
+            <thead style="background-color: rgba(0, 104, 253, 0.8);color:white;display:table-caption;">
                 <tr>
-                    <th>
+                    <th style="width:10%;">
                         Jugador
                     </th>
-                    <th>
+                    <th style="width:10%;">
                         @Html.DisplayNameFor(model => model.FechaReserva)
                     </th>
-                    <th>
+                    <th style="width:10%;">
                         Hora Inicio Prevista
                     </th>
-                    <th>
+                    <th style="width:10%;">
                         Hora Fin Prevista
                     </th>
 
-                    <th>
+                    <th style="width:10%;">
                         Fecha Cancelacion
                     </th>
-                    <th>
+                    <th style="width:10%;">
                         @Html.DisplayNameFor(model => model.Observacion)
                     </th>
-                    <th>
+                    <th style="width:10%;">
                         Cancha
                     </th>
-                    <th>
+                    <th style="width:10%;">
                         Recibo
                     </th>
 
-                    <th>
+                    <th style="width:10%;">
                         Profesor
                     </th>
-                    <th>Estado</th>
+                    <th style="width:10%;">Estado</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td>
+                        <td style="width:10%;">
                             @Html.DisplayFor(modelItem => item.IdJugadorNavigation.Nombre)  @Html.DisplayFor(modelItem => item.IdJugadorNavigation.Apellido)
                         </td>
-                        <td>
+                        <td style="width:10%;">
                             @item.FechaReserva.Date.ToString("dd/MM/yyyy")
                         </td>
-                        <td>
+                        <td style="width:10%;">
                             @Html.DisplayFor(modelItem => item.HoraInicioPrevista)
                         </td>
-                        <td>
+                        <td style="width:10%;">
                             @Html.DisplayFor(modelItem => item.HoraFinPrevista)
                         </td>
 
-                        <td>
+                        <td style="width:10%;">
                             @{
                                 if (item.FechaCancelacion != null)
                                 {
@@ -84,20 +84,20 @@
                             }
 
                         </td>
-                        <td>
+                        <td style="width:10%;">
                             @Html.DisplayFor(modelItem => item.Observacion)
                         </td>
-                        <td>
+                        <td style="width:10%;">
                             @Html.DisplayFor(modelItem => item.IdCanchaNavigation.Nombre)
                         </td>
-                        <td>
+                        <td style="width:10%;">
                             @Html.DisplayFor(modelItem => item.IdCobroNavigation.Numero)
                         </td>
 
-                        <td>
+                        <td style="width:10%;">
                             @Html.DisplayFor(modelItem => item.IdProfesorNavigation.Nombre)  @Html.DisplayFor(modelItem => item.IdProfesorNavigation.Apellido)
                         </td>
-                        <td>
+                        <td style="width:10%;">
                             @{
                                 if (item.FechaRealRealizacion == null && item.FechaCancelacion == null)
                                 {
