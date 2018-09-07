@@ -1794,27 +1794,17 @@ a.btn:focus{
     margin-top: 0;
 }
 
-@media (min-width:1880px) {
-    .ocultar {
-        font-size: 70px;
-        position: absolute;
-        z-index: 10000;
-        top: 30%;
-        left: 32% !important;
-        text-shadow: -3px 3px 2px rgba(103, 0, 2, 1);
-        font-family: 'Shadows Into Light', cursive;
-    }
-    body {
-        font-family: 'Shadows Into Light', cursive;
-        font-size: 24px;
-    }
 
-   
-}
 /* Media queries */
 
 @media(min-width:769px) {
-   
+    .ocultar {
+        font-size: 45px;
+        position: absolute;
+        z-index: 10000;
+        top: 30%;
+        left: 25% !important;
+    }
     .navbar {
         padding: 20px 0;
         border-bottom: 0;
@@ -1850,13 +1840,57 @@ a.btn:focus{
 
 
 }
-@media (max-width:768px) {
+@media(min-width:1366px) {
     .ocultar {
-     font-size:45px;
+        font-size: 45px;
         position: absolute;
         z-index: 10000;
         top: 30%;
-        left: 6% !important;
+        left: 32% !important;
+    }
+
+  
+}
+@media (min-width:1320px) {
+    .ocultar {
+        font-size: 70px;
+        position: absolute;
+        z-index: 10000;
+        top: 30%;
+        left: 23% !important;
+        text-shadow: -3px 3px 2px rgba(103, 0, 2, 1);
+        font-family: 'Shadows Into Light', cursive;
+    }
+
+    body {
+        font-family: 'Shadows Into Light', cursive;
+        font-size: 24px;
+    }
+}
+@media (min-width:1880px) {
+    .ocultar {
+        font-size: 70px;
+        position: absolute;
+        z-index: 10000;
+        top: 30%;
+        left: 32% !important;
+        text-shadow: -3px 3px 2px rgba(103, 0, 2, 1);
+        font-family: 'Shadows Into Light', cursive;
+    }
+
+    body {
+        font-family: 'Shadows Into Light', cursive;
+        font-size: 24px;
+    }
+}
+@media (max-width:768px) {
+    .ocultar {
+        font-size: 45px;
+        position: absolute;
+        z-index: 10000;
+        top: 30%;
+        text-shadow: -3px 3px 2px rgba(103, 0, 2, 1);
+        left: 14% !important;
     }
     #page-loader .loadIMGL {
         position: absolute;
@@ -1925,9 +1959,10 @@ a.btn:focus{
     .ocultar {
         font-size: 20px;
         position: absolute;
-        z-index: 10000;        
+        z-index: 10000;
         top: 30%;
-        left:10% !important;
+        left: 19% !important;
+        text-shadow: -3px 3px 2px rgba(103, 0, 2, 1);
     }
 	.navbar-custom .nav.navbar-nav {
     background-color: rgba(255,255,255,.4);
@@ -1958,8 +1993,8 @@ a.btn:focus{
         position: absolute;
         z-index: 10000;
         top: 30%;
-        left: 0% !important;
-      
+        left: 15% !important;
+        text-shadow: -3px 3px 2px rgba(103, 0, 2, 1);
     }
     html {
         min-width: 108%;
