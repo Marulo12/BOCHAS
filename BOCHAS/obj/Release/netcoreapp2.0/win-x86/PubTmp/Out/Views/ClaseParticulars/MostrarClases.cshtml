@@ -4,6 +4,9 @@
     <thead style="background-color: rgba(158, 44, 44, 0.9);color:white">
         <tr>
             <th>
+                Numero
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.FechaReserva)
             </th>
             <th>
@@ -27,6 +30,9 @@
         @foreach (var item in Model)
         {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
             <td>
                 @item.FechaReserva.Date.ToString("dd/MM/yyyy")
             </td>
