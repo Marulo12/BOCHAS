@@ -307,14 +307,14 @@ namespace BOCHAS.Controllers
 
         public IActionResult EditarEmpleado(int id)
         {
-            var per = _context.Persona.Include(d => d.IdDomicilioNavigation).Include(u => u.IdUsuarioNavigation).Include(t => t.IdTipoDocumentoNavigation).Include(d => d.IdDomicilioNavigation.IdLocalidadNavigation).Include(d => d.IdDomicilioNavigation.IdBarrioNavigation).Include(p=>p.Empleado).SingleOrDefault(p => p.Id == id);
-
+            var per = _context.Persona.Include(d => d.IdDomicilioNavigation).Include(u => u.IdUsuarioNavigation).Include(t => t.IdTipoDocumentoNavigation).Include(d => d.IdDomicilioNavigation.IdLocalidadNavigation).Include(d => d.IdDomicilioNavigation.IdBarrioNavigation).Include(p=>p.Empleado).Include(i=>i.Empleado.IdCargoNavigation).SingleOrDefault(p => p.Id == id);
+            ViewData["Cargos"] = new SelectList(_context.Cargo, "Id", "Nombre");
             return PartialView(per);
         }
         public IActionResult EditarJugador(int id)
         {
             var per = _context.Persona.Include(d => d.IdDomicilioNavigation).Include(u => u.IdUsuarioNavigation).Include(t => t.IdTipoDocumentoNavigation).Include(d => d.IdDomicilioNavigation.IdLocalidadNavigation).Include(d => d.IdDomicilioNavigation.IdBarrioNavigation).SingleOrDefault(p => p.Id == id);
-
+           
             return PartialView(per);
         }
         public JsonResult MostrarBarrios(string IdLocalidad)
@@ -406,7 +406,7 @@ namespace BOCHAS.Controllers
             var PersonaToUpdate = await _context.Persona
         .Include(i => i.IdDomicilioNavigation)
         .Include(i => i.IdUsuarioNavigation)
-        .Include(i=>i.Empleado)
+        .Include(i=>i.Empleado).Include(i=>i.Empleado.IdCargoNavigation)
         .SingleOrDefaultAsync(m => m.Id == id);
 
             if (await TryUpdateModelAsync<Persona>(

@@ -197,8 +197,6 @@
                             <a href="#subPagesAdmin" data-toggle="collapse" class="collapsed"><i class="fas fa-cog fa-spin"></i><span>&nbsp;Administracion</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                             <div id="subPagesAdmin" class="collapse ">
                                 <ul class="nav">
-                                    <li><a asp-action="NuevaCancha" asp-controller="Canchas" class=""><i class="fab fa-codepen"></i> <span>&nbsp;&nbsp;Canchas</span></a></li>
-                                    <li><a asp-action="Index" asp-controller="Servicios" class=""><i class="fab fa-dribbble"></i> <span>&nbsp;&nbsp;Servicios</span></a></li>
                                     <li>
                                         <a href="#subPagesEmpleados" data-toggle="collapse" class="collapsed"><i class="fa fa-fw fa-user-tie"></i><span>&nbsp;&nbsp;Empleados</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                                         <div id="subPagesEmpleados" class="collapse ">
@@ -209,6 +207,10 @@
                                             </ul>
                                         </div>
                                     </li>
+                                    <li><a asp-action="NuevaCancha" asp-controller="Canchas" class=""><i class="fab fa-codepen"></i> <span>&nbsp;&nbsp;Canchas</span></a></li>
+                                    <li><a asp-action="Index" asp-controller="Servicios" class=""><i class="fab fa-dribbble"></i> <span>&nbsp;&nbsp;Servicios</span></a></li>
+                                    <li><a asp-action="Index" asp-controller="Tarjetas" class=""><i class="fas fa-credit-card"></i> <span>&nbsp;&nbsp;Tarjetas</span></a></li>
+
                                     <li><a asp-action="Index" asp-controller="Sessions"><i class="fab fa-algolia"></i> <span>&nbsp;&nbsp;Sessiones</span></a></li>
                                 </ul>
                             </div>
