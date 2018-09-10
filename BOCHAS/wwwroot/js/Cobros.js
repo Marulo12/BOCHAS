@@ -123,7 +123,7 @@ function RegistrarCobroReserva() {
     var Nreserva = $("#NReservaFinalizada").val();
     var Fecha = $("#FechaCobro").val();
     var MedioPago = $("#MedioPago option:selected").val();
-    var MontoTotal = $("#InputTotalR").val().replace(".",",");
+    var MontoTotal = parseFloat($("#InputTotalR").val()).toFixed(2).replace(".", ",");
     var NroCupon = null;
     var IdTarjeta = null;
     if (MedioPago === "2") {
@@ -133,15 +133,15 @@ function RegistrarCobroReserva() {
     // todo para detalle cobro
     // objeto servicio
     var cantidadCanchas = $("#CantC").val();
-    var MontoServicio = $("#Stotal").val().replace(".", ",");
-    var TotalHoras = $("#CantH").val().replace(".", ",");
+    var MontoServicio = parseFloat($("#Stotal").val()).toFixed(2).replace(".", ",");
+    var TotalHoras = parseFloat($("#CantH").val()).toFixed(2).replace(".", ",");
     var Servicio = { IdServicio: 1, Monto: MontoServicio, Id_NumeroCobro: 0, Cantidad: cantidadCanchas, IdServiciosAdicionales: null, TotalHoras: TotalHoras };
     //array de servicios adicionales
     var ServiciosAdicionales = [];
     $(".checkSA ").each(function () {
         if ($(this).is(':checked')) {
             var tr = $(this).closest('tr');
-            var tot = $(tr).find('td:nth-child(4) .SAtot').val().replace(".", ",");
+            var tot = parseFloat($(tr).find('td:nth-child(4) .SAtot').val()).toFixed(2).replace(".", ",");
             var idservicio = $(tr).find('td:nth-child(6)').text();
             var cantidad = $(tr).find('td:nth-child(3) .SAcant').val();
             var servicioadicional = { IdServicio: null, Monto: tot, Id_NumeroCobro: 0, Cantidad: cantidad, IdServiciosAdicionales: idservicio };
@@ -177,10 +177,10 @@ function RegistrarCobroClase() {
     var Nclase = $("#NClaseFinalizada").val();
     var Fecha = $("#FechaCobro").val();
     var MedioPago = $("#MedioPago option:selected").val();
-    var MontoTotal = $("#InputTotalR").val().replace(".",",");
+    var MontoTotal = parseFloat($("#InputTotalR").val()).toFixed(2).replace(".", ",");
     var NroCupon = null;
     var IdTarjeta = null;
-    var TotalHoras = $("#CantH").val().replace(".", ",");
+    var TotalHoras = parseFloat($("#CantH").val()).toFixed(2).replace(".", ",");
     if (MedioPago === "2") {
         NroCupon = $("#Ncupon").val();
         IdTarjeta = $("#IdTarjeta option:selected").val();
@@ -188,14 +188,14 @@ function RegistrarCobroClase() {
     // todo para detalle cobro
     // objeto servicio
     var cantidadCanchas = $("#CantC").val();
-    var MontoServicio = $("#Stotal").val().replace(".", ",");
+    var MontoServicio = parseFloat($("#Stotal").val()).toFixed(2).replace(".", ",");
     var Servicio = { IdServicio: 2, Monto: MontoServicio, Id_NumeroCobro: 0, Cantidad: cantidadCanchas, IdServiciosAdicionales: null, TotalHoras: TotalHoras };
     //array de servicios adicionales
     var ServiciosAdicionales = [];
     $(".checkSA ").each(function () {
         if ($(this).is(':checked')) {
             var tr = $(this).closest('tr');
-            var tot = $(tr).find('td:nth-child(4) .SAtot').val().replace(".", ",");
+            var tot = parseFloat($(tr).find('td:nth-child(4) .SAtot').val()).toFixed(2).replace(".", ",");
             var idservicio = $(tr).find('td:nth-child(6)').text();
             var cantidad = $(tr).find('td:nth-child(3) .SAcant').val();
             var servicioadicional = { IdServicio: null, Monto: tot, Id_NumeroCobro: 0, Cantidad: cantidad, IdServiciosAdicionales: idservicio };
@@ -361,7 +361,7 @@ function RegistrarCobroReservaManual() {
     });
     var Fecha = $("#FechaCobro").val();
     var MedioPago = $("#MedioPago option:selected").val();
-    var MontoTotal = $("#InputTotalR").val().replace(".",",");
+    var MontoTotal = parseFloat($("#InputTotalR").val()).toFixed(2).replace(".", ",");
     var NroCupon = null;
     var IdTarjeta = null;
     if (MedioPago === "2") {
@@ -370,13 +370,13 @@ function RegistrarCobroReservaManual() {
     }
     // todo para detalle cobro
     // objeto servicio    
-    var MontoServicio = $("#Stotal").val();
+    var MontoServicio = parseFloat($("#Stotal").val()).toFixed(2).replace(".",",");
     var Servicio = [];
     $(".Nres").each(function () {
         var tr = $(this).closest('tr');
         var canchas = $(tr).find('td:nth-child(4)').text();
-        var monto = $(tr).find('td:nth-child(6)').text().replace(".", ",");
-        var TotalHoras = $(tr).find('td:nth-child(5)').text().replace(".", ",");
+        var monto = parseFloat($(tr).find('td:nth-child(6)').text()).toFixed(2).replace(".", ",");
+        var TotalHoras = parseFloat($(tr).find('td:nth-child(5)').text()).toFixed(2).replace(".", ",");
         
         servicio = { IdServicio: 1, Monto: monto, Id_NumeroCobro: 0, Cantidad: canchas, IdServiciosAdicionales: null, TotalHoras: TotalHoras };
         Servicio.push(servicio);
@@ -454,7 +454,7 @@ function RegistrarCobroClaseManual() {
     });
     var Fecha = $("#FechaCobro").val();
     var MedioPago = $("#MedioPago option:selected").val();
-    var MontoTotal = $("#InputTotalR").val().replace(".", ",");
+    var MontoTotal = parseFloat($("#InputTotalR").val()).toFixed(2).replace(".", ",");
     var NroCupon = null;
     var IdTarjeta = null;
     if (MedioPago === "2") {
@@ -463,13 +463,13 @@ function RegistrarCobroClaseManual() {
     }
     // todo para detalle cobro
     // objeto servicio    
-    var MontoServicio = parseFloat( $("#Stotal").val()).replace(".", ",");
+    var MontoServicio = parseFloat($("#Stotal").val()).toFixed(2).replace(".", ",");
     var Servicio = [];
     $(".Nrclase").each(function () {
         var tr = $(this).closest('tr');
         var canchas = $(tr).find('td:nth-child(4)').text();
         var monto = $(tr).find('td:nth-child(6)').text().replace(".", ",");
-        var TotalHoras = $(tr).find('td:nth-child(5)').text().replace(".", ",");
+        var TotalHoras = parseFloat($(tr).find('td:nth-child(5)').text()).toFixed(2).replace(".", ",");
         servicio = { IdServicio: 2, Monto: monto, Id_NumeroCobro: 0, Cantidad: canchas, IdServiciosAdicionales: null, TotalHoras: TotalHoras };
         Servicio.push(servicio);
     });
@@ -478,7 +478,7 @@ function RegistrarCobroClaseManual() {
     $(".checkSA ").each(function () {
         if ($(this).is(':checked')) {
             var tr = $(this).closest('tr');
-            var tot = $(tr).find('td:nth-child(4) .SAtot').val().replace(".", ",");
+            var tot = parseFloat($(tr).find('td:nth-child(4) .SAtot').val()).toFixed(2).replace(".", ",");
             var idservicio = $(tr).find('td:nth-child(6)').text();
             var cantidad = $(tr).find('td:nth-child(3) .SAcant').val();
             var servicioadicional = { IdServicio: null, Monto: tot, Id_NumeroCobro: 0, Cantidad: cantidad, IdServiciosAdicionales: idservicio };
