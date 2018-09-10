@@ -53,13 +53,13 @@
                             {
                                 if (item.IdServicio != null)
                                 {
-                                    <tr><td>@db.Servicio.Where(s=>s.Id == item.IdServicio).Single().Nombre</td><td>@Convert.ToInt32(db.Servicio.Where(s => s.Id == item.IdServicio).Single().Precio)</td><td>@item.Cantidad</td><td>@item.TotalHoras</td><td>@Convert.ToInt32(item.Monto)</td></tr>
+                                    <tr><td>@db.Servicio.Where(s=>s.Id == item.IdServicio).Single().Nombre</td><td>@Convert.ToDecimal(db.Servicio.Where(s => s.Id == item.IdServicio).Single().Precio).ToString("N")</td><td>@item.Cantidad</td><td>@item.TotalHoras</td><td>@Convert.ToDecimal(item.Monto).ToString("N")</td></tr>
                                 }
                                 else
                                 {
                                     if (item.IdServiciosAdicionales != null)
                                     {
-                                        <tr><td>@db.ServiciosAdicionales.Where(s => s.Id == item.IdServiciosAdicionales).Single().Nombre</td><td>@Convert.ToInt32(db.ServiciosAdicionales.Where(s => s.Id == item.IdServiciosAdicionales).Single().Precio)</td><td>@item.Cantidad</td><td>-</td><td>@Convert.ToInt32(item.Monto)</td></tr>
+                                        <tr><td>@db.ServiciosAdicionales.Where(s => s.Id == item.IdServiciosAdicionales).Single().Nombre</td><td>@Convert.ToDecimal(db.ServiciosAdicionales.Where(s => s.Id == item.IdServiciosAdicionales).Single().Precio).ToString("N")</td><td>@item.Cantidad</td><td>-</td><td>@Convert.ToDecimal(item.Monto).ToString("N")</td></tr>
                                     }
 
                                 }
@@ -70,7 +70,7 @@
                     </tbody>
                 </table>
                 <br />
-                <h2 style="text-align:right;padding-right:20px;">Total: $@Convert.ToInt32(Model.MontoTotal)</h2>
+                <h2 style="text-align:right;padding-right:20px;">Total: $@Convert.ToDecimal(Model.MontoTotal).ToString("N")</h2>
             </div>
         </div>
 

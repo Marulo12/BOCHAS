@@ -28,14 +28,42 @@ namespace BOCHAS.APIS
         }
 
         [HttpGet("api/ClaseParticulares/MostrarClases/{Usuario}")]
-        public JsonResult MostrarClasesParticulares([FromRoute] string Usuario)
+        [HttpGet("api/ClaseParticulares/MostrarClases/{Usuario}/{Dias}")]
+        public JsonResult MostrarClasesParticulares([FromRoute] string Usuario, int? Dias)
         {
+            if (Dias == null)
+            {
+                var usuario = _context.Usuario.Where(u => u.Nombre == Usuario).SingleOrDefault();
+                var persona = _context.Persona.Where(p => p.IdUsuario == usuario.Id).SingleOrDefault();
+                var clases = (from c in _context.ClaseParticular join can in _context.Cancha on c.IdCancha equals can.Id join p in _context.Persona on c.IdProfesor equals p.Id where c.IdJugador == persona.Id select new { Profesor = p.Nombre, DocProfesor = p.NroDocumento, IdClase = c.Id, FechaReserva = c.FechaReserva.Date.ToString("dd/MM/yyyy"), HoraDesde = c.HoraInicioPrevista, HoraHasta = c.HoraFinPrevista, IdCancha = can.Id, NombreCancha = can.Nombre, NroCancha = can.Numero, fechaC = c.FechaCancelacion }).ToList();
+                //  var clases = _context.ClaseParticular.Include(c => c.IdCanchaNavigation).Where(c => c.IdJugador == persona.Id).ToList();
+                return Json(clases);
+            }
+            else
+            {
+                DateTime FechaLimite = DateTime.Now.Date.AddDays((double)Dias);
+                if (Dias > 0)
+                {
 
-            var usuario = _context.Usuario.Where(u => u.Nombre == Usuario).SingleOrDefault();
-            var persona = _context.Persona.Where(p=>p.IdUsuario == usuario.Id).SingleOrDefault();
-              var clases =  (from c in _context.ClaseParticular join can in _context.Cancha on c.IdCancha equals can.Id join p in _context.Persona on c.IdProfesor equals p.Id where c.IdJugador == persona.Id select new { Profesor = p.Nombre, DocProfesor = p.NroDocumento, IdClase = c.Id, FechaReserva = c.FechaReserva.Date.ToString("dd/MM/yyyy"), HoraDesde = c.HoraInicioPrevista, HoraHasta = c.HoraFinPrevista, IdCancha = can.Id, NombreCancha = can.Nombre, NroCancha = can.Numero , fechaC=c.FechaCancelacion}).ToList();
-          //  var clases = _context.ClaseParticular.Include(c => c.IdCanchaNavigation).Where(c => c.IdJugador == persona.Id).ToList();
-            return Json(clases);
+
+                    var usuario = _context.Usuario.Where(u => u.Nombre == Usuario).SingleOrDefault();
+                    var persona = _context.Persona.Where(p => p.IdUsuario == usuario.Id).SingleOrDefault();
+                    var clases = (from c in _context.ClaseParticular join can in _context.Cancha on c.IdCancha equals can.Id join p in _context.Persona on c.IdProfesor equals p.Id where c.IdJugador == persona.Id && c.FechaReserva >= DateTime.Now.Date && c.FechaReserva <= FechaLimite select new { Profesor = p.Nombre, DocProfesor = p.NroDocumento, IdClase = c.Id, FechaReserva = c.FechaReserva.Date.ToString("dd/MM/yyyy"), HoraDesde = c.HoraInicioPrevista, HoraHasta = c.HoraFinPrevista, IdCancha = can.Id, NombreCancha = can.Nombre, NroCancha = can.Numero, fechaC = c.FechaCancelacion }).ToList();
+                  
+                    return Json(clases);
+                }
+                else
+                {
+
+
+                    var usuario = _context.Usuario.Where(u => u.Nombre == Usuario).SingleOrDefault();
+                    var persona = _context.Persona.Where(p => p.IdUsuario == usuario.Id).SingleOrDefault();
+                    var clases = (from c in _context.ClaseParticular join can in _context.Cancha on c.IdCancha equals can.Id join p in _context.Persona on c.IdProfesor equals p.Id where c.IdJugador == persona.Id && c.FechaReserva <= DateTime.Now.Date && c.FechaReserva >= FechaLimite select new { Profesor = p.Nombre, DocProfesor = p.NroDocumento, IdClase = c.Id, FechaReserva = c.FechaReserva.Date.ToString("dd/MM/yyyy"), HoraDesde = c.HoraInicioPrevista, HoraHasta = c.HoraFinPrevista, IdCancha = can.Id, NombreCancha = can.Nombre, NroCancha = can.Numero, fechaC = c.FechaCancelacion }).ToList();
+                    
+                    return Json(clases);
+                }
+
+            }
         }
         // GET: api/ClaseParticulares/5
         [HttpGet("{id}")]

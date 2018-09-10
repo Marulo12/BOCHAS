@@ -50,11 +50,11 @@
                          <tbody>
                              <tr>
                                  <td>@bd.Servicio.Where(s => s.Id == 2).SingleOrDefault().Nombre.Trim()</td>
-                                 <td>@precioServicio</td>
+                                 <td>@precioServicio.ToString("N").Replace(",",".")</td>
                                  <td><input id="CantC" type="text" value="@Canchas" class="form-control" readonly/></td>
-                                 <td><input id="CantH" type="text" class="form-control" value="@hh.TotalHours" readonly/></td>
+                                 <td><input id="CantH" type="text" class="form-control" value="@hh.TotalHours.ToString("N").Replace(",",".")" readonly/></td>
                                  <td>
-                                     <input id="Stotal" type="text" class="form-control" value="@Stotal" readonly/>
+                                     <input id="Stotal" type="text" class="form-control" value="@Stotal.ToString("N").Replace(",",".")" readonly/>
                                  </td>
                              </tr>
                          </tbody>

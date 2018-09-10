@@ -223,7 +223,7 @@ namespace BOCHAS.Controllers
 
             Subtotal sub = new Subtotal();
             sub.canchas = canchas;
-            sub.horas = horas;
+            sub.horas = horas.TotalHours;
             sub.precio = servicio.Precio;
             sub.servicio = servicio.Nombre;
             sub.total = total;
@@ -247,7 +247,7 @@ namespace BOCHAS.Controllers
         {
             public string servicio { set; get; }
             public decimal precio { set; get; }
-            public TimeSpan horas { set; get; }
+            public Double horas { set; get; }
             public decimal canchas { set; get; }
             public decimal total { set; get; }
         }
