@@ -1,5 +1,4 @@
-﻿
-$(document).ready(function () {
+﻿$(document).ready(function () {
 
     ArmarListadoAdicionales();
     $("#BtnBuscarCobro").click(function () {
@@ -105,10 +104,8 @@ function CalcularTotal() {
         if ($(this).is(':checked')) {
             var tr = $(this).closest('tr');
             var tot = $(tr).find('td:nth-child(4) .SAtot').val();
-            ServiciosAdicionales = parseFloat(ServiciosAdicionales) + parseFloat(tot);
-            
+            ServiciosAdicionales = parseFloat(ServiciosAdicionales) + parseFloat(tot);            
         }
-
     });
     var Total = parseFloat(TotalServicio) + parseFloat( ServiciosAdicionales);
     $("#InputTotalR").val(Total);
@@ -307,7 +304,6 @@ function CalcularXReserva() {
             var existe = false;
             var tr = "";
             var Mtotal = response.total;
-            Mtotal = Mtotal.toFixed(2);
             tr = '<tr><td class="Nres">' + IdReserva + '</td><td>' + response.servicio + '</td><td>' + response.precio + '</td><td>' + response.canchas + '</td><td>' + parseFloat(response.horas).toFixed(2) + '</td><td class="Stotal">' + Mtotal + '</td><td><button class="btn btn-sm btn-danger borrar"><i class="fas fa-backspace"></i></button></td></tr>';
             $(".Nres").each(function () {
                 var tr = $(this).closest('tr');
@@ -330,7 +326,7 @@ function CalcularTotalReservas() {
     var ServiciosAdicionales = 0;
     $(".Stotal ").each(function () {
         var tr = $(this).closest('tr');
-        var tot = parseFloat( $(tr).find('td:nth-child(6)').text());
+        var tot =  $(tr).find('td:nth-child(6)').text();
         TotalServicio = parseFloat(TotalServicio) + parseFloat(tot);
         
     });
@@ -339,8 +335,7 @@ function CalcularTotalReservas() {
         if ($(this).is(':checked')) {
             var tr = $(this).closest('tr');
             var tot = $(tr).find('td:nth-child(4) .SAtot').val();
-            ServiciosAdicionales = parseFloat(ServiciosAdicionales) + parseFloat(tot);
-           
+            ServiciosAdicionales = parseFloat(ServiciosAdicionales) + parseFloat(tot);           
         }
 
     });
@@ -377,7 +372,7 @@ function RegistrarCobroReservaManual() {
         var tr = $(this).closest('tr');
         var canchas = $(tr).find('td:nth-child(4)').text();
         var monto = $(tr).find('td:nth-child(6)').text();
-        var TotalHoras = $(tr).find('td:nth-child(5)').text();
+        var TotalHoras =  $(tr).find('td:nth-child(5)').text();
         TotalHoras = TotalHoras.replace(".", ",");
         
         servicio = { IdServicio: 1, Monto: monto, Id_NumeroCobro: 0, Cantidad: canchas, IdServiciosAdicionales: null, TotalHoras: TotalHoras };
@@ -428,7 +423,7 @@ function TraerClases() {
             $("#TDetalleC").empty();
             var tr = "";                                
             for (var i = 0; i < response.length; i++) {
-                tr += '<tr><td >' + response[i].numero + '</td><td>' + response[i].servicio + '</td><td>' + parseFloat(response[i].precio).toFixed(2) + '</td><td>' + response[i].canchas + '</td><td>' + Number.parseFloat(response[i].horas).toFixed(2) + '</td><td >' + response[i].total + '</td><td><button class="btn btn-sm btn-success Aclases"><i class="fas fa-plus"></i></button></td></tr>';
+                tr += '<tr><td >' + response[i].numero + '</td><td>' + response[i].servicio + '</td><td>' + parseFloat(response[i].precio).toFixed(2) + '</td><td>' + response[i].canchas + '</td><td>' + Number.parseFloat(response[i].horas).toFixed(2) + '</td><td >' + Math.round(response[i].total) + '</td><td><button class="btn btn-sm btn-success Aclases"><i class="fas fa-plus"></i></button></td></tr>';
             }
 
             $("#TDetalleC").append(tr);
@@ -472,6 +467,7 @@ function RegistrarCobroClaseManual() {
         var canchas = $(tr).find('td:nth-child(4)').text();
         var monto =  $(tr).find('td:nth-child(6)').text();
         var TotalHoras = $(tr).find('td:nth-child(5)').text();
+        TotalHoras = TotalHoras.replace(".",",");
         servicio = { IdServicio: 2, Monto: monto, Id_NumeroCobro: 0, Cantidad: canchas, IdServiciosAdicionales: null, TotalHoras: TotalHoras };
         Servicio.push(servicio);
     });

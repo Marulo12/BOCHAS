@@ -52,7 +52,7 @@
                                  <td>@bd.Servicio.Where(s => s.Id == 1).SingleOrDefault().Nombre.Trim()</td>
                                  <td>@precioServicio</td>
                                  <td><input id="CantC" type="text" value="@Canchas" class="form-control" readonly/></td>
-                                 <td><input id="CantH" type="text" class="form-control" value="@hh.TotalHours" readonly/></td>
+                                 <td><input id="CantH" type="text" class="form-control" value="@hh.TotalHours.ToString("N")" readonly/></td>
                                  <td>
                                      <input id="Stotal" type="text" class="form-control" value="@Stotal" readonly/>
                                  </td>
