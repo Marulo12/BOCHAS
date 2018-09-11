@@ -53,7 +53,7 @@
                             {
                                 if (item.IdServicio != null)
                                 {
-                                    <tr><td>@db.Servicio.Where(s=>s.Id == item.IdServicio).Single().Nombre</td><td>@Convert.ToDecimal(db.Servicio.Where(s => s.Id == item.IdServicio).Single().Precio).ToString("C")</td><td>@item.Cantidad</td><td>@item.TotalHoras</td><td>@Convert.ToDecimal(item.Monto).ToString("C")</td></tr>
+                                    <tr><td>@db.Servicio.Where(s=>s.Id == item.IdServicio).Single().Nombre</td><td>@Convert.ToDecimal(db.Servicio.Where(s => s.Id == item.IdServicio).Single().Precio).ToString("C")</td><td>@item.Cantidad</td><td>@Convert.ToDecimal(item.TotalHoras).ToString("N")</td><td>@Convert.ToDecimal(item.Monto).ToString("C")</td></tr>
                                 }
                                 else
                                 {
