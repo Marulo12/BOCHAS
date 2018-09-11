@@ -132,7 +132,7 @@ function RegistrarCobroReserva() {
     var cantidadCanchas = $("#CantC").val();
     var MontoServicio = $("#Stotal").val();
     var TotalHoras = $("#CantH").val();
-    TotalHoras = TotalHoras.replace(".", ",");
+    TotalHoras = TotalHoras.toLocaleString("es-ES", {minimumFractionDigits: 2}).replace(".", ",");
     var Servicio = { IdServicio: 1, Monto: MontoServicio, Id_NumeroCobro: 0, Cantidad: cantidadCanchas, IdServiciosAdicionales: null, TotalHoras: TotalHoras };
     //array de servicios adicionales
     var ServiciosAdicionales = [];

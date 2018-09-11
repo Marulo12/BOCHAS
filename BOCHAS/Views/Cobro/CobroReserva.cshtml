@@ -3,10 +3,10 @@
 @{
     Layout = null;
     BOCHASContext bd = new BOCHASContext();
-    double precioServicio = Convert.ToDouble(bd.Servicio.Where(s => s.Id == 1).SingleOrDefault().Precio);
+    decimal precioServicio = Convert.ToDecimal(bd.Servicio.Where(s => s.Id == 1).SingleOrDefault().Precio);
     TimeSpan hh = (TimeSpan)ViewBag.horas;
     int Canchas = ViewBag.canchas;
-    var Stotal = precioServicio * Canchas * hh.TotalHours;
+    var Stotal = precioServicio * Canchas * Convert.ToDecimal( hh.TotalHours);
 }
 
  <div class="panel" style="border:none;">
