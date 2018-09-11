@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BOCHAS.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Globalization;
 
 namespace BOCHAS.Controllers
 {
@@ -223,7 +224,7 @@ namespace BOCHAS.Controllers
 
             Subtotal sub = new Subtotal();
             sub.canchas = canchas;
-            sub.horas = horas.TotalHours;
+            sub.horas = Convert.ToDecimal(horas.TotalHours).ToString("N",new CultureInfo("es-ES"));
             sub.precio = servicio.Precio;
             sub.servicio = servicio.Nombre;
             sub.total = total;
@@ -247,7 +248,7 @@ namespace BOCHAS.Controllers
         {
             public string servicio { set; get; }
             public decimal precio { set; get; }
-            public Double horas { set; get; }
+            public string horas { set; get; }
             public decimal canchas { set; get; }
             public decimal total { set; get; }
         }

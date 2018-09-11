@@ -1,12 +1,15 @@
 ﻿@model BOCHAS.Models.Cobro
-
+@using System.Globalization;
 @{
+
     Layout = null;
     BOCHASContext bd = new BOCHASContext();
-    double precioServicio = Convert.ToDouble(bd.Servicio.Where(s => s.Id == 1).SingleOrDefault().Precio);
+    decimal precioServicio = Convert.ToDecimal(bd.Servicio.Where(s => s.Id == 1).SingleOrDefault().Precio);
     TimeSpan hh = (TimeSpan)ViewBag.horas;
     int Canchas = ViewBag.canchas;
-    var Stotal = precioServicio * Canchas * hh.TotalHours;
+    var Stotal = precioServicio * Canchas * Convert.ToDecimal(hh.TotalHours);
+    
+    
 }
 
  <div class="panel" style="border:none;">
@@ -50,11 +53,11 @@
                          <tbody>
                              <tr>
                                  <td>@bd.Servicio.Where(s => s.Id == 1).SingleOrDefault().Nombre.Trim()</td>
-                                 <td>@precioServicio</td>
+                                 <td>@precioServicio.ToString("N", new CultureInfo("es-ES"))</td>
                                  <td><input id="CantC" type="text" value="@Canchas" class="form-control" readonly/></td>
-                                 <td><input id="CantH" type="text" class="form-control" value="@hh.TotalHours.ToString("N")" readonly/></td>
+                                 <td><input id="CantH" type="text" class="form-control" value="@hh.TotalHours.ToString("N", new CultureInfo("es-ES"))" readonly/></td>
                                  <td>
-                                     <input id="Stotal" type="text" class="form-control" value="@Stotal" readonly/>
+                                     <input id="Stotal" type="text" class="form-control" value="@Stotal.ToString("N", new CultureInfo("es-ES"))" readonly/>
                                  </td>
                              </tr>
                          </tbody>

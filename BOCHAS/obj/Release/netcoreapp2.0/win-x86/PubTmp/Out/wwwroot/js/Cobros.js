@@ -132,7 +132,7 @@ function RegistrarCobroReserva() {
     var cantidadCanchas = $("#CantC").val();
     var MontoServicio = $("#Stotal").val();
     var TotalHoras = $("#CantH").val();
-    TotalHoras = TotalHoras.replace(".", ",");
+    TotalHoras = TotalHoras.toLocaleString("es-ES", {minimumFractionDigits: 2}).replace(".", ",");
     var Servicio = { IdServicio: 1, Monto: MontoServicio, Id_NumeroCobro: 0, Cantidad: cantidadCanchas, IdServiciosAdicionales: null, TotalHoras: TotalHoras };
     //array de servicios adicionales
     var ServiciosAdicionales = [];
@@ -301,10 +301,16 @@ function CalcularXReserva() {
         data: { IdReserva },
         url: "/Cobro/TraerPorReserva",
         success: function (response) {
+            alert(response.horas);
             var existe = false;
             var tr = "";
             var Mtotal = response.total;
-            tr = '<tr><td class="Nres">' + IdReserva + '</td><td>' + response.servicio + '</td><td>' + response.precio + '</td><td>' + response.canchas + '</td><td>' + parseFloat(response.horas).toFixed(2) + '</td><td class="Stotal">' + Mtotal + '</td><td><button class="btn btn-sm btn-danger borrar"><i class="fas fa-backspace"></i></button></td></tr>';
+             Mtotal = Mtotal.toLocaleString("es-ES", {minimumFractionDigits: 2});
+            var precio = response.precio;
+            precio = precio.toLocaleString("es-ES", {minimumFractionDigits: 2});
+            var horas = response.horas;
+            parseFloat(horas).toLocaleString("es-ES", { minimumFractionDigits: 2 });
+            tr = '<tr><td class="Nres">' + IdReserva + '</td><td>' + response.servicio + '</td><td>' + precio + '</td><td>' + response.canchas + '</td><td>' + horas + '</td><td class="Stotal">' + Mtotal + '</td><td><button class="btn btn-sm btn-danger borrar"><i class="fas fa-backspace"></i></button></td></tr>';
             $(".Nres").each(function () {
                 var tr = $(this).closest('tr');
                 var tot = $(tr).find('td:nth-child(1)').text();
@@ -371,10 +377,9 @@ function RegistrarCobroReservaManual() {
     $(".Nres").each(function () {
         var tr = $(this).closest('tr');
         var canchas = $(tr).find('td:nth-child(4)').text();
-        var monto = $(tr).find('td:nth-child(6)').text();
-        var TotalHoras =  $(tr).find('td:nth-child(5)').text();
-        TotalHoras = TotalHoras.replace(".", ",");
-        
+        var monto = $(tr).find('td:nth-child(6)').text();       
+        var TotalHoras = $(tr).find('td:nth-child(5)').text();
+        TotalHoras.toLocaleString("es-ES", { minimumFractionDigits: 2 }).replace(".", ",");              
         servicio = { IdServicio: 1, Monto: monto, Id_NumeroCobro: 0, Cantidad: canchas, IdServiciosAdicionales: null, TotalHoras: TotalHoras };
         Servicio.push(servicio);
     });
