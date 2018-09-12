@@ -6,7 +6,7 @@
     double precioServicio = Convert.ToDouble(bd.Servicio.Where(s => s.Id == 2).SingleOrDefault().Precio);
     TimeSpan hh = (TimeSpan)ViewBag.horas;
     int Canchas = ViewBag.canchas;
-    var Stotal = precioServicio * Canchas * hh.TotalHours;
+    var Stotal = precioServicio * Canchas *  hh.TotalHours;
 }
 
  <div class="panel" style="border:none;">
@@ -50,9 +50,9 @@
                          <tbody>
                              <tr>
                                  <td>@bd.Servicio.Where(s => s.Id == 2).SingleOrDefault().Nombre.Trim()</td>
-                                 <td>@precioServicio</td>
+                                 <td>@precioServicio.ToString("N")</td>
                                  <td><input id="CantC" type="text" value="@Canchas" class="form-control" readonly/></td>
-                                 <td><input id="CantH" type="text" class="form-control" value="@hh.TotalHours.ToString("N")" readonly/></td>
+                                 <td><input id="CantH" type="text" class="form-control" value="@hh.TotalHours" readonly/></td>
                                  <td>
                                      <input id="Stotal" type="text" class="form-control" value="@Stotal" readonly/>
                                  </td>

@@ -224,10 +224,10 @@ namespace BOCHAS.Controllers
 
             Subtotal sub = new Subtotal();
             sub.canchas = canchas;
-            sub.horas = Convert.ToDecimal(horas.TotalHours).ToString("N",new CultureInfo("es-ES"));
+            sub.horas = Convert.ToDecimal(horas.TotalHours);
             sub.precio = servicio.Precio;
             sub.servicio = servicio.Nombre;
-            sub.total = total;
+            sub.total =  total;
 
             return Json(sub);
         }
@@ -239,7 +239,7 @@ namespace BOCHAS.Controllers
 
             var servicio = await _context.Servicio.Where(s => s.Id == 2).SingleOrDefaultAsync();
            
-            var clases = await (from c in _context.ClaseParticular join p in _context.Persona on c.IdJugador equals p.Id where c.HoraFinReal != null && c.IdCobro == null && c.IdJugador == idJugador select new { numero = c.Id, servicio = servicio.Nombre, precio = servicio.Precio, canchas = 1, horas = c.HoraFinPrevista.TotalHours - c.HoraInicioPrevista.TotalHours, total = servicio.Precio * (Convert.ToDecimal(c.HoraFinPrevista.TotalHours) - Convert.ToDecimal(c.HoraInicioPrevista.TotalHours)) }).ToListAsync();
+            var clases = await (from c in _context.ClaseParticular join p in _context.Persona on c.IdJugador equals p.Id where c.HoraFinReal != null && c.IdCobro == null && c.IdJugador == idJugador select new { numero = c.Id, servicio = servicio.Nombre, precio = servicio.Precio.ToString("N"), canchas = 1, horas = c.HoraFinPrevista.TotalHours - c.HoraInicioPrevista.TotalHours, total = servicio.Precio * (Convert.ToDecimal(c.HoraFinPrevista.TotalHours) - Convert.ToDecimal(c.HoraInicioPrevista.TotalHours)) }).ToListAsync();
             return Json(clases);
         }
 
@@ -248,7 +248,7 @@ namespace BOCHAS.Controllers
         {
             public string servicio { set; get; }
             public decimal precio { set; get; }
-            public string horas { set; get; }
+            public decimal horas { set; get; }
             public decimal canchas { set; get; }
             public decimal total { set; get; }
         }
