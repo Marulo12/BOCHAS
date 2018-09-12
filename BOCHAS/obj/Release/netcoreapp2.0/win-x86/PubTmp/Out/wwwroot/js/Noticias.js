@@ -81,3 +81,4 @@ function confirmarBajaNoti(id) {
         , function () { alertify.error('Operacion Cancelada') });
 
 }
+

@@ -1,9 +1,11 @@
 /*global jQuery:false */
+
 (function ($) {
 
 
 	$(window).load(function(){
-      $("#navigation").sticky({ topSpacing: 0 });
+        $("#navigation").sticky({ topSpacing: 0 });
+        
     });
 	
 
@@ -74,8 +76,22 @@
             itemsTablet: [768,5],
             itemsTabletSmall: [550,2],
             itemsMobile : [480,2],
-        });
-	
+    });
+    
+    $.ajax({
+        type: "GET",
+        url: "/Presentacion/noticias",
+        success: function (response) {
+            var div = "";
+            for (var i = 0; i < response.length; i++) {
+                div += '<li><a href="'+response[i].url+'" style="width:15px;" data-caption="'+response[i].descripcion+'"><img src="'+response[i].url+'" width="350" height="200" alt="Image"></a></li>';
+            }
+            $("#Noticias").html(div);    
+            $('#Noticias a').lightbox();
+        }
+    });
+
+  
 	//nivo lightbox
 	$('.owl-carousel .item a').nivoLightbox({
 		effect: 'fadeScale',                             // The effect to use when showing the lightbox

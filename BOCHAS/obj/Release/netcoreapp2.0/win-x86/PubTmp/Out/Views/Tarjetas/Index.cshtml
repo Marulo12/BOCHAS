@@ -1,0 +1,115 @@
+﻿@model IEnumerable<BOCHAS.Models.Tarjeta>
+
+    @{
+        ViewData["Title"] = "Index";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    <style>
+        .ocultar {
+            display: none;
+        }
+    </style>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 style="padding:0px;margin:0px;"><i class="fas fa-credit-card"></i> Tarjetas</h3>
+        </div>
+        <div class="panel-body">
+            <p>
+                <a class="btn btn-sm btn-default" asp-action="Create"><i class="fas fa-plus"></i> Nueva Tarjeta</a>
+            </p>
+            
+            <div class="row" style="height:100%;"><img id="ImgLoad" src="~/images/extras/dots-2.gif" width="200" /></div>
+            <table id="TTarjeta" class="table ocultar">
+                <thead style="background-color: rgba(158, 44, 44, 0.9);color:white;">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Nombre)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Descripcion)
+                        </th>
+                        <th>
+                         Tipo
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nombre)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Descripcion)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TipoTarjeta)
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.Id" data-toggle="tooltip" title="Editar" style="font-size:13px;"><i class="far fa-edit" style="font-size:20px;"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    @section Scripts{
+        <script>
+
+             $(window).ready(function () {
+                 $("#TTarjeta").removeClass("ocultar");
+                 $("#ImgLoad").css("display", "none");
+             $("#TTarjeta").DataTable({
+                 searching: true,
+                 responsive: true,
+                 search: "Filtro&nbsp;:",
+                 dom: 'Bfrtip',
+                 buttons: [
+                     {
+                         extend: 'excel',
+                         text: 'Excel',
+                         title: 'BOCHAS PADEL - Tarjetas'
+                     },
+                     {
+                         extend: 'pdfHtml5',
+                         text: 'PDF',
+                         title: 'BOCHAS PADEL - Tarjetas'
+
+                     },
+                     {
+                         extend: 'print',
+                         text: 'Imprimir',
+                         title: 'BOCHAS PADEL - Tarjetas'
+
+                     }
+                 ],
+                 language: {
+                     processing: "Procesando",
+                     search: "Filtro&nbsp;:",
+                     info: "Pagina _PAGE_ de _PAGES_  / <b>Total de Registros: _MAX_</b> ",
+                     infoEmpty: "",
+                     infoFiltered: "",
+                     zeroRecords: "Ningun registro coincide",
+                     lengthMenu: "Mostrar _MENU_ registros",
+                     infoPostFix: "",
+                     loadingRecords: "Cargando...",
+                     emptyTable: "No hay registros",
+                     paginate: {
+                         first: "Primero",
+                         previous: "Anterior",
+                         next: "Siguiente",
+                         last: "Ultimo"
+                     }
+                 }
+
+                 });
+                
+         });
+    $('[data-toggle="tooltip"]').tooltip();
+
+        </script>}

@@ -3,12 +3,11 @@
 @using Microsoft.AspNetCore.Http;
 @using BOCHAS.Models;
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BOCHAS PADEL</title>
-   
+    <title>BOCHAS PADEL</title>    
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
@@ -64,16 +63,10 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
                                 <i class="lnr lnr-alarm" style="color:white;"></i>
-                                <span id="SpanNotifica" class="badge bg-danger">4<span class="waves"></span></span>
+                                <span class="badge bg-danger"><label id="LAlerta"><i class="fas fa-sync fa-spin"></i></label>  <span class="waves"></span></span>
                             </a>
-                            <ul class="dropdown-menu notifications">
-                                <li><a href="#" class="notification-item"><span class="dot bg-warning"></span>System space is almost full</a></li>
-                                <li><a href="#" class="notification-item"><span class="dot bg-danger"></span>You have 9 unfinished tasks</a></li>
-                                <li><a href="#" class="notification-item"><span class="dot bg-success"></span>Monthly report is available</a></li>
-                                <li><a href="#" class="notification-item"><span class="dot bg-warning"></span>Weekly meeting in 1 hour</a></li>
-                                <li><a href="#" class="notification-item"><span class="dot bg-success"></span>Your request has been approved</a></li>
-                                <li><a href="#" class="more">See all notifications</a></li>
-
+                            <ul id="Alertas" class="dropdown-menu notifications">                                
+                                <li><a href="#" class="notification-item"><span class="dot bg-danger"></span>No hay alertas</a></li>                                                                                                                               
                             </ul>
                         </li>
                         <li class="dropdown">
@@ -192,7 +185,7 @@
                                         <a asp-action="Index" asp-controller="Reportes"><i class="fas fa-file-alt"></i> <span>&nbsp;&nbsp;Reportes</span></a>
                                         
                                     </li>
-                                    <li><a href="charts.html"><i class="lnr lnr-chart-bars"></i><span>Estadísticas</span></a></li>
+                                    <li><a asp-action="Index" asp-controller="Estadisticas"><i class="lnr lnr-chart-bars"></i><span>Estadísticas</span></a></li>
                                 </ul>
                             </div>
 
@@ -203,8 +196,6 @@
                             <a href="#subPagesAdmin" data-toggle="collapse" class="collapsed"><i class="fas fa-cog fa-spin"></i><span>&nbsp;Administracion</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                             <div id="subPagesAdmin" class="collapse ">
                                 <ul class="nav">
-                                    <li><a asp-action="NuevaCancha" asp-controller="Canchas" class=""><i class="fab fa-codepen"></i> <span>&nbsp;&nbsp;Canchas</span></a></li>
-                                    <li><a asp-action="Index" asp-controller="ServiciosAdicionales" class=""><i class="fab fa-dribbble"></i> <span>&nbsp;&nbsp;Servicios</span></a></li>
                                     <li>
                                         <a href="#subPagesEmpleados" data-toggle="collapse" class="collapsed"><i class="fa fa-fw fa-user-tie"></i><span>&nbsp;&nbsp;Empleados</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                                         <div id="subPagesEmpleados" class="collapse ">
@@ -215,6 +206,10 @@
                                             </ul>
                                         </div>
                                     </li>
+                                    <li><a asp-action="NuevaCancha" asp-controller="Canchas" class=""><i class="fab fa-codepen"></i> <span>&nbsp;&nbsp;Canchas</span></a></li>
+                                    <li><a asp-action="Index" asp-controller="Servicios" class=""><i class="fab fa-dribbble"></i> <span>&nbsp;&nbsp;Servicios</span></a></li>
+                                    <li><a asp-action="Index" asp-controller="Tarjetas" class=""><i class="fas fa-credit-card"></i> <span>&nbsp;&nbsp;Tarjetas</span></a></li>
+
                                     <li><a asp-action="Index" asp-controller="Sessions"><i class="fab fa-algolia"></i> <span>&nbsp;&nbsp;Sessiones</span></a></li>
                                 </ul>
                             </div>

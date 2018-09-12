@@ -1,4 +1,5 @@
 ﻿
+
 $(document).ready(function () {
 
     ArmarListadoAdicionales();
@@ -105,9 +106,8 @@ function CalcularTotal() {
         if ($(this).is(':checked')) {
             var tr = $(this).closest('tr');
             var tot = $(tr).find('td:nth-child(4) .SAtot').val();
-            ServiciosAdicionales = parseInt(ServiciosAdicionales) + parseInt(tot);
+            ServiciosAdicionales = parseInt(ServiciosAdicionales) + parseInt(tot);            
         }
-
     });
     var Total = parseInt(TotalServicio) + parseInt(ServiciosAdicionales);
     $("#InputTotalR").val(Total);
@@ -134,6 +134,7 @@ function RegistrarCobroReserva() {
     var cantidadCanchas = $("#CantC").val();
     var MontoServicio = $("#Stotal").val();
     var TotalHoras = $("#CantH").val();
+   // TotalHoras = TotalHoras.toLocaleString("es-ES", {minimumFractionDigits: 2}).replace(".", ",");
     var Servicio = { IdServicio: 1, Monto: MontoServicio, Id_NumeroCobro: 0, Cantidad: cantidadCanchas, IdServiciosAdicionales: null, TotalHoras: TotalHoras };
     //array de servicios adicionales
     var ServiciosAdicionales = [];
@@ -302,10 +303,16 @@ function CalcularXReserva() {
         data: { IdReserva },
         url: "/Cobro/TraerPorReserva",
         success: function (response) {
+           
             var existe = false;
             var tr = "";
-
-            tr = '<tr><td class="Nres">' + IdReserva + '</td><td>' + response.servicio + '</td><td>' + response.precio + '</td><td>' + response.canchas + '</td><td>' + Number.parseFloat(response.horas) + '</td><td class="Stotal">' + response.total + '</td><td><button class="btn btn-sm btn-danger borrar"><i class="fas fa-backspace"></i></button></td></tr>';
+            var Mtotal = response.total;
+            // Mtotal = Mtotal.toLocaleString("es-ES", {minimumFractionDigits: 2});
+            var precio = response.precio;
+          //  precio = precio.toLocaleString("es-ES", {minimumFractionDigits: 2});
+            var horas = response.horas;
+           
+            tr = '<tr><td class="Nres">' + IdReserva + '</td><td>' + response.servicio + '</td><td>' + precio + '</td><td>' + response.canchas + '</td><td>' + horas + '</td><td class="Stotal">' + Mtotal + '</td><td><button class="btn btn-sm btn-danger borrar"><i class="fas fa-backspace"></i></button></td></tr>';
             $(".Nres").each(function () {
                 var tr = $(this).closest('tr');
                 var tot = $(tr).find('td:nth-child(1)').text();
@@ -328,14 +335,15 @@ function CalcularTotalReservas() {
     $(".Stotal ").each(function () {
         var tr = $(this).closest('tr');
         var tot = $(tr).find('td:nth-child(6)').text();
-        TotalServicio = parseInt(TotalServicio) + parseInt(tot);
+        TotalServicio = TotalServicio + parseInt(tot);
+        
     });
 
     $(".checkSA ").each(function () {
         if ($(this).is(':checked')) {
             var tr = $(this).closest('tr');
             var tot = $(tr).find('td:nth-child(4) .SAtot').val();
-            ServiciosAdicionales = parseInt(ServiciosAdicionales) + parseInt(tot);
+            ServiciosAdicionales = parseInt(ServiciosAdicionales) + parseInt(tot);           
         }
 
     });
@@ -352,7 +360,7 @@ function RegistrarCobroReservaManual() {
     var Nreserva = [];
     $(".Nres").each(function () {
         var tr = $(this).closest('tr');
-        var tot = $(tr).find('td:nth-child(1)').text();
+        var tot =$(tr).find('td:nth-child(1)').text();
         Nreserva.push(tot);
     });
     var Fecha = $("#FechaCobro").val();
@@ -371,8 +379,10 @@ function RegistrarCobroReservaManual() {
     $(".Nres").each(function () {
         var tr = $(this).closest('tr');
         var canchas = $(tr).find('td:nth-child(4)').text();
-        var monto = $(tr).find('td:nth-child(6)').text();
+        var monto = $(tr).find('td:nth-child(6)').text();       
         var TotalHoras = $(tr).find('td:nth-child(5)').text();
+       
+        
         servicio = { IdServicio: 1, Monto: monto, Id_NumeroCobro: 0, Cantidad: canchas, IdServiciosAdicionales: null, TotalHoras: TotalHoras };
         Servicio.push(servicio);
     });
@@ -421,7 +431,7 @@ function TraerClases() {
             $("#TDetalleC").empty();
             var tr = "";                                
             for (var i = 0; i < response.length; i++) {
-                tr += '<tr><td >' + response[i].numero + '</td><td>' + response[i].servicio + '</td><td>' + response[i].precio + '</td><td>' + response[i].canchas + '</td><td>' + Number.parseFloat(response[i].horas) + '</td><td >' + response[i].total + '</td><td><button class="btn btn-sm btn-success Aclases"><i class="fas fa-plus"></i></button></td></tr>';
+                tr += '<tr><td >' + response[i].numero + '</td><td>' + response[i].servicio + '</td><td>' + response[i].precio + '</td><td>' + response[i].canchas + '</td><td>' + response[i].horas + '</td><td >' + response[i].total + '</td><td><button class="btn btn-sm btn-success Aclases"><i class="fas fa-plus"></i></button></td></tr>';
             }
 
             $("#TDetalleC").append(tr);
@@ -463,8 +473,9 @@ function RegistrarCobroClaseManual() {
     $(".Nrclase").each(function () {
         var tr = $(this).closest('tr');
         var canchas = $(tr).find('td:nth-child(4)').text();
-        var monto = $(tr).find('td:nth-child(6)').text();
+        var monto =  $(tr).find('td:nth-child(6)').text();
         var TotalHoras = $(tr).find('td:nth-child(5)').text();
+       // TotalHoras = TotalHoras.replace(".",",");
         servicio = { IdServicio: 2, Monto: monto, Id_NumeroCobro: 0, Cantidad: canchas, IdServiciosAdicionales: null, TotalHoras: TotalHoras };
         Servicio.push(servicio);
     });

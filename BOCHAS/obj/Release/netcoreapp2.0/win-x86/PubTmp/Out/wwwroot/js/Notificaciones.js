@@ -1,4 +1,6 @@
-﻿var user = function (user) {
+﻿
+
+var user = function (user) {
     if (user.length === 0 ) {
         $("#Sig").empty();
         $("#Sig").append('<li><a asp-action="Index" asp-controller="Sessions" class="notification-item"><span class="dot bg-danger"></span> No hay jugadores  Conectados</a></li>');
@@ -10,7 +12,7 @@
             $("#Sig").append('<li><a asp-action="Index" asp-controller="Sessions" class="notification-item"><span class="dot bg-success"></span>' + user[i].us + ' Conectado</a></li>');
         }
     }   
-}
+};
 
 var reservaJ = function (reservaJ) {
     $("#Listareserva").empty();
@@ -111,3 +113,4 @@ $.ajax({
     }
 
 });
+
