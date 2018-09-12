@@ -12,8 +12,11 @@ namespace BOCHAS.Models
         public int Cantidad { get; set; }
         public int? IdServiciosAdicionales { get; set; }
         public double? TotalHoras { get; set; }
+        public int? IdNumeroServicio { get; set; }
 
         public Cobro IdNumeroCobroNavigation { get; set; }
+        public DetalleAlquilerCancha IdNumeroServicio1 { get; set; }
+        public ClaseParticular IdNumeroServicioNavigation { get; set; }
         public Servicio IdServicioNavigation { get; set; }
         public ServiciosAdicionales IdServiciosAdicionalesNavigation { get; set; }
     }

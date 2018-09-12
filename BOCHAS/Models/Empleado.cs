@@ -5,6 +5,11 @@ namespace BOCHAS.Models
 {
     public partial class Empleado
     {
+        public Empleado()
+        {
+            HorariosProfesor = new HashSet<HorariosProfesor>();
+        }
+
         public int IdPersona { get; set; }
         public int IdCargo { get; set; }
         public bool Activo { get; set; }
@@ -13,5 +18,6 @@ namespace BOCHAS.Models
 
         public Cargo IdCargoNavigation { get; set; }
         public Persona IdPersonaNavigation { get; set; }
+        public ICollection<HorariosProfesor> HorariosProfesor { get; set; }
     }
 }

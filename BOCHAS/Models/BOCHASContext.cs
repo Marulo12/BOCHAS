@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-
 namespace BOCHAS.Models
 {
     public partial class BOCHASContext : DbContext
@@ -21,6 +20,7 @@ namespace BOCHAS.Models
         public virtual DbSet<EstadoAlquiler> EstadoAlquiler { get; set; }
         public virtual DbSet<EstadoCancha> EstadoCancha { get; set; }
         public virtual DbSet<EstadoDetalleAlquiler> EstadoDetalleAlquiler { get; set; }
+        public virtual DbSet<HorariosProfesor> HorariosProfesor { get; set; }
         public virtual DbSet<Jugador> Jugador { get; set; }
         public virtual DbSet<Localidad> Localidad { get; set; }
         public virtual DbSet<MediodePago> MediodePago { get; set; }
@@ -37,15 +37,13 @@ namespace BOCHAS.Models
         public virtual DbSet<RepoJugador> RepoJugadores { get; set; }
         public virtual DbSet<CanchasEfectivas> ReporCanchas { get; set; }
         public virtual DbSet<Estadisticas> Estadisticas { get; set; }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 
-                 //  optionsBuilder.UseSqlServer(@"Data Source=mlb;Initial Catalog=BOCHAS;Integrated Security=True");
                 optionsBuilder.UseSqlServer(@"Data Source=sql5020.site4now.net;Initial Catalog=DB_A3F6C9_BOCHAS;User ID=DB_A3F6C9_BOCHAS_admin;Password=bochas2018");
-                // optionsBuilder.UseSqlServer(@"Data Source=sistemas04;Initial Catalog=BOCHAS;User ID=bsp;Password=bochas");    
+                //optionsBuilder.UseSqlServer(@"Data Source=sistemas04;Initial Catalog=BOCHAS;User ID=bsp;Password=bochas");
             }
         }
 
@@ -250,6 +248,8 @@ namespace BOCHAS.Models
             {
                 entity.Property(e => e.IdNumeroCobro).HasColumnName("Id_NumeroCobro");
 
+                entity.Property(e => e.IdNumeroServicio).HasColumnName("IdNumero_Servicio");
+
                 entity.Property(e => e.Monto).HasColumnType("money");
 
                 entity.HasOne(d => d.IdNumeroCobroNavigation)
@@ -257,6 +257,16 @@ namespace BOCHAS.Models
                     .HasForeignKey(d => d.IdNumeroCobro)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_DetalleCobro_Cobro");
+
+                entity.HasOne(d => d.IdNumeroServicioNavigation)
+                    .WithMany(p => p.DetalleCobro)
+                    .HasForeignKey(d => d.IdNumeroServicio)
+                    .HasConstraintName("FK_DetalleCobro_ClaseParticular");
+
+                entity.HasOne(d => d.IdNumeroServicio1)
+                    .WithMany(p => p.DetalleCobro)
+                    .HasForeignKey(d => d.IdNumeroServicio)
+                    .HasConstraintName("FK_DetalleCobro_Detalle_AlquilerCancha");
 
                 entity.HasOne(d => d.IdServicioNavigation)
                     .WithMany(p => p.DetalleCobro)
@@ -353,6 +363,14 @@ namespace BOCHAS.Models
                 entity.Property(e => e.Nombre)
                     .IsRequired()
                     .HasColumnType("nchar(15)");
+            });
+
+            modelBuilder.Entity<HorariosProfesor>(entity =>
+            {
+                entity.HasOne(d => d.IdProfesorNavigation)
+                    .WithMany(p => p.HorariosProfesor)
+                    .HasForeignKey(d => d.IdProfesor)
+                    .HasConstraintName("FK_HorariosProfesor_Empleado");
             });
 
             modelBuilder.Entity<Jugador>(entity =>
