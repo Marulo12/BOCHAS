@@ -91,9 +91,10 @@ namespace BOCHAS.Controllers
             if (_context.SaveChanges() == 1)
             {
                 int numeroCobro = _context.Cobro.Max(c => c.Numero);
-                DetalleCobro dc = new DetalleCobro();
-                dc = Servicio;
+                DetalleCobro dc = new DetalleCobro();              
+                dc = Servicio;               
                 dc.IdNumeroCobro = numeroCobro;
+                dc.IdNumeroServicioAlquiler = Nreserva;
                 _context.DetalleCobro.Add(dc);
                 _context.SaveChanges();
 
@@ -144,6 +145,7 @@ namespace BOCHAS.Controllers
                 DetalleCobro dc = new DetalleCobro();
                 dc = Servicio;
                 dc.IdNumeroCobro = numeroCobro;
+                dc.IdNumeroServicioClases = Nclase;
                 _context.DetalleCobro.Add(dc);
                 _context.SaveChanges();
 

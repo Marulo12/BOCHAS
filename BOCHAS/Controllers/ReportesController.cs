@@ -54,15 +54,31 @@ namespace BOCHAS.Controllers
         }
         public IActionResult ReporteCobroReserva(int NCobro)
         {
-          //  try
-          //  {
-                var cobro = _context.Cobro.Include(c => c.DetalleCobro).Include(c => c.DetalleCobro).Include(c => c.IdUsuarioNavigation).Include(c => c.IdMedioPagoNavigation).Where(c => c.Numero == NCobro).SingleOrDefault();
+            try
+            {
+                var cobro = _context.Cobro.Include(c => c.DetalleCobro).Include(c => c.IdUsuarioNavigation).Include(c => c.IdMedioPagoNavigation).Where(c => c.Numero == NCobro).SingleOrDefault();
                 return new ViewAsPdf("ReporteCobroReserva", cobro);
-         //   }
-        //    catch
-         //   {
-           //     return NotFound();
-           // }
+            }
+            catch
+            {
+                return NotFound();
+            }
+
+        }
+
+        public IActionResult ReporteCobroReservaIndividual(int NCobro, int NReserva) {
+
+            try
+            {
+
+                var cobro = _context.Cobro.Include(c => c.DetalleCobro).Include(c => c.IdUsuarioNavigation).Include(c => c.IdMedioPagoNavigation).Where(c => c.Numero == NCobro).SingleOrDefault();
+                TempData["Reserva"] = NReserva;
+                return new ViewAsPdf("ReporteCobroReservaIndividual", cobro);
+            }
+            catch
+            {
+                return NotFound();
+            }
 
         }
         public IActionResult ReporteCobroClase(int NCobro)

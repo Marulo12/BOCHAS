@@ -5,11 +5,6 @@ namespace BOCHAS.Models
 {
     public partial class DetalleAlquilerCancha
     {
-        public DetalleAlquilerCancha()
-        {
-            DetalleCobro = new HashSet<DetalleCobro>();
-        }
-
         public int Id { get; set; }
         public TimeSpan HoraReservaDesde { get; set; }
         public int IdCancha { get; set; }
@@ -20,6 +15,5 @@ namespace BOCHAS.Models
         public AlquilerCancha IdAlquilerCanchaNavigation { get; set; }
         public Cancha IdCanchaNavigation { get; set; }
         public EstadoDetalleAlquiler IdEstadoDetalleNavigation { get; set; }
-        public ICollection<DetalleCobro> DetalleCobro { get; set; }
     }
 }

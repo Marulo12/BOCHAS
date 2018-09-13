@@ -43,7 +43,6 @@ namespace BOCHAS.Models
             {
 
                 optionsBuilder.UseSqlServer(@"Data Source=sql5020.site4now.net;Initial Catalog=DB_A3F6C9_BOCHAS;User ID=DB_A3F6C9_BOCHAS_admin;Password=bochas2018");
-                //optionsBuilder.UseSqlServer(@"Data Source=sistemas04;Initial Catalog=BOCHAS;User ID=bsp;Password=bochas");
             }
         }
 
@@ -248,7 +247,9 @@ namespace BOCHAS.Models
             {
                 entity.Property(e => e.IdNumeroCobro).HasColumnName("Id_NumeroCobro");
 
-                entity.Property(e => e.IdNumeroServicio).HasColumnName("IdNumero_Servicio");
+                entity.Property(e => e.IdNumeroServicioAlquiler).HasColumnName("IdNumero_ServicioAlquiler");
+
+                entity.Property(e => e.IdNumeroServicioClases).HasColumnName("IdNumero_ServicioClases");
 
                 entity.Property(e => e.Monto).HasColumnType("money");
 
@@ -258,15 +259,15 @@ namespace BOCHAS.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_DetalleCobro_Cobro");
 
-                entity.HasOne(d => d.IdNumeroServicioNavigation)
+                entity.HasOne(d => d.IdNumeroServicioAlquilerNavigation)
                     .WithMany(p => p.DetalleCobro)
-                    .HasForeignKey(d => d.IdNumeroServicio)
-                    .HasConstraintName("FK_DetalleCobro_ClaseParticular");
+                    .HasForeignKey(d => d.IdNumeroServicioAlquiler)
+                    .HasConstraintName("FK_DetalleCobro_Alquiler_Cancha");
 
-                entity.HasOne(d => d.IdNumeroServicio1)
+                entity.HasOne(d => d.IdNumeroServicioClasesNavigation)
                     .WithMany(p => p.DetalleCobro)
-                    .HasForeignKey(d => d.IdNumeroServicio)
-                    .HasConstraintName("FK_DetalleCobro_Detalle_AlquilerCancha");
+                    .HasForeignKey(d => d.IdNumeroServicioClases)
+                    .HasConstraintName("FK_DetalleCobro_ClaseParticular1");
 
                 entity.HasOne(d => d.IdServicioNavigation)
                     .WithMany(p => p.DetalleCobro)
