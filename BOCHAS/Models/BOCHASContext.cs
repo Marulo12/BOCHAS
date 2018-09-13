@@ -24,6 +24,7 @@ namespace BOCHAS.Models
         public virtual DbSet<Jugador> Jugador { get; set; }
         public virtual DbSet<Localidad> Localidad { get; set; }
         public virtual DbSet<MediodePago> MediodePago { get; set; }
+        public virtual DbSet<NotaConsumoServicioAdicional> NotaConsumoServicioAdicional { get; set; }
         public virtual DbSet<Noticias> Noticias { get; set; }
         public virtual DbSet<Persona> Persona { get; set; }
         public virtual DbSet<Servicio> Servicio { get; set; }
@@ -34,15 +35,18 @@ namespace BOCHAS.Models
         public virtual DbSet<TipoJugador> TipoJugador { get; set; }
         public virtual DbSet<TipoMaterial> TipoMaterial { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
+
         public virtual DbSet<RepoJugador> RepoJugadores { get; set; }
         public virtual DbSet<CanchasEfectivas> ReporCanchas { get; set; }
         public virtual DbSet<Estadisticas> Estadisticas { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 
-                optionsBuilder.UseSqlServer(@"Data Source=sql5020.site4now.net;Initial Catalog=DB_A3F6C9_BOCHAS;User ID=DB_A3F6C9_BOCHAS_admin;Password=bochas2018");
+                optionsBuilder.UseSqlServer(@"Data Source=SISTEMAS04;Initial Catalog=BOCHAS;Persist Security Info=True;User ID=BSP;Password=bochas");
+                //optionsBuilder.UseSqlServer(@"Data Source=sql5020.site4now.net;Initial Catalog=DB_A3F6C9_BOCHAS;User ID=DB_A3F6C9_BOCHAS_admin;Password=bochas2018");
             }
         }
 
@@ -403,6 +407,27 @@ namespace BOCHAS.Models
                 entity.Property(e => e.Nombre)
                     .IsRequired()
                     .HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<NotaConsumoServicioAdicional>(entity =>
+            {
+                entity.Property(e => e.Cantidad).HasColumnName("cantidad");
+
+                entity.HasOne(d => d.IdNumeroAlquilerNavigation)
+                    .WithMany(p => p.NotaConsumoServicioAdicional)
+                    .HasForeignKey(d => d.IdNumeroAlquiler)
+                    .HasConstraintName("FK_NotaConsumoServicioAdicional_Alquiler_Cancha");
+
+                entity.HasOne(d => d.IdNumeroClaseNavigation)
+                    .WithMany(p => p.NotaConsumoServicioAdicional)
+                    .HasForeignKey(d => d.IdNumeroClase)
+                    .HasConstraintName("FK_NotaConsumoServicioAdicional_ClaseParticular");
+
+                entity.HasOne(d => d.IdServicioAdicionalNavigation)
+                    .WithMany(p => p.NotaConsumoServicioAdicional)
+                    .HasForeignKey(d => d.IdServicioAdicional)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_NotaConsumoServicioAdicional_ServiciosAdicionales");
             });
 
             modelBuilder.Entity<Noticias>(entity =>
