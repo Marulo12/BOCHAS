@@ -1,5 +1,4 @@
 ﻿
-
 $(document).ready(function () {
 
     ArmarListadoAdicionales();
@@ -47,7 +46,11 @@ $(document).ready(function () {
             }
 
         });
-        if (existe) { alertify.error("Esa reserva ya esta incorporada para el cobro"); } else {
+        if ($("#TDetalleSC").html() !== "") {
+            alertify.error("Ya hay una clase incorporada para cobrar");
+            return;
+        }
+        if (existe) { alertify.error("Esa clase ya esta incorporada para el cobro"); } else {
             $("#TDetalleSC").append('<tr class="Nrclase"><td>' + $(tr).find('td:nth-child(1)').text() + '</td><td>' + $(tr).find('td:nth-child(2)').text() + '</td><td>' + $(tr).find('td:nth-child(3)').text() + '</td><td>' + $(tr).find('td:nth-child(4)').text() + '</td><td>' + $(tr).find('td:nth-child(5)').text() + '</td><td class="Stotal">' + $(tr).find('td:nth-child(6)').text() + '</td><td><button class="btn btn-sm btn-danger borrarClase"><i class="fas fa-backspace"></i></button></td><tr>');
         }
 
@@ -313,6 +316,11 @@ function CalcularXReserva() {
             var horas = response.horas;
            
             tr = '<tr><td class="Nres">' + IdReserva + '</td><td>' + response.servicio + '</td><td>' + precio + '</td><td>' + response.canchas + '</td><td>' + horas + '</td><td class="Stotal">' + Mtotal + '</td><td><button class="btn btn-sm btn-danger borrar"><i class="fas fa-backspace"></i></button></td></tr>';
+
+            if ($("#TDetalleR").html() !== "") {
+                alertify.error("Ya hay una reserva incorporada para cobrar");
+                return;
+            }
             $(".Nres").each(function () {
                 var tr = $(this).closest('tr');
                 var tot = $(tr).find('td:nth-child(1)').text();
@@ -432,7 +440,7 @@ function TraerClases() {
             for (var i = 0; i < response.length; i++) {
                 tr += '<tr><td >' + response[i].numero + '</td><td>' + response[i].servicio + '</td><td>' + response[i].precio + '</td><td>' + response[i].canchas + '</td><td>' + response[i].horas + '</td><td >' + response[i].total + '</td><td><button class="btn btn-sm btn-success Aclases"><i class="fas fa-plus"></i></button></td></tr>';
             }
-
+          
             $("#TDetalleC").append(tr);
         },
         failure: function (response) {
@@ -510,15 +518,9 @@ function RegistrarCobroClaseManual() {
 
 }
 
-
-
 function LimpiarClase() {
     window.location = "/Cobro/CobroManualClases";
 }
-
-
-
-
 
 function Limpiar() {
     window.location = "/Cobro/CobroManual";

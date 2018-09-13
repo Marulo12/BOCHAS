@@ -37,9 +37,6 @@
     <Content Update="Views\Reportes\ReporteClase.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Views\Reportes\ReporteCobroReservaIndividual.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
     <Content Update="Views\Reportes\ReporteReserva.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
