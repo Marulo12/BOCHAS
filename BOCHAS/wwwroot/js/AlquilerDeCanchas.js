@@ -105,7 +105,13 @@
     $("#BtnConPart").click(function () {
         ConsultaParticular();
     });
-    
+     $.ajax({
+    type:"GET",
+    url:"/ServiciosAdicionales/CargaParcial",
+        success:function(response){
+        $("#ModalServicioA .SA").html(response);
+        }
+    });
 });
 
 
@@ -533,7 +539,15 @@ function MensajesdeAcciones() {
         alertify.success("Reserva Confirmada!!");
     }
     if ($("#Respuesta").val() === "COMENZADO") {
-        alertify.success("Reserva Comenzada!!");
+        alertify.confirm('Servicio', 'Desea Incorporar Servicios Adicionales?', function () {
+            alertify.success("Reserva Comenzada!!");
+            $("#ModalServicioA").modal();
+            $("#NReserva").text($("#NReservaFinalizada").val());
+
+        }
+            , function () { alertify.error('Operacion cancelada'); });
+      
+
     }
     if ($("#Respuesta").val() === "Cancelado") {
         alertify.success("Reserva Cancelada");

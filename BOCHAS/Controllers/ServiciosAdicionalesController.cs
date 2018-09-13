@@ -24,7 +24,11 @@ namespace BOCHAS.Controllers
         {
             return View(await _context.ServiciosAdicionales.ToListAsync());
         }
-
+        public async Task<IActionResult> CargaParcial()
+        {
+            var Servicios =await _context.ServiciosAdicionales.Where(s => s.Activo == true).ToListAsync();
+            return PartialView(Servicios);
+        }
         // GET: ServiciosAdicionales/Details/5
         public async Task<IActionResult> Details(int? id)
         {

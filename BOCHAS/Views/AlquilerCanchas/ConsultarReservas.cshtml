@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "ConsultarReservas";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    
 }
 
 <div class="panel panel-primary" style="padding:0px;margin:0px;">
@@ -17,7 +18,7 @@
                 <li role="presentation"><a asp-action="Index" asp-controller="AlquilerCanchas">Consulta Particular</a></li>
             </ul>
         </div>
-
+        
         <hr />
         <img id="ImgLoad" src="~/images/extras/dots-2.gif" alt="" width="200" />
         <table id="TablaReservasCons" class="table table-striped" style="display:none;width:100%;margin-left:0px;margin-right:0px;">
@@ -101,7 +102,7 @@
                             </div>
                         </td>
                     </tr>
-                }
+                                    }
             </tbody>
         </table>
 
@@ -204,11 +205,30 @@
     </div>
 
 </div>
+<div id="ModalServicioA" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <form>
+            <!-- Modal content-->
+            <div class="modal-content">
+
+                <div class="modal-body SA" style="padding-bottom:0px;">
 
 
+
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-success" value="Aceptar">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </form>
+            </div>
+    
+
+</div>
 
 @section Scripts{
     <script src="~/js/AlquilerDeCanchas.js"></script>
-   
+    
 
 }
