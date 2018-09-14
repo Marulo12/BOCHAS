@@ -1,109 +1,112 @@
 ﻿@model IEnumerable<BOCHAS.Models.AlquilerCancha>
-@{
-    Layout = null;
-    BOCHASContext bd = new BOCHASContext();
-}
-<!DOCTYPE html>
+@using Hanssens.Net;
+    @{
 
-<html style="padding:0px;margin:0px;">
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Reporte Reservas</title>
-    
-    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
-</head>
-<body style="padding:0px;margin:0px;">
+        Layout = null;
+        BOCHASContext bd = new BOCHASContext();
+        LocalStorage l = new LocalStorage();
+    }
+    <!DOCTYPE html>
 
-    <img class="img-responsive" src="~/images/LogoBochas.png" width="50" style="float:left;position:absolute;z-index:10000" />
-    <label style="float:right;">Fecha: @DateTime.Now.Date.ToString("dd/MM/yyyy")</label>
-    <br />
-    <h1 style="font-size:50px;padding-left:38%;font-family:'Times New Roman', Times, serif">Bochas Padel</h1>
-    <hr />
-    <h2 style="padding-left:24%;"><img src="~/images/extras/padel3.png" width="160" />&nbsp;&nbsp;&nbsp;Listado de Reservas</h2>
-    <div class="container-fluid">
-        <h5>Desde el @TempData["fecD"] Hasta @TempData["fecH"]</h5>
+    <html style="padding:0px;margin:0px;">
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Reporte Reservas</title>
 
-        <table class="table table-condensed" style="margin:0px;width:100%;">
-            <thead style="background-color: rgba(0, 104, 253, 0.8);color:white;display: table-caption">
-                <tr>
-                    <th style="width:10%">
-                        @Html.DisplayNameFor(model => model.Numero)
-                    </th>
-                    <th style="width:10%">
-                        @Html.DisplayNameFor(model => model.FechaPedido)
-                    </th>
-                    <th style="width:10%">
-                        @Html.DisplayNameFor(model => model.FechaReserva)
-                    </th>
-                    <th style="width:10%">
-                        @Html.DisplayNameFor(model => model.FechaCancelacion)
-                    </th>
+        <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    </head>
+    <body style="padding:0px;margin:0px;">
 
-                    <th style="width:10%">
-                        Jugador
-                    </th>
-                    <th style="width:10%;text-align:center">
-                        Recibo
-                    </th>
-                    <th style="width:10%">
-                        Estado
-                    </th>
-                    <th style="width:20%;text-align:center;">Canchas</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
+        <img class="img-responsive" src="~/images/LogoBochas.png" width="50" style="float:left;position:absolute;z-index:10000" />
+        <label style="float:right;">Fecha: @DateTime.Now.Date.ToString("dd/MM/yyyy")</label>
+        <br />
+        <h1 style="font-size:50px;padding-left:38%;font-family:'Times New Roman', Times, serif">Bochas Padel</h1>
+        <hr />
+        <h2 style="padding-left:24%;"><img src="~/images/extras/padel3.png" width="160" />&nbsp;&nbsp;&nbsp;Listado de Reservas</h2>
+        <div class="container-fluid">
+            <h5>Desde el @l.Get("fecD") Hasta @l.Get("fecH")</h5>
+
+            <table class="table table-condensed" style="margin:0px;width:100%;">
+                <thead style="background-color: rgba(0, 104, 253, 0.8);color:white;display: table-caption">
                     <tr>
-                        <td style="width:10%">
-                            @Html.DisplayFor(modelItem => item.Numero)
-                        </td>
-                        <td style="width:10%">
-                            @item.FechaPedido.Value.Date.ToString("dd/MM/yyyy")
-                        </td>
-                        <td style="width:10%">
-                            @item.FechaReserva.Value.Date.ToString("dd/MM/yyyy")
-                        </td>
-                        <td style="width:10%">
-                            @{ if (item.FechaCancelacion != null)
-                                {
-                                    <label>
-                                        @item.FechaCancelacion.Value.Date.ToString("dd/MM/yyyy")
-                                    </label>
-                                }
-                                else
-                                { <label>-</label> }
-                            }
-                        </td>
+                        <th style="width:10%">
+                            @Html.DisplayNameFor(model => model.Numero)
+                        </th>
+                        <th style="width:10%">
+                            @Html.DisplayNameFor(model => model.FechaPedido)
+                        </th>
+                        <th style="width:10%">
+                            @Html.DisplayNameFor(model => model.FechaReserva)
+                        </th>
+                        <th style="width:10%">
+                            @Html.DisplayNameFor(model => model.FechaCancelacion)
+                        </th>
 
-                        <td style="width:10%">
-                            @Html.DisplayFor(modelItem => item.IdClienteNavigation.Persona.SingleOrDefault().Nombre) @Html.DisplayFor(modelItem => item.IdClienteNavigation.Persona.SingleOrDefault().Apellido)
-                        </td>
-                        <td style="text-align:center;width:10%;">
-                            @Html.DisplayFor(modelItem => item.IdCobroNavigation.Numero)
-                        </td>
-
-                        <td style="width:10%">
-                            @Html.DisplayFor(modelItem => item.IdEstadoNavigation.Nombre)
-                        </td>
-                        <td style="width:20%">
-                            <ul class="list-group">
-                                @{
-                                    foreach (var det in bd.DetalleAlquilerCancha.Where(d => d.IdAlquilerCancha == item.Numero).ToList())
+                        <th style="width:10%">
+                            Jugador
+                        </th>
+                        <th style="width:10%;text-align:center">
+                            Recibo
+                        </th>
+                        <th style="width:10%">
+                            Estado
+                        </th>
+                        <th style="width:20%;text-align:center;">Canchas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td style="width:10%">
+                                @Html.DisplayFor(modelItem => item.Numero)
+                            </td>
+                            <td style="width:10%">
+                                @item.FechaPedido.Value.Date.ToString("dd/MM/yyyy")
+                            </td>
+                            <td style="width:10%">
+                                @item.FechaReserva.Value.Date.ToString("dd/MM/yyyy")
+                            </td>
+                            <td style="width:10%">
+                                @{ if (item.FechaCancelacion != null)
                                     {
-                                        <li class="list-group-item">Cancha: @bd.Cancha.Where(c => c.Id == det.IdCancha).Single().Nombre Horario: @det.HoraReservaDesde - @det.HoraReservaHasta </li>
+                                        <label>
+                                            @item.FechaCancelacion.Value.Date.ToString("dd/MM/yyyy")
+                                        </label>
+                                    }
+                                    else
+                                    { <label>-</label> }
+                                }
+                            </td>
+
+                            <td style="width:10%">
+                                @Html.DisplayFor(modelItem => item.IdClienteNavigation.Persona.SingleOrDefault().Nombre) @Html.DisplayFor(modelItem => item.IdClienteNavigation.Persona.SingleOrDefault().Apellido)
+                            </td>
+                            <td style="text-align:center;width:10%;">
+                                @Html.DisplayFor(modelItem => item.IdCobroNavigation.Numero)
+                            </td>
+
+                            <td style="width:10%">
+                                @Html.DisplayFor(modelItem => item.IdEstadoNavigation.Nombre)
+                            </td>
+                            <td style="width:20%">
+                                <ul class="list-group">
+                                    @{
+                                        foreach (var det in bd.DetalleAlquilerCancha.Where(d => d.IdAlquilerCancha == item.Numero).ToList())
+                                        {
+                                            <li class="list-group-item">Cancha: @bd.Cancha.Where(c => c.Id == det.IdCancha).Single().Nombre Horario: @det.HoraReservaDesde - @det.HoraReservaHasta </li>
+                                        }
+
                                     }
 
-                                }
-
-                            </ul>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-</body>
+                                </ul>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    </body>
 </html>

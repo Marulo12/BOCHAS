@@ -4,9 +4,7 @@ html {
   min-height: 100%; }
 
 body {
-    background-color: #F3F5F8;
-  
-    font-size: 12px;
+    background-color: #F3F5F8;     
     color: #676a6d;
 }
 
@@ -457,25 +455,26 @@ ul.notifications > li {
         border-left: 5px solid rgba(215, 40, 40, 0.9);
     }
     .sidebar .nav > li > a[data-toggle="collapse"] .icon-submenu {
-      display: inline-block;
-      vertical-align: middle;
-      *vertical-align: auto;
-      *zoom: 1;
-      *display: inline;
-      -webkit-transition: all 0.2s ease-out;
-      -moz-transition: all 0.2s ease-out;
-      -ms-transition: all 0.2s ease-out;
-      -o-transition: all 0.2s ease-out;
-      transition: all 0.2s ease-out;
-      float: right;
-      position: relative;
-      top: 5px;
-      font-size: 10px;
-      line-height: 1.1;
-      -moz-transform: rotate(-90deg);
-      -ms-transform: rotate(-90deg);
-      -webkit-transform: rotate(-90deg);
-      transform: rotate(-90deg); }
+        display: inline-block;
+        vertical-align: middle;
+        *vertical-align: auto;
+        *zoom: 1;
+        *display: inline;
+        -webkit-transition: all 0.2s ease-out;
+        -moz-transition: all 0.2s ease-out;
+        -ms-transition: all 0.2s ease-out;
+        -o-transition: all 0.2s ease-out;
+        transition: all 0.2s ease-out;
+        float: right;
+        position: relative;
+        top: 3px;
+        font-size: 10px;
+        line-height: 1.1;
+        -moz-transform: rotate(-90deg);
+        -ms-transform: rotate(-90deg);
+        -webkit-transform: rotate(-90deg);
+        transform: rotate(-90deg);
+    }
     .sidebar .nav > li > a[data-toggle="collapse"].collapsed .icon-submenu {
       -moz-transform: rotate(0deg);
       -ms-transform: rotate(0deg);
@@ -488,7 +487,7 @@ ul.notifications > li {
     /* submenu */ }
     .sidebar .nav i {
       margin-right: 10px;
-      font-size: 18px; }
+     }
     .sidebar .nav span {
       -webkit-transition: all 0.3s ease-in-out;
       -moz-transition: all 0.3s ease-in-out;
@@ -514,7 +513,7 @@ ul.notifications > li {
         }
         .sidebar .nav .nav > li > a:focus, .sidebar .nav .nav > li > a.active {
           background-color: transparent;
-          border-left-color: white; }
+          border-left-color: red; }
         .sidebar .nav .nav > li > a.active a {
           color: white; }
 

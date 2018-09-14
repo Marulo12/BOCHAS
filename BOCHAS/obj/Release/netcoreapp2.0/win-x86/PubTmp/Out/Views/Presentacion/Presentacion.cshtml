@@ -100,7 +100,7 @@
     </div>
     <!-- /page loader -->
     <!-- Section: home slide -->
-    <section id="intro" class="home-slide text-light">
+    <section id="intro" class="home-slide text-light" style="display:none;">
         <ul id="valera-slippry">
             <li>
                 <div>
@@ -110,11 +110,11 @@
             </li>
             <li>
                 <label class="ocultar" style="left:26%;">Alquiler de canchas de Pádel</label>
-                <div><img src="~/Presentacion/img/slides/2.jpg" alt="<a href='#' class='btn btn-skin btn-slide com'>Iniciar</a>"></div>
+                <div><img src="~/Presentacion/img/slides/2.jpg" alt="<a href='#about' class='btn btn-skin btn-slide com'>Iniciar</a>"></div>
             </li>
             <li>
-                <label class="ocultar" style="left:26%;">Ven a visitarnos cuando quieras!!</label>
-                <div><img src="~/Presentacion/img/slides/3.jpg" alt="<a href='#' class='btn btn-skin btn-slide com'>Iniciar</a>"></div>
+                <label class="ocultar" style="left:26%;">Vení a visitarnos cuando quieras!!</label>
+                <div><img src="~/Presentacion/img/slides/3.jpg" alt="<a href='#about' class='btn btn-skin btn-slide com'>Iniciar</a>"></div>
             </li>
         </ul>
     </section>
@@ -146,7 +146,7 @@
                                 <li><a href="#about">Sobre Nosotros</a></li>
                                 <li><a href="#service">Servicios</a></li>
                                 <li><a href="#contact">Contactos</a></li>
-                                <li><a href="#works">Galeria</a></li>
+                                <li><a href="#works">Galería</a></li>                                
                                 <li><a asp-action="Index" asp-controller="Usuarios">Login</a></li>
                             </ul>
                         </div>
@@ -192,7 +192,7 @@
                         <div class="team-wrapper-big wow bounceInUp" data-wow-delay="0.8s" >
                             <div class="team-wrapper-overlay" >
                                 <h5>Nicolas Boscatto</h5>
-                                <p>Siempre con la mejor predisposicion para las atenciones al cliente como profesor </p>
+                                <p>Siempre con la mejor predisposición para las atenciones al cliente como profesor </p>
                                 <div class="social-icons">
                                     <ul class="team-social">
                                         <li class="social-facebook"><a href="#"><i class="fa fa-facebook"></i></a></li>
@@ -201,7 +201,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            <img src="~/Presentacion/img/team/nico.jpg" style="height:350px;width:200px;border-radius:10px;" alt="" />
+                            <img src="~/Presentacion/img/team/nico.jpg" style="height:350px;width:230px;" alt="" />
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-3" >
@@ -217,7 +217,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            <img src="~/Presentacion/img/team/mariano.jpg" style="height:350px;width:200px;border-radius:10px;" alt="" />
+                            <img src="~/Presentacion/img/team/mariano.jpg" style="height:350px;width:230px;" alt="" />
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-3">
@@ -287,7 +287,7 @@
                                 <div class="service-desc">
                                     <h5>Torneos</h5>
                                     <p>
-                                       Anótate en los torneos mas entretenidos de la zona, con importantes premios!!. Puedes seguirlos desde las aplicaciones
+                                       Anotate en los torneos mas entretenidos de la zona, con importantes premios!!. Seguilos por las app.
                                     </p>
                                 
                                 </div>
@@ -303,7 +303,7 @@
                                 <div class="service-desc">
                                     <h5>Clases Particulares</h5>
                                     <p>
-                                        Si quieres aprender padel, comunicate con nosostros y sigue tus clases desde la web o en la aplicacion de celular
+                                       Aprende padel, comunicate con nosostros y sigue tus clases desde la web o en la aplicación de celular
                                     </p>
                               
                                 </div>
@@ -318,9 +318,9 @@
                                     <span class="pe-7s-phone pe-5x"></span>
                                 </div>
                                 <div class="service-desc">
-                                    <h5>Aplicacion Mobile</h5>
+                                    <h5>Aplicación Mobile</h5>
                                     <p>
-                                       Nos introducimos en la tecnologia moderna para que puedas pedir reservas y clases desde tu celular
+                                       Nos introducimos en la tecnología moderna para que puedas pedir reservas y clases desde tu celular
                                     </p>
                                  
                                 </div>
@@ -342,7 +342,7 @@
                             <i class="pe-7s-date pe-5x"></i>
                         </div>
                         <strong id="counter-coffee" class="number">8</strong><br />
-                        <span class="text">Reservas al dia</span>
+                        <span class="text">Reservas al día</span>
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -360,7 +360,7 @@
                             <i class="pe-7s-timer pe-5x"></i>
                         </div>
                         <strong id="counter-clock" class="number">19</strong><br />
-                        <span class="text">horas al dia</span>
+                        <span class="text">Horas al día abierto</span>
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -368,7 +368,7 @@
                         <div class="icon">
                             <i class="pe-7s-cup pe-5x"></i>
                         </div>
-                        <strong id="counter-heart" class="number">112</strong><br />
+                        <strong id="counter-heart" class="number">150</strong><br />
                         <span class="text">Torneos realizados</span>
                     </div>
                 </div>
@@ -384,7 +384,7 @@
                 <div class="col-lg-8 col-lg-offset-2">
                     <div class="wow flipInY" data-wow-offset="0" data-wow-delay="0.4s">
                         <div class="section-heading text-center">
-                            <h2 class="h-bold">Galeria</h2>
+                            <h2 class="h-bold">Galería</h2>
                             <div class="divider-header"></div>
                             <p>Imagenes de nuestros servicios</p>
                         </div>
@@ -413,13 +413,13 @@
             </div>
         </div>
     </section>
-    <section id="works" class="home-section color-dark text-center bg-white">
+    <section id="works" class="home-section color-dark text-center bg-white" style="margin-top:0px;">
         <div class="container marginbot-50">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2">
                     <div class="wow flipInY" data-wow-offset="0" data-wow-delay="0.4s">
                         <div class="section-heading text-center">
-                            <h2 class="h-bold">Ultimas Noticias</h2>
+                            <h2 class="h-bold">Últimas Noticias</h2>
                             <div class="divider-header"></div>
                             <p>Novedades de torneos que se aproximan</p>
                         </div>
@@ -474,21 +474,20 @@
                 <div class="col-lg-8 col-lg-offset-2">
                     <div class="wow flipInY" data-wow-offset="0" data-wow-delay="0.4s">
                         <div class="section-heading text-center">
-                            <h2 class="h-bold">Contactanos</h2>
+                            <h2 class="h-bold">Contactos</h2>
                             <div class="divider-header"></div>
-                            <p>Envianos un mail para mas información</p>
+                            <p>Envíanos un mail para mas información</p>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
 
         <div class="container">
 
             <div class="row marginbot-80">
                 <div class="col-md-8 col-md-offset-2">
-                    <div id="sendmessage">Tu mensaje se envio correctamente..</div>
+                    <div id="sendmessage">Tu mensaje se envío correctamente..</div>
                     <div id="errormessage"></div>
                     <form action="" method="post" role="form" class="contactForm">
                         <div class="form-group">
@@ -553,7 +552,7 @@
                             </ul>
 
                         </div>
-                        <p>&copy;BochasPadel. All Rights Reserved</p>
+                        <p>&copy;BochasPadel. Todos los derechos reservados</p>
                         <div class="credits">
                             <!--
                                 All the links in the footer should remain intact.
