@@ -33,7 +33,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label asp-for="Precio" class="control-label"></label>
-                        <input type="text" name="Precio" value="@Model.Precio" class="form-control" />
+                        <input type="text" name="Precio" value="@Model.Precio.ToString("N")" class="form-control" />
                         <span asp-validation-for="Precio" class="text-danger"></span>
                     </div>                  
                 </div>

@@ -11,7 +11,27 @@
     
     
 }
+<style>
+    .list-group-horizontal .list-group-item {
+        display: inline-block;
+    }
 
+    .list-group-horizontal .list-group-item {
+        margin-bottom: 0;
+        margin-left: -4px;
+        margin-right: 0;
+    }
+
+        .list-group-horizontal .list-group-item:first-child {
+            border-top-right-radius: 0;
+            border-bottom-left-radius: 4px;
+        }
+
+        .list-group-horizontal .list-group-item:last-child {
+            border-top-right-radius: 4px;
+            border-bottom-left-radius: 0;
+        }
+</style>
  <div class="panel" style="border:none;">
      <div class="panel-body">
          <div class="row">
@@ -67,11 +87,27 @@
              </div>
              <div class="row">
                  <div class="col-md-12">
-                     <h4>Servicios adicionales  <button class="btn btn-xs btn-default" data-toggle="collapse" data-target="#TserviciosA"><i class="fa fa-list"></i></button></h4>
-                     <table id="TserviciosA" class="table  collapse" style="width:100%;">
-                         <thead class="alert alert-info"><tr><td>Servicio</td><td>$Precio Unit.</td><td style="width:5%">Cantidad</td><td style="width:10%">$Total</td><td>Agregar</td><td style="display:none;"></td></tr></thead>
-                         <tbody></tbody>
-                     </table>
+                     <h4>Servicios adicionales  <button class="btn btn-xs btn-default" data-toggle="collapse" data-target="#DatosServicio"><i class="fa fa-list"></i></button></h4>
+                     <div id="DatosServicio" class="row collapse" style="padding-left:5px;padding-right:5px;">
+                         <div class="row">
+                             <div class="col-sm-3"><button class="btn btn-sm form-control btn-warning" data-toggle="collapse" data-target="#ListaNota" onclick="NotaServiciosReservas()">Nota servicio consumido</button></div>
+                             <div id="ListaNota" class="col-sm-9 collapse" style="margin:0px;">
+                                 <ul id="UlNotaServ" class="list-group list-group-horizontal" style="min-width:100% !important;">
+                                    
+                                     
+                                 </ul>
+                             </div>
+                         </div>
+                         <div class="row">
+                             <div class="col-sm-12">
+                                 <table id="TserviciosA" class="table" >
+                                     <thead class="alert alert-info"><tr><td>Servicio</td><td>$Precio Unit.</td><td style="width:5%">Cantidad</td><td style="width:10%">$Total</td><td>Agregar</td><td style="display:none;"></td></tr></thead>
+                                     <tbody></tbody>
+                                 </table>
+                             </div>
+                         </div>
+                     </div>
+                     
                      <hr />
                      <div class="row">
                          <div class="col-md-4">
@@ -90,7 +126,7 @@
  </div> 
      </div>
 <script src="~/js/Cobros.js"></script>
-
+<script src="~/js/ServiciosConsumidos.js"></script>
 
 
 

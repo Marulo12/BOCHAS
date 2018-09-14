@@ -105,7 +105,13 @@
     $("#BtnConPart").click(function () {
         ConsultaParticular();
     });
-    
+     $.ajax({
+    type:"GET",
+    url:"/ServiciosAdicionales/CargaParcial",
+        success:function(response){
+        $("#ModalServicioA .SA").html(response);
+        }
+    });
 });
 
 
@@ -525,20 +531,43 @@ function ReporteCobroReserva(NCobro) {
     }, 2000);
 }
 
-function ReporteCobroReservaIndividual(idCobro, idReserva) {
-    $("#ModalPdf").modal();
-    $("#GeneraPDF").css("display", "inline");
-    $("#VisorPDF").attr("src", "");
-    $("#VisorPDF").css("display", "none");
-    setTimeout(function () {
-        $("#GeneraPDF").css("display", "none");
-        $("#VisorPDF").attr("data", "/Reportes/ReporteCobroReservaIndividual?NCobro=" + idCobro + "&NReserva=" + idReserva);
-        $("#VisorPDF").css("display", "inline-block");
-        $("#VisorPDF").css("width", "100%");
-        $("#VisorPDF").css("height", "500px");
+function RegistrarServiciosConsumidos() {
 
-    }, 2000);
+    var Numero = $("#LNReserva").text();
+    var ServicioConsumido = [];
+    var count = 0;
+    $(".Cantidad .CantS ").each(function () {
+        if ($(this).val() !== "") {
+            var tr = $(this).closest('tr');
+            var idServicioAdicional = $(tr).find('td:nth-child(1)').text();
+            var cant = $(tr).find('td:nth-child(5) .CantS').val();
+            var servicioConsumido = { IdServicioAdicional: idServicioAdicional, cantidad: cant , Tipo: 1};
+            ServicioConsumido.push(servicioConsumido);
+            count++;
+        }
 
+    });
+
+    if (count !== 0) {
+        
+        $.ajax({
+            type: "POST",
+            data: { Numero, ServicioConsumido },
+            url: "/ServiciosAdicionales/RegistrarServicioConsumido",
+            success: function (response) {
+                if (response === "OK") {
+                    alertify.success("Servicios adicinales anotados");
+                }
+                else {
+                    alertify.error("Ocurrio un error en la operacion");
+                }
+                $("#ModalServicioA").modal("hide");
+            }
+        });
+    } else {
+        alertify.error("Complete un servicio");
+    }
+    
 }
 
 function MensajesdeAcciones() {
@@ -548,6 +577,15 @@ function MensajesdeAcciones() {
     }
     if ($("#Respuesta").val() === "COMENZADO") {
         alertify.success("Reserva Comenzada!!");
+        alertify.confirm('Servicio', 'Desea Incorporar una nota de uso de Servicios Adicionales?', function () {
+          
+            $("#ModalServicioA").modal();
+            $("#LNReserva").text($("#NReservaFinalizada").val());
+
+        }
+            , function () { alertify.error('Operacion cancelada'); });
+      
+
     }
     if ($("#Respuesta").val() === "Cancelado") {
         alertify.success("Reserva Cancelada");

@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<BOCHAS.Models.ServiciosAdicionales>
 
-<p>Numero de Alquiler: <label id="NReserva"></label> </p>
+<p>Numero de Alquiler: <label id="LNReserva"></label> </p>
 <table class="table table-striped">
     <thead>
         <tr>
@@ -34,8 +34,8 @@
                 <td>
                     $@Html.DisplayFor(modelItem => item.Precio)
                 </td>
-                <td>
-                    <input type="number" class="form-control" name="Cantidad" />
+                <td class="Cantidad">
+                    <input  type="number" class="form-control CantS" name="Cantidad" />
                 </td>
 
             </tr>

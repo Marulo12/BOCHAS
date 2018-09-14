@@ -218,6 +218,7 @@ namespace BOCHAS.Controllers
                 _context.Cancha.Update(cancha);
                 _context.SaveChanges();
                 TempData["Resultado"] = "COMENZADO";
+                TempData["NClaseFinalizada"] = Nclase;
                 return RedirectToAction("ConsultarClases");
             }
             else

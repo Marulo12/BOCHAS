@@ -19,6 +19,13 @@
     $(".BtnCancelaR").click(function (event) {
         $("#ModalMail").modal();
     });
+    $.ajax({
+        type: "GET",
+        url: "/ServiciosAdicionales/CargaParcial",
+        success: function (response) {
+            $("#ModalServicioA .SA").html(response);
+        }
+    });
     MensajesdeAcciones();
 });
 
@@ -227,7 +234,44 @@ function VerDetalleClase(id) {
     });
 
 }
+function RegistrarServiciosConsumidos() {
 
+    var Numero = $("#LNReserva").text();
+    var ServicioConsumido = [];
+    var count = 0;
+    $(".Cantidad .CantS ").each(function () {
+        if ($(this).val() !== "") {
+            var tr = $(this).closest('tr');
+            var idServicioAdicional = $(tr).find('td:nth-child(1)').text();
+            var cant = $(tr).find('td:nth-child(5) .CantS').val();
+            var servicioConsumido = { IdServicioAdicional: idServicioAdicional, cantidad: cant, Tipo: 2 };
+            ServicioConsumido.push(servicioConsumido);
+            count++;
+        }
+
+    });
+
+    if (count !== 0) {
+        
+        $.ajax({
+            type: "POST",
+            data: { Numero, ServicioConsumido },
+            url: "/ServiciosAdicionales/RegistrarServicioConsumido",
+            success: function (response) {
+                if (response === "OK") {
+                    alertify.success("Servicios adicinales anotados");
+                }
+                else {
+                    alertify.error("Ocurrio un error en la operacion");
+                }
+                $("#ModalServicioA").modal("hide");
+            }
+        });
+    } else {
+        alertify.error("Complete un servicio");
+    }
+
+}
 function MensajesdeAcciones() {
 
     if ($("#Resultado").val() === "SI") {
@@ -235,6 +279,13 @@ function MensajesdeAcciones() {
     }
     if ($("#Resultado").val() === "COMENZADO") {
         alertify.success("Clase Comenzada!!");
+        alertify.confirm('Servicio', 'Desea Incorporar una nota de uso de Servicios Adicionales?', function () {
+
+            $("#ModalServicioA").modal();
+            $("#LNReserva").text($("#NClaseFinalizada").val());
+
+        }
+            , function () { alertify.error('Operacion cancelada'); });
     }
     if ($("#Resultado").val() === "Cancelado") {
         alertify.success("Clase Cancelada");
