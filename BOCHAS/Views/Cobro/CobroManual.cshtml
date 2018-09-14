@@ -98,7 +98,7 @@
                 </div>
                 <hr />
                 <table id="Tservicios" class="table">
-                    <thead class="alert alert-info"><tr><td style="width:4%;">N°</td><td style="width:20%">Servicio</td><td style="width:5%">$Precio Unit.</td><td style="width:5%">Cant.Canchas</td><td style="width:5%">Cant.Horas</td><td style="width:10%">$Total</td><td style="width:4%;"></td></tr></thead>
+                    <thead class="alert alert-info"><tr><td style="width:4%;">N°</td><td style="width:20%">Servicio</td><td style="width:5%">$Precio Unit.</td><td style="width:5%">Cant.Canchas</td><td style="width:5%">Cant.Horas</td><td style="width:10%">$Total</td><td style="width:10%;"></td></tr></thead>
                     <tbody id="TDetalleR"></tbody>
                 </table>
 
@@ -176,12 +176,14 @@
         </div>
     </div>
 </div>
+
     @section Scripts{
         <script src="~/js/AlquilerDeCanchas.js"></script>
         <script src="~/js/Cobros.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script src="~/js/AutoCompletarCombos-UI.js"></script>
         <script src="~/js/ServiciosConsumidos.js"></script>
+        <script>$('[data-toggle="tooltip"]').tooltip();</script>        
     }
 
 

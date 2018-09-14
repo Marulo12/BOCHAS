@@ -1,6 +1,6 @@
 ﻿
 $(document).ready(function () {
-
+    
     ArmarListadoAdicionales();
     $("#BtnBuscarCobro").click(function () {
         MostrarCobros();
@@ -51,7 +51,7 @@ $(document).ready(function () {
             return;
         }
         if (existe) { alertify.error("Esa clase ya esta incorporada para el cobro"); } else {
-            $("#TDetalleSC").append('<tr class="Nrclase"><td>' + $(tr).find('td:nth-child(1)').text() + '</td><td>' + $(tr).find('td:nth-child(2)').text() + '</td><td>' + $(tr).find('td:nth-child(3)').text() + '</td><td>' + $(tr).find('td:nth-child(4)').text() + '</td><td>' + $(tr).find('td:nth-child(5)').text() + '</td><td class="Stotal">' + $(tr).find('td:nth-child(6)').text() + '</td><td><button class="btn btn-sm btn-danger borrarClase"><i class="fas fa-backspace"></i></button><button class="btn btn-sm btn-warning" onclick="NotaServiciosClasesManual(' + $(tr).find('td:nth-child(1)').text() + ')"><i class="fas fa-book-open"></i></button></td><tr>');
+            $("#TDetalleSC").append('<tr class="Nrclase"><td>' + $(tr).find('td:nth-child(1)').text() + '</td><td>' + $(tr).find('td:nth-child(2)').text() + '</td><td>' + $(tr).find('td:nth-child(3)').text() + '</td><td>' + $(tr).find('td:nth-child(4)').text() + '</td><td>' + $(tr).find('td:nth-child(5)').text() + '</td><td class="Stotal">' + $(tr).find('td:nth-child(6)').text() + '</td><td><div class="btn-group"><button class="btn btn-sm btn-danger borrarClase"><i class="fas fa-backspace"></i></button><button class="btn btn-sm btn-warning" onclick="NotaServiciosClasesManual(' + $(tr).find('td:nth-child(1)').text() + ')"><i class="fas fa-book-open"></i></button></div></td><tr>');
         }
 
     });
@@ -315,8 +315,8 @@ function CalcularXReserva() {
           //  precio = precio.toLocaleString("es-ES", {minimumFractionDigits: 2});
             var horas = response.horas;
 
-            tr = '<tr><td class="Nres">' + IdReserva + '</td><td>' + response.servicio + '</td><td>' + precio + '</td><td>' + response.canchas + '</td><td>' + horas + '</td><td class="Stotal">' + Mtotal + '</td><td><button class="btn btn-sm btn-danger borrar"><i class="fas fa-backspace"></i></button><button class="btn btn-sm btn-warning" onclick="NotaServiciosReservasManual(' + IdReserva + ')"><i class="fas fa-book-open"></i></button></td></tr>';
-
+            tr = '<tr><td class="Nres">' + IdReserva + '</td><td>' + response.servicio + '</td><td>' + precio + '</td><td>' + response.canchas + '</td><td>' + horas + '</td><td class="Stotal">' + Mtotal + '</td><td><div class="btn-group"><button class="btn btn-sm btn-danger borrar" data-toggle="tooltip" title="Quitar"><i class="fas fa-backspace"></i></button><button class="btn btn-sm btn-warning" onclick="NotaServiciosReservasManual(' + IdReserva + ')" data-toggle="tooltip" title="Nota de servicios"><i class="fas fa-book-open"></i></button></div></td></tr>';
+           
             if ($("#TDetalleR").html() !== "") {
                 alertify.error("Ya hay una reserva incorporada para cobrar");
                 return;

@@ -90,9 +90,9 @@
                      <h4>Servicios adicionales  <button class="btn btn-xs btn-default" data-toggle="collapse" data-target="#DatosServicio"><i class="fa fa-list"></i></button></h4>
                      <div id="DatosServicio" class="row collapse" style="padding-left:5px;padding-right:5px;">
                          <div class="row">
-                             <div class="col-sm-3"><button class="btn btn-sm form-control btn-warning" data-toggle="collapse" data-target="#ListaNota" onclick="NotaServiciosReservas()">Nota servicio consumido</button></div>
-                             <div id="ListaNota" class="col-sm-9 collapse" style="margin:0px;">
-                                 <ul id="UlNotaServ" class="list-group list-group-horizontal" style="min-width:100% !important;">
+                             <div class="col-sm-3"><button class="btn btn-sm form-control btn-warning" style="height:40px;" data-toggle="collapse" data-target="#ListaNota" onclick="NotaServiciosReservas()">Nota servicio consumido</button></div>
+                             <div id="ListaNota" class="col-sm-9 collapse" style="margin:0px;padding:0px;">
+                                 <ul id="UlNotaServ" class="list-group list-group-horizontal" style="min-width:100% !important;margin:0px;padding:0px;">
                                     
                                      
                                  </ul>
@@ -100,7 +100,7 @@
                          </div>
                          <div class="row">
                              <div class="col-sm-12">
-                                 <table id="TserviciosA" class="table" >
+                                 <table id="TserviciosA" class="table">
                                      <thead class="alert alert-info"><tr><td>Servicio</td><td>$Precio Unit.</td><td style="width:5%">Cantidad</td><td style="width:10%">$Total</td><td>Agregar</td><td style="display:none;"></td></tr></thead>
                                      <tbody></tbody>
                                  </table>

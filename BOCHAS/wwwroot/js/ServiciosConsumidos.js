@@ -10,7 +10,7 @@ function NotaServiciosReservas() {
             var li = '';
             for (var i = 0; i < response.length; i++)
             {
-                li += ' <li class="list-group-item linea">' + response[i].nombre + ': ' + response[i].cantidad + '</li>';
+                li += ' <li class="list-group-item linea" style="margin:0px;"><i class="fas fa-check"></i> ' + response[i].nombre + ': ' + response[i].cantidad + '</li>';
             }
             if (li === '') {
                 li = '<li class="list-group-item" style="margin:0px;">No hay nota de Servicios prestados</li>';
@@ -32,7 +32,7 @@ function NotaServiciosReservasManual(id) {
         success: function (response) {
             var li = '';
             for (var i = 0; i < response.length; i++) {
-                li += ' <li class="list-group-item linea">' + response[i].nombre + ': ' + response[i].cantidad + '</li>';
+                li += ' <li class="list-group-item linea" style="font-size:17px;"><i class="fas fa-check"></i> ' + response[i].nombre + ': ' + response[i].cantidad + '</li>';
             }
             if (li === '') {
                 li = '<li class="list-group-item" style="margin:0px;">No hay nota de Servicios prestados</li>';
@@ -54,7 +54,7 @@ function NotaServiciosClasesManual(id) {
         success: function (response) {
             var li = '';
             for (var i = 0; i < response.length; i++) {
-                li += ' <li class="list-group-item linea">' + response[i].nombre + ': ' + response[i].cantidad + '</li>';
+                li += '<li class="list-group-item linea" style="font-size:17px;"><i class="fas fa-check"></i> ' + response[i].nombre + ': ' + response[i].cantidad + '</li>';
             }
             if (li === '') {
                 li = '<li class="list-group-item" style="margin:0px;">No hay nota de Servicios prestados</li>';
@@ -79,7 +79,7 @@ function NotaServiciosClases() {
         success: function (response) {
             var li = '';
             for (var i = 0; i < response.length; i++) {
-                li += ' <li class="list-group-item linea">' + response[i].nombre + ': ' + response[i].cantidad + '</li>';
+                li += ' <li class="list-group-item linea" style="margin:0px;"><i class="fas fa-check"></i> ' + response[i].nombre + ': ' + response[i].cantidad + '</li>';
             }
             if (li === '') {
                 li = '<li class="list-group-item" style="margin:0px;">No hay nota de Servicios prestados</li>';
