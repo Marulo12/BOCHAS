@@ -24,7 +24,11 @@ namespace BOCHAS.Controllers
         {
             return View(await _context.ServiciosAdicionales.ToListAsync());
         }
-
+        public async Task<IActionResult> CargaParcial()
+        {
+            var Servicios =await _context.ServiciosAdicionales.Where(s => s.Activo == true).ToListAsync();
+            return PartialView(Servicios);
+        }
         // GET: ServiciosAdicionales/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -152,5 +156,61 @@ namespace BOCHAS.Controllers
         {
             return _context.ServiciosAdicionales.Any(e => e.Id == id);
         }
+
+        [HttpPost]
+        public JsonResult RegistrarServicioConsumido(int Numero, ServicioConsumido[] ServicioConsumido)
+        {
+            try
+            {
+                foreach (var serv in ServicioConsumido)
+                {
+                    NotaConsumoServicioAdicional NotaServicio = new NotaConsumoServicioAdicional();
+                    if (serv.Tipo == 1)
+                    {
+                        NotaServicio.IdNumeroAlquiler = Numero;
+                    }
+                    else
+                    {
+                        NotaServicio.IdNumeroClase = Numero;
+                    }
+                                        
+                    NotaServicio.IdServicioAdicional = serv.IdServicioAdicional;
+                    NotaServicio.Cantidad = serv.cantidad;
+                    _context.NotaConsumoServicioAdicional.Add(NotaServicio);
+                    _context.SaveChanges();
+                }
+                return Json("OK");
+            }
+            catch
+            {
+                return Json("Error");
+            }
+        }
+
+        public class ServicioConsumido {
+            public int Tipo { set; get; }
+            public int IdServicioAdicional { set; get; }
+            public int cantidad { set; get; }
+        }
+
+        public async Task<JsonResult> TraerServiciosConsumidos(int Numero , int Tipo)
+        {
+            if (Tipo == 1)
+            {
+                var nota = await (from n in _context.NotaConsumoServicioAdicional join s in _context.ServiciosAdicionales on n.IdServicioAdicional equals s.Id where n.IdNumeroAlquiler == Numero select new { nombre = s.Nombre, cantidad = n.Cantidad }).ToListAsync();
+                return Json(nota);
+            }
+
+            else
+            {
+                var nota = await (from n in _context.NotaConsumoServicioAdicional join s in _context.ServiciosAdicionales on n.IdServicioAdicional equals s.Id where n.IdNumeroClase == Numero select new { nombre = s.Nombre, cantidad = n.Cantidad }).ToListAsync();
+                return Json(nota);
+            }
+            
+
+            
+        }
+
+
     }
 }

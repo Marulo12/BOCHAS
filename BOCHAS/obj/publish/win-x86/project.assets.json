@@ -87,6 +87,19 @@
           }
         }
       },
+      "LocalStorage/1.1.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.App": "1.1.0",
+          "Newtonsoft.Json": "9.0.1"
+        },
+        "compile": {
+          "lib/netcoreapp1.0/LocalStorage.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp1.0/LocalStorage.dll": {}
+        }
+      },
       "MailKit/2.0.6": {
         "type": "package",
         "dependencies": {
@@ -5322,6 +5335,19 @@
         },
         "native": {
           "runtimes/win-x86/native/libuv.dll": {}
+        }
+      },
+      "LocalStorage/1.1.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.App": "1.1.0",
+          "Newtonsoft.Json": "9.0.1"
+        },
+        "compile": {
+          "lib/netcoreapp1.0/LocalStorage.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp1.0/LocalStorage.dll": {}
         }
       },
       "MailKit/2.0.6": {
@@ -10849,6 +10875,18 @@
         "runtimes/win-arm/native/libuv.dll",
         "runtimes/win-x64/native/libuv.dll",
         "runtimes/win-x86/native/libuv.dll"
+      ]
+    },
+    "LocalStorage/1.1.0": {
+      "sha512": "Ij4RIRLsxwf2ZyAZKLjeKcffuOiru19YYie+uOVNsUbE6+O/JYBJty/0TPZ5L4yQ5LZMpNFG5QI+i64Wq9JaIg==",
+      "type": "package",
+      "path": "localstorage/1.1.0",
+      "files": [
+        "lib/net46/LocalStorage.dll",
+        "lib/netcoreapp1.0/LocalStorage.dll",
+        "lib/netstandard1.3/LocalStorage.dll",
+        "localstorage.1.1.0.nupkg.sha512",
+        "localstorage.nuspec"
       ]
     },
     "MailKit/2.0.6": {
@@ -19979,6 +20017,7 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
       "Gray.Microsoft.AspNetCore.Signalr.Server >= 0.2.0-alpha1",
+      "LocalStorage >= 1.1.0",
       "MailKit >= 2.0.6",
       "Microsoft.AspNetCore.All >= 2.0.6",
       "Microsoft.AspNetCore.SignalR.Client >= 1.0.1",
@@ -20033,6 +20072,10 @@
           "Gray.Microsoft.AspNetCore.Signalr.Server": {
             "target": "Package",
             "version": "[0.2.0-alpha1, )"
+          },
+          "LocalStorage": {
+            "target": "Package",
+            "version": "[1.1.0, )"
           },
           "MailKit": {
             "target": "Package",

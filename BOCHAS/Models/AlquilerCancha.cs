@@ -9,6 +9,8 @@ namespace BOCHAS.Models
         {
             Agenda = new HashSet<Agenda>();
             DetalleAlquilerCancha = new HashSet<DetalleAlquilerCancha>();
+            DetalleCobro = new HashSet<DetalleCobro>();
+            NotaConsumoServicioAdicional = new HashSet<NotaConsumoServicioAdicional>();
         }
 
         public int Numero { get; set; }
@@ -26,5 +28,7 @@ namespace BOCHAS.Models
         public EstadoAlquiler IdEstadoNavigation { get; set; }
         public ICollection<Agenda> Agenda { get; set; }
         public ICollection<DetalleAlquilerCancha> DetalleAlquilerCancha { get; set; }
+        public ICollection<DetalleCobro> DetalleCobro { get; set; }
+        public ICollection<NotaConsumoServicioAdicional> NotaConsumoServicioAdicional { get; set; }
     }
 }

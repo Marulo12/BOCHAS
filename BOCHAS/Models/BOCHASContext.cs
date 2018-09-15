@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-
 namespace BOCHAS.Models
 {
     public partial class BOCHASContext : DbContext
@@ -21,9 +20,11 @@ namespace BOCHAS.Models
         public virtual DbSet<EstadoAlquiler> EstadoAlquiler { get; set; }
         public virtual DbSet<EstadoCancha> EstadoCancha { get; set; }
         public virtual DbSet<EstadoDetalleAlquiler> EstadoDetalleAlquiler { get; set; }
+        public virtual DbSet<HorariosProfesor> HorariosProfesor { get; set; }
         public virtual DbSet<Jugador> Jugador { get; set; }
         public virtual DbSet<Localidad> Localidad { get; set; }
         public virtual DbSet<MediodePago> MediodePago { get; set; }
+        public virtual DbSet<NotaConsumoServicioAdicional> NotaConsumoServicioAdicional { get; set; }
         public virtual DbSet<Noticias> Noticias { get; set; }
         public virtual DbSet<Persona> Persona { get; set; }
         public virtual DbSet<Servicio> Servicio { get; set; }
@@ -34,6 +35,7 @@ namespace BOCHAS.Models
         public virtual DbSet<TipoJugador> TipoJugador { get; set; }
         public virtual DbSet<TipoMaterial> TipoMaterial { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
+
         public virtual DbSet<RepoJugador> RepoJugadores { get; set; }
         public virtual DbSet<CanchasEfectivas> ReporCanchas { get; set; }
         public virtual DbSet<Estadisticas> Estadisticas { get; set; }
@@ -43,9 +45,9 @@ namespace BOCHAS.Models
             if (!optionsBuilder.IsConfigured)
             {
 
-                 //  optionsBuilder.UseSqlServer(@"Data Source=mlb;Initial Catalog=BOCHAS;Integrated Security=True");
+              // optionsBuilder.UseSqlServer(@"Data Source=SISTEMAS04;Initial Catalog=BOCHAS;Persist Security Info=True;User ID=BSP;Password=bochas");
                 optionsBuilder.UseSqlServer(@"Data Source=sql5020.site4now.net;Initial Catalog=DB_A3F6C9_BOCHAS;User ID=DB_A3F6C9_BOCHAS_admin;Password=bochas2018");
-                // optionsBuilder.UseSqlServer(@"Data Source=sistemas04;Initial Catalog=BOCHAS;User ID=bsp;Password=bochas");    
+              //  optionsBuilder.UseSqlServer(@"Data Source=mlb;Initial Catalog=BOCHAS;Integrated Security=True");
             }
         }
 
@@ -250,6 +252,10 @@ namespace BOCHAS.Models
             {
                 entity.Property(e => e.IdNumeroCobro).HasColumnName("Id_NumeroCobro");
 
+                entity.Property(e => e.IdNumeroServicioAlquiler).HasColumnName("IdNumero_ServicioAlquiler");
+
+                entity.Property(e => e.IdNumeroServicioClases).HasColumnName("IdNumero_ServicioClases");
+
                 entity.Property(e => e.Monto).HasColumnType("money");
 
                 entity.HasOne(d => d.IdNumeroCobroNavigation)
@@ -257,6 +263,16 @@ namespace BOCHAS.Models
                     .HasForeignKey(d => d.IdNumeroCobro)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_DetalleCobro_Cobro");
+
+                entity.HasOne(d => d.IdNumeroServicioAlquilerNavigation)
+                    .WithMany(p => p.DetalleCobro)
+                    .HasForeignKey(d => d.IdNumeroServicioAlquiler)
+                    .HasConstraintName("FK_DetalleCobro_Alquiler_Cancha");
+
+                entity.HasOne(d => d.IdNumeroServicioClasesNavigation)
+                    .WithMany(p => p.DetalleCobro)
+                    .HasForeignKey(d => d.IdNumeroServicioClases)
+                    .HasConstraintName("FK_DetalleCobro_ClaseParticular1");
 
                 entity.HasOne(d => d.IdServicioNavigation)
                     .WithMany(p => p.DetalleCobro)
@@ -355,6 +371,14 @@ namespace BOCHAS.Models
                     .HasColumnType("nchar(15)");
             });
 
+            modelBuilder.Entity<HorariosProfesor>(entity =>
+            {
+                entity.HasOne(d => d.IdProfesorNavigation)
+                    .WithMany(p => p.HorariosProfesor)
+                    .HasForeignKey(d => d.IdProfesor)
+                    .HasConstraintName("FK_HorariosProfesor_Empleado");
+            });
+
             modelBuilder.Entity<Jugador>(entity =>
             {
                 entity.HasKey(e => new { e.IdPersona, e.IdTipoJugador });
@@ -384,6 +408,27 @@ namespace BOCHAS.Models
                 entity.Property(e => e.Nombre)
                     .IsRequired()
                     .HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<NotaConsumoServicioAdicional>(entity =>
+            {
+                entity.Property(e => e.Cantidad).HasColumnName("cantidad");
+
+                entity.HasOne(d => d.IdNumeroAlquilerNavigation)
+                    .WithMany(p => p.NotaConsumoServicioAdicional)
+                    .HasForeignKey(d => d.IdNumeroAlquiler)
+                    .HasConstraintName("FK_NotaConsumoServicioAdicional_Alquiler_Cancha");
+
+                entity.HasOne(d => d.IdNumeroClaseNavigation)
+                    .WithMany(p => p.NotaConsumoServicioAdicional)
+                    .HasForeignKey(d => d.IdNumeroClase)
+                    .HasConstraintName("FK_NotaConsumoServicioAdicional_ClaseParticular");
+
+                entity.HasOne(d => d.IdServicioAdicionalNavigation)
+                    .WithMany(p => p.NotaConsumoServicioAdicional)
+                    .HasForeignKey(d => d.IdServicioAdicional)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_NotaConsumoServicioAdicional_ServiciosAdicionales");
             });
 
             modelBuilder.Entity<Noticias>(entity =>

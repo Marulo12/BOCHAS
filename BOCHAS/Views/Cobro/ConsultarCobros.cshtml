@@ -73,14 +73,14 @@
 
                                 if (dt.IdServicio != null)
                                 {
-                                    <li class="list-group-item">
-                                        @Html.DisplayFor(modelItem => bd.Servicio.Where(s => s.Id == dt.IdServicio).SingleOrDefault().Nombre)  Cantidad:@Html.DisplayFor(modelItem => dt.Cantidad) $Monto: @Html.DisplayFor(modelItem => dt.Monto)
-                                    </li>
+                        <li class="list-group-item">
+                            @Html.DisplayFor(modelItem => bd.Servicio.Where(s => s.Id == dt.IdServicio).SingleOrDefault().Nombre)  Cantidad:@Html.DisplayFor(modelItem => dt.Cantidad) Monto: $@Html.DisplayFor(modelItem => dt.Monto)
+                        </li>
                                 }
                                 else
                                 {
                                     <li class="list-group-item">
-                                        @Html.DisplayFor(modelItem => bd.ServiciosAdicionales.Where(s => s.Id == dt.IdServiciosAdicionales).SingleOrDefault().Nombre)  Cantidad:@Html.DisplayFor(modelItem => dt.Cantidad) $Monto:@Html.DisplayFor(modelItem => dt.Monto)
+                                        @Html.DisplayFor(modelItem => bd.ServiciosAdicionales.Where(s => s.Id == dt.IdServiciosAdicionales).SingleOrDefault().Nombre)  Cantidad:@Html.DisplayFor(modelItem => dt.Cantidad) Monto: $@Html.DisplayFor(modelItem => dt.Monto)
                                     </li>
                                 }
 

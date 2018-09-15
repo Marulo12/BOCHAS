@@ -8,6 +8,8 @@ namespace BOCHAS.Models
         public ClaseParticular()
         {
             Agenda = new HashSet<Agenda>();
+            DetalleCobro = new HashSet<DetalleCobro>();
+            NotaConsumoServicioAdicional = new HashSet<NotaConsumoServicioAdicional>();
         }
 
         public int Id { get; set; }
@@ -29,5 +31,7 @@ namespace BOCHAS.Models
         public Persona IdJugadorNavigation { get; set; }
         public Persona IdProfesorNavigation { get; set; }
         public ICollection<Agenda> Agenda { get; set; }
+        public ICollection<DetalleCobro> DetalleCobro { get; set; }
+        public ICollection<NotaConsumoServicioAdicional> NotaConsumoServicioAdicional { get; set; }
     }
 }

@@ -1,7 +1,6 @@
 ﻿
-
 $(document).ready(function () {
-
+    
     ArmarListadoAdicionales();
     $("#BtnBuscarCobro").click(function () {
         MostrarCobros();
@@ -47,8 +46,12 @@ $(document).ready(function () {
             }
 
         });
-        if (existe) { alertify.error("Esa reserva ya esta incorporada para el cobro"); } else {
-            $("#TDetalleSC").append('<tr class="Nrclase"><td>' + $(tr).find('td:nth-child(1)').text() + '</td><td>' + $(tr).find('td:nth-child(2)').text() + '</td><td>' + $(tr).find('td:nth-child(3)').text() + '</td><td>' + $(tr).find('td:nth-child(4)').text() + '</td><td>' + $(tr).find('td:nth-child(5)').text() + '</td><td class="Stotal">' + $(tr).find('td:nth-child(6)').text() + '</td><td><button class="btn btn-sm btn-danger borrarClase"><i class="fas fa-backspace"></i></button></td><tr>');
+        if ($("#TDetalleSC").html() !== "") {
+            alertify.error("Ya hay una clase incorporada para cobrar");
+            return;
+        }
+        if (existe) { alertify.error("Esa clase ya esta incorporada para el cobro"); } else {
+            $("#TDetalleSC").append('<tr class="Nrclase"><td>' + $(tr).find('td:nth-child(1)').text() + '</td><td>' + $(tr).find('td:nth-child(2)').text() + '</td><td>' + $(tr).find('td:nth-child(3)').text() + '</td><td>' + $(tr).find('td:nth-child(4)').text() + '</td><td>' + $(tr).find('td:nth-child(5)').text() + '</td><td class="Stotal">' + $(tr).find('td:nth-child(6)').text() + '</td><td><div class="btn-group"><button class="btn btn-sm btn-danger borrarClase"><i class="fas fa-backspace"></i></button><button class="btn btn-sm btn-warning" onclick="NotaServiciosClasesManual(' + $(tr).find('td:nth-child(1)').text() + ')"><i class="fas fa-book-open"></i></button></div></td><tr>');
         }
 
     });
@@ -311,8 +314,13 @@ function CalcularXReserva() {
             var precio = response.precio;
           //  precio = precio.toLocaleString("es-ES", {minimumFractionDigits: 2});
             var horas = response.horas;
+
+            tr = '<tr><td class="Nres">' + IdReserva + '</td><td>' + response.servicio + '</td><td>' + precio + '</td><td>' + response.canchas + '</td><td>' + horas + '</td><td class="Stotal">' + Mtotal + '</td><td><div class="btn-group"><button class="btn btn-sm btn-danger borrar" data-toggle="tooltip" title="Quitar"><i class="fas fa-backspace"></i></button><button class="btn btn-sm btn-warning" onclick="NotaServiciosReservasManual(' + IdReserva + ')" data-toggle="tooltip" title="Nota de servicios"><i class="fas fa-book-open"></i></button></div></td></tr>';
            
-            tr = '<tr><td class="Nres">' + IdReserva + '</td><td>' + response.servicio + '</td><td>' + precio + '</td><td>' + response.canchas + '</td><td>' + horas + '</td><td class="Stotal">' + Mtotal + '</td><td><button class="btn btn-sm btn-danger borrar"><i class="fas fa-backspace"></i></button></td></tr>';
+            if ($("#TDetalleR").html() !== "") {
+                alertify.error("Ya hay una reserva incorporada para cobrar");
+                return;
+            }
             $(".Nres").each(function () {
                 var tr = $(this).closest('tr');
                 var tot = $(tr).find('td:nth-child(1)').text();
@@ -378,12 +386,11 @@ function RegistrarCobroReservaManual() {
     var Servicio = [];
     $(".Nres").each(function () {
         var tr = $(this).closest('tr');
+        var idNumeroServicioAlquiler = $(tr).find('td:nth-child(1)').text();
         var canchas = $(tr).find('td:nth-child(4)').text();
         var monto = $(tr).find('td:nth-child(6)').text();       
-        var TotalHoras = $(tr).find('td:nth-child(5)').text();
-       
-        
-        servicio = { IdServicio: 1, Monto: monto, Id_NumeroCobro: 0, Cantidad: canchas, IdServiciosAdicionales: null, TotalHoras: TotalHoras };
+        var TotalHoras = $(tr).find('td:nth-child(5)').text();               
+        servicio = { IdServicio: 1, Monto: monto, Id_NumeroCobro: 0, Cantidad: canchas, IdServiciosAdicionales: null, TotalHoras: TotalHoras, IdNumeroServicioAlquiler: idNumeroServicioAlquiler };
         Servicio.push(servicio);
     });
     //array de servicios adicionales
@@ -394,7 +401,7 @@ function RegistrarCobroReservaManual() {
             var tot = $(tr).find('td:nth-child(4) .SAtot').val();
             var idservicio = $(tr).find('td:nth-child(6)').text();
             var cantidad = $(tr).find('td:nth-child(3) .SAcant').val();
-            var servicioadicional = { IdServicio: null, Monto: tot, Id_NumeroCobro: 0, Cantidad: cantidad, IdServiciosAdicionales: idservicio };
+            var servicioadicional = { IdServicio: null, Monto: tot, Id_NumeroCobro: 0, Cantidad: cantidad, IdServiciosAdicionales: idservicio, IdNumeroServicio: null };
             ServiciosAdicionales.push(servicioadicional);
         }
 
@@ -433,7 +440,7 @@ function TraerClases() {
             for (var i = 0; i < response.length; i++) {
                 tr += '<tr><td >' + response[i].numero + '</td><td>' + response[i].servicio + '</td><td>' + response[i].precio + '</td><td>' + response[i].canchas + '</td><td>' + response[i].horas + '</td><td >' + response[i].total + '</td><td><button class="btn btn-sm btn-success Aclases"><i class="fas fa-plus"></i></button></td></tr>';
             }
-
+          
             $("#TDetalleC").append(tr);
         },
         failure: function (response) {
@@ -475,8 +482,9 @@ function RegistrarCobroClaseManual() {
         var canchas = $(tr).find('td:nth-child(4)').text();
         var monto =  $(tr).find('td:nth-child(6)').text();
         var TotalHoras = $(tr).find('td:nth-child(5)').text();
+        var idNumeroServicioClases = $(tr).find('td:nth-child(1)').text();
        // TotalHoras = TotalHoras.replace(".",",");
-        servicio = { IdServicio: 2, Monto: monto, Id_NumeroCobro: 0, Cantidad: canchas, IdServiciosAdicionales: null, TotalHoras: TotalHoras };
+        servicio = { IdServicio: 2, Monto: monto, Id_NumeroCobro: 0, Cantidad: canchas, IdServiciosAdicionales: null, TotalHoras: TotalHoras, IdNumeroServicioClases: idNumeroServicioClases};
         Servicio.push(servicio);
     });
     //array de servicios adicionales
@@ -510,15 +518,9 @@ function RegistrarCobroClaseManual() {
 
 }
 
-
-
 function LimpiarClase() {
     window.location = "/Cobro/CobroManualClases";
 }
-
-
-
-
 
 function Limpiar() {
     window.location = "/Cobro/CobroManual";

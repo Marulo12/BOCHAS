@@ -1,4 +1,7 @@
-﻿$('#InputImagen').change(function (e) {
+﻿$(document).ready(function () {
+    
+});
+$('#InputImagen').change(function (e) {
     addImage(e);
 });
 

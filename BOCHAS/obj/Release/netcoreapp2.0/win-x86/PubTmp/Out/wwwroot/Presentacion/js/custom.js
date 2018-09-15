@@ -1,11 +1,13 @@
 /*global jQuery:false */
-
+$(document).ready(function () {
+    $("#intro").addClass("sombraText");  
+});
 (function ($) {
 
-
+   
 	$(window).load(function(){
         $("#navigation").sticky({ topSpacing: 0 });
-        
+       
     });
 	
 

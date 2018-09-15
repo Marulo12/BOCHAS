@@ -1,7 +1,11 @@
 ﻿@model IEnumerable<BOCHAS.Models.CanchasEfectivas>
+@using Hanssens.Net;
+@using System.Globalization;
 @{ Layout = null;
-    int total = 0;
-    }
+   
+    LocalStorage l = new LocalStorage();
+    CultureInfo ci = new CultureInfo("Es-Es");
+}
 
 
 <!DOCTYPE html>
@@ -21,78 +25,182 @@
     <h1 style="font-size:50px;padding-left:33%;font-family:'Times New Roman', Times, serif">Bochas Padel</h1>
     <hr />
     <h2 style="padding-left:9%;"><img src="~/images/extras/padel3.png" width="160" />&nbsp;&nbsp;&nbsp;Listado Uso de Canchas</h2>
-    
+
     <div class="container-fluid">
-        <h5>Desde el @TempData["fecD"] Hasta @TempData["fecH"]</h5>
+        <h5>Desde el @l.Get("fecD") Hasta @l.Get("fecH")</h5>
         <h3>Servicio de Alquiler de Canchas</h3>
-        <table class="table">
+        @{
+
+            int[] horas = new int[24];
+            for (int i = 0; i < 24; i++)
+            {
+                horas[i] = i;
+            }
+
+            }
+        <table class="table table-bordered" style="text-align:center;">
             <thead style="background-color: rgba(0, 104, 253, 0.8);color:white;">
                 <tr>
-                    <th>
-                        Cancha
+                    <th style="text-align:center;">Horario</th>
+                    <th style="text-align:center;">
+                        Lunes
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Cantidad)
+                    <th style="text-align:center;">
+                        Martes
+                    </th>
+                    <th style="text-align:center;">
+                        Miercoles
                     </th>
 
-                    <th></th>
+                    <th style="text-align:center;">
+                        Jueves
+                    </th>
+                    <th style="text-align:center;">
+                        Viernes
+                    </th>
+                    <th style="text-align:center;">
+                        Sabado
+                    </th>
+                    <th style="text-align:center;">
+                        Domingo
+                    </th>
+
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model.Where(d => d.servicio == "ALQUILER"))
+
+                @foreach (var i in horas)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Nombre)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Cantidad)
-                        </td>
-
-                    </tr>
-
-                    total = total + item.Cantidad;
-                }
-            </tbody>
-        </table>
-        <hr />
-
-        <h3>Servicio de Clases Particulares</h3>
-        <table class="table">
-            <thead style="background-color: rgba(0, 104, 253, 0.8);color:white;">
                 <tr>
-                    <th>
-                        Cancha
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Cantidad)
-                    </th>
+                    <td>@i:00</td>
+                    @{
 
-                    <th></th>
+                    <td>
+
+                        @{
+                            foreach (var item in Model)
+                            {
+
+                                if (ci.DateTimeFormat.GetDayName(item.Dia) == "lunes")
+                                {
+                                    if (item.Hora == i)
+                                    {
+                                        <label>@item.Cantidad</label>
+                                        break;
+                                    }
+
+                                }
+                            }
+                        }
+                    </td>
+                            <td>
+                                @{ 
+                                    foreach (var item in Model)
+                                    {
+
+                                        if (ci.DateTimeFormat.GetDayName(item.Dia) == "martes")
+                                        {
+                                            if (item.Hora == i)
+                                            {
+                                            <label>@item.Cantidad</label>
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    }
+                            </td>
+                            <td>
+                                @{ 
+                                    foreach (var item in Model)
+                                    {
+
+                                        if (ci.DateTimeFormat.GetDayName(item.Dia) == "miércoles")
+                                        {
+                                            if (item.Hora == i)
+                                            {
+                                            <label>@item.Cantidad</label>
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    }
+                            </td>
+                            <td>
+                                @{ 
+                                    foreach (var item in Model)
+                                    {
+
+                                        if (ci.DateTimeFormat.GetDayName(item.Dia) == "jueves")
+                                        {
+                                            if (item.Hora == i)
+                                            {
+                                            <label>@item.Cantidad</label>
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    }
+                            </td>
+                            <td>
+                                @{ 
+                                    foreach (var item in Model)
+                                    {
+
+                                        if (ci.DateTimeFormat.GetDayName(item.Dia) == "viernes")
+                                        {
+                                            if (item.Hora == i)
+                                            {
+                                            <label>@item.Cantidad</label>
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    }
+                            </td>
+                            <td>
+                                @{ 
+                                    foreach (var item in Model)
+                                    {
+
+                                        if (ci.DateTimeFormat.GetDayName(item.Dia) == "sábado")
+                                        {
+                                            if (item.Hora == i)
+                                            {
+                                            <label>@item.Cantidad</label>
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    }
+                            </td>
+                            <td>
+                                @{ 
+                                    foreach (var item in Model)
+                                    {
+
+                                        if (ci.DateTimeFormat.GetDayName(item.Dia) == "domingo")
+                                        {
+                                            if (item.Hora == i)
+                                            {
+                                            <label>@item.Cantidad</label>
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    }
+                            </td>
+                        
+                    }
                 </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.Where(d => d.servicio == "CLASES"))
-                {
 
 
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Nombre)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Cantidad)
-                        </td>
 
-                    </tr>
+                            }
+                </tbody>
+            </table>
 
-
-                    total = total + item.Cantidad;
-                }
-            </tbody>
-        </table>
         <hr />
-        <h3 style="text-align:right;padding-right:120px;background-color: rgba(215, 44, 44, 0.7);color:white;">Total de uso: @total.ToString()</h3>
+        
     </div>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>

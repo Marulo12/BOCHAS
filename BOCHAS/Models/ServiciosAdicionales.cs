@@ -8,6 +8,7 @@ namespace BOCHAS.Models
         public ServiciosAdicionales()
         {
             DetalleCobro = new HashSet<DetalleCobro>();
+            NotaConsumoServicioAdicional = new HashSet<NotaConsumoServicioAdicional>();
         }
 
         public int Id { get; set; }
@@ -17,5 +18,6 @@ namespace BOCHAS.Models
         public bool? Activo { get; set; }
 
         public ICollection<DetalleCobro> DetalleCobro { get; set; }
+        public ICollection<NotaConsumoServicioAdicional> NotaConsumoServicioAdicional { get; set; }
     }
 }

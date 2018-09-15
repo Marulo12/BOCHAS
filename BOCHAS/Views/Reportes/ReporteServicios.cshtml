@@ -49,7 +49,7 @@
                         @Html.DisplayFor(modelItem => item.Descripcion)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Precio)
+                        @item.Precio.ToString("N")
                     </td>
                     
                 </tr>
@@ -84,7 +84,7 @@
                             @item.Descripcion
                         </td>
                         <td>
-                            @item.Precio
+                            @item.Precio.ToString("N")
                         </td>
                         <td>
                             @{ if (item.Activo == true)
