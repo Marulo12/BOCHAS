@@ -573,10 +573,52 @@ namespace BOCHAS.Controllers
             }
 
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult HorariosEmpleados()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            ViewData["IdProfesor"] = new SelectList(_context.Persona.Where(p => p.FechaBaja == null && p.Tipo == "EMPLEADO").Select(x => new { Id = x.Id, persona = x.Nombre + " " + x.Apellido + ", Nro doc: " + x.NroDocumento }), "Id", "persona");
+            return View();
+        }
+        [HttpPost]
+        public JsonResult RegistrarHorariosProfe( HorariosProfesor[] turno)
+        {
+            try
+            {
+                foreach (var t in turno)
+                {
+                    var HoraProfe =  _context.HorariosProfesor.Where(h => h.IdProfesor == t.IdProfesor && h.Turno == t.Turno).SingleOrDefault();
+                    if (HoraProfe != null)
+                    {
+                        HoraProfe.HoraDesde = t.HoraDesde;
+                        HoraProfe.HoraHasta = t.HoraHasta;
+                        _context.HorariosProfesor.Update(HoraProfe);
+                         _context.SaveChanges();
+                    }
+                    else
+                    {
+                        HorariosProfesor horario = new HorariosProfesor();
+                        horario.IdProfesor = t.IdProfesor;
+                        horario.Turno = t.Turno;
+                        horario.HoraDesde = t.HoraDesde;
+                        horario.HoraHasta = t.HoraHasta;
+
+                        _context.HorariosProfesor.Add(horario);
+                         _context.SaveChanges();
+                    }
+
+                }
+
+
+                return Json("OK");
+            }
+            catch {
+                return Json("ERROR");
+            }
+        }
+
+        public async Task <JsonResult> BuscarHorariosProfe(int profesor)
+        {
+            var horas =await _context.HorariosProfesor.Where(p => p.IdProfesor == profesor).ToListAsync();
+            return Json(horas);
         }
 
 

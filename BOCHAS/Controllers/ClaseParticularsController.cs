@@ -311,6 +311,26 @@ namespace BOCHAS.Controllers
             return Json(Cantidad);
         }
 
-     
+
+        public async Task<IActionResult> CalendarioYProfesor(int profesor)
+        {
+            var horarios = await _context.HorariosProfesor.Where(h => h.IdProfesor == profesor).ToListAsync();
+            return PartialView(horarios);
+        }
+
+        public JsonResult ComprobarTurnoProfesor(int profesor ,TimeSpan HoraInicio,TimeSpan HoraFin )
+        {
+            var horarios = _context.HorariosProfesor.Where(h => h.IdProfesor == profesor && HoraInicio >= h.HoraDesde && HoraFin <= h.HoraHasta).ToList();
+
+            if (horarios.Count > 0)
+            {
+                return Json("OK");
+            }
+            else
+            {
+                return Json("NO");
+            }
+
+        }
     }
 }

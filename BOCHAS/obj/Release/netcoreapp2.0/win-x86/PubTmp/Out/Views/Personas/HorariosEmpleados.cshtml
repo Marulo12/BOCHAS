@@ -1,0 +1,96 @@
+﻿
+@{
+    ViewData["Title"] = "HorariosEmpleados";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<style>
+    .custom-combobox {
+        position: relative;
+        display: block;
+    }
+
+    .custom-combobox-toggle {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin-left: -1px;
+        padding: 0;
+    }
+
+    .custom-combobox-input {
+        margin: 0;
+        padding: 5px 10px;
+        background-color: darkred;
+        color: white;
+        width: 100%;
+        background-color: rgba(172, 44, 44, 0.9);
+    }
+</style>
+<div class="panel panel-primary">
+    <div class="panel-heading" style="padding-bottom:0px;">
+        <h3 style="padding:0px;margin:0px;margin-bottom:4px;"><i class="fas fa-user-tie"></i> Empleados</h3>
+
+    </div>
+    <div class="panel-body">
+
+        <div class="row">
+            <ul class="nav nav-tabs ">
+                <li role="presentation"> <a asp-action="RegistrarEmpleado" asp-controller="Personas">Nuevo Empleado</a></li>
+                <li role="presentation"><a id="ConsultaEmpleado" asp-action="ConsultarEmpleado" asp-controller="Personas">Consulta</a></li>
+                <li role="presentation"><a asp-action="MostrarEmpleadoBajas" asp-controller="Personas">Consulta Bajas</a></li>
+                <li role="presentation" class="active"><a asp-action="HorariosEmpleados" asp-controller="Personas">Horarios Empleados</a></li>
+            </ul>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-sm-3">
+
+                <label class="control-label">Profesor</label>
+                <select id="IdProfesor" class="form-control alert-info" asp-items="ViewBag.IdProfesor"></select>
+
+            </div>
+            <div class="col-sm-1" style="padding-top:23px;"><button class="btn btn-sm btn-info" onclick="BuscarHorarios()"><i class="fa fa-search"></i></button></div>
+            <div id="datosH" class="col-sm-7" style="display:none;">
+                <div class="row">
+
+
+                    <table class="table table-bordered table-striped">
+                        <thead style="background-color: rgba(158, 44, 44, 0.9);color:white"><tr><th style="width:4%;text-align:center;">Seleccionar</th><th style="text-align:center;width:20%;">Turno</th><th style="width:4%;text-align:center;">Hora desde</th><th style="width:4%">Hora hasta</th></tr></thead>
+                        <tbody style="text-align:center;">
+                            <tr><td><input type="checkbox" class="che" /></td><td><i class="fas fa-sun"></i> <label>Mañana</label> </td><td><input type="time" class="form-control H" /></td><td><input type="time" class="form-control H" /></td></tr>
+                            <tr><td><input type="checkbox" class="che" /></td><td><i class="fas fa-star-half-alt"></i> <label>Tarde</label></td><td><input type="time" class="form-control H" /></td><td><input type="time" class="form-control H" /></td></tr>
+                            <tr><td><input type="checkbox" class="che" /></td><td><i class="fas fa-moon"></i> <label>Noche</label></td><td><input type="time" class="form-control H" /></td><td><input type="time" class="form-control H" /></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-sm-11">
+                        <div class="btn-group" style="float:right;">
+                            <button class="btn btn-sm btn-info" onclick="RegistrarHorarios()">Aceptar</button>
+                            <button id="Limpiar" class="btn btn-sm btn-default">Limpiar</button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+     
+    </div>
+    <div class="panel-footer">
+        <label>Límites de horarios:</label> <i class="fas fa-sun"></i> <label>Mañana: 08:00 AM - 12:00 AM</label> &nbsp;&nbsp;  <i class="fas fa-star-half-alt"></i> <label>Tarde: 14:00 PM - 19:00 PM</label> &nbsp;&nbsp;  <i class="fas fa-moon"></i> <label>Noche:  20:00 PM - 22:00 PM</label>
+    </div>
+</div>
+
+@section Scripts{
+
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="~/js/AutoCompletarCombos-UI.js"></script>
+    <script src="~/js/HorariosEmpleados.js"></script>
+}

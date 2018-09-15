@@ -1,0 +1,49 @@
+﻿@model IEnumerable<BOCHAS.Models.HorariosProfesor>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Turno)
+            </th>
+            <th>
+                Hora Desde
+            </th>
+            <th>
+                Hora Hasta
+            </th>
+            
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.OrderBy(h=>h.HoraDesde)) {
+        <tr>
+            <td>
+                @{ if (item.Turno == "Mañana")
+                    {
+                        <i class="fas fa-sun"></i>
+                    }
+                    if (item.Turno == "Tarde")
+                    {
+                        <i class="fas fa-star-half-alt"></i>
+                    }
+                    if (item.Turno == "Noche")
+                    {
+                        <i class="fas fa-moon"></i>
+                    }
+
+                    @Html.DisplayFor(modelItem => item.Turno)
+                }
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoraDesde)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoraHasta)
+            </td>                        
+          
+        </tr>
+}
+    </tbody>
+</table>
