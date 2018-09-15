@@ -1,6 +1,6 @@
 /*global jQuery:false */
 $(document).ready(function () {
-    $("#intro").css("display","block");
+    $("#intro").addClass("sombraText");  
 });
 (function ($) {
 

@@ -12,10 +12,10 @@ namespace BOCHAS.Models
     public class CanchasEfectivas
     {
         [Key]
-        public int Id { set; get; }
-        public string Nombre { set; get; }
+        public int Hora { set; get; }
+        public DayOfWeek Dia { set; get; }
         public int Cantidad { set; get; }
-        public string servicio { set; get; }
+        
     }
     public class RepoJugador
     {

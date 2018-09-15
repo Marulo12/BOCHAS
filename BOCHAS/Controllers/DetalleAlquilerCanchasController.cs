@@ -83,7 +83,7 @@ namespace BOCHAS.Controllers
                       mensaje.From.Add(new MailboxAddress("BOCHAS PADEL", "bochaspadel@gmail.com"));
                       mensaje.To.Add(new MailboxAddress("Jugador", mail));
                       mensaje.Subject = "Cancelacion de Reserva";
-                      mensaje.Body = new TextPart("plain") { Text = "Buenos dias  Sr/a. " + apellido + " se realizo la cancelacion en la reserva N°" + nreserva + " de la fecha " + freserva.Value.Date.ToString("dd/MM/yyyy") + " la cancha N°" + cancha + ", Saludos." };
+                      mensaje.Body = new TextPart("plain") { Text = "Buenos dias  Sr/a. " + apellido + " se realizo la cancelacion de la cancha N°" + cancha + " en la reserva N°" + nreserva + " de la fecha " + freserva.Value.Date.ToString("dd/MM/yyyy") + ", Saludos." };
                       using (var cliente = new SmtpClient())
                       {
                           cliente.Connect("smtp.gmail.com", 587, false);

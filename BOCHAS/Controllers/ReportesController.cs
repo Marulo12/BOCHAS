@@ -176,27 +176,19 @@ namespace BOCHAS.Controllers
             local.Store("fecH", FecH.Date.ToString("dd/MM/yyyy"));
             local.Persist();
             List<CanchasEfectivas> lc = new List<CanchasEfectivas>();
-            var CanchasReservas = (from d in _context.DetalleAlquilerCancha join c in _context.Cancha on d.IdCancha equals c.Id join a in _context.AlquilerCancha on d.IdAlquilerCancha equals a.Numero where a.IdEstado == 4 && d.IdEstadoDetalle == 4 && a.FechaReserva >= FecD.Date && a.FechaReserva <= FecH.Date group c by c.Id into g select new { Nombre = "Numero:" + g.ToList()[0].Numero + ", Nombre:" + g.ToList()[0].Nombre , Cantidad = g.Count() , Id = g.Key }).ToList();
+            var CanchasReservas = (from d in _context.DetalleAlquilerCancha  join c in _context.Cancha on d.IdCancha equals c.Id join a in _context.AlquilerCancha on d.IdAlquilerCancha equals a.Numero where a.IdEstado == 4 && d.IdEstadoDetalle == 4 && a.FechaReserva >= FecD.Date && a.FechaReserva <= FecH.Date group c by new { dias= a.FechaReserva.Value.DayOfWeek , horas= d.HoraReservaDesde.Hours }  into g select new { Hora = g.Key.horas , dia = g.Key.dias , Cantidad = g.Count() , Id = g.Key }).ToList();
+
+
             foreach (var i in CanchasReservas)
             {
                 CanchasEfectivas ce = new CanchasEfectivas();
-                ce.Id = i.Id;
-                ce.Nombre = i.Nombre;
                 ce.Cantidad = i.Cantidad;
-                ce.servicio = "ALQUILER";
+                ce.Hora = i.Hora;
+                ce.Dia =  i.dia;
                 lc.Add(ce);
             }
 
-            var CanchasClases = (from d in _context.ClaseParticular join c in _context.Cancha on d.IdCancha equals c.Id  where d.FechaReserva >= FecD.Date && d.FechaReserva <= FecH.Date && d.HoraFinReal != null group c by c.Id into g select new { Nombre = "Numero:" + g.ToList()[0].Numero + ", Nombre:" + g.ToList()[0].Nombre, Cantidad = g.Count(), Id = g.Key }).ToList();
-            foreach (var i in CanchasClases)
-            {
-                CanchasEfectivas ce = new CanchasEfectivas();
-                ce.Id = i.Id;
-                ce.Nombre = i.Nombre;
-                ce.Cantidad = i.Cantidad;
-                ce.servicio = "CLASES";
-                lc.Add(ce);
-            }
+           
 
            
             return new ViewAsPdf("ReporteCanchas", lc)

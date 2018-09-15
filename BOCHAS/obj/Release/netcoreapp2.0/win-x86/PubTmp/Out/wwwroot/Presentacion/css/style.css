@@ -155,6 +155,30 @@ blockquote strong {
     font-weight: 400;
 }
 
+.gallery {
+    list-style: none;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+}
+
+    .gallery li {
+        float: left;
+        margin: 4px;
+    }
+
+    .gallery a {
+        width: 15px;
+        height: 15px;
+    }
+
+.lightbox__caption p {
+    font-size: 21px;
+}
+.sombraText {
+    text-shadow: -3px 3px 2px rgba(103, 0, 2, 1) !important;
+    font-family: 'Shadows Into Light', cursive;
+}
 
 /* ------- Navigation ------------ */
 #navigation {
@@ -1858,8 +1882,7 @@ a.btn:focus{
         z-index: 10000;
         top: 30%;
         left: 23% !important;
-        text-shadow: -3px 3px 2px rgba(103, 0, 2, 1);
-        font-family: 'Shadows Into Light', cursive;
+       
     }
 
     body {
@@ -1874,8 +1897,7 @@ a.btn:focus{
         z-index: 10000;
         top: 30%;
         left: 32% !important;
-        text-shadow: -3px 3px 2px rgba(103, 0, 2, 1);
-        font-family: 'Shadows Into Light', cursive;
+       
     }
 
     body {
@@ -1889,7 +1911,7 @@ a.btn:focus{
         position: absolute;
         z-index: 10000;
         top: 30%;
-        text-shadow: -3px 3px 2px rgba(103, 0, 2, 1);
+       
         left: 14% !important;
     }
     #page-loader .loadIMGL {
@@ -1962,7 +1984,7 @@ a.btn:focus{
         z-index: 10000;
         top: 30%;
         left: 19% !important;
-        text-shadow: -3px 3px 2px rgba(103, 0, 2, 1);
+      
     }
 	.navbar-custom .nav.navbar-nav {
     background-color: rgba(255,255,255,.4);
@@ -1994,7 +2016,7 @@ a.btn:focus{
         z-index: 10000;
         top: 30%;
         left: 15% !important;
-        text-shadow: -3px 3px 2px rgba(103, 0, 2, 1);
+     
     }
     html {
         min-width: 108%;
