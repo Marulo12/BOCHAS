@@ -76,7 +76,8 @@ function TraerCanchas() {
 
                     });
                 }
-                else { alertify.error("Horarios no disponibles para el profesor seleccionado"); }
+                if (response === "NO") { alertify.error("Horarios no disponibles para el profesor seleccionado"); }
+                if (response === "VACIO") { alertify.error("El profesor seleccionado no tiene sus horarios cargados "); }
             }
         });
           
@@ -416,10 +417,3 @@ function VerAgenda() {
 
 }
 
-function ComprobarTurnoProfesor() {
-
-   
-
-
-    
-}

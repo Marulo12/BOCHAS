@@ -320,16 +320,24 @@ namespace BOCHAS.Controllers
 
         public JsonResult ComprobarTurnoProfesor(int profesor ,TimeSpan HoraInicio,TimeSpan HoraFin )
         {
-            var horarios = _context.HorariosProfesor.Where(h => h.IdProfesor == profesor && HoraInicio >= h.HoraDesde && HoraFin <= h.HoraHasta).ToList();
+            var carga = _context.HorariosProfesor.Where(h => h.IdProfesor == profesor ).ToList();
+            if (carga.Count > 0)
+            {
+                var horarios = _context.HorariosProfesor.Where(h => h.IdProfesor == profesor && HoraInicio >= h.HoraDesde && HoraFin <= h.HoraHasta).ToList();
 
-            if (horarios.Count > 0)
-            {
-                return Json("OK");
+                if (horarios.Count > 0)
+                {
+                    return Json("OK");
+                }
+                else
+                {
+                    return Json("NO");
+                }
             }
-            else
-            {
-                return Json("NO");
+            else {
+                return Json("VACIO");
             }
+            
 
         }
     }
