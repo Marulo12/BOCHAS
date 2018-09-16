@@ -13669,23 +13669,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\mlb\\.nuget\\packages\\": {},
+    "C:\\Users\\sistemas\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\mlb\\Desktop\\BOCHAS\\BOCHAS\\BOCHAS.csproj",
+      "projectUniqueName": "C:\\Users\\sistemas\\Documents\\GitHub\\BOCHAS\\BOCHAS\\BOCHAS.csproj",
       "projectName": "BOCHAS",
-      "projectPath": "C:\\Users\\mlb\\Desktop\\BOCHAS\\BOCHAS\\BOCHAS.csproj",
-      "packagesPath": "C:\\Users\\mlb\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\mlb\\Desktop\\BOCHAS\\BOCHAS\\obj\\",
+      "projectPath": "C:\\Users\\sistemas\\Documents\\GitHub\\BOCHAS\\BOCHAS\\BOCHAS.csproj",
+      "packagesPath": "C:\\Users\\sistemas\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\sistemas\\Documents\\GitHub\\BOCHAS\\BOCHAS\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\mlb\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\sistemas\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

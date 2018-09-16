@@ -13,7 +13,7 @@ using System.ComponentModel.DataAnnotations;
 using Hanssens.Net;
 
 namespace BOCHAS.Controllers
-{[AllowAnonymous]
+{[Authorize]
     public class ReportesController : Controller
     {
         private readonly BOCHASContext _context;

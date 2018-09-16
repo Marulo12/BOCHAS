@@ -1,5 +1,6 @@
 ﻿using BOCHAS.Models;
 using MailKit.Net.Smtp;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace BOCHAS.Controllers
 {
+    [Authorize]
     public class ClaseParticularsController : Controller
     {
         private readonly BOCHASContext _context;
