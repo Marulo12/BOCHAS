@@ -71,6 +71,11 @@ namespace BOCHAS.Controllers
             return PartialView(cancha);
         }
 
+        public async Task<IActionResult> VerCanchasHome()
+        {
+            var bOCHASContext = _context.Cancha.Include(c => c.IdEstadoCanchaNavigation).Include(c => c.IdTipoMaterialNavigation).Where(c => c.IdEstadoCancha != 3);
+            return PartialView(await bOCHASContext.ToListAsync());
+        }
        
         [HttpPost]
         [ValidateAntiForgeryToken]  
