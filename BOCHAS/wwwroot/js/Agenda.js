@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-  
+   
     $('#calendar').fullCalendar({
         header: {
             left: 'prev,next today',
@@ -43,6 +43,9 @@
     });
    
     MostrarAgendaPorCancha();
+
+    
+
 });
 
 
@@ -52,6 +55,9 @@ function MostrarAgendaPorCancha() {
     $('#calendar').fullCalendar('removeEvents');    
     $('#calendar').fullCalendar('addEventSource', '/Agenda/ArmarAgendaXCancha?cancha=' + $("#CmbCancha option:selected").val()); 
           }
+
+
+
 
 
 

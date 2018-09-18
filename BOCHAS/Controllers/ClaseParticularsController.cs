@@ -1,5 +1,6 @@
 ﻿using BOCHAS.Models;
 using MailKit.Net.Smtp;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace BOCHAS.Controllers
 {
+    [Authorize]
     public class ClaseParticularsController : Controller
     {
         private readonly BOCHASContext _context;
@@ -311,6 +313,34 @@ namespace BOCHAS.Controllers
             return Json(Cantidad);
         }
 
-     
+
+        public async Task<IActionResult> CalendarioYProfesor(int profesor)
+        {
+            var horarios = await _context.HorariosProfesor.Where(h => h.IdProfesor == profesor).ToListAsync();
+            return PartialView(horarios);
+        }
+
+        public JsonResult ComprobarTurnoProfesor(int profesor ,TimeSpan HoraInicio,TimeSpan HoraFin )
+        {
+            var carga = _context.HorariosProfesor.Where(h => h.IdProfesor == profesor ).ToList();
+            if (carga.Count > 0)
+            {
+                var horarios = _context.HorariosProfesor.Where(h => h.IdProfesor == profesor && HoraInicio >= h.HoraDesde && HoraFin <= h.HoraHasta).ToList();
+
+                if (horarios.Count > 0)
+                {
+                    return Json("OK");
+                }
+                else
+                {
+                    return Json("NO");
+                }
+            }
+            else {
+                return Json("VACIO");
+            }
+            
+
+        }
     }
 }

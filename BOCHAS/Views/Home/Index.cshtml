@@ -85,11 +85,16 @@
         </div>
     </div>
 </div>
+<div class="row">
+    <div  class="col-sm-12" style="overflow-x:auto">
+        <div id="canchas"></div>
+    </div>
+</div>
 <!-- END OVERVIEW -->
 <div class="row">
     <div class="col-md-6">
         <!-- RECENT PURCHASES -->
-        <div class="panel ">
+        <div class="panel " style="max-height:400px;">
             <div class="panel-heading">
                 <h3 class="panel-title">Reservas Recientes</h3>
                 <div class="right">
@@ -97,17 +102,20 @@
                     <button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
                 </div>
             </div>
-            <div class="panel-body no-padding pre-scrollable" style="max-height:245px;">
-                <table class="table table-striped ">
-                    <thead>
-                        <tr>
-                            <th>Número</th>
-                            <th>Jugador</th>
-                            <th>Estado</th>
-                        </tr>
-                    </thead>
-                    <tbody id="BodyTReservaPorDia"></tbody>
-                </table>
+            <div class="panel-body no-padding pre-scrollable" style="max-height:282px;" >
+               
+                    <table class="table table-striped" style="height:inherit;">
+                        <thead>
+                            <tr>
+                                <th>Número</th>
+                                <th>Jugador</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="BodyTReservaPorDia"></tbody>
+                    </table>
+               
+                
             </div>
             <div class="panel-footer">
                 <div class="row">

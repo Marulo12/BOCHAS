@@ -1,0 +1,105 @@
+﻿@model IEnumerable<BOCHAS.Models.HorariosProfesor>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Turno)
+            </th>
+            <th>
+                Hora Desde
+            </th>
+            <th>
+                Hora Hasta
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.OrderBy(h => h.HoraDesde))
+        {
+            <tr>
+                <td>
+                    @{ if (item.Turno == "Mañana")
+                        {
+                            <i class="fas fa-sun"></i>
+                        }
+                        if (item.Turno == "Tarde")
+                        {
+                            <i class="fas fa-star-half-alt"></i>
+                        }
+                        if (item.Turno == "Noche")
+                        {
+                            <i class="fas fa-moon"></i>
+                        }
+
+                        @Html.DisplayFor(modelItem => item.Turno)
+                    }
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HoraDesde)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HoraHasta)
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+<script src="~/js/Agenda.js"></script>
+<script> $("#DivCalendar").html('<div id="calendarProfe"></div>');
+    $("#calendarProfe").ready(function () {
+        $('#calendarProfe').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'agendaWeek,basicDay'
+            },
+            allDaySlot: false,
+            slotEventOverlap: true,
+            aspectRatio: 2,
+            theme: true,
+            themeSystem: 'bootstrap4',
+            height: "parent",
+            defaultView: 'agendaWeek',
+           // events: '/Agenda/ArmarAgenda',
+            eventClick: function (calEvent, jsEvent, view) {
+                //var stime = calEvent.start.format('MM/DD/YYYY, h:mm a');
+                //var etime = calEvent.end.format('MM/DD/YYYY, h:mm a');
+                var evento = calEvent.id;
+                // var xpos = jsEvent.pageX;
+                //var ypos = jsEvent.pageY;
+
+                $.ajax({
+                    type: "GET",
+                    url: "/Agenda/MostrarEvento",
+                    data: { evento },
+
+                    success: function (response) {
+                        $("#EventoBody").html(response);
+                        $("#ModalEvento").modal();
+                    },
+                    failure: function (response) {
+                        alert(response);
+                    }
+
+                });
+
+
+                return false;
+            }
+
+        });
+
+        setTimeout(function () {
+            $("#calendarProfe").fullCalendar('refetchEvents');
+            $('#calendarProfe').fullCalendar('addEventSource', '/Agenda/ArmarAgenda'); },1000);
+
+        
+        
+    });
+    
+
+    </script>

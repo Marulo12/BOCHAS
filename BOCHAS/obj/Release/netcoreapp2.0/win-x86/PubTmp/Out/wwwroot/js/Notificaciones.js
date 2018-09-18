@@ -114,3 +114,13 @@ $.ajax({
 
 });
 
+$.ajax({
+    type: "GET",
+    url: "/Canchas/VerCanchasHome",
+    success: function (response) {
+       
+        $("#canchas").html(response);
+        
+    }
+
+});

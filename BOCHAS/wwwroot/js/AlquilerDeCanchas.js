@@ -112,6 +112,66 @@
         $("#ModalServicioA .SA").html(response);
         }
     });
+
+
+    $("#BtnAgenda").click(function () {
+        
+        $("#ModalHorariosProfesor").modal();
+        $("#DivCalendar").html('<div id="calendarProfe"></div>');
+        $("#calendarProfe").ready(function () {
+            $('#calendarProfe').fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'agendaWeek,basicDay'
+                },
+                allDaySlot: false,
+                slotEventOverlap: true,
+                aspectRatio: 2,
+                theme: true,
+                themeSystem: 'bootstrap4',
+                height: "parent",
+                defaultView: 'agendaWeek',
+                // events: '/Agenda/ArmarAgenda',
+                eventClick: function (calEvent, jsEvent, view) {
+                    //var stime = calEvent.start.format('MM/DD/YYYY, h:mm a');
+                    //var etime = calEvent.end.format('MM/DD/YYYY, h:mm a');
+                    var evento = calEvent.id;
+                    // var xpos = jsEvent.pageX;
+                    //var ypos = jsEvent.pageY;
+
+                    $.ajax({
+                        type: "GET",
+                        url: "/Agenda/MostrarEvento",
+                        data: { evento },
+
+                        success: function (response) {
+                            $("#EventoBody").html(response);
+                            $("#ModalEvento").modal();
+                        },
+                        failure: function (response) {
+                            alert(response);
+                        }
+
+                    });
+
+
+                    return false;
+                }
+
+            });
+
+            setTimeout(function () {
+                $("#calendarProfe").fullCalendar('refetchEvents');
+                $('#calendarProfe').fullCalendar('addEventSource', '/Agenda/ArmarAgenda');
+            }, 1000);
+
+
+
+        });
+    });
+
+
 });
 
 
@@ -152,7 +212,7 @@ function RegistrarReserva() {
                 $("#ImgLoad").css("display", "none");
                 if (response !== "ERROR") {
 
-                    alertify.alert('Alerta', "Reserva Generada con exito con Numero: " + response, function () { window.location = "/AlquilerCanchas/NuevaReserva"; });
+                    alertify.alert('Alerta', "Reserva Generada con exito con Número: " + response, function () { window.location = "/AlquilerCanchas/NuevaReserva"; });
                 }
                 else {
 
@@ -195,7 +255,7 @@ function RegistrarReservaJugador() {
                     NotificaReserva();
                    
 
-                    alertify.alert('Alerta', "Reserva Generada con exito con Numero de reserva: " + response + ", para ver si la reserva se confirmo verifique la misma en 'Mis Reservas'", function () { window.location = "/AlquilerCanchas/NuevaReservaJugador"; });
+                    alertify.alert('Alerta', "Reserva Generada con exito con Número de reserva: " + response + ", para ver si la reserva se confirmó verifique la misma en 'Mis Reservas'", function () { window.location = "/AlquilerCanchas/NuevaReservaJugador"; });
                 }
                 else {
 
@@ -583,7 +643,7 @@ function MensajesdeAcciones() {
             $("#LNReserva").text($("#NReservaFinalizada").val());
 
         }
-            , function () { alertify.error('Operacion cancelada'); });
+            , function () { alertify.error('Operación cancelada'); });
       
 
     }
@@ -611,7 +671,7 @@ function MensajesdeAcciones() {
         alertify.error("Error en la operacion");
     }
     if ($("#Respuesta").val() === "NoMail") {
-        alertify.error("Se cancelo la reserva pero no se mando mensaje al jugador");
+        alertify.error("Se canceló la reserva pero no se mando mensaje al jugador");
     }
     $("#Respuesta").val("");
 }

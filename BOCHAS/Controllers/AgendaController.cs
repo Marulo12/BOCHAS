@@ -36,7 +36,7 @@ namespace BOCHAS.Controllers
         public JsonResult ArmarAgenda()
         {
             EliminarReservascaducadas();
-            var agenda = (from a in _context.Agenda select new {id= a.Id , title="Nombre:"+a.IdCanchaNavigation.Nombre + " Numero:" + a.IdCanchaNavigation.Numero + " Descripcion:" + a.IdCanchaNavigation.Descripcion, allDay = false , start=a.Fecha.Date.ToString("yyyy-MM-dd") + "T" + Convert.ToString(a.HoraDesde) , end = a.Fecha.Date.ToString("yyyy-MM-dd") + "T" + Convert.ToString(a.HoraHasta), backgroundColor = ColorXTipodeServicio(a.IdAlquilerCancha, a.IdTorneo , a.IdClasesParticulares) }).ToList();
+            var agenda = (from a in _context.Agenda select new {id= a.Id , title="Cancha N°: " + a.IdCanchaNavigation.Numero , allDay = false , start=a.Fecha.Date.ToString("yyyy-MM-dd") + "T" + Convert.ToString(a.HoraDesde) , end = a.Fecha.Date.ToString("yyyy-MM-dd") + "T" + Convert.ToString(a.HoraHasta), backgroundColor = ColorXTipodeServicio(a.IdAlquilerCancha, a.IdTorneo , a.IdClasesParticulares) }).ToList();
             return Json(agenda);
         }
 

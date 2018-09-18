@@ -152,7 +152,7 @@ function RegistrarReserva() {
                 $("#ImgLoad").css("display", "none");
                 if (response !== "ERROR") {
 
-                    alertify.alert('Alerta', "Reserva Generada con exito con Numero: " + response, function () { window.location = "/AlquilerCanchas/NuevaReserva"; });
+                    alertify.alert('Alerta', "Reserva Generada con exito con Número: " + response, function () { window.location = "/AlquilerCanchas/NuevaReserva"; });
                 }
                 else {
 
@@ -195,7 +195,7 @@ function RegistrarReservaJugador() {
                     NotificaReserva();
                    
 
-                    alertify.alert('Alerta', "Reserva Generada con exito con Numero de reserva: " + response + ", para ver si la reserva se confirmo verifique la misma en 'Mis Reservas'", function () { window.location = "/AlquilerCanchas/NuevaReservaJugador"; });
+                    alertify.alert('Alerta', "Reserva Generada con exito con Número de reserva: " + response + ", para ver si la reserva se confirmó verifique la misma en 'Mis Reservas'", function () { window.location = "/AlquilerCanchas/NuevaReservaJugador"; });
                 }
                 else {
 
@@ -583,7 +583,7 @@ function MensajesdeAcciones() {
             $("#LNReserva").text($("#NReservaFinalizada").val());
 
         }
-            , function () { alertify.error('Operacion cancelada'); });
+            , function () { alertify.error('Operación cancelada'); });
       
 
     }
@@ -611,7 +611,7 @@ function MensajesdeAcciones() {
         alertify.error("Error en la operacion");
     }
     if ($("#Respuesta").val() === "NoMail") {
-        alertify.error("Se cancelo la reserva pero no se mando mensaje al jugador");
+        alertify.error("Se canceló la reserva pero no se mando mensaje al jugador");
     }
     $("#Respuesta").val("");
 }

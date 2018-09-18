@@ -42,7 +42,7 @@ namespace BOCHAS.Controllers
             ViewData["empleado"] = empleado.Nombre + " " + empleado.Apellido;
             ViewData["Numero"] = Numero;            
             ViewData["IdMedioPago"] = new SelectList(_context.MediodePago, "Id", "Nombre");
-            ViewData["IdTarjeta"] = new SelectList(_context.Tarjeta, "Id", "Nombre");            
+            ViewData["IdTarjeta"] = new SelectList(_context.Tarjeta.ToList().Select(t=> new { Id=t.Id , Nombre= t.Nombre + "-" + t.TipoTarjeta }), "Id", "Nombre");            
             return View();
         }
         [HttpGet]
@@ -57,7 +57,7 @@ namespace BOCHAS.Controllers
             ViewData["empleado"] = empleado.Nombre + " " + empleado.Apellido;
             ViewData["Numero"] = Numero;
             ViewData["IdMedioPago"] = new SelectList(_context.MediodePago, "Id", "Nombre");
-            ViewData["IdTarjeta"] = new SelectList(_context.Tarjeta, "Id", "Nombre");
+            ViewData["IdTarjeta"] = new SelectList(_context.Tarjeta.ToList().Select(t => new { Id = t.Id, Nombre = t.Nombre + "-" + t.TipoTarjeta }), "Id", "Nombre");
             return View();
         }
         public async Task<JsonResult> ListadoServiciosAdicionales() {
@@ -202,7 +202,7 @@ namespace BOCHAS.Controllers
             var empleado = _context.Persona.Include(p => p.IdUsuarioNavigation).Where(u => u.IdUsuarioNavigation.Nombre == HttpContext.User.Identity.Name && u.Tipo == "EMPLEADO" && u.FechaBaja == null).SingleOrDefault();
             ViewData["empleado"] = empleado.Nombre + " " + empleado.Apellido;
             ViewData["IdMedioPago"] = new SelectList(_context.MediodePago, "Id", "Nombre");
-            ViewData["IdTarjeta"] = new SelectList(_context.Tarjeta, "Id", "Nombre");
+            ViewData["IdTarjeta"] = new SelectList(_context.Tarjeta.ToList().Select(t => new { Id = t.Id, Nombre = t.Nombre + "-" + t.TipoTarjeta }), "Id", "Nombre");
             return View();
         }
         public IActionResult CobroManualClases()
@@ -212,7 +212,7 @@ namespace BOCHAS.Controllers
             var empleado = _context.Persona.Include(p => p.IdUsuarioNavigation).Where(u => u.IdUsuarioNavigation.Nombre == HttpContext.User.Identity.Name && u.Tipo == "EMPLEADO" && u.FechaBaja == null).SingleOrDefault();
             ViewData["empleado"] = empleado.Nombre + " " + empleado.Apellido;
             ViewData["IdMedioPago"] = new SelectList(_context.MediodePago, "Id", "Nombre");
-            ViewData["IdTarjeta"] = new SelectList(_context.Tarjeta, "Id", "Nombre");
+            ViewData["IdTarjeta"] = new SelectList(_context.Tarjeta.ToList().Select(t => new { Id = t.Id, Nombre = t.Nombre + "-" + t.TipoTarjeta }), "Id", "Nombre");
             return View();
         }
 

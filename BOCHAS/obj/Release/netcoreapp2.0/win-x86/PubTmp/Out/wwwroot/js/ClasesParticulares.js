@@ -31,41 +31,59 @@
 
 function TraerCanchas() {
     if (ComprobarCamposDates()) {
-        $("#Canchas").empty();
-        $("#ImgLoad").css("display", "inline-block");
-        var fecR = $("#FecR").val();
-        var hd = $("#HD").val();
-        var hh = $("#HH").val();
+        var profesor = $("#IdProfesor option:selected").val();
+        var HoraInicio = $("#HD").val();
+        var HoraFin = $("#HH").val();
+        $("#FormCancha").hide();
         $.ajax({
             type: "GET",
-            data: { fecR, hd, hh },
-            url: "/ClaseParticulars/MostrarCanchas",
+            data: { profesor, HoraInicio, HoraFin },
+            url: "/ClaseParticulars/ComprobarTurnoProfesor",
             success: function (response) {
-                $("#FormCancha").hide();
-                $("#ListCancha").empty();
-                $("#ImgLoad").css("display", "none");          
-                if (response === "VACIO") {
-                    alertify.alert("Alerta", "No hay canchas disponibles para ese horario");
-                } else {
+                if (response === "OK") {
+                    $("#Canchas").empty();
+                    $("#ImgLoad").css("display", "inline-block");
+                    var fecR = $("#FecR").val();
+                    var hd = $("#HD").val();
+                    var hh = $("#HH").val();
+                    $.ajax({
+                        type: "GET",
+                        data: { fecR, hd, hh },
+                        url: "/ClaseParticulars/MostrarCanchas",
+                        success: function (response) {
+                            $("#FormCancha").hide();
+                            $("#ListCancha").empty();
+                            $("#ImgLoad").css("display", "none");
+                            if (response === "VACIO") {
+                                alertify.alert("Alerta", "No hay canchas disponibles para ese horario");
+                            } else {
 
-                    var table = $("#ListCancha");
-                    var tr = "";
-                    for (var i = 0; i < response.length; i++) {
+                                var table = $("#ListCancha");
+                                var tr = "";
+                                for (var i = 0; i < response.length; i++) {
 
-                        tr += '<option value="' + response[i].id  + '">' + 'Nro: ' + response[i].numero + ' Nombre: ' + response[i].nombre + ' Descripcion: ' + response[i].descripcion + '</option>';
-                    }
+                                    tr += '<option value="' + response[i].id + '">' + 'Nro: ' + response[i].numero + ' Nombre: ' + response[i].nombre + ' Descripcion: ' + response[i].descripcion + '</option>';
+                                }
 
-                    table.html(tr);
+                                table.html(tr);
 
-                    $("#FormCancha").show('slow');
+                                $("#FormCancha").show('slow');
+                            }
+                        },
+                        failure: function (response) {
+                            alert(response);
+                        }
+
+                    });
                 }
-            },
-            failure: function (response) {
-                alert(response);
+                if (response === "NO") { alertify.error("Horarios no disponibles para el profesor seleccionado"); }
+                if (response === "VACIO") { alertify.error("El profesor seleccionado no tiene sus horarios cargados "); }
             }
-
         });
-    }
+          
+        }
+
+    
 }
 
 function MostrarHorariosOcupados() {
@@ -120,42 +138,43 @@ function RegistrarClase() {
     }
        
     if (ComprobarCamposDates()) {
-        var FechaReserva = $("#FecR").val();
-        var HoraInicio = $("#HD").val();
-        var HoraFin = $("#HH").val();
-        var IdJugador = $("#IdCliente option:selected").val();
-        var IdProfesor = $("#IdProfesor option:selected").val();
-        var IdCancha = $("#ListCancha option:selected").val();
-        var Obs = $("#Obs").val();
-        $("#ImgLoad").css("display", "inline-block");
-        $("#FormCancha").hide();
-        $.ajax({
-            type: "POST",
-            data: { IdJugador, IdProfesor, FechaReserva, HoraInicio, HoraFin, IdCancha, Obs },
-            url: "/ClaseParticulars/RegistrarClase",
-            success: function (response) {
+        
+            var FechaReserva = $("#FecR").val();
+            var HoraInicio = $("#HD").val();
+            var HoraFin = $("#HH").val();
+            var IdJugador = $("#IdCliente option:selected").val();
+            var IdProfesor = $("#IdProfesor option:selected").val();
+            var IdCancha = $("#ListCancha option:selected").val();
+            var Obs = $("#Obs").val();
+            $("#ImgLoad").css("display", "inline-block");
+            $("#FormCancha").hide();
+            $.ajax({
+                type: "POST",
+                data: { IdJugador, IdProfesor, FechaReserva, HoraInicio, HoraFin, IdCancha, Obs },
+                url: "/ClaseParticulars/RegistrarClase",
+                success: function (response) {
 
-              //  $("#Canchas").empty();
-                $("#ImgLoad").css("display", "none");
-                
-                if (response !== "ERROR") {
+                    //  $("#Canchas").empty();
+                    $("#ImgLoad").css("display", "none");
 
-                    alertify
-                        .alert("Notificacion","Clase particular registrada con exito", function () {
-                            window.location = "/ClaseParticulars/Index";
-                        });
+                    if (response !== "ERROR") {
+
+                        alertify
+                            .alert("Notificacion", "Clase particular registrada con exito", function () {
+                                window.location = "/ClaseParticulars/Index";
+                            });
+                    }
+                    else {
+
+                        alertify.error("Error en la operacion");
+                    }
+                },
+                failure: function (response) {
+                    alertify.error(response);
                 }
-                else {
 
-                    alertify.error("Error en la operacion");
-                }
-            },
-            failure: function (response) {
-                alertify.error(response);
-            }
-
-        });
-
+            });
+       
     }
 
 
@@ -381,3 +400,20 @@ function generaRepo(numero) {
 
     }, 2000);
 }
+
+function VerAgenda() {
+    var profesor = $("#IdProfesor option:selected").val();
+    $.ajax({
+        type: "GET",
+        data: {profesor},
+        url: "/ClaseParticulars/CalendarioYProfesor",
+        success: function (response) {
+            $("#ModalHorariosProfeBody").html(response);
+            $("#ModalHorariosProfesor").modal();
+        }
+    });
+
+   
+
+}
+

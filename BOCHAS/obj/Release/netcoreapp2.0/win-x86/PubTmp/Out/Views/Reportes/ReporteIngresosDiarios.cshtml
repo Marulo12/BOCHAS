@@ -47,7 +47,7 @@
                     <th style="width:120px;">
                         Responsable
                     </th>
-                    <th style="width:600px;text-align:center;">Detalle</th>
+                    <th style="width:700px;text-align:center;">Detalle</th>
                 </tr>
             </thead>
             <tbody>
@@ -58,7 +58,7 @@
                             @item.Fecha.Date.ToString("dd/MM/yyyy")
                         </td>
                         <td style="width:80px;">
-                            @Html.DisplayFor(modelItem => item.MontoTotal)
+                            @item.MontoTotal.Value.ToString("C")
                             @{
                                 total = total + item.MontoTotal;
 

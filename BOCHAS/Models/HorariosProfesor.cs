@@ -10,6 +10,7 @@ namespace BOCHAS.Models
         public TimeSpan? HoraHasta { get; set; }
         public int? IdProfesor { get; set; }
 
+        public string Turno { get; set; }
         public Empleado IdProfesorNavigation { get; set; }
     }
 }
