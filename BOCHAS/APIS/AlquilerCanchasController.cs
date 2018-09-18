@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BOCHAS.Models;
+using Microsoft.AspNetCore.SignalR;
+using BOCHAS.Hubs;
 
 namespace BOCHAS.APIS
 {
@@ -14,9 +16,10 @@ namespace BOCHAS.APIS
     public class AlquilerCanchasController : Controller
     {
         private readonly BOCHASContext _context;
-
-        public AlquilerCanchasController(BOCHASContext context)
+        private readonly IHubContext<Chat> _hubContext;
+        public AlquilerCanchasController(BOCHASContext context, IHubContext<Chat> hubContext)
         {
+            _hubContext = hubContext;
             _context = context;
         }
 
@@ -140,10 +143,7 @@ namespace BOCHAS.APIS
                 DateTime fechaReserva = Convert.ToDateTime(reserva.fecR).Date;
                 TimeSpan HoraDesde = TimeSpan.Parse(reserva.hd);
                 TimeSpan HoraHasta = TimeSpan.Parse(reserva.hh);
-
                 int idCliente = (from u in _context.Usuario join p in _context.Persona on u.Id equals p.IdUsuario where u.Nombre == reserva.Usuario && p.Tipo == "JUGADOR" && p.FechaBaja == null select u).SingleOrDefault().Id;
-
-
                 AlquilerCancha al = new AlquilerCancha();
                 al.FechaPedido = fechaPedido;
                 al.FechaReserva = fechaReserva;
@@ -174,11 +174,10 @@ namespace BOCHAS.APIS
                         _context.Agenda.Add(ag);
                         _context.SaveChanges();
                     }
-
-
                 }
-
-
+                var reservaJ = (from a in _context.AlquilerCancha join p in _context.Persona on a.IdCliente equals p.IdUsuario where a.IdEmpleado == null && a.IdEstado == 2 select new { Numero = a.Numero, Nombre = p.Nombre, Apellido = p.Apellido }).ToList();
+              
+                _hubContext.Clients.All.ReservasJugador(reservaJ);
                 return Json(Ok());
             }
             catch { return Json(NotFound()); }
