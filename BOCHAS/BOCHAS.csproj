@@ -32,6 +32,9 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Views\Reportes\ReporteCobroClaseIndividual.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Reportes\ReporteCobroClase.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

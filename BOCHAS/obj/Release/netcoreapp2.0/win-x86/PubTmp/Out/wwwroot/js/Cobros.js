@@ -24,6 +24,26 @@ $(document).ready(function () {
         }
 
     });
+    $(document).on('click', '.borrarClase', function (event) {
+        event.preventDefault();
+        
+        var clase = parseInt($(this).closest('tr').find('td:nth-child(1)').text());
+        $("#SAFinal tbody tr").each(function () {
+
+            if (clase === parseInt($(this).find('td:nth-child(1)').text())) {
+                $(this).remove();
+            }
+
+        });
+        $("#ReservasSA option").each(function () {
+
+            if (clase === parseInt($(this).val())) {
+                $(this).remove();
+            }
+
+        });
+        $(this).closest('tr').remove();
+    });
     $(document).on('click', '.borrar', function (event) {
         event.preventDefault();
         var reserva = parseInt( $(this).closest('tr').find('td:nth-child(1)').text());
@@ -49,10 +69,7 @@ $(document).ready(function () {
         event.preventDefault();
         $(this).closest('tr').remove();
     });
-    $(document).on('click', '.borrarClase', function (event) {
-        event.preventDefault();
-        $(this).closest('tr').remove();
-    });
+   
     $(document).on('click', '.Aclases', function (event) {
         event.preventDefault();
         var existe = false;
@@ -67,13 +84,11 @@ $(document).ready(function () {
             }
 
         });
-        if ($("#TDetalleSC").html() !== "") {
-            alertify.error("Ya hay una clase incorporada para cobrar");
-            return;
-        }
+       
         if (existe) { alertify.error("Esa clase ya esta incorporada para el cobro"); } else {
             $("#TDetalleSC").append('<tr class="Nrclase"><td>' + $(tr).find('td:nth-child(1)').text() + '</td><td>' + $(tr).find('td:nth-child(2)').text() + '</td><td>' + $(tr).find('td:nth-child(3)').text() + '</td><td>' + $(tr).find('td:nth-child(4)').text() + '</td><td>' + $(tr).find('td:nth-child(5)').text() + '</td><td class="Stotal">' + $(tr).find('td:nth-child(6)').text() + '</td><td><div class="btn-group"><button class="btn btn-sm btn-danger borrarClase"><i class="fas fa-backspace"></i></button><button class="btn btn-sm btn-warning" onclick="NotaServiciosClasesManual(' + $(tr).find('td:nth-child(1)').text() + ')"><i class="fas fa-book-open"></i></button></div></td><tr>');
-        }
+$("#ReservasSA").append('<option value="' + $(tr).find('td:nth-child(1)').text() + '">'+$(tr).find('td:nth-child(1)').text() + '</option>');        
+}
 
     });
 });
@@ -506,15 +521,16 @@ function RegistrarCobroClaseManual() {
     });
     //array de servicios adicionales
     var ServiciosAdicionales = [];
-    $(".checkSA ").each(function () {
-        if ($(this).is(':checked')) {
-            var tr = $(this).closest('tr');
-            var tot = $(tr).find('td:nth-child(4) .SAtot').val();
-            var idservicio = $(tr).find('td:nth-child(6)').text();
-            var cantidad = $(tr).find('td:nth-child(3) .SAcant').val();
-            var servicioadicional = { IdServicio: null, Monto: tot, Id_NumeroCobro: 0, Cantidad: cantidad, IdServiciosAdicionales: idservicio };
-            ServiciosAdicionales.push(servicioadicional);
-        }
+    $("#SAFinal tbody tr").each(function () {
+
+        //var tr = $(this).closest('tr');
+        var tot = $(this).find('td:nth-child(5)').text();
+        var idservicio = $(this).find('td:nth-child(7)').text();
+        var cantidad = $(this).find('td:nth-child(4)').text();
+        var NumServClase = $(this).find('td:nth-child(1)').text();
+        var servicioadicional = { IdServicio: null, Monto: tot, Id_NumeroCobro: 0, Cantidad: cantidad, IdServiciosAdicionales: idservicio, IdNumeroServicio: null, IdNumeroServicioClases: NumServClase };
+        ServiciosAdicionales.push(servicioadicional);
+
 
     });
     $.ajax({
