@@ -56,17 +56,14 @@
                             {
                                 if (item.IdServicio != null)
                                 {
-                                    <tr><td>@item.IdNumeroServicioClases</td><td>@db.Servicio.Where(s=>s.Id == item.IdServicio).Single().Nombre</td><td>@Convert.ToDecimal(db.Servicio.Where(s => s.Id == item.IdServicio).Single().Precio).ToString("C")</td><td>@item.Cantidad</td><td>@item.TotalHoras.Value.ToString("N")</td><td>@Convert.ToDecimal(item.Monto).ToString("C")</td></tr>
-                                }
-                                else
-                                {
-                                    if (item.IdServiciosAdicionales != null)
-                                    {
-                                        <tr><td></td><td>@db.ServiciosAdicionales.Where(s => s.Id == item.IdServiciosAdicionales).Single().Nombre</td><td>@Convert.ToDecimal(db.ServiciosAdicionales.Where(s => s.Id == item.IdServiciosAdicionales).Single().Precio).ToString("C")</td><td>@item.Cantidad</td><td>-</td><td>@Convert.ToDecimal(item.Monto).ToString("C")</td></tr>
-                                    }
-
+                                    <tr><td>@item.IdNumeroServicioClases</td><td>@db.Servicio.Where(s => s.Id == item.IdServicio).Single().Nombre</td><td>@Convert.ToDecimal(db.Servicio.Where(s => s.Id == item.IdServicio).Single().Precio).ToString("C")</td><td>@item.Cantidad</td><td>@item.TotalHoras.Value.ToString("N")</td><td>@Convert.ToDecimal(item.Monto).ToString("C")</td></tr>
                                 }
 
+                            }
+
+                            foreach (var item in Model.DetalleCobro.Where(d => d.IdServiciosAdicionales != null).GroupBy(d => d.IdServiciosAdicionales).Select(o => new { id = o.Key, cantidad = o.Sum(e=>e.Cantidad), total = o.Sum(e => e.Monto) }).ToList())
+                            {
+                                    <tr><td></td><td>@db.ServiciosAdicionales.Where(s => s.Id == item.id).Single().Nombre</td><td>@Convert.ToDecimal(db.ServiciosAdicionales.Where(s => s.Id == item.id).Single().Precio).ToString("C")</td><td>@item.cantidad</td><td>-</td><td>@Convert.ToDecimal(item.total).ToString("C")</td></tr>
                             }
 
                         }

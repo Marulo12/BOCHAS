@@ -2,9 +2,10 @@
 @using Hanssens.Net;
 @{
     Layout = null;
+    LocalStorage l = new LocalStorage();
     BOCHASContext bd = new BOCHASContext();
     decimal? total = 0;
-    LocalStorage l = new LocalStorage();
+
 }
 <!DOCTYPE html>
 
@@ -35,16 +36,16 @@
                         Total
                     </th>
 
-                    <th style="width:124px;text-align:right;">
+                    <th style="width:130px;text-align:right;">
                         Medio de pago
                     </th>
-                    <th style="width:110px;">
+                    <th style="width:110px;text-align:center;">
                         Tarjeta
                     </th>
                     <th style="width:120px;text-align:left;">
                         Cupon
                     </th>
-                    <th style="width:120px;">
+                    <th style="width:120px;text-align:center;">
                         Responsable
                     </th>
                     <th style="width:700px;text-align:center;">Detalle</th>
@@ -54,10 +55,10 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td  style="width:70px;">
+                        <td style="width:70px;">
                             @item.Fecha.Date.ToString("dd/MM/yyyy")
                         </td>
-                        <td style="width:80px;">
+                        <td style="width:90px;">
                             @item.MontoTotal.Value.ToString("C")
                             @{
                                 total = total + item.MontoTotal;
@@ -85,19 +86,22 @@
                                         if (dt.IdServicio != null)
                                         {
                                             <li class="list-group-item" style="border:none;">
-                                                -> @Html.DisplayFor(modelItem => bd.Servicio.Where(s => s.Id == dt.IdServicio).SingleOrDefault().Nombre), Cantidad:@Html.DisplayFor(modelItem => dt.Cantidad), Horas: @Html.DisplayFor(modelItem => dt.TotalHoras), Monto: $@Html.DisplayFor(modelItem => dt.Monto)
-                                            </li>
-                                        }
-                                        else
-                                        {
-                                            <li class="list-group-item" style="border:none;">
-                                                ->  @Html.DisplayFor(modelItem => bd.ServiciosAdicionales.Where(s => s.Id == dt.IdServiciosAdicionales).SingleOrDefault().Nombre),  Cantidad:@Html.DisplayFor(modelItem => dt.Cantidad), Monto: $@Html.DisplayFor(modelItem => dt.Monto)
+                                                -> @Html.DisplayFor(modelItem => bd.Servicio.Where(s => s.Id == dt.IdServicio).SingleOrDefault().Nombre) N°: @dt.IdNumeroServicioAlquiler@dt.IdNumeroServicioClases, Cantidad:@Html.DisplayFor(modelItem => dt.Cantidad), Horas: @Html.DisplayFor(modelItem => dt.TotalHoras), Monto: $@Html.DisplayFor(modelItem => dt.Monto)
                                             </li>
                                         }
 
+
+                                    }
+                                    foreach (var i in item.DetalleCobro.Where(d => d.IdServiciosAdicionales != null).GroupBy(d => d.IdServiciosAdicionales).Select(o => new { id = o.Key, cantidad = o.Sum(e => e.Cantidad), total = o.Sum(e => e.Monto) }).ToList())
+                                    {
+                                        <li class="list-group-item" style="border:none;">
+                                            ->  @Html.DisplayFor(modelItem => bd.ServiciosAdicionales.Where(s => s.Id == i.id).SingleOrDefault().Nombre),  Cantidad:@Html.DisplayFor(modelItem => i.cantidad), Monto: $@Html.DisplayFor(modelItem => i.total)
+                                        </li>
                                     }
 
                                 }
+
+
                             </ul>
                         </td>
                     </tr>

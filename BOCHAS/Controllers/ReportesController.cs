@@ -69,8 +69,24 @@ namespace BOCHAS.Controllers
             }
 
         }
+        public IActionResult ReporteCobroReservaIndividual(int NCobro, int NReserva)
+        {
+            try
+            {
+                LocalStorage local = new LocalStorage();
+                local.Store("NReserva", NReserva);               
+                local.Persist();
+                var cobro = _context.Cobro.Include(c => c.DetalleCobro).Include(c => c.IdUsuarioNavigation).Include(c => c.IdMedioPagoNavigation).Where(c => c.Numero == NCobro).SingleOrDefault();
+                return new ViewAsPdf("ReporteCobroReservaIndividual", cobro);
+            }
+            catch
+            {
+                return NotFound();
+            }
 
-       
+        }
+
+
         public IActionResult ReporteCobroClase(int NCobro)
         {
             try
@@ -84,7 +100,22 @@ namespace BOCHAS.Controllers
             }
 
         }
+        public IActionResult ReporteCobroClaseIndividual(int NCobro , int NClase)
+        {
+            try
+            {
+                LocalStorage local = new LocalStorage();               
+                local.Store("NClase", NClase);
+                local.Persist();
+                var cobro = _context.Cobro.Include(c => c.DetalleCobro).Include(c => c.DetalleCobro).Include(c => c.IdUsuarioNavigation).Include(c => c.IdMedioPagoNavigation).Where(c => c.Numero == NCobro).SingleOrDefault();
+                return new ViewAsPdf("ReporteCobroClaseIndividual", cobro);
+            }
+            catch
+            {
+                return NotFound();
+            }
 
+        }
         public IActionResult ReporteReservas(DateTime FecD, DateTime FecH)
         {
             try
@@ -138,8 +169,8 @@ namespace BOCHAS.Controllers
         public IActionResult ReporteIngresosDiarios(DateTime FecD, DateTime FecH)
         {
             LocalStorage local = new LocalStorage();
-            local.Store("fecD", FecD.Date.ToString("dd/MM/yyyy"));
-            local.Store("fecH", FecH.Date.ToString("dd/MM/yyyy"));
+            local.Store("fecD",FecD.Date.ToString("dd/MM/yyyy"));
+            local.Store("fecH",FecH.Date.ToString("dd/MM/yyyy"));
             local.Persist();
             var cobro = _context.Cobro.Include(a => a.IdMedioPagoNavigation).Include(a => a.IdTarjetaNavigation).Include(a => a.IdUsuarioNavigation).Include(a => a.IdUsuarioNavigation.Persona).Include(a => a.DetalleCobro).Where(a => a.Fecha >= FecD.Date && a.Fecha <= FecH.Date).ToList().OrderBy(d => d.Fecha);
            

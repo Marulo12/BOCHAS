@@ -369,6 +369,23 @@ function ComprobarCamposDates() {
     return true;
 }
 
+function ReporteCobroClaseIndividual(NCobro,NClase) {
+
+    $("#ModalPdf").modal();
+    $("#GeneraPDF").css("display", "inline");
+    $("#VisorPDF").attr("src", "");
+    $("#VisorPDF").css("display", "none");
+    setTimeout(function () {
+        $("#GeneraPDF").css("display", "none");
+        $("#VisorPDF").attr("data", "/Reportes/ReporteCobroClaseIndividual?NCobro=" + NCobro + "&NClase=" + NClase);
+        $("#VisorPDF").css("display", "inline-block");
+        $("#VisorPDF").css("width", "100%");
+        $("#VisorPDF").css("height", "500px");
+
+    }, 2000);
+}
+
+
 function ReporteCobroClase(NCobro) {
 
     $("#ModalPdf").modal();
@@ -408,8 +425,10 @@ function VerAgenda() {
         data: {profesor},
         url: "/ClaseParticulars/CalendarioYProfesor",
         success: function (response) {
-            $("#ModalHorariosProfeBody").html(response);
-            $("#ModalHorariosProfesor").modal();
+      
+   $("#ModalHorariosProfeBody").html(response);            
+            $("#ModalHorariosProfesor").modal();           
+     
         }
     });
 
