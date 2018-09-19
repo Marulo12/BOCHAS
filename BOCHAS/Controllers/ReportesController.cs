@@ -169,8 +169,8 @@ namespace BOCHAS.Controllers
         public IActionResult ReporteIngresosDiarios(DateTime FecD, DateTime FecH)
         {
             LocalStorage local = new LocalStorage();
-            local.Store("fecD", FecD.Date.ToString("dd/MM/yyyy"));
-            local.Store("fecH", FecH.Date.ToString("dd/MM/yyyy"));
+            local.Store("fecD",FecD.Date.ToString("dd/MM/yyyy"));
+            local.Store("fecH",FecH.Date.ToString("dd/MM/yyyy"));
             local.Persist();
             var cobro = _context.Cobro.Include(a => a.IdMedioPagoNavigation).Include(a => a.IdTarjetaNavigation).Include(a => a.IdUsuarioNavigation).Include(a => a.IdUsuarioNavigation.Persona).Include(a => a.DetalleCobro).Where(a => a.Fecha >= FecD.Date && a.Fecha <= FecH.Date).ToList().OrderBy(d => d.Fecha);
            

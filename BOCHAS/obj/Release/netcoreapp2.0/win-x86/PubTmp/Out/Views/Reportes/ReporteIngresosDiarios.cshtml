@@ -2,9 +2,10 @@
 @using Hanssens.Net;
 @{
     Layout = null;
+    LocalStorage l = new LocalStorage();
     BOCHASContext bd = new BOCHASContext();
     decimal? total = 0;
-    LocalStorage l = new LocalStorage();
+
 }
 <!DOCTYPE html>
 
@@ -54,7 +55,7 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td  style="width:70px;">
+                        <td style="width:70px;">
                             @item.Fecha.Date.ToString("dd/MM/yyyy")
                         </td>
                         <td style="width:80px;">
@@ -90,18 +91,24 @@
                                         }
                                         else
                                         {
-                                            <li class="list-group-item" style="border:none;">
-                                                ->  @Html.DisplayFor(modelItem => bd.ServiciosAdicionales.Where(s => s.Id == dt.IdServiciosAdicionales).SingleOrDefault().Nombre),  Cantidad:@Html.DisplayFor(modelItem => dt.Cantidad), Monto: $@Html.DisplayFor(modelItem => dt.Monto)
-                                            </li>
+                                            foreach (var i in item.DetalleCobro.Where(d => d.IdServiciosAdicionales == dt.IdServiciosAdicionales && d.IdNumeroCobro == dt.IdNumeroCobro).GroupBy(d => d.IdServiciosAdicionales).Select(o => new { id = o.Key, cantidad = o.Sum(e => e.Cantidad), total = o.Sum(e => e.Monto) }).ToList())
+                                            {
+                                                <li class="list-group-item" style="border:none;">
+                                                    ->  @Html.DisplayFor(modelItem => bd.ServiciosAdicionales.Where(s => s.Id == i.id).SingleOrDefault().Nombre),  Cantidad:@Html.DisplayFor(modelItem => i.cantidad), Monto: $@Html.DisplayFor(modelItem => i.total)
+                                                </li>
+                                            }
                                         }
 
                                     }
 
+
                                 }
+
+
                             </ul>
-                        </td>
-                    </tr>
-                }
+                                </td>
+                                </tr>
+                            }
             </tbody>
         </table>
         <h3 style="text-align:right;padding-right:120px;background-color: rgba(215, 44, 44, 0.7);color:white;">Total : $@total.Value.ToString("N")</h3>
