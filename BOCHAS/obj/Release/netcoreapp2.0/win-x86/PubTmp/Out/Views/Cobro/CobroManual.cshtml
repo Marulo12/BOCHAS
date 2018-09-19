@@ -106,11 +106,15 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <h4>Servicios adicionales  <button class="btn btn-xs btn-default" data-toggle="collapse" data-target="#TserviciosA"><i class="fa fa-list"></i></button></h4>
-                <table id="TserviciosA" class="table  collapse" style="width:100%;">
-                    <thead class="alert alert-info"><tr><td>Servicio</td><td>$Precio Unit.</td><td style="width:5%">Cantidad</td><td style="width:10%">$Total</td><td>Agregar</td><td style="display:none;"></td></tr></thead>
-                    <tbody></tbody>
-                </table>
+                <h4>Servicios adicionales  <button class="btn btn-xs btn-default" data-toggle="collapse" data-target="#DivDetalle"><i class="fa fa-list"></i></button></h4>
+                <div id="DivDetalle" class="collapse">
+                    <p><label for="ReservasSA">Para la reserva: N°</label>&nbsp;<select id="ReservasSA" class="btn btn-sm btn-danger"></select></p>
+                    <table id="TserviciosA" class="table" style="width:100%;">
+                        <thead class="alert alert-info"><tr><td>Servicio</td><td>$Precio Unit.</td><td style="width:5%">Cantidad</td><td style="width:10%">$Total</td><td>Agregar</td><td style="display:none;"></td></tr></thead>
+                        <tbody></tbody>
+                    </table>
+                    <p><input id="BtnAgregaAlquiler" class="btn btn-sm btn-default" value="Aceptar" onclick="AgregarSAFinal()"/> <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#ModalSAFinal">Ver servicios adicionales</button> </p>
+                </div>
                 <hr />
                 <div class="row">
                     <div class="col-md-4">
@@ -135,6 +139,24 @@
     </div>
 </div>
 
+<div id="ModalSAFinal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <table id="SAFinal" class="table">
+                    <thead class="alert alert-warning"><tr><td>N° Reserva</td><td>Servicio</td><td>$Precio Unit.</td><td style="width:5%">Cantidad</td><td  style="width:10%">$Total</td><td></td><td style="display:none;"></td></tr></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button  type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div id="ModalPdf" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">
 

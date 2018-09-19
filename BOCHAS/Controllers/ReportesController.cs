@@ -69,8 +69,24 @@ namespace BOCHAS.Controllers
             }
 
         }
+        public IActionResult ReporteCobroReservaIndividual(int NCobro, int NReserva)
+        {
+            try
+            {
+                LocalStorage local = new LocalStorage();
+                local.Store("NReserva", NReserva);               
+                local.Persist();
+                var cobro = _context.Cobro.Include(c => c.DetalleCobro).Include(c => c.IdUsuarioNavigation).Include(c => c.IdMedioPagoNavigation).Where(c => c.Numero == NCobro).SingleOrDefault();
+                return new ViewAsPdf("ReporteCobroReservaIndividual", cobro);
+            }
+            catch
+            {
+                return NotFound();
+            }
 
-       
+        }
+
+
         public IActionResult ReporteCobroClase(int NCobro)
         {
             try

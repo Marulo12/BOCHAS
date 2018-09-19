@@ -103,6 +103,7 @@ namespace BOCHAS.Controllers
                     DetalleCobro dca = new DetalleCobro();
                     dca = d;
                     dca.IdNumeroCobro = numeroCobro;
+                    dca.IdNumeroServicioAlquiler = Nreserva;
                     _context.DetalleCobro.Add(dca);
                     _context.SaveChanges();
                 }

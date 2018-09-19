@@ -408,8 +408,10 @@ function VerAgenda() {
         data: {profesor},
         url: "/ClaseParticulars/CalendarioYProfesor",
         success: function (response) {
-            $("#ModalHorariosProfeBody").html(response);
-            $("#ModalHorariosProfesor").modal();
+      
+   $("#ModalHorariosProfeBody").html(response);            
+            $("#ModalHorariosProfesor").modal();           
+     
         }
     });
 

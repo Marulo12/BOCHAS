@@ -574,7 +574,21 @@ function generaRepo(numero) {
    
 
 }
+function ReporteCobroReservaIndividual(NCobro,NReserva) {
 
+    $("#ModalPdf").modal();
+    $("#GeneraPDF").css("display", "inline");
+    $("#VisorPDF").attr("src", "");
+    $("#VisorPDF").css("display", "none");
+    setTimeout(function () {
+        $("#GeneraPDF").css("display", "none");
+        $("#VisorPDF").attr("data", "/Reportes/ReporteCobroReservaIndividual?NCobro=" + NCobro + "&NReserva=" + NReserva);
+        $("#VisorPDF").css("display", "inline-block");
+        $("#VisorPDF").css("width", "100%");
+        $("#VisorPDF").css("height", "500px");
+
+    }, 2000);
+}
 function ReporteCobroReserva(NCobro) {
    
     $("#ModalPdf").modal();

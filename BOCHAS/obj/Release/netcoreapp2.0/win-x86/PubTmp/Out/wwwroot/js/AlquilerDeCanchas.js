@@ -112,6 +112,66 @@
         $("#ModalServicioA .SA").html(response);
         }
     });
+
+
+    $("#BtnAgenda").click(function () {
+        
+        $("#ModalHorariosProfesor").modal();
+        $("#DivCalendar").html('<div id="calendarProfe"></div>');
+        $("#calendarProfe").ready(function () {
+            $('#calendarProfe').fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'agendaWeek,basicDay'
+                },
+                allDaySlot: false,
+                slotEventOverlap: true,
+                aspectRatio: 2,
+                theme: true,
+                themeSystem: 'bootstrap4',
+                height: "parent",
+                defaultView: 'agendaWeek',
+                // events: '/Agenda/ArmarAgenda',
+                eventClick: function (calEvent, jsEvent, view) {
+                    //var stime = calEvent.start.format('MM/DD/YYYY, h:mm a');
+                    //var etime = calEvent.end.format('MM/DD/YYYY, h:mm a');
+                    var evento = calEvent.id;
+                    // var xpos = jsEvent.pageX;
+                    //var ypos = jsEvent.pageY;
+
+                    $.ajax({
+                        type: "GET",
+                        url: "/Agenda/MostrarEvento",
+                        data: { evento },
+
+                        success: function (response) {
+                            $("#EventoBody").html(response);
+                            $("#ModalEvento").modal();
+                        },
+                        failure: function (response) {
+                            alert(response);
+                        }
+
+                    });
+
+
+                    return false;
+                }
+
+            });
+
+            setTimeout(function () {
+                $("#calendarProfe").fullCalendar('refetchEvents');
+                $('#calendarProfe').fullCalendar('addEventSource', '/Agenda/ArmarAgenda');
+            }, 1000);
+
+
+
+        });
+    });
+
+
 });
 
 
@@ -514,7 +574,21 @@ function generaRepo(numero) {
    
 
 }
+function ReporteCobroReservaIndividual(NCobro,NReserva) {
 
+    $("#ModalPdf").modal();
+    $("#GeneraPDF").css("display", "inline");
+    $("#VisorPDF").attr("src", "");
+    $("#VisorPDF").css("display", "none");
+    setTimeout(function () {
+        $("#GeneraPDF").css("display", "none");
+        $("#VisorPDF").attr("data", "/Reportes/ReporteCobroReservaIndividual?NCobro=" + NCobro + "&NReserva=" + NReserva);
+        $("#VisorPDF").css("display", "inline-block");
+        $("#VisorPDF").css("width", "100%");
+        $("#VisorPDF").css("height", "500px");
+
+    }, 2000);
+}
 function ReporteCobroReserva(NCobro) {
    
     $("#ModalPdf").modal();
