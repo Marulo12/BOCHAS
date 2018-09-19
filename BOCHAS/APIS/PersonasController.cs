@@ -81,7 +81,7 @@ namespace BOCHAS.APIS
                 return BadRequest(ModelState);
             }
 
-            if (id != persona.Id)
+            if (id != persona.IdUsuario)
             {
                 return BadRequest();
             }
@@ -111,7 +111,7 @@ namespace BOCHAS.APIS
         [HttpPut("api/Personas/ModificarPass")]
         public JsonResult ModificarPass([FromBody] ModContra contranueva)
         {
-            var Usuario = _context.Usuario.Where(u => u.Persona.Any(p => p.Id == contranueva.IdJugador)).SingleOrDefault();
+            var Usuario = _context.Usuario.Where(u => u.Persona.Any(p => p.IdUsuario == contranueva.IdJugador && p.FechaBaja == null && p.Tipo=="JUGADOR")).SingleOrDefault();
             string hashNuevo = "";
             using (MD5 md5Hash = MD5.Create())
             {
