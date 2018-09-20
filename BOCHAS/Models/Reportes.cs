@@ -24,4 +24,6 @@ namespace BOCHAS.Models
         public string Nombre { set; get; }
         public int Cantidad { set; get; }
     }
+
+
 }

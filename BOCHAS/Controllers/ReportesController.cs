@@ -11,17 +11,18 @@ using Microsoft.AspNetCore.Authorization;
 using System.Diagnostics;
 using System.ComponentModel.DataAnnotations;
 using Hanssens.Net;
+using Microsoft.AspNetCore.Http;
 
 namespace BOCHAS.Controllers
 {[Authorize]
     public class ReportesController : Controller
     {
         private readonly BOCHASContext _context;
-        
 
-        public ReportesController(BOCHASContext context)
+        IHttpContextAccessor httpContextAccessor;
+        public ReportesController(BOCHASContext context , IHttpContextAccessor _httphttpContextAccessor)
         {
-           
+            httpContextAccessor = _httphttpContextAccessor;
             _context = context;
           
         }
@@ -168,10 +169,9 @@ namespace BOCHAS.Controllers
         }
         public IActionResult ReporteIngresosDiarios(DateTime FecD, DateTime FecH)
         {
-            LocalStorage local = new LocalStorage();
-            local.Store("fecD",FecD.Date.ToString("dd/MM/yyyy"));
-            local.Store("fecH",FecH.Date.ToString("dd/MM/yyyy"));
-            local.Persist();
+            
+            httpContextAccessor.HttpContext.Session.SetString("FecD", FecD.ToString("dd/MM/yyyy"));
+            httpContextAccessor.HttpContext.Session.SetString("FecH", FecH.ToString("dd/MM/yyyy"));
             var cobro = _context.Cobro.Include(a => a.IdMedioPagoNavigation).Include(a => a.IdTarjetaNavigation).Include(a => a.IdUsuarioNavigation).Include(a => a.IdUsuarioNavigation.Persona).Include(a => a.DetalleCobro).Where(a => a.Fecha >= FecD.Date && a.Fecha <= FecH.Date).ToList().OrderBy(d => d.Fecha);
            
             return new ViewAsPdf("ReporteIngresosDiarios", cobro)
