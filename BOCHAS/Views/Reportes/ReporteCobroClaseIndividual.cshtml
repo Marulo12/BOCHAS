@@ -1,10 +1,8 @@
-﻿@model BOCHAS.Models.Cobro
+﻿@model BOCHAS.Models.RepoCobroClasesIndividual
 
-@using Microsoft.AspNetCore.Http;
 @{
     Layout = null;
     BOCHASContext db = new BOCHASContext();
-    IHttpContextAccessor httpContextAccessor = new HttpContextAccessor();
     decimal total = 0;
 }
 
@@ -36,12 +34,12 @@
                 <h3>Informacion General</h3>
             </div>
             <div class="panel-body">
-                <p style="font-size:22px;padding-left:30px;">N° Recibo: @Html.DisplayFor(model => model.Numero) &nbsp;&nbsp;&nbsp;  Jugador: @db.Persona.Where(p => p.Id == db.ClaseParticular.Where(a => a.IdCobro == Model.Numero).ToList()[0].IdJugador).ToList()[0].Nombre  @db.Persona.Where(p => p.Id == db.ClaseParticular.Where(a => a.IdCobro == Model.Numero).ToList()[0].IdJugador).ToList()[0].Apellido &nbsp;&nbsp;&nbsp; N° Documento: @db.Persona.Where(p => p.Id == db.ClaseParticular.Where(a => a.IdCobro == Model.Numero).ToList()[0].IdJugador).ToList()[0].NroDocumento</p>
-                <p style="font-size:20px;padding-left:30px;"> Fecha de Cobro:     @Model.Fecha.Date.ToString("dd/MM/yyyy")  &nbsp;&nbsp;&nbsp; </p>
-                <p style="font-size:20px;padding-left:30px;">Medio de Pago:  @Html.DisplayFor(model => model.IdMedioPagoNavigation.Nombre) </p>
-                @{ if (Model.IdMedioPago == 2)
+                <p style="font-size:22px;padding-left:30px;">N° Recibo: @Html.DisplayFor(model => model.Clases.Numero) &nbsp;&nbsp;&nbsp;  Jugador: @db.Persona.Where(p => p.Id == db.ClaseParticular.Where(a => a.IdCobro == Model.Clases.Numero).ToList()[0].IdJugador).ToList()[0].Nombre  @db.Persona.Where(p => p.Id == db.ClaseParticular.Where(a => a.IdCobro == Model.Clases.Numero).ToList()[0].IdJugador).ToList()[0].Apellido &nbsp;&nbsp;&nbsp; N° Documento: @db.Persona.Where(p => p.Id == db.ClaseParticular.Where(a => a.IdCobro == Model.Clases.Numero).ToList()[0].IdJugador).ToList()[0].NroDocumento</p>
+                <p style="font-size:20px;padding-left:30px;"> Fecha de Cobro:     @Model.Clases.Fecha.Date.ToString("dd/MM/yyyy")  &nbsp;&nbsp;&nbsp; </p>
+                <p style="font-size:20px;padding-left:30px;">Medio de Pago:  @Html.DisplayFor(model => model.Clases.IdMedioPagoNavigation.Nombre) </p>
+                @{ if (Model.Clases.IdMedioPago == 2)
                     {
-                        <p style="font-size:20px;padding-left:30px;">N° Cupon: @Model.NroCupon.ToString()  Empresa: @db.Tarjeta.Where(t => t.Id == Model.IdTarjeta).SingleOrDefault().Nombre   Tipo:@db.Tarjeta.Where(t => t.Id == Model.IdTarjeta).SingleOrDefault().TipoTarjeta </p>
+                        <p style="font-size:20px;padding-left:30px;">N° Cupon: @Model.Clases.NroCupon.ToString()  Empresa: @db.Tarjeta.Where(t => t.Id == Model.Clases.IdTarjeta).SingleOrDefault().Nombre   Tipo:@db.Tarjeta.Where(t => t.Id == Model.Clases.IdTarjeta).SingleOrDefault().TipoTarjeta </p>
                     } }
 
             </div>
@@ -52,7 +50,7 @@
                     <thead><tr><td>N°</td><td>Servicio</td><td>Precio Unitario</td><td>Cantidad</td><td>Horas</td><td>$Monto</td><td></td></tr></thead>
                     <tbody>
                         @{
-                            foreach (var item in Model.DetalleCobro.Where(d => d.IdNumeroServicioClases == Convert.ToInt32(httpContextAccessor.HttpContext.Session.GetString("NClase"))))
+                            foreach (var item in Model.Clases.DetalleCobro.Where(d => d.IdNumeroServicioClases == Model.Nclase))
                             {
                                 if (item.IdServicio != null)
                                 {

@@ -1,9 +1,9 @@
 ﻿@model IEnumerable<BOCHAS.Models.CanchasEfectivas>
-@using Microsoft.AspNetCore.Http;
+
 @using System.Globalization;
 @{ Layout = null;
 
-    IHttpContextAccessor httpContextAccessor = new HttpContextAccessor();
+
     CultureInfo ci = new CultureInfo("Es-Es");
 }
 
@@ -29,7 +29,7 @@
     <div class="container-fluid">
 
         <h4>Cantidad de canchas ocupadas</h4>
-        <h5>Desde el @httpContextAccessor.HttpContext.Session.GetString("FecD") Hasta @httpContextAccessor.HttpContext.Session.GetString("FecH")</h5>
+        <h5>Desde el @Model.ToList()[0].FecD Hasta @Model.ToList()[0].FecH</h5>
         @{
 
             int[] horas = new int[24];

@@ -1,11 +1,9 @@
-﻿@model IEnumerable<BOCHAS.Models.Cobro>
-@using Microsoft.AspNetCore.Http;
+﻿@model BOCHAS.Models.RepoIngresosDiarios
+
 @{
     Layout = null;  
     BOCHASContext bd = new BOCHASContext();
-    decimal? total = 0;
-    IHttpContextAccessor httpContextAccessor = new HttpContextAccessor();
-    
+    decimal? total = 0;        
 }
 <!DOCTYPE html>
 
@@ -25,12 +23,12 @@
     <hr />
     <h2 style="padding-left:22%;"><img src="~/images/extras/padel3.png" width="160" />&nbsp;&nbsp;&nbsp;Listado de Ingresos Diarios</h2>
     <div class="container-fluid">
-        <h5>Desde el @httpContextAccessor.HttpContext.Session.GetString("FecD") Hasta @httpContextAccessor.HttpContext.Session.GetString("FecH")</h5>
+        <h5>Desde el @Model.FecD Hasta @Model.FecH</h5>
         <table class="table">
             <thead style="background-color: rgba(0, 104, 253, 0.8);color:white;display: table-caption">
                 <tr>
                     <th style="width:70px;">
-                        @Html.DisplayNameFor(model => model.Fecha)
+                        Fecha
                     </th>
                     <th style="width:80px;padding-left:30px;">
                         Total
@@ -52,7 +50,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
+                @foreach (var item in Model.Cobros)
                 {
                     <tr>
                         <td style="width:70px;">

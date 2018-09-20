@@ -1,10 +1,11 @@
-﻿@model IEnumerable<BOCHAS.Models.AlquilerCancha>
-@using Microsoft.AspNetCore.Http;
-@{
+﻿@model BOCHAS.Models.RepoReservas
 
+
+@{        
     Layout = null;
     BOCHASContext bd = new BOCHASContext();
-    IHttpContextAccessor httpContextAccessor = new HttpContextAccessor();
+    
+    
 }
 <!DOCTYPE html>
 
@@ -24,22 +25,22 @@
     <hr />
     <h2 style="padding-left:24%;"><img src="~/images/extras/padel3.png" width="160" />&nbsp;&nbsp;&nbsp;Listado de Reservas</h2>
     <div class="container-fluid">
-        <h5>Desde el @httpContextAccessor.HttpContext.Session.GetString("FecD") Hasta @httpContextAccessor.HttpContext.Session.GetString("FecH")</h5>
+        <h5>Desde el @Model.FecD Hasta @Model.FecH</h5>
 
         <table class="table table-condensed" style="margin:0px;width:100%;">
             <thead style="background-color: rgba(0, 104, 253, 0.8);color:white;display: table-caption">
                 <tr>
                     <th style="width:10%">
-                        @Html.DisplayNameFor(model => model.Numero)
+                        Número
                     </th>
                     <th style="width:10%">
-                        @Html.DisplayNameFor(model => model.FechaPedido)
+                        Fecha Pedido
                     </th>
                     <th style="width:10%">
-                        @Html.DisplayNameFor(model => model.FechaReserva)
+                        Fecha Reserva
                     </th>
                     <th style="width:10%">
-                        @Html.DisplayNameFor(model => model.FechaCancelacion)
+                        Fecha Cancelacion
                     </th>
 
                     <th style="width:10%">
@@ -55,7 +56,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
+                @foreach (var item in Model.Reservas)
                 {
                     <tr>
                         <td style="width:10%">
