@@ -1,9 +1,33 @@
 ﻿@model ErrorViewModel
 @{
+    Layout = null;
     ViewData["Title"] = "Error";
+
 }
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BOCHAS PADEL</title>
+    <link rel="apple-touch-icon" sizes="76x76" href="~/images/LogoBochas.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="~/images/LogoBochas.png">
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
 
-<h1 class="text-danger">UPS.</h1>
-<h2 class="text-danger">Ocurrio un problema y la pagina se detuvo.</h2>
-
-
+                <h1 class="text-danger" style="text-align:center;"><img src="~/images/LogoBochas.png" /></h1>
+                <h2 style="text-align:center;"><img src="~/images/extras/error.jpg" /></h2>
+                <h3 class="text-danger">Ocurrió un problema y la página se detuvo, vuelva a iniciar sesión, si el problema persiste comunicarse con el adminsitrador.</h3>
+            </div>
+        </div>
+    </div>
+    
+    
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
