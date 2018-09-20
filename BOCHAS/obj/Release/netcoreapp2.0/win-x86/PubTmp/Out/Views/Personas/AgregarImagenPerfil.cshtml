@@ -9,18 +9,18 @@
     <div class="panel-heading">
         <div class="row">
             <div class="col-sm-2"><img id="imgSalida" class="img-circle" width="80" height="80" src="~/images/usuario.png" style="background-size:cover;" />  </div>
-            
+
             <div class="col-sm-11"><h3 style="padding-left:5px;text-align:left;">Agregar Imagen de perfil</h3></div>
         </div>
-         
+
     </div>
     <div class="panel-body">
-        
-        <form id="FormImagen" asp-action="SubirImagenEmpleados" class="form-group form-inline" asp-controller="Personas" method="POST" enctype="multipart/form-data" >
+
+        <form id="FormImagen" asp-action="SubirImagenEmpleados" class="form-group form-inline" asp-controller="Personas" method="POST" enctype="multipart/form-data">
             <div class="btn-group">
-                
-                <input id="InputImagen" class="btn btn-default form-control" type="file" name="ImageFile"  required">
-                
+
+                <input id="InputImagen" class="btn btn-default form-control" type="file" name="ImageFile" required">
+
                 <input id="BtnSubirImagen" type="submit" class="btn btn-xs btn-success form-control" value="Subir" />
             </div>
             <p>@TempData["Mensaje"]</p>
@@ -31,3 +31,38 @@
 
 
 
+<div id="ModalImagen" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+
+            <div class="modal-body mb">
+                <div>
+                    <p>Cargando Imagen</p>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped active" role="progressbar"
+                             aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts{
+    <script>
+    $("#BtnSubirImagen").click(function (event) {
+
+        $("#ModalImagen").modal();
+
+    });
+    </script>
+
+}
