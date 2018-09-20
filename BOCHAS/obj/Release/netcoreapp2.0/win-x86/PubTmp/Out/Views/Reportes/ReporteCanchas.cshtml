@@ -1,9 +1,9 @@
 ﻿@model IEnumerable<BOCHAS.Models.CanchasEfectivas>
-@using Hanssens.Net;
+@using Microsoft.AspNetCore.Http;
 @using System.Globalization;
 @{ Layout = null;
-   
-    LocalStorage l = new LocalStorage();
+
+    IHttpContextAccessor httpContextAccessor = new HttpContextAccessor();
     CultureInfo ci = new CultureInfo("Es-Es");
 }
 
@@ -24,11 +24,12 @@
     <br />
     <h1 style="font-size:50px;padding-left:33%;font-family:'Times New Roman', Times, serif">Bochas Padel</h1>
     <hr />
-    <h2 style="padding-left:9%;"><img src="~/images/extras/padel3.png" width="160" />&nbsp;&nbsp;&nbsp;Listado Uso de Canchas</h2>
+    <h3 style="padding-left:0%;"><img src="~/images/extras/padel3.png" width="160" />&nbsp;&nbsp;Servicio de Alquiler de Cancha: Listado Ocupación de canchas</h3>
 
     <div class="container-fluid">
-        <h5>Desde el @l.Get("fecD") Hasta @l.Get("fecH")</h5>
-        <h3>Servicio de Alquiler de Canchas</h3>
+
+        <h4>Cantidad de canchas ocupadas</h4>
+        <h5>Desde el @httpContextAccessor.HttpContext.Session.GetString("FecD") Hasta @httpContextAccessor.HttpContext.Session.GetString("FecH")</h5>
         @{
 
             int[] horas = new int[24];
@@ -37,7 +38,7 @@
                 horas[i] = i;
             }
 
-            }
+        }
         <table class="table table-bordered" style="text-align:center;">
             <thead style="background-color: rgba(0, 104, 253, 0.8);color:white;">
                 <tr>
@@ -71,30 +72,30 @@
 
                 @foreach (var i in horas)
                 {
-                <tr>
-                    <td>@i:00</td>
-                    @{
-
-                    <td>
-
+                    <tr>
+                        <td>@i:00</td>
                         @{
-                            foreach (var item in Model)
-                            {
 
-                                if (ci.DateTimeFormat.GetDayName(item.Dia) == "lunes")
-                                {
-                                    if (item.Hora == i)
-                                    {
-                                        <label>@item.Cantidad</label>
-                                        break;
-                                    }
-
-                                }
-                            }
-                        }
-                    </td>
                             <td>
-                                @{ 
+
+                                @{
+                                    foreach (var item in Model)
+                                    {
+
+                                        if (ci.DateTimeFormat.GetDayName(item.Dia) == "lunes")
+                                        {
+                                            if (item.Hora == i)
+                                            {
+                                                <label style="font-size:17px;">@item.Cantidad</label>
+                                                break;
+                                            }
+
+                                        }
+                                    }
+                                }
+                            </td>
+                            <td>
+                                @{
                                     foreach (var item in Model)
                                     {
 
@@ -102,15 +103,15 @@
                                         {
                                             if (item.Hora == i)
                                             {
-                                            <label>@item.Cantidad</label>
+                                                <label style="font-size:17px;">@item.Cantidad</label>
                                                 break;
                                             }
                                         }
                                     }
-                                    }
+                                }
                             </td>
                             <td>
-                                @{ 
+                                @{
                                     foreach (var item in Model)
                                     {
 
@@ -118,15 +119,15 @@
                                         {
                                             if (item.Hora == i)
                                             {
-                                            <label>@item.Cantidad</label>
+                                                <label style="font-size:17px;">@item.Cantidad</label>
                                                 break;
                                             }
                                         }
                                     }
-                                    }
+                                }
                             </td>
                             <td>
-                                @{ 
+                                @{
                                     foreach (var item in Model)
                                     {
 
@@ -134,15 +135,15 @@
                                         {
                                             if (item.Hora == i)
                                             {
-                                            <label>@item.Cantidad</label>
+                                                <label style="font-size:17px;">@item.Cantidad</label>
                                                 break;
                                             }
                                         }
                                     }
-                                    }
+                                }
                             </td>
                             <td>
-                                @{ 
+                                @{
                                     foreach (var item in Model)
                                     {
 
@@ -150,15 +151,15 @@
                                         {
                                             if (item.Hora == i)
                                             {
-                                            <label>@item.Cantidad</label>
+                                                <label style="font-size:17px;">@item.Cantidad</label>
                                                 break;
                                             }
                                         }
                                     }
-                                    }
+                                }
                             </td>
                             <td>
-                                @{ 
+                                @{
                                     foreach (var item in Model)
                                     {
 
@@ -166,15 +167,15 @@
                                         {
                                             if (item.Hora == i)
                                             {
-                                            <label>@item.Cantidad</label>
+                                                <label style="font-size:17px;">@item.Cantidad</label>
                                                 break;
                                             }
                                         }
                                     }
-                                    }
+                                }
                             </td>
                             <td>
-                                @{ 
+                                @{
                                     foreach (var item in Model)
                                     {
 
@@ -182,25 +183,25 @@
                                         {
                                             if (item.Hora == i)
                                             {
-                                            <label>@item.Cantidad</label>
+                                                <label style="font-size:16px;">@item.Cantidad</label>
                                                 break;
                                             }
                                         }
                                     }
-                                    }
+                                }
                             </td>
-                        
-                    }
-                </tr>
+
+                        }
+                    </tr>
 
 
 
-                            }
-                </tbody>
-            </table>
+                }
+            </tbody>
+        </table>
 
         <hr />
-        
+
     </div>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>

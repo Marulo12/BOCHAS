@@ -72,39 +72,27 @@ namespace BOCHAS.APIS
 
         }
 
-        // PUT: api/Personas/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutPersona([FromRoute] int id, [FromBody] Persona persona)
+        
+        [HttpPut("api/Personas/ModificarJugador")]
+        public JsonResult PutPersona([FromBody] Persona persona)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            var personaBase = _context.Persona.Where(p => p.IdUsuario == persona.IdUsuario && p.FechaBaja == null && p.Tipo == "JUGADOR").SingleOrDefault();
+            personaBase.Nombre = persona.Nombre;
+            personaBase.Apellido = persona.Apellido;
+            personaBase.IdTipoDocumento = persona.IdTipoDocumento;
+            personaBase.Mail = persona.Mail;
+            personaBase.Telefono = persona.Telefono;
+            personaBase.NroDocumento = persona.NroDocumento;
 
-            if (id != persona.IdUsuario)
+            _context.Persona.Update(personaBase);
+            if (_context.SaveChanges() == 1)
             {
-                return BadRequest();
+                return Json(Ok());
             }
-
-            _context.Entry(persona).State = EntityState.Modified;
-
-            try
+            else
             {
-                await _context.SaveChangesAsync();
+                return Json(NotFound());
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!PersonaExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
         }
 
         

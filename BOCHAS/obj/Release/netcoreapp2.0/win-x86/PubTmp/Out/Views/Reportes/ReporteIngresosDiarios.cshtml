@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<BOCHAS.Models.Cobro>
-@using Hanssens.Net;
+@using Microsoft.AspNetCore.Http;
 @{
-    Layout = null;
-    LocalStorage l = new LocalStorage();
+    Layout = null;  
     BOCHASContext bd = new BOCHASContext();
     decimal? total = 0;
-
+    IHttpContextAccessor httpContextAccessor = new HttpContextAccessor();
+    
 }
 <!DOCTYPE html>
 
@@ -25,7 +25,7 @@
     <hr />
     <h2 style="padding-left:22%;"><img src="~/images/extras/padel3.png" width="160" />&nbsp;&nbsp;&nbsp;Listado de Ingresos Diarios</h2>
     <div class="container-fluid">
-        <h5>Desde el @l.Get("fecD") Hasta @l.Get("fecH")</h5>
+        <h5>Desde el @httpContextAccessor.HttpContext.Session.GetString("FecD") Hasta @httpContextAccessor.HttpContext.Session.GetString("FecH")</h5>
         <table class="table">
             <thead style="background-color: rgba(0, 104, 253, 0.8);color:white;display: table-caption">
                 <tr>

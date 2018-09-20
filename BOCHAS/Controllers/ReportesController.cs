@@ -10,7 +10,7 @@ using Rotativa.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using System.Diagnostics;
 using System.ComponentModel.DataAnnotations;
-using Hanssens.Net;
+
 using Microsoft.AspNetCore.Http;
 
 namespace BOCHAS.Controllers
@@ -74,9 +74,8 @@ namespace BOCHAS.Controllers
         {
             try
             {
-                LocalStorage local = new LocalStorage();
-                local.Store("NReserva", NReserva);               
-                local.Persist();
+                httpContextAccessor.HttpContext.Session.SetString("NReserva", Convert.ToString(NReserva));
+               
                 var cobro = _context.Cobro.Include(c => c.DetalleCobro).Include(c => c.IdUsuarioNavigation).Include(c => c.IdMedioPagoNavigation).Where(c => c.Numero == NCobro).SingleOrDefault();
                 return new ViewAsPdf("ReporteCobroReservaIndividual", cobro);
             }
@@ -105,9 +104,7 @@ namespace BOCHAS.Controllers
         {
             try
             {
-                LocalStorage local = new LocalStorage();               
-                local.Store("NClase", NClase);
-                local.Persist();
+                httpContextAccessor.HttpContext.Session.SetString("NClase", Convert.ToString(NClase));                               
                 var cobro = _context.Cobro.Include(c => c.DetalleCobro).Include(c => c.DetalleCobro).Include(c => c.IdUsuarioNavigation).Include(c => c.IdMedioPagoNavigation).Where(c => c.Numero == NCobro).SingleOrDefault();
                 return new ViewAsPdf("ReporteCobroClaseIndividual", cobro);
             }
@@ -121,10 +118,8 @@ namespace BOCHAS.Controllers
         {
             try
             {
-                LocalStorage local = new LocalStorage();
-                local.Store("fecD", FecD.Date.ToString("dd/MM/yyyy"));
-                local.Store("fecH", FecH.Date.ToString("dd/MM/yyyy"));
-                local.Persist();
+                httpContextAccessor.HttpContext.Session.SetString("FecD", FecD.ToString("dd/MM/yyyy"));
+                httpContextAccessor.HttpContext.Session.SetString("FecH", FecH.ToString("dd/MM/yyyy"));
                 var reserva = _context.AlquilerCancha.Include(a => a.DetalleAlquilerCancha).Include(a => a.IdClienteNavigation).Include(a => a.IdClienteNavigation.Persona).Include(a => a.IdEmpleadoNavigation).Include(a => a.IdCobroNavigation).Include(a => a.IdEstadoNavigation).Where(a => a.FechaReserva >= FecD && a.FechaReserva <= FecH).ToList();               
                 
                 return new ViewAsPdf("ReporteReservas", reserva) {//FileName = "ReporteReservas.pdf" 
@@ -144,10 +139,8 @@ namespace BOCHAS.Controllers
 
         public IActionResult ReporteJugadoresFrecuentes(DateTime FecD, DateTime FecH)
         {
-            LocalStorage local = new LocalStorage();
-            local.Store("fecD", FecD.Date.ToString("dd/MM/yyyy"));
-            local.Store("fecH", FecH.Date.ToString("dd/MM/yyyy"));
-            local.Persist();
+            httpContextAccessor.HttpContext.Session.SetString("FecD", FecD.ToString("dd/MM/yyyy"));
+            httpContextAccessor.HttpContext.Session.SetString("FecH", FecH.ToString("dd/MM/yyyy"));
             List<RepoJugador> repo = new List<RepoJugador>();
             var repos = (from a in _context.AlquilerCancha join u in _context.Usuario on a.IdCliente equals u.Id join p in _context.Persona on u.Id equals p.IdUsuario where a.FechaReserva >= FecD.Date && a.FechaReserva <= FecH.Date group p by p.NroDocumento into g select new { Nombre = g.ToList()[0].Nombre + " " + g.ToList()[0].Apellido, DNI = g.ToList()[0].NroDocumento, Cantidad = g.Count() }).ToList().OrderByDescending(a => a.Cantidad);
 
@@ -185,10 +178,8 @@ namespace BOCHAS.Controllers
 
         public IActionResult ReporteClasesParticulares(DateTime FecD, DateTime FecH)
         {
-            LocalStorage local = new LocalStorage();
-            local.Store("fecD", FecD.Date.ToString("dd/MM/yyyy"));
-            local.Store("fecH", FecH.Date.ToString("dd/MM/yyyy"));
-            local.Persist();
+            httpContextAccessor.HttpContext.Session.SetString("FecD", FecD.ToString("dd/MM/yyyy"));
+            httpContextAccessor.HttpContext.Session.SetString("FecH", FecH.ToString("dd/MM/yyyy"));
             var clase = _context.ClaseParticular.Include(a => a.IdCanchaNavigation).Include(a => a.IdJugadorNavigation).Include(a => a.IdCobroNavigation).Include(a => a.IdProfesorNavigation).Where(a => a.FechaReserva >= FecD.Date && a.FechaReserva <= FecH.Date).ToList().OrderBy(d => d.FechaReserva);
            
             return new ViewAsPdf("ReporteClasesParticulares", clase)
@@ -202,10 +193,8 @@ namespace BOCHAS.Controllers
 
         public IActionResult ReporteCanchas(DateTime FecD, DateTime FecH)
         {
-            LocalStorage local = new LocalStorage();
-            local.Store("fecD", FecD.Date.ToString("dd/MM/yyyy"));
-            local.Store("fecH", FecH.Date.ToString("dd/MM/yyyy"));
-            local.Persist();
+            httpContextAccessor.HttpContext.Session.SetString("FecD", FecD.ToString("dd/MM/yyyy"));
+            httpContextAccessor.HttpContext.Session.SetString("FecH", FecH.ToString("dd/MM/yyyy"));
             List<CanchasEfectivas> lc = new List<CanchasEfectivas>();
             var CanchasReservas = (from d in _context.DetalleAlquilerCancha  join c in _context.Cancha on d.IdCancha equals c.Id join a in _context.AlquilerCancha on d.IdAlquilerCancha equals a.Numero where a.IdEstado == 4 && d.IdEstadoDetalle == 4 && a.FechaReserva >= FecD.Date && a.FechaReserva <= FecH.Date group c by new { dias= a.FechaReserva.Value.DayOfWeek , horas= d.HoraReservaDesde.Hours }  into g select new { Hora = g.Key.horas , dia = g.Key.dias , Cantidad = g.Count() , Id = g.Key }).ToList();
 

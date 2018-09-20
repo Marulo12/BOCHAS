@@ -1,10 +1,10 @@
 ﻿@model BOCHAS.Models.Cobro
 
-@using Hanssens.Net;
+@using Microsoft.AspNetCore.Http;
 @{
     Layout = null;
     BOCHASContext db = new BOCHASContext();
-    LocalStorage l = new LocalStorage();
+    IHttpContextAccessor httpContextAccessor = new HttpContextAccessor();
     decimal total = 0;
 }
 
@@ -52,7 +52,7 @@
                     <thead><tr><td>N°</td><td>Servicio</td><td>Precio Unitario</td><td>Cantidad</td><td>Horas</td><td>$Monto</td><td></td></tr></thead>
                     <tbody>
                         @{
-                            foreach (var item in Model.DetalleCobro.Where(d=>d.IdNumeroServicioClases == Convert.ToInt32(l.Get("NClase"))))
+                            foreach (var item in Model.DetalleCobro.Where(d => d.IdNumeroServicioClases == Convert.ToInt32(httpContextAccessor.HttpContext.Session.GetString("NClase"))))
                             {
                                 if (item.IdServicio != null)
                                 {
