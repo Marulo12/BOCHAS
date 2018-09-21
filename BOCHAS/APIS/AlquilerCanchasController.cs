@@ -226,6 +226,11 @@ namespace BOCHAS.APIS
         }
 
 
-
+        [HttpGet("api/AlquilerCanchas/Noticias")]
+        public async Task<JsonResult> Noticias()
+        {
+            var noticias = _context.Noticias.Where(n => n.Activo == true).ToListAsync();           
+            return Json(await noticias);
+        }
     }
 }
