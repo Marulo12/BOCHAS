@@ -1,0 +1,133 @@
+﻿@model BOCHAS.Models.Persona
+
+@{
+    ViewData["Title"] = "ModificarPerfil";
+    Layout = "~/Views/Shared/_LayoutJugadores.cshtml";
+}
+<div class="panel panel-primary" style="border:1px solid black;">
+    <div class="panel-heading">
+        <h2>Modificar Perfil</h2>
+        @{
+            BOCHASContext bd = new BOCHASContext();
+        }
+    </div>
+    <div class="panel-body">
+        <form asp-action="ModificarPerfil" method="post">
+
+            <div class="row">
+
+                <div class="col-sm-6">
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <div class="form-group">
+                        <label asp-for="Nombre" class="control-label"></label>
+                        <input asp-for="Nombre" class="form-control" />
+                        <span asp-validation-for="Nombre" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="control-label">Tipo Documento</label>
+                        <select asp-for="IdTipoDocumento" class="form-control" asp-items="ViewBag.TipoDoc"></select>
+                        <span asp-validation-for="IdTipoDocumento" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Mail" class="control-label"></label>
+                        <input asp-for="Mail" class="form-control" />
+                        <span asp-validation-for="Mail" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">Localidad</label>
+                        <select  id="Localidad" asp-for="IdDomicilioNavigation.IdLocalidad" class="form-control" onchange="MostrarBarrio();" asp-items="@(new SelectList(bd.Localidad.ToList(),"Id","Nombre"))"></select>
+                        <span asp-validation-for="IdDomicilioNavigation.IdLocalidad" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">Calle</label>
+                        <input asp-for="IdDomicilioNavigation.Calle" class="form-control" />
+                        <span asp-validation-for="IdDomicilioNavigation.Calle" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Piso</label>
+                        <input asp-for="IdDomicilioNavigation.Piso" class="form-control" />
+                        <span asp-validation-for="IdDomicilioNavigation.Piso" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for="Apellido" class="control-label"></label>
+                        <input asp-for="Apellido" class="form-control" />
+                        <span asp-validation-for="Apellido" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">N° Documento</label>
+                        <input asp-for="NroDocumento" class="form-control" />
+                        <span asp-validation-for="NroDocumento" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Telefono" class="control-label"></label>
+                        <input asp-for="Telefono" class="form-control" />
+                        <span asp-validation-for="Telefono" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Barrio</label>
+                        <select id="Barrio" asp-for="IdDomicilioNavigation.IdBarrio" class="form-control" asp-items="@(new SelectList(bd.Barrio.Where(b => b.IdLocalidad == Model.IdDomicilioNavigation.IdLocalidad).ToList(),"Id","Nombre"))"></select>
+                        <span asp-validation-for="IdDomicilioNavigation.IdBarrio" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">N° Calle</label>
+                        <input asp-for="IdDomicilioNavigation.Numero" class="form-control" />
+                        <span asp-validation-for="IdDomicilioNavigation.Numero" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Depto</label>
+                        <input asp-for="IdDomicilioNavigation.Departamento" class="form-control" />
+                        <span asp-validation-for="IdDomicilioNavigation.Departamento" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12" >
+                    <div class="form-group" style="float:right;">
+                        <input type="submit" value="Aceptar" class="btn btn-primary" />
+                        <a asp-action="IndexJugadores" asp-controller="Home" class="btn btn-default">Cancelar</a>
+                    </div>
+                </div>
+            </div>
+            
+        </form>
+    </div>
+    </div>
+
+
+        @section Scripts {
+            <script>
+                function MostrarBarrio() {
+
+    $.ajax({
+        type: "GET",
+        url: "/Personas/MostrarBarrios",
+        data: { IdLocalidad: + $("#Localidad option:selected").val() },
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            var rows;
+            var dvItems = $("#Barrio");
+            dvItems.empty();
+            for (var i = 0; i < response.length; i++) {
+                rows += '<option value="' + response[i].id + '">' + response[i].nombre + '</option>';
+            }
+            $('#Barrio').append(rows);
+
+        },
+        failure: function (response) {
+            alert(response);
+        }
+    });
+
+}
+            </script>
+            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        }

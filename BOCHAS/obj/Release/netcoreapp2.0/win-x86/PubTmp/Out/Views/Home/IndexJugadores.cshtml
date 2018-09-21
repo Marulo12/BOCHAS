@@ -8,10 +8,28 @@
 <div id="IndexJ">
 
 </div>
-
+@{
+    if (TempData["Respuesta"] == null)
+    {
+        <input id="Respuesta" type="text" value="" style="display:none;" />
+    }
+    else
+    {
+        <input id="Respuesta" type="text" value="@TempData["Respuesta"]" style="display:none;" />
+    }
+}
 
 @section Scripts{
 
-    
-  
+    <script>
+        if($("#Respuesta").val() === "OK")
+        {
+        alertify.success("Perfil Modificado");
+        }
+        if($("#Respuesta").val() === "ERROR")
+        {
+        alertify.error("Error en la operación, revise los datos ingresados");
+        }
+    </script>
+
 }

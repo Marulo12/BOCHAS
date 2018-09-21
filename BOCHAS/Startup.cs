@@ -30,8 +30,7 @@ namespace BOCHAS
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
-            services.AddSession();
+           
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(options => { options.AccessDeniedPath = new PathString("/Usuarios/Index"); options.LoginPath = new PathString("/Usuarios/Index"); options.LogoutPath = new PathString("/Usuarios/Index");options.ExpireTimeSpan = TimeSpan.FromMinutes(120); });
             /*     .AddJwtBearer(jwtBearerOptions =>
@@ -50,6 +49,8 @@ namespace BOCHAS
            
             services.AddSignalR();
             services.AddDbContext<BOCHASContext>();
+            services.AddDistributedMemoryCache();
+            services.AddSession();
             services.AddMvc();
         }
 
@@ -66,12 +67,14 @@ namespace BOCHAS
                 app.UseExceptionHandler("/Home/Error");
                 
             }
-            
-            app.UseStaticFiles();        
-            app.UseSignalR();           
-            app.UseAuthentication();        
-            
            
+            app.UseStaticFiles();
+            app.UseSession();
+            
+            app.UseSignalR();           
+            app.UseAuthentication();
+            
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

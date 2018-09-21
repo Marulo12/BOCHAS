@@ -1,8 +1,8 @@
-﻿@model IEnumerable<BOCHAS.Models.ClaseParticular>
-@using Hanssens.Net;
+﻿@model BOCHAS.Models.RepoClases
+
 @{ Layout = null;
-    LocalStorage l = new LocalStorage();
-    }
+
+}
 <!DOCTYPE html>
 
 <html style="padding:0px;margin:0px;">
@@ -20,7 +20,7 @@
     <hr />
     <h2 style="padding-left:20%;"><img src="~/images/extras/padel3.png" width="160" />&nbsp;&nbsp;&nbsp;Listado de Clases Particulares</h2>
     <div class="container-fluid">
-        <h5>Desde el @l.Get("fecD") Hasta @l.Get("fecH")</h5>
+        <h5>Desde el @Model.FecD Hasta @Model.FecH</h5>
         <table class="table">
             <thead style="background-color: rgba(0, 104, 253, 0.8);color:white;display:table-caption;">
                 <tr>
@@ -28,7 +28,7 @@
                         Jugador
                     </th>
                     <th style="width:10%;">
-                        @Html.DisplayNameFor(model => model.FechaReserva)
+                        Fecha Reserva
                     </th>
                     <th style="width:10%;">
                         Hora Inicio Prevista
@@ -38,10 +38,10 @@
                     </th>
 
                     <th style="width:10%;">
-                        Fecha Cancelacion
+                        Fecha Cancelación
                     </th>
                     <th style="width:10%;">
-                        @Html.DisplayNameFor(model => model.Observacion)
+                        Observación
                     </th>
                     <th style="width:10%;">
                         Cancha
@@ -57,7 +57,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
+                @foreach (var item in Model.Clases)
                 {
                     <tr>
                         <td style="width:10%;">

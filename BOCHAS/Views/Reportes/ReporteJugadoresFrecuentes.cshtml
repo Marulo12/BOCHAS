@@ -1,8 +1,8 @@
 ﻿@model IEnumerable<BOCHAS.Models.RepoJugador>
-@using Hanssens.Net;
+
 @{
     Layout = null;
-    LocalStorage l = new LocalStorage();
+   
 }
 <!DOCTYPE html>
 
@@ -22,7 +22,7 @@
     <hr />
     <h2 style="padding-left:7%;"><img src="~/images/extras/padel3.png" width="160" />&nbsp;&nbsp;&nbsp;Listado de Jugadores Frecuentes</h2>
     <div class="container-fluid">
-        <h5>Desde el @l.Get("fecD") Hasta @l.Get("fecH")</h5>
+        <h5>Desde el @Model.ToList()[0].FecD Hasta @Model.ToList()[0].FecH</h5>
         <table class="table">
             <thead style="background-color: rgba(0, 104, 253, 0.8);color:white;">
                 <tr>

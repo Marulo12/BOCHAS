@@ -11,6 +11,10 @@ using Microsoft.AspNetCore.Http;
 using System.Net.Http.Headers;
 using System;
 using System.Net.Http;
+using Microsoft.AspNetCore.SignalR;
+using BOCHAS.Hubs;
+using MimeKit;
+using MailKit.Net.Smtp;
 
 namespace BOCHAS.APIS
 {
@@ -21,10 +25,12 @@ namespace BOCHAS.APIS
     {
         private readonly BOCHASContext _context;
         private IHostingEnvironment _hostingEnv;
-        public PersonasController(BOCHASContext context , IHostingEnvironment host)
+        private readonly IHubContext<Chat> _hubContext;
+        public PersonasController(BOCHASContext context , IHostingEnvironment host , IHubContext<Chat> _hub)
         {
             _context = context;
             _hostingEnv = host;
+            _hubContext = _hub;
         }
 
         // GET: api/Personas
@@ -72,46 +78,34 @@ namespace BOCHAS.APIS
 
         }
 
-        // PUT: api/Personas/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutPersona([FromRoute] int id, [FromBody] Persona persona)
+        
+        [HttpPut("api/Personas/ModificarJugador")]
+        public JsonResult PutPersona([FromBody] Persona persona)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            var personaBase = _context.Persona.Where(p => p.IdUsuario == persona.IdUsuario && p.FechaBaja == null && p.Tipo == "JUGADOR").SingleOrDefault();
+            personaBase.Nombre = persona.Nombre;
+            personaBase.Apellido = persona.Apellido;
+            personaBase.IdTipoDocumento = persona.IdTipoDocumento;
+            personaBase.Mail = persona.Mail;
+            personaBase.Telefono = persona.Telefono;
+            personaBase.NroDocumento = persona.NroDocumento;
 
-            if (id != persona.Id)
+            _context.Persona.Update(personaBase);
+            if (_context.SaveChanges() == 1)
             {
-                return BadRequest();
+                return Json(Ok());
             }
-
-            _context.Entry(persona).State = EntityState.Modified;
-
-            try
+            else
             {
-                await _context.SaveChangesAsync();
+                return Json(NotFound());
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!PersonaExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
         }
 
         
         [HttpPut("api/Personas/ModificarPass")]
         public JsonResult ModificarPass([FromBody] ModContra contranueva)
         {
-            var Usuario = _context.Usuario.Where(u => u.Persona.Any(p => p.Id == contranueva.IdJugador)).SingleOrDefault();
+            var Usuario = _context.Usuario.Where(u => u.Persona.Any(p => p.IdUsuario == contranueva.IdJugador && p.FechaBaja == null && p.Tipo=="JUGADOR")).SingleOrDefault();
             string hashNuevo = "";
             using (MD5 md5Hash = MD5.Create())
             {
@@ -176,8 +170,141 @@ namespace BOCHAS.APIS
                 return Json(NotFound());
             }
         }
-        
 
-      
+
+        public class Users {
+            public string Usuario { set; get; }
+            public string Contra { set; get; }
+        }
+        [HttpPost("api/Personas/Login")]
+        public async Task<JsonResult> Login([FromBody] Users U)
+        {
+            string hash = "";
+            using (MD5 md5Hash = MD5.Create())
+            {
+                hash = Encriptador.GetMd5Hash(md5Hash, U.Contra);
+            }
+            var usuario = await _context.Persona.Include(p => p.IdUsuarioNavigation).Where(p => p.FechaBaja == null && p.IdUsuarioNavigation.Nombre == U.Usuario && p.IdUsuarioNavigation.Contraseña == hash && p.Tipo =="JUGADOR").SingleOrDefaultAsync();
+            if (usuario != null)
+            {               
+                RegistrarIngresoSession(Convert.ToInt32(usuario.IdUsuario));
+                return Json(Ok());
+            }
+            else
+            {
+                return Json(NotFound());
+
+            }
+        }
+
+        public void RegistrarIngresoSession(int IdUsuario)
+        {
+            ComprobarSesionesAnteriores(IdUsuario);
+               Session Entrada = new Session();
+            Entrada.IdUsuario = IdUsuario;
+            Entrada.FechaInicio = DateTime.Now.Date;
+            Entrada.Origen = 1;
+            Entrada.HoraInicio = (TimeSpan)DateTime.Now.TimeOfDay;
+            _context.Add(Entrada);
+           
+            _context.SaveChanges();
+            NotificarSession();
+
+        }
+
+        [HttpGet("api/Personas/Logout/{Usuario}")]
+        public JsonResult Logout(string Usuario)
+        {
+            try
+            {
+                RegistrarSalidaSession(Usuario);
+                NotificarSession();
+
+            }
+            catch
+            {
+
+                return Json(NotFound());
+            }
+           
+            return Json(Ok());
+
+        }
+
+        public void RegistrarSalidaSession(string Usuario)
+        {
+            var SalidaMax = (from p in _context.Session join u in _context.Usuario on p.IdUsuario equals u.Id where u.Nombre == Usuario && p.FechaFin == null select p).Max(p => p.Id);
+            var Salida = _context.Session.SingleOrDefault(s => s.Id == SalidaMax);
+            Salida.HoraFin = (TimeSpan)DateTime.Now.TimeOfDay;
+            Salida.FechaFin = DateTime.Now.Date;
+            _context.Session.Update(Salida);
+            _context.SaveChanges();
+        }
+        public void NotificarSession()
+        {
+            var users = (from u in _context.Usuario join s in _context.Session on u.Id equals s.IdUsuario join p in _context.Persona on u.Id equals p.IdUsuario where p.Tipo == "JUGADOR" && s.FechaInicio == DateTime.Now.Date && s.FechaFin == null select new { us = u.Nombre }).ToList().Distinct();
+            _hubContext.Clients.All.join(users);
+        }
+
+        public void ComprobarSesionesAnteriores(int IdUsuario)
+        {
+            try
+            {
+                var sesiones = _context.Session.Where(s => s.IdUsuario == IdUsuario && s.HoraFin == null).ToList();
+                if (sesiones.Count > 0)
+                {
+                    foreach (var i in sesiones)
+                    {
+                        i.HoraFin = DateTime.Now.TimeOfDay;
+                        _context.Session.Update(i);
+                        _context.SaveChanges();
+                    }
+                }
+            }
+            catch
+            {
+
+            }
+        }
+
+     
+        [HttpGet("api/Personas/ResetearContraseña/{mail}")]
+        public JsonResult ResetearContraseña(string mail)
+        {
+            try
+            {
+                Random rand = new Random();
+                int Clave = rand.Next(1000, 5000);
+                var persona = _context.Persona.Include(p => p.IdUsuarioNavigation).Where(p => p.Mail == mail && p.Tipo=="JUGADOR" && p.FechaBaja == null).SingleOrDefault();
+                string nuevaClave = persona.IdUsuarioNavigation.Nombre + Convert.ToString(Clave);
+                string hashNuevo = "";
+                using (MD5 md5Hash = MD5.Create())
+                {
+                    hashNuevo = Encriptador.GetMd5Hash(md5Hash, nuevaClave);
+                }
+                persona.IdUsuarioNavigation.Contraseña = hashNuevo;
+                _context.Persona.Update(persona);
+                _context.SaveChanges();
+                var mensaje = new MimeMessage();
+                mensaje.From.Add(new MailboxAddress("BOCHAS PADEL", "bochaspadel@gmail.com"));
+                mensaje.To.Add(new MailboxAddress("Jugador", persona.Mail));               
+                mensaje.Subject = "Blanqueo de clave";
+                mensaje.Body = new TextPart("plain") { Text = "Buenos dias  Sr/a. " + persona.Apellido + " le comentamos que se reseteo su clave, las misma ahora es = " + nuevaClave + ", por su seguridad cambiela por una personal, Saludos." };
+                using (var cliente = new SmtpClient())
+                {
+                    cliente.Connect("smtp.gmail.com", 587, false);
+                    cliente.Authenticate("bochaspadel@gmail.com", "bochas2018");
+                    cliente.Send(mensaje);
+                    cliente.Disconnect(true);
+                }
+                return Json(Ok());
+           }
+            catch
+            {
+                return Json(NotFound());
+            }
+
+        }
+
     }
 }

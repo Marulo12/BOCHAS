@@ -221,11 +221,16 @@ namespace BOCHAS.APIS
         {
             int num = Numero;
             
-            var detalle = (from d in _context.DetalleAlquilerCancha join c in _context.Cancha on d.IdCancha equals c.Id join e in _context.EstadoDetalleAlquiler on d.IdEstadoDetalle equals e.Id where d.IdAlquilerCancha == num select new {IdCancha= c.Id , NumCancha = c.Numero , Nombre = c.Nombre , Descripcion = c.Descripcion , HoraDesde = d.HoraReservaDesde.Hours + ":" + d.HoraReservaDesde.Minutes , HoraHasta = d.HoraReservaHasta.Hours + ":" + d.HoraReservaHasta.Minutes , Estado = e.Nombre , IdEstadoDetalleReserva = e.Id }).ToListAsync();
+            var detalle = (from d in _context.DetalleAlquilerCancha join c in _context.Cancha on d.IdCancha equals c.Id join e in _context.EstadoDetalleAlquiler on d.IdEstadoDetalle equals e.Id where d.IdAlquilerCancha == num select new {IdCancha= c.Id , NumCancha = c.Numero , Nombre = c.Nombre , Descripcion = c.Descripcion , HoraDesde = d.HoraReservaDesde , HoraHasta = d.HoraReservaHasta , Estado = e.Nombre , IdEstadoDetalleReserva = e.Id }).ToListAsync();
             return Json(await detalle);
         }
 
 
-
+        [HttpGet("api/AlquilerCanchas/Noticias")]
+        public async Task<JsonResult> Noticias()
+        {
+            var noticias = _context.Noticias.Where(n => n.Activo == true).ToListAsync();           
+            return Json(await noticias);
+        }
     }
 }

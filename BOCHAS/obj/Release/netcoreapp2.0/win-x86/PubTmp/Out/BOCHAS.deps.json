@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0/win-x86",
-    "signature": "e3317331d167542f0c16c5e1e6fb7359106b7073"
+    "signature": "3fbf2cb4761210bc7d326bf0c3048d1baec7c1d1"
   },
   "compilationOptions": {
     "defines": [
@@ -25,9 +25,9 @@
       "BOCHAS/1.0.0": {
         "dependencies": {
           "Gray.Microsoft.AspNetCore.SignalR.Server": "0.2.0-alpha1",
-          "LocalStorage": "1.1.0",
           "MailKit": "2.0.6",
           "Microsoft.AspNetCore.All": "2.0.6",
+          "Microsoft.AspNetCore.Session": "2.0.2",
           "Microsoft.AspNetCore.SignalR.Client": "1.0.1",
           "Microsoft.EntityFrameworkCore.SqlServer": "2.0.3",
           "Microsoft.EntityFrameworkCore.Tools": "2.0.3",
@@ -80,15 +80,6 @@
       "Libuv/1.10.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "2.0.2"
-        }
-      },
-      "LocalStorage/1.1.0": {
-        "dependencies": {
-          "Microsoft.NETCore.App": "2.0.9",
-          "Newtonsoft.Json": "11.0.2"
-        },
-        "compile": {
-          "lib/netcoreapp1.0/LocalStorage.dll": {}
         }
       },
       "MailKit/2.0.6": {
@@ -3596,9 +3587,9 @@
       "BOCHAS/1.0.0": {
         "dependencies": {
           "Gray.Microsoft.AspNetCore.SignalR.Server": "0.2.0-alpha1",
-          "LocalStorage": "1.1.0",
           "MailKit": "2.0.6",
           "Microsoft.AspNetCore.All": "2.0.6",
+          "Microsoft.AspNetCore.Session": "2.0.2",
           "Microsoft.AspNetCore.SignalR.Client": "1.0.1",
           "Microsoft.EntityFrameworkCore.SqlServer": "2.0.3",
           "Microsoft.EntityFrameworkCore.Tools": "2.0.3",
@@ -3661,18 +3652,6 @@
         "native": {
           "runtimes/win-x86/native/libuv.dll": {
             "fileVersion": "0.0.0.0"
-          }
-        }
-      },
-      "LocalStorage/1.1.0": {
-        "dependencies": {
-          "Microsoft.NETCore.App": "2.0.9",
-          "Newtonsoft.Json": "11.0.2"
-        },
-        "runtime": {
-          "lib/netcoreapp1.0/LocalStorage.dll": {
-            "assemblyVersion": "1.1.0.0",
-            "fileVersion": "1.1.0.0"
           }
         }
       },
@@ -8534,13 +8513,6 @@
       "sha512": "sha512-GsCf4q+eyaI49rCPlgYxdxa1SQCysXFFdSJWdstrwxytg4+VPYLYrXD4AT2rjHVJ+UF7SSWX9CapWEYaU4ejVQ==",
       "path": "libuv/1.10.0",
       "hashPath": "libuv.1.10.0.nupkg.sha512"
-    },
-    "LocalStorage/1.1.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-Ij4RIRLsxwf2ZyAZKLjeKcffuOiru19YYie+uOVNsUbE6+O/JYBJty/0TPZ5L4yQ5LZMpNFG5QI+i64Wq9JaIg==",
-      "path": "localstorage/1.1.0",
-      "hashPath": "localstorage.1.1.0.nupkg.sha512"
     },
     "MailKit/2.0.6": {
       "type": "package",

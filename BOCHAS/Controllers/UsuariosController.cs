@@ -82,7 +82,8 @@ namespace BOCHAS.Controllers
 
         public  void RegistrarIngresoSession(int IdUsuario)
         {
-            Session Entrada = new Session();
+            ComprobarSesionesAnteriores(IdUsuario);
+               Session Entrada = new Session();
             Entrada.IdUsuario = IdUsuario;
             Entrada.FechaInicio = DateTime.Now.Date;
             Entrada.Origen = 1;
@@ -92,7 +93,25 @@ namespace BOCHAS.Controllers
                        
         }
 
-       
+        public void ComprobarSesionesAnteriores(int IdUsuario)
+        {
+            try
+            {
+                var sesiones = _context.Session.Where(s => s.IdUsuario == IdUsuario && s.HoraFin == null).ToList();
+                if (sesiones.Count > 0)
+                {
+                    foreach (var i in sesiones)
+                    {                        
+                        i.HoraFin = DateTime.Now.TimeOfDay;
+                        _context.Session.Update(i);
+                        _context.SaveChanges();
+                    }
+                }
+            }
+            catch {
+               
+            }
+        }
         public async Task<IActionResult> Logout()
         {
             try {

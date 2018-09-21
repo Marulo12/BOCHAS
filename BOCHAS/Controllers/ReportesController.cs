@@ -10,18 +10,18 @@ using Rotativa.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using System.Diagnostics;
 using System.ComponentModel.DataAnnotations;
-using Hanssens.Net;
+using Microsoft.AspNetCore.Http;
 
 namespace BOCHAS.Controllers
 {[Authorize]
     public class ReportesController : Controller
     {
         private readonly BOCHASContext _context;
-        
 
-        public ReportesController(BOCHASContext context)
+        
+        public ReportesController(BOCHASContext context )
         {
-           
+            
             _context = context;
           
         }
@@ -73,11 +73,13 @@ namespace BOCHAS.Controllers
         {
             try
             {
-                LocalStorage local = new LocalStorage();
-                local.Store("NReserva", NReserva);               
-                local.Persist();
+               
+               
                 var cobro = _context.Cobro.Include(c => c.DetalleCobro).Include(c => c.IdUsuarioNavigation).Include(c => c.IdMedioPagoNavigation).Where(c => c.Numero == NCobro).SingleOrDefault();
-                return new ViewAsPdf("ReporteCobroReservaIndividual", cobro);
+                RepoCobroReservasIndividual rp = new RepoCobroReservasIndividual();
+                rp.Reservas = cobro;
+                rp.Nreserva = NReserva;
+                return new ViewAsPdf("ReporteCobroReservaIndividual", rp);
             }
             catch
             {
@@ -104,11 +106,12 @@ namespace BOCHAS.Controllers
         {
             try
             {
-                LocalStorage local = new LocalStorage();               
-                local.Store("NClase", NClase);
-                local.Persist();
+                
                 var cobro = _context.Cobro.Include(c => c.DetalleCobro).Include(c => c.DetalleCobro).Include(c => c.IdUsuarioNavigation).Include(c => c.IdMedioPagoNavigation).Where(c => c.Numero == NCobro).SingleOrDefault();
-                return new ViewAsPdf("ReporteCobroClaseIndividual", cobro);
+                RepoCobroClasesIndividual clases = new RepoCobroClasesIndividual();
+                clases.Clases = cobro;
+                clases.Nclase = NClase;
+                return new ViewAsPdf("ReporteCobroClaseIndividual", clases);
             }
             catch
             {
@@ -120,13 +123,12 @@ namespace BOCHAS.Controllers
         {
             try
             {
-                LocalStorage local = new LocalStorage();
-                local.Store("fecD", FecD.Date.ToString("dd/MM/yyyy"));
-                local.Store("fecH", FecH.Date.ToString("dd/MM/yyyy"));
-                local.Persist();
-                var reserva = _context.AlquilerCancha.Include(a => a.DetalleAlquilerCancha).Include(a => a.IdClienteNavigation).Include(a => a.IdClienteNavigation.Persona).Include(a => a.IdEmpleadoNavigation).Include(a => a.IdCobroNavigation).Include(a => a.IdEstadoNavigation).Where(a => a.FechaReserva >= FecD && a.FechaReserva <= FecH).ToList();               
-                
-                return new ViewAsPdf("ReporteReservas", reserva) {//FileName = "ReporteReservas.pdf" 
+                RepoReservas repoR = new RepoReservas();
+                var reserva = _context.AlquilerCancha.Include(a => a.DetalleAlquilerCancha).Include(a => a.IdClienteNavigation).Include(a => a.IdClienteNavigation.Persona).Include(a => a.IdEmpleadoNavigation).Include(a => a.IdCobroNavigation).Include(a => a.IdEstadoNavigation).Where(a => a.FechaReserva >= FecD && a.FechaReserva <= FecH).ToList();
+                repoR.Reservas = reserva;
+                repoR.FecD = FecD.ToString("dd/MM/yyyy");
+                repoR.FecH = FecH.ToString("dd/MM/yyyy");
+                return new ViewAsPdf("ReporteReservas", repoR) {//FileName = "ReporteReservas.pdf" 
                     PageOrientation = Rotativa.AspNetCore.Options.Orientation.Landscape,
                    
                     CustomSwitches = "--page-offset 0 --footer-center [page] --footer-font-size 12"
@@ -143,10 +145,7 @@ namespace BOCHAS.Controllers
 
         public IActionResult ReporteJugadoresFrecuentes(DateTime FecD, DateTime FecH)
         {
-            LocalStorage local = new LocalStorage();
-            local.Store("fecD", FecD.Date.ToString("dd/MM/yyyy"));
-            local.Store("fecH", FecH.Date.ToString("dd/MM/yyyy"));
-            local.Persist();
+          
             List<RepoJugador> repo = new List<RepoJugador>();
             var repos = (from a in _context.AlquilerCancha join u in _context.Usuario on a.IdCliente equals u.Id join p in _context.Persona on u.Id equals p.IdUsuario where a.FechaReserva >= FecD.Date && a.FechaReserva <= FecH.Date group p by p.NroDocumento into g select new { Nombre = g.ToList()[0].Nombre + " " + g.ToList()[0].Apellido, DNI = g.ToList()[0].NroDocumento, Cantidad = g.Count() }).ToList().OrderByDescending(a => a.Cantidad);
 
@@ -156,6 +155,8 @@ namespace BOCHAS.Controllers
                 r.DNI = i.DNI;
                 r.Nombre = i.Nombre;
                 r.Cantidad = i.Cantidad;
+                r.FecD = FecD.ToString("dd/MM/yyyy");
+                r.FecH = FecH.ToString("dd/MM/yyyy");
                 repo.Add(r);
             }
           
@@ -168,13 +169,14 @@ namespace BOCHAS.Controllers
         }
         public IActionResult ReporteIngresosDiarios(DateTime FecD, DateTime FecH)
         {
-            LocalStorage local = new LocalStorage();
-            local.Store("fecD",FecD.Date.ToString("dd/MM/yyyy"));
-            local.Store("fecH",FecH.Date.ToString("dd/MM/yyyy"));
-            local.Persist();
+            
+          
             var cobro = _context.Cobro.Include(a => a.IdMedioPagoNavigation).Include(a => a.IdTarjetaNavigation).Include(a => a.IdUsuarioNavigation).Include(a => a.IdUsuarioNavigation.Persona).Include(a => a.DetalleCobro).Where(a => a.Fecha >= FecD.Date && a.Fecha <= FecH.Date).ToList().OrderBy(d => d.Fecha);
-           
-            return new ViewAsPdf("ReporteIngresosDiarios", cobro)
+            RepoIngresosDiarios repo = new RepoIngresosDiarios();
+            repo.Cobros = cobro;
+            repo.FecD = FecD.ToString("dd/MM/yyyy");
+            repo.FecH = FecH.ToString("dd/MM/yyyy");
+            return new ViewAsPdf("ReporteIngresosDiarios", repo)
             {
                 PageOrientation = Rotativa.AspNetCore.Options.Orientation.Landscape,
                 CustomSwitches = "--page-offset 0 --footer-center [page] --footer-font-size 12"
@@ -185,13 +187,14 @@ namespace BOCHAS.Controllers
 
         public IActionResult ReporteClasesParticulares(DateTime FecD, DateTime FecH)
         {
-            LocalStorage local = new LocalStorage();
-            local.Store("fecD", FecD.Date.ToString("dd/MM/yyyy"));
-            local.Store("fecH", FecH.Date.ToString("dd/MM/yyyy"));
-            local.Persist();
+            HttpContext.Session.SetString("FecD", FecD.ToString("dd/MM/yyyy"));
+            HttpContext.Session.SetString("FecH", FecH.ToString("dd/MM/yyyy"));
             var clase = _context.ClaseParticular.Include(a => a.IdCanchaNavigation).Include(a => a.IdJugadorNavigation).Include(a => a.IdCobroNavigation).Include(a => a.IdProfesorNavigation).Where(a => a.FechaReserva >= FecD.Date && a.FechaReserva <= FecH.Date).ToList().OrderBy(d => d.FechaReserva);
-           
-            return new ViewAsPdf("ReporteClasesParticulares", clase)
+            RepoClases clases = new RepoClases();
+            clases.Clases = clase;
+            clases.FecD = FecD.ToString("dd/MM/yyyy");
+            clases.FecH = FecH.ToString("dd/MM/yyyy");
+            return new ViewAsPdf("ReporteClasesParticulares", clases)
             {
                 PageOrientation = Rotativa.AspNetCore.Options.Orientation.Landscape,
                 CustomSwitches = "--page-offset 0 --footer-center [page] --footer-font-size 12"
@@ -202,10 +205,7 @@ namespace BOCHAS.Controllers
 
         public IActionResult ReporteCanchas(DateTime FecD, DateTime FecH)
         {
-            LocalStorage local = new LocalStorage();
-            local.Store("fecD", FecD.Date.ToString("dd/MM/yyyy"));
-            local.Store("fecH", FecH.Date.ToString("dd/MM/yyyy"));
-            local.Persist();
+            
             List<CanchasEfectivas> lc = new List<CanchasEfectivas>();
             var CanchasReservas = (from d in _context.DetalleAlquilerCancha  join c in _context.Cancha on d.IdCancha equals c.Id join a in _context.AlquilerCancha on d.IdAlquilerCancha equals a.Numero where a.IdEstado == 4 && d.IdEstadoDetalle == 4 && a.FechaReserva >= FecD.Date && a.FechaReserva <= FecH.Date group c by new { dias= a.FechaReserva.Value.DayOfWeek , horas= d.HoraReservaDesde.Hours }  into g select new { Hora = g.Key.horas , dia = g.Key.dias , Cantidad = g.Count() , Id = g.Key }).ToList();
 
@@ -216,6 +216,8 @@ namespace BOCHAS.Controllers
                 ce.Cantidad = i.Cantidad;
                 ce.Hora = i.Hora;
                 ce.Dia =  i.dia;
+                ce.FecD = FecD.ToString("dd/MM/yyyy");
+                ce.FecH = FecH.ToString("dd/MM/yyyy");
                 lc.Add(ce);
             }
 

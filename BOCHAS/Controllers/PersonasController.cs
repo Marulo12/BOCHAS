@@ -317,6 +317,7 @@ namespace BOCHAS.Controllers
            
             return PartialView(per);
         }
+        [AllowAnonymous]
         public JsonResult MostrarBarrios(string IdLocalidad)
         {
             try
@@ -620,8 +621,47 @@ namespace BOCHAS.Controllers
             var horas =await _context.HorariosProfesor.Where(p => p.IdProfesor == profesor).ToListAsync();
             return Json(horas);
         }
+        [AllowAnonymous]
+        public async Task< IActionResult> ModificarPerfil(string Usuario)
+        {
+            var persona = await  _context.Persona.Include(p=>p.IdTipoDocumentoNavigation).Include(p=>p.IdDomicilioNavigation).Include(p=>p.IdDomicilioNavigation.IdBarrioNavigation).Include(p => p.IdDomicilioNavigation.IdLocalidadNavigation).Include(p=>p.IdUsuarioNavigation).Where(p => p.IdUsuarioNavigation.Nombre == Usuario && p.FechaBaja == null && p.Tipo == "JUGADOR").SingleOrDefaultAsync();
+            ViewData["Localidad"] = new SelectList(_context.Localidad,"Id","Nombre");
+            ViewData["Barrio"] = new SelectList(_context.Barrio, "Id", "Nombre");
+            ViewData["TipoDoc"] = new SelectList(_context.TipoDocumento, "Id", "Nombre");
+            return View(persona);
+        }
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> ModificarPerfil(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var PersonaToUpdate = await _context.Persona
+        .Include(i => i.IdDomicilioNavigation)
+        .Include(i => i.IdUsuarioNavigation)
+        .SingleOrDefaultAsync(m => m.Id == id);
 
+            if (await TryUpdateModelAsync<Persona>(
+                PersonaToUpdate))
+            {
 
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateException /* ex */)
+                {
+                    //Log the error (uncomment ex variable name and write a log.)
+                    TempData["Respuesta"] = "ERROR";
+                    return RedirectToAction("IndexJugadores", "Home", "");
+                }
+               
+            }
+            TempData["Respuesta"] = "OK";
+            return RedirectToAction("IndexJugadores","Home","");          
+        }
     }
    
 }
