@@ -8,6 +8,7 @@
         stroke: rgba(169, 56, 57, 1);
         fill: rgba(158, 44, 44, 0.7);
     }
+
     .ct-series-a .ct-line,
     .ct-series-a .ct-point {
         stroke: rgba(57, 99, 255, 1);
@@ -66,7 +67,7 @@
             <div class="col-md-10">
                 <h4>Comparación de las ventas del Mes actual con el Mes anterior</h4>
                 <div id="headline-chart" class="ct-chart"></div>
-                <p><label class="label label-primary" >Mes Actual</label><label class="label label-danger">Mes Anterior</label></p>
+                <p><label class="label label-primary">Mes Actual</label><label class="label label-danger">Mes Anterior</label></p>
             </div>
             <div class="col-md-2">
                 <div class="weekly-summary text-right">
@@ -86,7 +87,7 @@
     </div>
 </div>
 <div class="row">
-    <div  class="col-sm-12" style="overflow-x:auto">
+    <div class="col-sm-12" style="overflow-x:auto">
         <div id="canchas"></div>
     </div>
 </div>
@@ -102,20 +103,20 @@
                     <button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
                 </div>
             </div>
-            <div class="panel-body no-padding pre-scrollable" style="max-height:282px;" >
-               
-                    <table class="table table-striped" style="height:inherit;">
-                        <thead>
-                            <tr>
-                                <th>Número</th>
-                                <th>Jugador</th>
-                                <th>Estado</th>
-                            </tr>
-                        </thead>
-                        <tbody id="BodyTReservaPorDia"></tbody>
-                    </table>
-               
-                
+            <div class="panel-body no-padding pre-scrollable" style="max-height:282px;">
+
+                <table class="table table-striped" style="height:inherit;">
+                    <thead>
+                        <tr>
+                            <th>Número</th>
+                            <th>Jugador</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="BodyTReservaPorDia"></tbody>
+                </table>
+
+
             </div>
             <div class="panel-footer">
                 <div class="row">
@@ -246,12 +247,45 @@
 
     </div>
 </div>
+
+
+<div id="ModalCargaNoticias" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+
+            <div class="modal-body mb">
+                <div>
+                    <p>Cargando Noticia</p>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped active" role="progressbar"
+                             aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+</div>
 @section Scripts
     {
 
 
     <script src="~/js/Notificaciones.js"></script>
     <script src="~/js/Noticias.js"></script>
+    <script>
+        $("#BtnSubirImagen").click(function (event) {
+
+            $("#ModalCargaNoticias").modal();
+
+        });
+    </script>
     <script>
         $('#AdministrarNoticias').tooltip({ title: "Administrar Noticias", animation: false, placement: "bottom" });
         $(function () {
@@ -264,7 +298,7 @@
                 type: "GET",
                 url: "/Cobro/GraficoSemanal",
                 success: function (response) {
-                  
+
                     for (var i = 0; i < response[0].length; i++) {
                         switch (response[0][i].dia) {
                             case "Monday":
@@ -332,13 +366,13 @@
                         showLine: true,
                         showPoint: true,
                         fullWidth: true,
-                       
+
                         axisX: {
                             showGrid: false
                         },
-                        axisY: {                                                       
+                        axisY: {
                             labelInterpolationFnc: function (value) {
-                              
+
                                 return "$" + value;
                             }
                         }

@@ -63,3 +63,4 @@ C:\Users\mlb\Desktop\BOCHAS\BOCHAS\obj\Release\netcoreapp2.0\BOCHAS.AssemblyInfo
 C:\Users\mlb\Desktop\BOCHAS\BOCHAS\obj\Release\netcoreapp2.0\BOCHAS.dll
 C:\Users\mlb\Desktop\BOCHAS\BOCHAS\obj\Release\netcoreapp2.0\BOCHAS.pdb
 C:\Users\mlb\Desktop\BOCHAS\BOCHAS\obj\Release\netcoreapp2.0\BOCHAS.csprojAssemblyReference.cache
+C:\Users\mboscatto\Documents\GitHub\BOCHAS\BOCHAS\BOCHAS\obj\Release\netcoreapp2.0\BOCHAS.csprojAssemblyReference.cache

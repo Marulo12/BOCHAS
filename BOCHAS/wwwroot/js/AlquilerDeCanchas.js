@@ -173,8 +173,6 @@
 
 
 });
-
-
 function NotificaReserva() {
     var connection = $.hubConnection(), hub = connection.createHubProxy('chat');
 
@@ -184,7 +182,6 @@ function NotificaReserva() {
 
     }).done(function () { }).fail(function (e) { alert(e); });
 }
-
 function RegistrarReserva() {
     if ($("#IdCliente").val() === "") {
         alert.error("Seleccione un Jugador");
@@ -316,7 +313,6 @@ function MostrarHorariosOcupados() {
         });
     } else { alertify.error("Para consultar horarios tiene que incorporar una fecha de reserva"); }
 }
-
 function TraerCanchas() {
     if (ComprobarCamposDates()) {
         $("#Canchas").empty();
@@ -353,10 +349,7 @@ function TraerCanchas() {
     }
 }
 function ComprobarCamposDates() {
-   
-   
-   
-
+  
     if ($("#FecR").val() === "") {
         alertify.error("Complete el campo fecha de Reserva");
         return false;
@@ -379,7 +372,30 @@ function ComprobarCamposDates() {
         alertify.error("La Hora hasta no puede ser menor o igual que la hora desde");
         return false;
     }
-   
+    var inicio = $("#HD").val();
+    var fin = $("#HH").val();
+    var inicioMinutos = parseInt(inicio.substr(3, 2));
+    var inicioHoras = parseInt(inicio.substr(0, 2));
+    var finMinutos = parseInt(fin.substr(3, 2));
+    var finHoras = parseInt(fin.substr(0, 2));
+    var  transcurridoMinutos = finMinutos - inicioMinutos;
+    var transcurridoHoras = finHoras - inicioHoras;
+    if (transcurridoMinutos < 0) {
+        transcurridoHoras--;
+        transcurridoMinutos = 60 + transcurridoMinutos;
+    }
+    var horas = transcurridoHoras.toString();
+    var minutos = transcurridoMinutos.toString();
+    if (horas.length < 2) {
+        horas = "0" + horas;
+    }
+    if (horas.length < 2) {
+        horas = "0" + horas;
+    }    
+    if (horas < 1) {
+        alertify.error("La reserva debe ser de 1 hora minimo");
+        return false;
+    }
     if ($("#FecR").val() === $("#FecP").val()) {
         if ($("#HD").val() < $("#HR").val()) {
             alertify.error("La hora desde no puede ser menor a la hora actual");
@@ -388,7 +404,6 @@ function ComprobarCamposDates() {
     }
     return true;
 }
-
 function ConsultaParticular() {
     var Jugador = $("#IdCliente option:selected").val();
     var fechaD = $("#fechaD").val();
@@ -555,7 +570,6 @@ function VerDetalleReserva(numero) {
     });
 
 }
-
 function generaRepo(numero) {
     $("#ModalPdf").modal();
     $("#GeneraPDF").css("display", "inline");
@@ -604,7 +618,6 @@ function ReporteCobroReserva(NCobro) {
 
     }, 2000);
 }
-
 function RegistrarServiciosConsumidos() {
 
     var Numero = $("#LNReserva").text();
@@ -643,7 +656,6 @@ function RegistrarServiciosConsumidos() {
     }
     
 }
-
 function MensajesdeAcciones() {
 
     if ($("#Respuesta").val() === "SI") {
