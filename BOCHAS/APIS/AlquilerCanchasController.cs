@@ -96,10 +96,10 @@ namespace BOCHAS.APIS
 
             }
 
-
+            List<Cancha> Lcancha = new List<Cancha>();
             if (IdCanchas.Count > 0)
             {
-                List<Cancha> Lcancha = new List<Cancha>();
+
                 foreach (var i in IdCanchas)
                 {
                     if (i > 0)
@@ -113,13 +113,9 @@ namespace BOCHAS.APIS
                         Lcancha.Add(c);
                     }
                 }
-                return Json(Lcancha);
-
+               
             }
-            else
-            {
-                return Json("VACIO");
-            }
+            return Json(Lcancha);
 
         }
 
