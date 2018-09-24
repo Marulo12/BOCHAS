@@ -86,8 +86,8 @@ namespace BOCHAS.Controllers
 
         public async Task<JsonResult> Alertas()
         {
-            var reservas = await (from a in _context.AlquilerCancha where a.IdEstado == 2 && a.FechaReserva < DateTime.Now.Date select new { numero = a.Numero , nombre = a.IdClienteNavigation.Persona.SingleOrDefault().Nombre + " " + a.IdClienteNavigation.Persona.SingleOrDefault().Apellido }).ToListAsync();
-            var clases = await (from c in _context.ClaseParticular join p in _context.Persona on c.IdJugador equals p.Id where c.FechaReserva < DateTime.Now.Date && c.HoraInicioReal == null && c.FechaCancelacion == null select new { numero = c.Id , nombre = p.Nombre + " " + p.Apellido }).ToListAsync();
+            var reservas = await (from a in _context.AlquilerCancha where a.IdEstado == 2 && a.FechaReserva < DateTime.Now.Date && a.IdClienteNavigation.Persona.SingleOrDefault().FechaBaja == null select new { numero = a.Numero , nombre = a.IdClienteNavigation.Persona.SingleOrDefault().Nombre + " " + a.IdClienteNavigation.Persona.SingleOrDefault().Apellido }).ToListAsync();
+            var clases = await (from c in _context.ClaseParticular join p in _context.Persona on c.IdJugador equals p.Id where c.FechaReserva < DateTime.Now.Date && c.HoraInicioReal == null && c.FechaCancelacion == null && c.IdJugadorNavigation.FechaBaja == null select new { numero = c.Id , nombre = p.Nombre + " " + p.Apellido }).ToListAsync();
             var alert = new { reservas , clases};
 
             return Json(alert);

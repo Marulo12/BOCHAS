@@ -296,11 +296,27 @@ namespace BOCHAS.Controllers
         public async Task<IActionResult> BajaJugador(string id)
         {
             int Id = Convert.ToInt32(id);
+            bool servicio_activo = false;
             var persona = await _context.Persona.SingleOrDefaultAsync(m => m.Id == Id);
-            persona.FechaBaja = DateTime.Now;
-            
-            _context.Persona.Update(persona);
-            await _context.SaveChangesAsync();
+            var reservas = await _context.AlquilerCancha.Where(a => a.IdClienteNavigation.Persona.SingleOrDefault().Id == persona.Id && (a.IdEstado == 2 || a.IdEstado == 3)).ToListAsync();
+            var clases = await _context.ClaseParticular.Where(c => c.IdJugador == persona.Id && c.HoraFinReal == null && c.FechaCancelacion == null).ToListAsync();
+            if (reservas.Count > 0 || clases.Count > 0)
+            {
+                servicio_activo = true;
+            }
+
+            if (!servicio_activo)
+            {
+                persona.FechaBaja = DateTime.Now;
+                _context.Persona.Update(persona);
+                await _context.SaveChangesAsync();
+                TempData["Resultado"] = "BAJA";
+            }
+            else
+            {
+                TempData["Resultado"] = "NOBAJA";
+            }
+          
 
             return RedirectToAction("ConsultarJugador", "Personas", "");
         }

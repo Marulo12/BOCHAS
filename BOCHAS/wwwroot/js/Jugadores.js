@@ -71,7 +71,7 @@
         $("#TablaSessiones_filter").append($("div .btn-group"));
         $("div .btn-group").css("float", "left");
     });
-    
+    if ($("#Resultado").val() === "NOBAJA") { alertify.error("No se puede dar de baja el jugador ya que tiene servicios activos"); }    
 });
 
 
