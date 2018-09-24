@@ -9,23 +9,23 @@
             <thead style="background-color: rgba(158, 44, 44, 0.9);color:white">
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.FechaReserva)
+                       Fecha Reserva
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.HoraInicioPrevista)
+                       Hora Inicio Prevista
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.HoraFinPrevista)
+                       Hora Fin Prevista
                     </th>
 
                     <th>
-                        @Html.DisplayNameFor(model => model.Observacion)
+                        Observación
                     </th>
                     <th>
                         Profesor
                     </th>
                     <th></th>
-                    <th></th>
+                    <th style="width:5%;"></th>
                 </tr>
             </thead>
             <tbody>
@@ -67,7 +67,7 @@
                                 }
                             }
                         </td>
-                        <td style="width:200px;">
+                        <td style="width:10%;">
                             <div class=" form-group" style="padding:0px;margin:0px;">
                                 <button class="btn btn-info btn-sm" onclick="VerDetalleClase(@item.Id)" data-toggle="tooltip" title="Ver Detalle"><i class="fas fa-info-circle"></i></button>
 

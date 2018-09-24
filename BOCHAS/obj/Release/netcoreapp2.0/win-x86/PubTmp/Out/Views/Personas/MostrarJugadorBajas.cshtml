@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BOCHAS.Models.Jugador>
+﻿@model IEnumerable<BOCHAS.Models.Persona>
 
 
 
@@ -42,23 +42,23 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Model.OrderByDescending(p => p.IdPersonaNavigation.FechaBaja))
+                            @foreach (var item in Model.OrderByDescending(p => p.FechaBaja))
                             {
                                 <tr>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.IdPersonaNavigation.IdUsuarioNavigation.Nombre)
+                                        @Html.DisplayFor(modelItem => item.IdUsuarioNavigation.Nombre)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.IdPersonaNavigation.Nombre)
+                                        @Html.DisplayFor(modelItem => item.Nombre)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.IdPersonaNavigation.Apellido)
+                                        @Html.DisplayFor(modelItem => item.Apellido)
                                     </td>
                                     <td>
-                                        @item.IdPersonaNavigation.FechaBaja.Value.Date.ToString("dd/MM/yyyy")
+                                        @item.FechaBaja.Value.Date.ToString("dd/MM/yyyy")
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.IdPersonaNavigation.IdDomicilioNavigation.IdLocalidadNavigation.Nombre)
+                                        @Html.DisplayFor(modelItem => item.IdDomicilioNavigation.IdLocalidadNavigation.Nombre)
                                     </td>
 
                                 </tr>

@@ -30,7 +30,7 @@
         <hr style="height:4px;" />
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3>Informacion General</h3>
+                <h3>Información General</h3>
             </div>
             <div class="panel-body">
                 <p style="font-size:22px;padding-left:30px;">N° Recibo: @Html.DisplayFor(model => model.Numero) &nbsp;&nbsp;&nbsp;  Jugador: @db.Persona.Where(p => p.IdUsuario == db.AlquilerCancha.Where(a => a.IdCobro == Model.Numero).First().IdCliente).First().Nombre  @db.Persona.Where(p => p.IdUsuario == db.AlquilerCancha.Where(a => a.IdCobro == Model.Numero).First().IdCliente).First().Apellido &nbsp;&nbsp;&nbsp; N° Documento: @db.Persona.Where(p => p.IdUsuario == db.AlquilerCancha.Where(a => a.IdCobro == Model.Numero).First().IdCliente).First().NroDocumento</p>
@@ -38,7 +38,7 @@
                 <p style="font-size:20px;padding-left:30px;">Medio de Pago:  @Html.DisplayFor(model => model.IdMedioPagoNavigation.Nombre) </p>
                 @{ if (Model.IdMedioPago == 2)
                     {
-                <p style="font-size:20px;padding-left:30px;">N° Cupon: @Model.NroCupon.ToString()  Empresa: @db.Tarjeta.Where(t => t.Id == Model.IdTarjeta).SingleOrDefault().Nombre   Tipo:@db.Tarjeta.Where(t => t.Id == Model.IdTarjeta).SingleOrDefault().TipoTarjeta </p>
+                <p style="font-size:20px;padding-left:30px;">N° Cupón: @Model.NroCupon.ToString()  Empresa: @db.Tarjeta.Where(t => t.Id == Model.IdTarjeta).SingleOrDefault().Nombre   Tipo:@db.Tarjeta.Where(t => t.Id == Model.IdTarjeta).SingleOrDefault().TipoTarjeta </p>
                     } }
 
             </div>

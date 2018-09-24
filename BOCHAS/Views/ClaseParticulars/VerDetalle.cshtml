@@ -2,7 +2,7 @@
 <ul class="list-group" style="font-size:16px;">
     <li class="list-group-item"> N° Cancha: @Html.DisplayFor(model => model.IdCanchaNavigation.Numero), Nombre: @Html.DisplayFor(model => model.IdCanchaNavigation.Nombre)</li>
     <li class="list-group-item">
-        Fecha de Realizacion:  @{ if (Model.FechaRealRealizacion == null)
+        Fecha de Realización:  @{ if (Model.FechaRealRealizacion == null)
             { <label>-</label> }
             else
             { @Model.FechaRealRealizacion.Value.Date.ToString("dd/MM/yyyy") } }
@@ -14,13 +14,13 @@
             { @Html.DisplayFor(model => model.HoraInicioReal) } }
     </li>
     <li class="list-group-item">
-        Hora de Finalizacion:   @{ if (Model.HoraFinReal == null)
+        Hora de Finalización:   @{ if (Model.HoraFinReal == null)
             { <label>-</label> }
             else
             { @Html.DisplayFor(model => model.HoraFinReal) } }
     </li>
     <li class="list-group-item">
-        Fecha cancelacion:  @{ if (Model.FechaCancelacion == null)
+        Fecha cancelación:  @{ if (Model.FechaCancelacion == null)
             { <label>-</label> }
             else
             { @Model.FechaCancelacion.Value.Date.ToString("dd/MM/yyyy") } }
