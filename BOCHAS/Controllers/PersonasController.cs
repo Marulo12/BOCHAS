@@ -293,16 +293,34 @@ namespace BOCHAS.Controllers
             return RedirectToAction("ConsultarEmpleado", "Personas","");
         }
         [HttpPost]
-        public async Task<IActionResult> BajaJugador(string id)
+        public async Task<JsonResult> BajaJugador(string id)
         {
             int Id = Convert.ToInt32(id);
+            bool servicio_activo = false;
             var persona = await _context.Persona.SingleOrDefaultAsync(m => m.Id == Id);
-            persona.FechaBaja = DateTime.Now;
-            
-            _context.Persona.Update(persona);
-            await _context.SaveChangesAsync();
+            var reservas = await _context.AlquilerCancha.Where(a => a.IdClienteNavigation.Persona.SingleOrDefault().Id == persona.Id && (a.IdEstado == 2 || a.IdEstado == 3)).ToListAsync();
+            var clases = await _context.ClaseParticular.Where(c => c.IdJugador == persona.Id && c.HoraFinReal == null && c.FechaCancelacion == null).ToListAsync();
+            if (reservas.Count > 0 || clases.Count > 0)
+            {
+                servicio_activo = true;
+            }
 
-            return RedirectToAction("ConsultarJugador", "Personas", "");
+            if (!servicio_activo)
+            {
+                persona.FechaBaja = DateTime.Now;
+                _context.Persona.Update(persona);
+                await _context.SaveChangesAsync();
+                
+                return Json("BAJA");
+            }
+            else
+            {
+                
+                return Json("NOBAJA");
+            }
+          
+
+            
         }
 
         public IActionResult EditarEmpleado(int id)
@@ -461,7 +479,7 @@ namespace BOCHAS.Controllers
         public async Task<IActionResult> MostrarJugadorBajas()
         {
 
-            var Jugador = _context.Jugador.Include(p => p.IdPersonaNavigation).Include(p => p.IdPersonaNavigation.IdDomicilioNavigation).Include(d => d.IdPersonaNavigation.IdDomicilioNavigation.IdBarrioNavigation).Include(d => d.IdPersonaNavigation.IdDomicilioNavigation.IdLocalidadNavigation).Include(u => u.IdPersonaNavigation.IdUsuarioNavigation).Where( e => e.IdPersonaNavigation.Tipo == "JUGADOR" && e.IdPersonaNavigation.FechaBaja != null);
+            var Jugador = _context.Persona.Include(p => p.IdDomicilioNavigation).Include(d => d.IdDomicilioNavigation.IdBarrioNavigation).Include(d => d.IdDomicilioNavigation.IdLocalidadNavigation).Include(u => u.IdUsuarioNavigation).Where( e => e.Tipo == "JUGADOR" && e.FechaBaja != null);
 
             return View(await Jugador.ToListAsync());
         }

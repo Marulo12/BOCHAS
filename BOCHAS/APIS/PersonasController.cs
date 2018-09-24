@@ -250,12 +250,13 @@ namespace BOCHAS.APIS
         {
             try
             {
-                var sesiones = _context.Session.Where(s => s.IdUsuario == IdUsuario && s.HoraFin == null).ToList();
+                var sesiones = _context.Session.Where(s => s.IdUsuario == IdUsuario && (s.HoraFin == null || s.FechaFin == null)).ToList();
                 if (sesiones.Count > 0)
                 {
                     foreach (var i in sesiones)
                     {
                         i.HoraFin = DateTime.Now.TimeOfDay;
+                        i.FechaFin = i.FechaInicio;
                         _context.Session.Update(i);
                         _context.SaveChanges();
                     }

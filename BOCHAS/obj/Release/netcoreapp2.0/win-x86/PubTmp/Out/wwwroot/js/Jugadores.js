@@ -1,4 +1,6 @@
-﻿$(document).ready(function () {
+﻿
+
+$(document).ready(function () {
     $("#altaJugador").after(function () {
         MostrarTipoDocumento(); MostrarLocalidades(); MostrarTipoJugador();
     });
@@ -27,7 +29,7 @@
         $("#TablaJugadoresBaja").show();
         $("#TablaJugadoresBaja").DataTable({
             responsive: true,
-           
+
             searching: true,
             dom: 'Bfrtip',
             buttons: [
@@ -67,11 +69,12 @@
                 }
             }
         });
-       
+
         $("#TablaSessiones_filter").append($("div .btn-group"));
         $("div .btn-group").css("float", "left");
     });
-    
+
+
 });
 
 
@@ -93,7 +96,7 @@ function MostrarJugador(filtro) {
             dvItems.append(Table);
             $("#TablaJugadores").DataTable({
                 searching: true,
-               
+
                 responsive: true,
                 search: "Filtro&nbsp;:",
                 dom: 'Bfrtip',
@@ -150,20 +153,20 @@ function MostrarJugador(filtro) {
 function AgregarServicio(id) {
     var servicio = 1;
     alertify.confirm('Confirmar', 'Agregar servicio de clases particulares?', function () {
-       
+
         $.ajax({
             type: "POST",
             url: "/Personas/AgregarTipoJugador",
-            data: { 'IdPersona': id, 'tipoJugador':'1' },
+            data: { 'IdPersona': id, 'tipoJugador': '1' },
             success: function (response) {
                 if (response === "OK") {
-                    alertify.success("Servicio agregado con exito");             
+                    alertify.success("Servicio agregado con exito");
 
-                    
+
                 }
                 else {
                     alertify.error("El servicio ya estaba incorporado");
-                   
+
                 }
             },
             failure: function (response) {
@@ -175,7 +178,7 @@ function AgregarServicio(id) {
 
 
 
-    
+
 }
 
 
@@ -355,15 +358,17 @@ function MostrarLocalidades() {
 }
 function confirmarBaja(id) {
     alertify.confirm('Confirmar', 'Dar de baja al Jugador?', function () {
-        alertify.success("Baja de Jugador dada con exito");
+
         $.ajax({
             type: "POST",
             url: "/Personas/BajaJugador",
             data: { id: id },
             success: function (response) {
+                if (response === "BAJA") {
 
-                window.location = "/Personas/ConsultarJugador";
-
+                    alertify.success("Baja de Jugador dada con exito");
+                    setTimeout(function () { window.location = "/Personas/ConsultarJugador"; }, 2000);
+                } else { alertify.error("No se puede dar de baja el jugador ya que tiene servicios activos"); }
             }
         });
     }

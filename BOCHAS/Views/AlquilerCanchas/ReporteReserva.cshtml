@@ -30,7 +30,7 @@
         <hr  style="height:4px;" />
         <div class="panel panel-primary">
             <div class="panel-heading">
-               <h3>Informacion General</h3>
+               <h3>Información General</h3>
             </div>
             <div class="panel-body">
                 <p style="font-size:22px;padding-left:30px;">N° Reserva: @Html.DisplayFor(model => model.Numero) &nbsp;&nbsp;&nbsp;  Jugador: @Html.DisplayFor(model => model.IdClienteNavigation.Persona.SingleOrDefault().Nombre)  @Html.DisplayFor(model => model.IdClienteNavigation.Persona.SingleOrDefault().Apellido) &nbsp;&nbsp;&nbsp; N° Documento: @Html.DisplayFor(model => model.IdClienteNavigation.Persona.SingleOrDefault().NroDocumento)</p>
@@ -41,7 +41,7 @@
 <h3 style="padding-left:10px;">Detalle de la Reserva</h3>
                 
                 <table class="table" style="font-size:20px;background-color:white;color:black;">
-                    <thead><tr><td>Cancha</td><td>Descripcion</td><td>Hora Desde</td><td>Hora Hasta</td></tr></thead>
+                    <thead><tr><td>Cancha</td><td>Descripción</td><td>Hora Desde</td><td>Hora Hasta</td></tr></thead>
                     <tbody>
                         @{
                             foreach (var item in Model.DetalleAlquilerCancha)

@@ -46,7 +46,7 @@ namespace BOCHAS.Models
             {
 
               //  optionsBuilder.UseSqlServer(@"Data Source=SISTEMAS04;Initial Catalog=BOCHAS;Persist Security Info=True;User ID=BSP;Password=bochas");
-                 optionsBuilder.UseSqlServer(@"Data Source=sql5020.site4now.net;Initial Catalog=DB_A3F6C9_BOCHAS;User ID=DB_A3F6C9_BOCHAS_admin;Password=bochas2018");
+                 optionsBuilder.UseSqlServer(@"Data Source=sql7001.site4now.net;Initial Catalog=DB_A410C5_dncortez14;User ID=DB_A410C5_dncortez14_admin;Password=dncortez14");
                // optionsBuilder.UseSqlServer(@"Data Source=sistemas;Initial Catalog=BOCHAS;Integrated Security=True");
                //  optionsBuilder.UseSqlServer(@"Data Source=mlb;Initial Catalog=BOCHAS;Integrated Security=True");
             }
