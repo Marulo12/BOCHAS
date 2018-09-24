@@ -15,6 +15,8 @@ using Microsoft.AspNetCore.SignalR;
 using BOCHAS.Hubs;
 using MimeKit;
 using MailKit.Net.Smtp;
+using System.Drawing;
+
 
 namespace BOCHAS.APIS
 {
@@ -140,36 +142,59 @@ namespace BOCHAS.APIS
         }
 
 
+        
+
+        public class imagenes {
+            public string img { set; get; }
+            public string nomImagen { set; get; }
+            public int IdJugador { set; get; }
+        }
         [HttpPost("api/Personas/SubirImagen")]
-        public JsonResult SubirImagen(  IFormFile file)
+        public JsonResult SubirImagen([FromBody] imagenes image)
         {
-            string Usuario = HttpContext.Request.Query["Usuario"].ToString();
+           
             try
             {
-                var persona = _context.Persona.SingleOrDefault(p => p.IdUsuarioNavigation.Nombre == Usuario && p.FechaBaja == null);
-                var filename = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-                var uploads = Path.Combine(_hostingEnv.WebRootPath, string.Format("Images\\perfiles\\jugadores\\" + Usuario));
-                if (file.Length > 0)
+                var persona = _context.Persona.Include(p=>p.IdUsuarioNavigation).SingleOrDefault(p => p.IdUsuario == image.IdJugador && p.FechaBaja == null);
+                var imageDataByteArray = Convert.FromBase64String(image.img);
+               
+
+                var uploads = Path.Combine(_hostingEnv.WebRootPath, string.Format("Images\\perfiles\\jugadores\\agarcia"));
+                if (imageDataByteArray.Length > 0)
                 {
                     if (!Directory.Exists(uploads))
                     {
                         Directory.CreateDirectory(uploads);
                     }
-                    using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
+                    string[] picList = Directory.GetFiles(uploads);
+                    foreach (string f in picList)
                     {
-                        file.CopyToAsync(fileStream);
+                        System.IO.File.Delete(f);
                     }
-                    persona.Imagen = filename;
+
+                    System.IO.File.WriteAllBytes(uploads + @"/" + image.nomImagen, imageDataByteArray);
+                    persona.Imagen = image.nomImagen;
                     _context.Persona.Update(persona);
                     _context.SaveChanges();
                 }
 
                 return Json(Ok());
-            }
-            catch {
-                return Json(NotFound());
-            }
+          }
+          catch
+            {
+               return Json(NotFound());
+           }
+
+
+
+
         }
+
+
+
+
+
+
 
 
         public class Users {

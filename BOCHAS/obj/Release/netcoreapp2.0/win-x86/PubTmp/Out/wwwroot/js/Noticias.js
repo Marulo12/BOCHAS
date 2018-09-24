@@ -73,6 +73,7 @@ function confirmarBajaNoti(id) {
             },
             error: function (e) {
                 window.alert(e.responseText + e.responseJSON);
+                console.log(e.responseText + e.responseJSON);
             }
 
         });

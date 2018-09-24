@@ -37,8 +37,11 @@ namespace BOCHAS.Controllers
                     Directory.CreateDirectory(targetDirectory);
                 }
                 var savePath = Path.Combine(targetDirectory, filename);
-                ImageFile.CopyToAsync(new FileStream(savePath, FileMode.Create));           
-                
+                using (FileStream d = new FileStream(savePath, FileMode.Create))
+                {
+                    ImageFile.CopyTo(d);
+                    d.Close();
+                }                             
                     Noticias noti = new Noticias();
                     noti.Titulo = titulo;
                     noti.Descripcion = descripcion;
@@ -73,12 +76,12 @@ namespace BOCHAS.Controllers
         {
             var noti = _context.Noticias.SingleOrDefault(n=>n.Id ==  id);
 
-               noti.Activo = false;
-                _context.Noticias.Update(noti);
-         //   System.IO.File.Delete(noti.Url);
+             noti.Activo = false;
+            _context.Noticias.Update(noti);
+          //  System.IO.File.Delete(@"localhost:53502/images/Noticias/4.JPG");
+            
             if (_context.SaveChanges() == 1)
-            {                                          
-               
+            {                                                         
                 return Json("OK");
             }
             return Json("ERROR");
