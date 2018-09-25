@@ -79,7 +79,7 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <label>Reservas</label>
-                        @{ if (reservas != null)
+                        @{ if (reservas.Count > 0 )
                             {
                                 <div class="btn-group-sm">
                                     <select id="Reservas" class="btn btn-sm" asp-items="@{new SelectList(reservas, "NroReserva", "jugador")}"></select><button class="btn btn-sm btn-success" style="margin-left:20px;" onclick="CalcularXReserva()"><i class="fa fa-plus"></i></button>
@@ -88,7 +88,7 @@
                             }
                             else
                             {
-                                <select class="btn btn-sm form-control"><option style="color:white;">No hay reservas pendientes de cobro</option></select>
+                                <select id="Reservas" class="btn btn-sm "><option style="color:white;">No hay reservas pendientes de cobro</option></select>
                             }
                         }
 
@@ -113,9 +113,10 @@
                         <thead class="alert alert-info"><tr><td>Servicio</td><td>$Precio Unit.</td><td style="width:5%">Cantidad</td><td style="width:10%">$Total</td><td>Agregar</td><td style="display:none;"></td></tr></thead>
                         <tbody></tbody>
                     </table>
-                    <p style="float:right;"><button id="BtnAgregaAlquiler" class="btn btn-sm btn-default"  onclick="AgregarSAFinal()"><i class="fa fa-plus"></i> Agregar</button>  <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#ModalSAFinal"><i class="fas fa-chevron-circle-up"></i> Ver Agregados</button> </p>
+                    
+                    <p style="float:right;"><button id="BtnAgregaAlquiler" class="btn btn-sm btn-default" onclick="AgregarSAFinal()"><i class="fa fa-plus"></i> Agregar</button>  <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#ModalSAFinal"><i class="fas fa-chevron-circle-up"></i> Ver Agregados</button> </p>
                 </div>
-                <br />
+               
                 <hr />
                 <div class="row">
                     <div class="col-md-4">
