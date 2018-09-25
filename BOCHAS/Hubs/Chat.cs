@@ -22,7 +22,7 @@ namespace BOCHAS.Hubs
         }
         public void ReservasJugador()
         {
-            var reservaJ = (from a in bd.AlquilerCancha join p in bd.Persona on a.IdCliente equals p.IdUsuario where a.IdEmpleado == null && a.IdEstado == 2 select new { Numero = a.Numero, Nombre = p.Nombre, Apellido = p.Apellido }).ToList();                                
+            var reservaJ = (from a in bd.AlquilerCancha join p in bd.Persona on a.IdCliente equals p.IdUsuario where a.IdEmpleado == null && a.IdEstado == 2 && a.FechaReserva >= DateTime.Now.Date select new { Numero = a.Numero, Nombre = p.Nombre, Apellido = p.Apellido }).ToList();                                
             Clients.All.ReservasJugador(reservaJ);
         }
     }
