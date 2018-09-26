@@ -45,7 +45,8 @@ namespace BOCHAS.Controllers
                     Noticias noti = new Noticias();
                     noti.Titulo = titulo;
                     noti.Descripcion = descripcion;
-                    noti.Url = "http://" +  Url.ActionContext.HttpContext.Request.Host.Value + "/images/Noticias/" + filename;
+                    noti.Url = "http://" +  Url.ActionContext.HttpContext.Request.Host.Value + "/images/Noticias/"+filename;
+                    noti.Nombre_Imagen = filename;
                     noti.Activo = true;
                     _context.Noticias.Add(noti);
                     if (_context.SaveChanges() == 1)
@@ -75,11 +76,10 @@ namespace BOCHAS.Controllers
         public JsonResult BajadeNoticia(int id)
         {
             var noti = _context.Noticias.SingleOrDefault(n=>n.Id ==  id);
-
-             noti.Activo = false;
-            _context.Noticias.Update(noti);
-          //  System.IO.File.Delete(@"localhost:53502/images/Noticias/4.JPG");
-            
+            var targetDirectory = Path.Combine(_hostingEnv.WebRootPath, string.Format("Images\\Noticias\\" + noti.Nombre_Imagen));
+            try { System.IO.File.Delete(targetDirectory); } catch { }
+            noti.Activo = false;
+            _context.Noticias.Update(noti);                       
             if (_context.SaveChanges() == 1)
             {                                                         
                 return Json("OK");
