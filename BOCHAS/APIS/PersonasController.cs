@@ -159,7 +159,7 @@ namespace BOCHAS.APIS
                 var imageDataByteArray = Convert.FromBase64String(image.img);
                
 
-                var uploads = Path.Combine(_hostingEnv.WebRootPath, string.Format("Images\\perfiles\\jugadores\\agarcia"));
+                var uploads = Path.Combine(_hostingEnv.WebRootPath, string.Format("Images\\perfiles\\jugadores\\" + persona.IdUsuarioNavigation.Nombre));
                 if (imageDataByteArray.Length > 0)
                 {
                     if (!Directory.Exists(uploads))
