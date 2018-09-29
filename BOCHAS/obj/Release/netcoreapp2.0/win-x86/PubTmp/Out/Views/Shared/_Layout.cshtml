@@ -59,13 +59,13 @@
 
 
                 <div id="navbar-menu">
-                    <ul class="nav navbar-nav navbar-right">
+                    <ul class="nav navbar-nav navbar-right" >
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
                                 <i class="lnr lnr-alarm" style="color:white;"></i>
                                 <span class="badge bg-danger"><label id="LAlerta"><i class="fas fa-sync fa-spin"></i></label>  <span class="waves"></span></span>
                             </a>
-                            <ul id="Alertas" class="dropdown-menu notifications">                                
+                            <ul id="Alertas" class="dropdown-menu notifications" style="overflow-y:scroll;height:200px;">                                
                                 <li><a href="#" class="notification-item"><span class="dot bg-danger"></span>No hay alertas</a></li>                                                                                                                               
                             </ul>
                         </li>
@@ -74,7 +74,7 @@
                                 <i class="lnr lnr-inbox" style="color:white;"></i>
                                 <span class="badge bg-danger"><label id="Lreserva"><i class="fas fa-sync fa-spin"></i></label>  <span class="waves"></span></span>
                             </a>
-                            <ul id="Listareserva" class="dropdown-menu notifications">
+                            <ul id="Listareserva" class="dropdown-menu notifications" style="overflow-y:scroll;height:210px;">
                                
                             </ul>
                         </li>
@@ -99,7 +99,7 @@
                                 }
 
                             }
-                            <ul class="dropdown-menu">
+                            <ul class="dropdown-menu" >
                                 <li><a id="BtnPerfil" href="#"><i class="lnr lnr-user"></i> <span>Mi Perfil</span></a></li>
                                 <li><a asp-action="AgregarImagenPerfil" asp-controller="Personas"><i class="far fa-user-circle"></i> <span>&nbsp;&nbsp;Imagen de perfil</span></a></li>
                                 <li><a href="#" data-toggle="modal" data-target="#ModalContraseña"><i class="lnr lnr-cog"></i> <span>Cambiar Contraseña</span></a></li>

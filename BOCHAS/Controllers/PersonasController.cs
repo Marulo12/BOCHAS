@@ -27,6 +27,7 @@ namespace BOCHAS.Controllers
         {
             _hostingEnv = hosting;
             _context = context;
+          
         }
 
         
@@ -545,8 +546,20 @@ namespace BOCHAS.Controllers
                 {
                     Directory.CreateDirectory(targetDirectory);
                 }
+                string[] picList = Directory.GetFiles(targetDirectory);
+                foreach (string f in picList)
+                {
+                    System.IO.File.Delete(f);
+                }
                 var savePath = Path.Combine(targetDirectory, filename);
-                ImageFile.CopyTo(new FileStream(savePath, FileMode.Create));
+
+                using (FileStream d = new FileStream(savePath, FileMode.Create))
+                {
+                    ImageFile.CopyTo(d);
+                    d.Close();
+                }
+                
+              
                 persona.Imagen = filename;
                 _context.Persona.Update(persona);
                 _context.SaveChanges();
@@ -573,10 +586,19 @@ namespace BOCHAS.Controllers
                 {
                     Directory.CreateDirectory(targetDirectory);
                 }
-                
-              
+                string[] picList = Directory.GetFiles(targetDirectory);
+                foreach (string f in picList)
+                {
+                    System.IO.File.Delete(f);
+                }
                 var savePath = Path.Combine(targetDirectory, filename);
-                ImageFile.CopyTo(new FileStream(savePath, FileMode.Create));
+
+                using (FileStream d = new FileStream(savePath, FileMode.Create))
+                {
+                    ImageFile.CopyTo(d);
+                    d.Close();
+                }
+
                 persona.Imagen = filename;
                 _context.Persona.Update(persona);
                 _context.SaveChanges();

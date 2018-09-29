@@ -468,7 +468,13 @@ function TraerClases() {
          
             $("#CobroxClase").removeClass("ocultar");
             $("#TDetalleC").empty();
-            var tr = "";                                
+            var tr = "";                 
+if(response.length === 0)
+{
+    tr += '<tr><td colspan="7" style="font-size:16px;text-align:center;">No hay clases pendientes de cobro' + '</td></tr>';
+    $("#TDetalleC").append(tr);
+    return;
+}               
             for (var i = 0; i < response.length; i++) {
                 tr += '<tr><td >' + response[i].numero + '</td><td>' + response[i].servicio + '</td><td>' + response[i].precio + '</td><td>' + response[i].canchas + '</td><td>' + response[i].horas + '</td><td >' + response[i].total + '</td><td><button class="btn btn-sm btn-success Aclases"><i class="fas fa-plus"></i></button></td></tr>';
             }

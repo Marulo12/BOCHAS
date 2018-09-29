@@ -33,6 +33,7 @@
             </th>
            
             <th style="text-align:center;width:30%;">Detalle</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -87,26 +88,27 @@
                                     </li>
                                 }
 
-                                <li class="list-group-item">
-                                    @{
-                                        if (item.DetalleCobro.ToList()[0].IdServicio == 1)
-                                        {
-                                            <button class="btn btn-sm btn-primary" style="width:100%;" onclick="ReporteCobroReserva(@item.Numero)" data-toggle="tooltip" title="Reporte Cobro"><i class="fas fa-money-check-alt"></i></button>
-
-                                        }
-                                        if (item.DetalleCobro.ToList()[0].IdServicio == 2)
-                                        {
-                                            <button class="btn btn-sm btn-primary" style="width:100%;" onclick="ReporteCobroClase(@item.Numero)" data-toggle="tooltip" title="Reporte Cobro"><i class="fas fa-money-check-alt"></i></button>
-                                        }
-                                    }
-
-                                </li>
+                             
                             }
                         </ul>
                             </div>
 
                             </td>
+                <td>
+                    @{
+                        if (item.DetalleCobro.ToList()[0].IdServicio == 1)
+                        {
+                            <button class="btn btn-sm btn-primary"  onclick="ReporteCobroReserva(@item.Numero)" data-toggle="tooltip" title="Reporte Cobro"><i class="fas fa-money-check-alt"></i></button>
+
+                        }
+                        if (item.DetalleCobro.ToList()[0].IdServicio == 2)
+                        {
+                            <button class="btn btn-sm btn-primary"  onclick="ReporteCobroClase(@item.Numero)" data-toggle="tooltip" title="Reporte Cobro"><i class="fas fa-money-check-alt"></i></button>
+                        }
+                    }
+                </td>
                             </tr>
+
 
                         }
     </tbody>

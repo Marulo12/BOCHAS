@@ -4,7 +4,8 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<link href="~/lib/jquery-ui-1.12.1.custom/jquery-ui-1.12.1.custom/jquery-ui.min.css" rel="stylesheet" />
 <style>
     .custom-combobox {
         position: relative;
@@ -140,14 +141,14 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-sm-4" >
+                    <div class="col-sm-4">
                         <h4>Turnos profesor</h4>
                         <div id="ModalHorariosProfeBody">
 
                         </div>
                     </div>
                     <div id="DivCalendar" class="col-sm-8" style="border-left:1px solid grey;height:500px;overflow-y: auto;">
-                       
+
                     </div>
                 </div>
 
@@ -180,9 +181,10 @@
     </div>
 </div>
 @section Scripts {
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    
+    <script src="~/lib/jquery-ui-1.12.1.custom/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
     <script src="~/js/AutoCompletarCombos-UI.js"></script>
     <script src="~/js/ClasesParticulares.js"></script>
-  
+
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

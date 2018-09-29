@@ -37,12 +37,16 @@ namespace BOCHAS.Controllers
                     Directory.CreateDirectory(targetDirectory);
                 }
                 var savePath = Path.Combine(targetDirectory, filename);
-                ImageFile.CopyToAsync(new FileStream(savePath, FileMode.Create));           
-                
+                using (FileStream d = new FileStream(savePath, FileMode.Create))
+                {
+                    ImageFile.CopyTo(d);
+                    d.Close();
+                }                             
                     Noticias noti = new Noticias();
                     noti.Titulo = titulo;
                     noti.Descripcion = descripcion;
-                    noti.Url = "http://" +  Url.ActionContext.HttpContext.Request.Host.Value + "/images/Noticias/" + filename;
+                    noti.Url = "http://" +  Url.ActionContext.HttpContext.Request.Host.Value + "/images/Noticias/"+filename;
+                    noti.Nombre_Imagen = filename;
                     noti.Activo = true;
                     _context.Noticias.Add(noti);
                     if (_context.SaveChanges() == 1)
@@ -72,13 +76,12 @@ namespace BOCHAS.Controllers
         public JsonResult BajadeNoticia(int id)
         {
             var noti = _context.Noticias.SingleOrDefault(n=>n.Id ==  id);
-
-               noti.Activo = false;
-                _context.Noticias.Update(noti);
-         //   System.IO.File.Delete(noti.Url);
+            var targetDirectory = Path.Combine(_hostingEnv.WebRootPath, string.Format("Images\\Noticias\\" + noti.Nombre_Imagen));
+            try { System.IO.File.Delete(targetDirectory); } catch { }
+            noti.Activo = false;
+            _context.Noticias.Update(noti);                       
             if (_context.SaveChanges() == 1)
-            {                                          
-               
+            {                                                         
                 return Json("OK");
             }
             return Json("ERROR");
