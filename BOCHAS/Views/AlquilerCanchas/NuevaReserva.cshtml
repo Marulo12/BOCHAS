@@ -8,8 +8,8 @@
 }
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>jQuery UI Autocomplete - Combobox</title>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
+<link href="~/lib/jquery-ui-1.12.1.custom/jquery-ui-1.12.1.custom/jquery-ui.min.css" rel="stylesheet" />
 <style>
     .custom-combobox {
         position: relative;
@@ -51,7 +51,7 @@
             <div class="col-sm-4"><label for="emp">Encargado</label> <input id="emp" type="text" class="form-control" value="@ViewData["empleado"].ToString()" readonly /></div>
             <div class="col-sm-2" style="display:none;"><label for="FecP">Fecha de Pedido</label> <input id="FecP" type="text" class="form-control" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" readonly /></div>
             <div class="col-sm-2"><label for="FecR">Fecha de Reserva</label> <input id="FecR" type="date" class="form-control" /><input id="HR" type="time" value="@DateTime.Now.ToString("HH:mm")" style="display:none" readonly /></div>
-            <div class="col-sm-1" style="padding-top:23px;padding-left:0px;"> <button id="BtnAgenda" class="btn btn-sm btn-default" title="Información de horarios" ><i class="fa fa-calendar"></i></button></div>
+            <div class="col-sm-1" style="padding-top:23px;padding-left:0px;"> <button id="BtnAgenda" class="btn btn-sm btn-default" title="Información de horarios"><i class="fa fa-calendar"></i></button></div>
         </div>
         <hr>
         <div class="row">
@@ -156,9 +156,10 @@
 </div>
 @section Scripts{
 
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  
+    <script src="~/lib/jquery-ui-1.12.1.custom/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
     <script src="~/js/AlquilerDeCanchas.js"></script>
-    <script src="~/js/AutoCompletarCombos-UI.js"></script>   
-   
+    <script src="~/js/AutoCompletarCombos-UI.js"></script>
+
 }
 

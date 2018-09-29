@@ -5,8 +5,8 @@
     BOCHASContext _context = new BOCHASContext();
     var cliente = (from p in _context.Persona where p.FechaBaja == null && p.Tipo == "JUGADOR" select new { Id = p.Id, Client = p.Apellido + " " + p.Nombre + " N° Doc: " + p.NroDocumento }).ToList().OrderBy(p => p.Client);
 }
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
+<link href="~/lib/jquery-ui-1.12.1.custom/jquery-ui-1.12.1.custom/jquery-ui.min.css" rel="stylesheet" />
 <style>
     .custom-combobox {
         position: relative;
@@ -47,14 +47,14 @@
 
             <div class="col-sm-4">
                 <label>Jugador:</label>
-                <select id="IdCliente" class="btn btn-sm form-control " asp-items="@{ new SelectList(cliente, "Id", "Client" );}"></select>                
+                <select id="IdCliente" class="btn btn-sm form-control " asp-items="@{ new SelectList(cliente, "Id", "Client" );}"></select>
             </div>
             <div class="col-sm-5">
                 <div class="col-sm-5"><label>Fecha desde:</label><input type="date" class="form-control" id="fechaD" style="font-size:12px;" /></div>
                 <div class="col-sm-5"><label>Fecha hasta:</label><input type="date" class="form-control" id="fechaH" style="font-size:12px;" /></div>
                 <div class="col-sm-1" style="padding:0px;padding-top:22px;"> <button id="BtnConPart" type="button" class="btn btn-sm btn-info "><i class="fa fa-search"></i></button></div>
             </div>
-           
+
         </div>
         <hr />
         <div class="row">
@@ -84,7 +84,7 @@
                 <h4 class="modal-title" style="color:white;">Detalle de la Reserva</h4>
             </div>
             <div id="DetalleReservaBody" class="modal-body">
-                
+
             </div>
             <div class="modal-footer">
                 <div class="progress">
@@ -143,9 +143,9 @@
 
 </div>
 @section Scripts{
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="~/lib/jquery-ui-1.12.1.custom/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
     <script src="~/js/AutoCompletarCombos-UI.js"></script>
     <script src="~/js/AlquilerDeCanchas.js"></script>
-   
+
 }
 

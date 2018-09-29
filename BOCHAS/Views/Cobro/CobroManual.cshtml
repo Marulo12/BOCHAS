@@ -4,7 +4,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     var reservas = (from a in bd.AlquilerCancha join p in bd.Persona on a.IdCliente equals p.IdUsuario where a.IdEstado == 4 && a.IdCobro == null select new { NroReserva = a.Numero, jugador = "Reserva:" + a.Numero + ", Jugador: " + p.Nombre + " " + p.Apellido + ", Fecha:" + a.FechaReserva.Value.Date.ToString("dd/MM/yyyy") }).ToList();
 }
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<link href="~/lib/jquery-ui-1.12.1.custom/jquery-ui-1.12.1.custom/jquery-ui.min.css" rel="stylesheet" />
 <style>
     .custom-combobox {
         position: relative;
@@ -79,7 +80,7 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <label>Reservas</label>
-                        @{ if (reservas.Count > 0 )
+                        @{ if (reservas.Count > 0)
                             {
                                 <div class="btn-group-sm">
                                     <select id="Reservas" class="btn btn-sm" asp-items="@{new SelectList(reservas, "NroReserva", "jugador")}"></select><button class="btn btn-sm btn-success" style="margin-left:20px;" onclick="CalcularXReserva()"><i class="fa fa-plus"></i></button>
@@ -113,10 +114,10 @@
                         <thead class="alert alert-info"><tr><td>Servicio</td><td>$Precio Unit.</td><td style="width:5%">Cantidad</td><td style="width:10%">$Total</td><td>Agregar</td><td style="display:none;"></td></tr></thead>
                         <tbody></tbody>
                     </table>
-                    
+
                     <p style="float:right;"><button id="BtnAgregaAlquiler" class="btn btn-sm btn-default" onclick="AgregarSAFinal()"><i class="fa fa-plus"></i> Agregar</button>  <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#ModalSAFinal"><i class="fas fa-chevron-circle-up"></i> Ver Agregados</button> </p>
                 </div>
-               
+
                 <hr />
                 <div class="row">
                     <div class="col-md-4">
@@ -149,12 +150,12 @@
 
             <div class="modal-body">
                 <table id="SAFinal" class="table">
-                    <thead class="alert alert-warning"><tr><td>N° Clase</td><td>Servicio</td><td>$Precio Unit.</td><td style="width:5%">Cantidad</td><td  style="width:10%">$Total</td><td></td><td style="display:none;"></td></tr></thead>
+                    <thead class="alert alert-warning"><tr><td>N° Clase</td><td>Servicio</td><td>$Precio Unit.</td><td style="width:5%">Cantidad</td><td style="width:10%">$Total</td><td></td><td style="display:none;"></td></tr></thead>
                     <tbody></tbody>
                 </table>
             </div>
             <div class="modal-footer">
-                <button  type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
@@ -182,7 +183,7 @@
             </div>
         </div>
     </div>
-    </div>
+</div>
 <div id="ModalNotaServicios" class="modal fade" role="dialog">
     <div class="modal-dialog modal-sm">
 
@@ -201,13 +202,13 @@
     </div>
 </div>
 
-    @section Scripts{
-        <script src="~/js/AlquilerDeCanchas.js"></script>
-        <script src="~/js/Cobros.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-        <script src="~/js/AutoCompletarCombos-UI.js"></script>
-        <script src="~/js/ServiciosConsumidos.js"></script>
-        <script>$('[data-toggle="tooltip"]').tooltip();</script>        
-    }
+@section Scripts{
+    <script src="~/js/AlquilerDeCanchas.js"></script>
+    <script src="~/js/Cobros.js"></script>
+    <script src="~/lib/jquery-ui-1.12.1.custom/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+    <script src="~/js/AutoCompletarCombos-UI.js"></script>
+    <script src="~/js/ServiciosConsumidos.js"></script>
+    <script>$('[data-toggle="tooltip"]').tooltip();</script>
+}
 
 
