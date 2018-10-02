@@ -29,7 +29,14 @@
     <div class="container-fluid">
 
         <h4>Cantidad de canchas ocupadas</h4>
-        <h5>Desde el @Model.ToList()[0].FecD Hasta @Model.ToList()[0].FecH</h5>
+        @{
+
+            if (Model.ToList().Count() != 0)
+            {
+                <h5>Desde el @Model.ToList()[0].FecD Hasta @Model.ToList()[0].FecH</h5>
+            }
+        }
+
         @{
 
             int[] horas = new int[24];
@@ -70,129 +77,142 @@
             </thead>
             <tbody>
 
-                @foreach (var i in horas)
-                {
-                    <tr>
-                        <td>@i:00</td>
-                        @{
-
-                            <td>
-
+                @{ if (Model.ToList().Count() != 0)
+                    {
+                        foreach (var i in horas)
+                        {
+                            <tr>
+                                <td>@i:00</td>
                                 @{
-                                    foreach (var item in Model)
-                                    {
 
-                                        if (ci.DateTimeFormat.GetDayName(item.Dia) == "lunes")
-                                        {
-                                            if (item.Hora == i)
+                                    <td>
+
+                                        @{
+                                            foreach (var item in Model)
                                             {
-                                                <label style="font-size:17px;">@item.Cantidad</label>
-                                                break;
-                                            }
 
-                                        }
-                                    }
-                                }
-                            </td>
-                            <td>
-                                @{
-                                    foreach (var item in Model)
-                                    {
+                                                if (ci.DateTimeFormat.GetDayName(item.Dia) == "lunes")
+                                                {
+                                                    if (item.Hora == i)
+                                                    {
+                                                        <label style="font-size:17px;">@item.Cantidad</label>
+                                                        break;
+                                                    }
 
-                                        if (ci.DateTimeFormat.GetDayName(item.Dia) == "martes")
-                                        {
-                                            if (item.Hora == i)
-                                            {
-                                                <label style="font-size:17px;">@item.Cantidad</label>
-                                                break;
+                                                }
                                             }
                                         }
-                                    }
-                                }
-                            </td>
-                            <td>
-                                @{
-                                    foreach (var item in Model)
-                                    {
-
-                                        if (ci.DateTimeFormat.GetDayName(item.Dia) == "miércoles")
-                                        {
-                                            if (item.Hora == i)
+                                    </td>
+                                    <td>
+                                        @{
+                                            foreach (var item in Model)
                                             {
-                                                <label style="font-size:17px;">@item.Cantidad</label>
-                                                break;
+
+                                                if (ci.DateTimeFormat.GetDayName(item.Dia) == "martes")
+                                                {
+                                                    if (item.Hora == i)
+                                                    {
+                                                        <label style="font-size:17px;">@item.Cantidad</label>
+                                                        break;
+                                                    }
+                                                }
                                             }
                                         }
-                                    }
-                                }
-                            </td>
-                            <td>
-                                @{
-                                    foreach (var item in Model)
-                                    {
-
-                                        if (ci.DateTimeFormat.GetDayName(item.Dia) == "jueves")
-                                        {
-                                            if (item.Hora == i)
+                                    </td>
+                                    <td>
+                                        @{
+                                            foreach (var item in Model)
                                             {
-                                                <label style="font-size:17px;">@item.Cantidad</label>
-                                                break;
+
+                                                if (ci.DateTimeFormat.GetDayName(item.Dia) == "miércoles")
+                                                {
+                                                    if (item.Hora == i)
+                                                    {
+                                                        <label style="font-size:17px;">@item.Cantidad</label>
+                                                        break;
+                                                    }
+                                                }
                                             }
                                         }
-                                    }
-                                }
-                            </td>
-                            <td>
-                                @{
-                                    foreach (var item in Model)
-                                    {
-
-                                        if (ci.DateTimeFormat.GetDayName(item.Dia) == "viernes")
-                                        {
-                                            if (item.Hora == i)
+                                    </td>
+                                    <td>
+                                        @{
+                                            foreach (var item in Model)
                                             {
-                                                <label style="font-size:17px;">@item.Cantidad</label>
-                                                break;
+
+                                                if (ci.DateTimeFormat.GetDayName(item.Dia) == "jueves")
+                                                {
+                                                    if (item.Hora == i)
+                                                    {
+                                                        <label style="font-size:17px;">@item.Cantidad</label>
+                                                        break;
+                                                    }
+                                                }
                                             }
                                         }
-                                    }
-                                }
-                            </td>
-                            <td>
-                                @{
-                                    foreach (var item in Model)
-                                    {
-
-                                        if (ci.DateTimeFormat.GetDayName(item.Dia) == "sábado")
-                                        {
-                                            if (item.Hora == i)
+                                    </td>
+                                    <td>
+                                        @{
+                                            foreach (var item in Model)
                                             {
-                                                <label style="font-size:17px;">@item.Cantidad</label>
-                                                break;
+
+                                                if (ci.DateTimeFormat.GetDayName(item.Dia) == "viernes")
+                                                {
+                                                    if (item.Hora == i)
+                                                    {
+                                                        <label style="font-size:17px;">@item.Cantidad</label>
+                                                        break;
+                                                    }
+                                                }
                                             }
                                         }
-                                    }
-                                }
-                            </td>
-                            <td>
-                                @{
-                                    foreach (var item in Model)
-                                    {
-
-                                        if (ci.DateTimeFormat.GetDayName(item.Dia) == "domingo")
-                                        {
-                                            if (item.Hora == i)
+                                    </td>
+                                    <td>
+                                        @{
+                                            foreach (var item in Model)
                                             {
-                                                <label style="font-size:16px;">@item.Cantidad</label>
-                                                break;
+
+                                                if (ci.DateTimeFormat.GetDayName(item.Dia) == "sábado")
+                                                {
+                                                    if (item.Hora == i)
+                                                    {
+                                                        <label style="font-size:17px;">@item.Cantidad</label>
+                                                        break;
+                                                    }
+                                                }
                                             }
                                         }
-                                    }
-                                }
-                            </td>
+                                    </td>
+                                    <td>
+                                        @{
+                                            foreach (var item in Model)
+                                            {
 
-                        }
-                    </tr>
+                                                if (ci.DateTimeFormat.GetDayName(item.Dia) == "domingo")
+                                                {
+                                                    if (item.Hora == i)
+                                                    {
+                                                        <label style="font-size:16px;">@item.Cantidad</label>
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    </td>
+
+                                }
+                            </tr>
+
+
+
+
+
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <tr><td colspan="8">No hay registros disponibles</td></tr>
+                                            }
 
 
 
