@@ -350,8 +350,11 @@ function CalcularXReserva() {
             var precio = response.precio;
           //  precio = precio.toLocaleString("es-ES", {minimumFractionDigits: 2});
             var horas = response.horas;
-
-            tr = '<tr><td class="Nres">' + IdReserva + '</td><td>' + response.servicio + '</td><td>' + precio + '</td><td>' + response.canchas + '</td><td>' + horas + '</td><td class="Stotal">' + Mtotal + '</td><td><div class="btn-group"><button class="btn btn-sm btn-danger borrar" data-toggle="tooltip" title="Quitar"><i class="fas fa-backspace"></i></button><button class="btn btn-sm btn-warning" onclick="NotaServiciosReservasManual(' + IdReserva + ')" data-toggle="tooltip" title="Nota de servicios"><i class="fas fa-book-open"></i></button></div></td></tr>';
+            var jugador = $("#Reservas option:selected").text();
+            
+                filtro = jugador.split(",",4);
+            
+            tr = '<tr><td class="Nres">' + IdReserva + '</td><td>' + response.servicio + '</td><td>' + precio + '</td><td>' + response.canchas + '</td><td>' + horas + '</td><td class="Stotal">' + Mtotal + '</td><td><div class="btn-group"><button class="btn btn-sm btn-danger borrar" data-toggle="tooltip" title="Quitar"><i class="fas fa-backspace"></i></button><button class="btn btn-sm btn-warning" onclick="NotaServiciosReservasManual(' + IdReserva + ')" data-toggle="tooltip" title="Nota de servicios"><i class="fas fa-book-open"></i></button></div></td><td style="display:none;">'+filtro[3]+'</td></tr>';
            
            
             $(".Nres").each(function () {
@@ -364,7 +367,27 @@ function CalcularXReserva() {
                 }
 
             });
-            if (existe) { alertify.error("Esa reserva ya esta incorporada para el cobro"); } else { $("#TDetalleR").append(tr); $("#ReservasSA").append('<option value="' + IdReserva + '">'+IdReserva + '</option>'); }
+            if (existe) { alertify.error("Esa reserva ya esta incorporada para el cobro"); }
+            else {
+                var UnicoJugador = true;
+                $(".Nres").each(function () {
+                    var tr = $(this).closest('tr');
+                    var tot = $(tr).find('td:nth-child(8)').text();
+
+                    if (tot !== filtro[3]) {
+
+                        UnicoJugador = false;
+                    }
+
+                });
+                if (UnicoJugador) {
+                    $("#TDetalleR").append(tr); $("#ReservasSA").append('<option value="' + IdReserva + '">' + IdReserva + '</option>');
+                }
+                else {
+                    alertify.error("El cobro de las reservas tiene que ser de un mismo jugador");
+                }
+                
+            }
 
         }
     });

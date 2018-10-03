@@ -238,8 +238,15 @@ namespace BOCHAS.Controllers
             _context.ClaseParticular.Update(clase);
             if (_context.SaveChanges() == 1)
             {
-                Agenda ag = _context.Agenda.Where(a => a.IdClasesParticulares == Nclase).SingleOrDefault();
-                _context.Agenda.Remove(ag);
+                try
+                {
+                    Agenda ag = _context.Agenda.Where(a => a.IdClasesParticulares == Nclase).SingleOrDefault();
+                    _context.Agenda.Remove(ag);
+
+                }
+                catch {
+
+                }
                 if (_context.SaveChanges() == 1)
                 {
                     try

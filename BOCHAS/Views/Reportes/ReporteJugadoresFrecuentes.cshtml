@@ -2,7 +2,7 @@
 
 @{
     Layout = null;
-   
+
 }
 <!DOCTYPE html>
 
@@ -22,7 +22,12 @@
     <hr />
     <h2 style="padding-left:7%;"><img src="~/images/extras/padel3.png" width="160" />&nbsp;&nbsp;&nbsp;Listado de Jugadores Frecuentes</h2>
     <div class="container-fluid">
-        <h5>Desde el @Model.ToList()[0].FecD Hasta @Model.ToList()[0].FecH</h5>
+        @{ if (Model.ToList().Count != 0)
+            {
+                <h5>Desde el @Model.ToList()[0].FecD Hasta @Model.ToList()[0].FecH</h5>
+            }
+        }
+
         <table class="table">
             <thead style="background-color: rgba(0, 104, 253, 0.8);color:white;">
                 <tr>
@@ -39,22 +44,30 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Nombre)
-                        </td>
-                        <td style="text-align:center;">
-                            @Html.DisplayFor(modelItem => item.DNI)
-                        </td>
-                        <td style="text-align:center;">
-                            @Html.DisplayFor(modelItem => item.Cantidad)
-                        </td>
+                @{ if (Model.ToList().Count != 0)
+                    {
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Nombre)
+                                </td>
+                                <td style="text-align:center;">
+                                    @Html.DisplayFor(modelItem => item.DNI)
+                                </td>
+                                <td style="text-align:center;">
+                                    @Html.DisplayFor(modelItem => item.Cantidad)
+                                </td>
 
-                    </tr>
-                }
-            </tbody>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr><td colspan="3" style="text-align:center;">No hay registros disponibles</td></tr>
+                    }
+                    }
+                    </tbody>
         </table>
     </div>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
