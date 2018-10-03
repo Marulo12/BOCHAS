@@ -2,7 +2,7 @@
 @{
     BOCHASContext bd = new BOCHASContext();
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var reservas = (from a in bd.AlquilerCancha join p in bd.Persona on a.IdCliente equals p.IdUsuario where a.IdEstado == 4 && a.IdCobro == null select new { NroReserva = a.Numero, jugador = "Reserva:" + a.Numero + ", Jugador: " + p.Nombre + " " + p.Apellido + ", Fecha:" + a.FechaReserva.Value.Date.ToString("dd/MM/yyyy") }).ToList();
+    var reservas = (from a in bd.AlquilerCancha join p in bd.Persona on a.IdCliente equals p.IdUsuario where a.IdEstado == 4 && a.IdCobro == null select new { NroReserva = a.Numero, jugador = "Reserva:" + a.Numero + ", Fecha:" + a.FechaReserva.Value.Date.ToString("dd/MM/yyyy") + ", Jugador: " + p.Nombre + " " + p.Apellido + ", N° Doc:" + p.NroDocumento}).ToList();
 }
 
 <link href="~/lib/jquery-ui-1.12.1.custom/jquery-ui-1.12.1.custom/jquery-ui.min.css" rel="stylesheet" />
@@ -28,6 +28,16 @@
         color: white;
         width: 100%;
         background-color: rgba(172, 44, 44, 0.9);
+
+    }
+    .ui-autocomplete {
+        max-height: 100px;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    * html .ui-autocomplete {
+        height: 100px;
     }
 </style>
 <div class="panel panel-primary">
@@ -99,7 +109,7 @@
                 </div>
                 <hr />
                 <table id="Tservicios" class="table">
-                    <thead class="alert alert-info"><tr><td style="width:4%;">N°</td><td style="width:20%">Servicio</td><td style="width:5%">$Precio Unit.</td><td style="width:5%">Cant.Canchas</td><td style="width:5%">Cant.Horas</td><td style="width:10%">$Total</td><td style="width:10%;"></td></tr></thead>
+                    <thead class="alert alert-info"><tr><td style="width:4%;">N°</td><td style="width:20%">Servicio</td><td style="width:5%">$Precio Unit.</td><td style="width:5%">Cant.Canchas</td><td style="width:5%">Cant.Horas</td><td style="width:10%">$Total</td><td style="width:10%;"></td><td style="display:none;"></td></tr></thead>
                     <tbody id="TDetalleR"></tbody>
                 </table>
 
@@ -123,7 +133,7 @@
                     <div class="col-md-4">
                         <div class="input-group">
                             <span class="input-group-btn">
-                                <button class="btn  btn-info" type="button" onclick="CalcularTotalReservas()">=</button>
+                                <button class="btn  btn-info" type="button" onclick="CalcularTotalReservas()"><b>=</b>&nbsp;&nbsp;$</button>
                             </span>
                             <input id="InputTotalR" type="text" class="form-control" placeholder="El total es" readonly>
                         </div>

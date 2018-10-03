@@ -33,6 +33,16 @@
         width: 100%;
         background-color: rgba(172, 44, 44, 0.9);
     }
+    .ui-autocomplete {
+        max-height: 100px;
+        overflow-y: auto;
+     
+        overflow-x: hidden;
+    }
+    
+    * html .ui-autocomplete {
+        height: 100px;
+    }
 </style>
 <div class="panel panel-primary">
     <div class="panel-heading">
@@ -146,7 +156,7 @@
                     <div class="col-md-4">
                         <div class="input-group">
                             <span class="input-group-btn">
-                                <button class="btn  btn-info" type="button" onclick="CalcularTotalReservas()">=</button>
+                                <button class="btn  btn-info" type="button" onclick="CalcularTotalReservas()"><b>=</b>&nbsp;&nbsp;$</button>
                             </span>
                             <input id="InputTotalR" type="text" class="form-control" placeholder="El total es" readonly>
                         </div>

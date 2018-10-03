@@ -400,7 +400,7 @@ namespace BOCHAS.Controllers
                 anual += i.MontoTotal;
             }
 
-            var lista = new { diario = diario, mensual = mensual, anual = anual };
+            var lista = new { diario = diario.Value.ToString("N"), mensual = mensual.Value.ToString("N"), anual = anual.Value.ToString("N") };
 
             return Json(lista);
         }
