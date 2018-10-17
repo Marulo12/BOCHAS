@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<BOCHAS.Models.AlquilerCancha>
-<table id="TablaReservasConsP" class="table table-striped" style="width:100%;margin-left:0px;margin-right:0px;">
+<table id="TablaReservasConsP" class="table table-striped" style="width:100%;">
     <thead style="background-color: rgba(158, 44, 44, 0.9);color:white;">
         <tr>
             <th>Numero Reserva</th>
@@ -83,10 +83,10 @@
     </tbody>
 </table>
 
-<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+
 <script>
     $(".BtnCancelaR").click(function (event) {
         $("#ModalMail").modal();
     });
-    $('[data-toggle="tooltip"]').tooltip(); 
+    $('[data-toggle="tooltip"]').tooltip();
 </script>
