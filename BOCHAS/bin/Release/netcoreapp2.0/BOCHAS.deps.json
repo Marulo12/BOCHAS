@@ -2788,7 +2788,7 @@
         "runtime": {
           "lib/netstandard1.3/Microsoft.Extensions.PlatformAbstractions.dll": {
             "assemblyVersion": "1.1.0.0",
-            "fileVersion": "1.1.0.30427"
+            "fileVersion": "1.1.0.21115"
           }
         },
         "compile": {
