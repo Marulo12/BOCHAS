@@ -149,15 +149,18 @@ namespace BOCHAS.Controllers
                 {
                     int IdClaseParticular = _context.ClaseParticular.Max(a => a.Id);
 
-
-                    Agenda Ag = new Agenda();
-                    Ag.IdClasesParticulares = IdClaseParticular;
-                    Ag.IdCancha = Convert.ToInt32(IdCancha);
-                    Ag.Fecha = FechaReserva;
-                    Ag.HoraDesde = HoraInicio;
-                    Ag.HoraHasta = HoraFin;
-                    _context.Agenda.Add(Ag);
-                    _context.SaveChanges();
+                    try
+                    {
+                        Agenda Ag = new Agenda();
+                        Ag.IdClasesParticulares = IdClaseParticular;
+                        Ag.IdCancha = Convert.ToInt32(IdCancha);
+                        Ag.Fecha = FechaReserva;
+                        Ag.HoraDesde = HoraInicio;
+                        Ag.HoraHasta = HoraFin;
+                        _context.Agenda.Add(Ag);
+                        _context.SaveChanges();
+                    }
+                    catch { }
                     return Json("EXITO");
                 }
                 else
@@ -295,13 +298,17 @@ namespace BOCHAS.Controllers
             _context.ClaseParticular.Update(clase);
             if (_context.SaveChanges() == 1)
             {
-                Agenda ag = _context.Agenda.Where(a => a.IdClasesParticulares == Nclase).SingleOrDefault();
-                _context.Agenda.Remove(ag);
-                var cancha = _context.Cancha.Where(c => c.Id == clase.IdCancha).SingleOrDefault();
-                cancha.IdEstadoCancha = 2;
-                _context.Cancha.Update(cancha);
-                
-                _context.SaveChanges();
+                try
+                {
+                    Agenda ag = _context.Agenda.Where(a => a.IdClasesParticulares == Nclase).SingleOrDefault();
+                    _context.Agenda.Remove(ag);
+                    var cancha = _context.Cancha.Where(c => c.Id == clase.IdCancha).SingleOrDefault();
+                    cancha.IdEstadoCancha = 2;
+                    _context.Cancha.Update(cancha);
+
+                    _context.SaveChanges();
+                }
+                catch { }
                 TempData["Resultado"] = "FINALIZADO";
                 TempData["NClaseFinalizada"] = Nclase;
                 return RedirectToAction("ConsultarClases");
