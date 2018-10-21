@@ -204,22 +204,31 @@ namespace BOCHAS.APIS
         [HttpPost("api/Personas/Login")]
         public async Task<JsonResult> Login([FromBody] Users U)
         {
-            string hash = "";
-            using (MD5 md5Hash = MD5.Create())
+            try
             {
-                hash = Encriptador.GetMd5Hash(md5Hash, U.Contra);
-            }
-            var usuario = await _context.Persona.Include(p => p.IdUsuarioNavigation).Where(p => p.FechaBaja == null && p.IdUsuarioNavigation.Nombre == U.Usuario && p.IdUsuarioNavigation.Contraseña == hash && p.Tipo =="JUGADOR").SingleOrDefaultAsync();
-            if (usuario != null)
-            {               
-                RegistrarIngresoSession(Convert.ToInt32(usuario.IdUsuario));
-                return Json(Ok());
-            }
-            else
-            {
-                return Json(NotFound());
+                string hash = "";
+                using (MD5 md5Hash = MD5.Create())
+                {
+                    hash = Encriptador.GetMd5Hash(md5Hash, U.Contra);
+                }
+                var usuario = await _context.Persona.Include(p => p.IdUsuarioNavigation).Where(p => p.FechaBaja == null && p.IdUsuarioNavigation.Nombre == U.Usuario && p.IdUsuarioNavigation.Contraseña == hash && p.Tipo == "JUGADOR").SingleOrDefaultAsync();
 
+                if (usuario != null)
+                {
+                    RegistrarIngresoSession(Convert.ToInt32(usuario.IdUsuario));
+                    var IdJugador = new { IdUsuario = usuario.Id };
+                    return Json(IdJugador);
+                }
+                else
+                {
+                    var IdJugador = new { IdUsuario = 0 };
+                    return Json(IdJugador);
+
+                }
             }
+            catch  {
+                var IdJugador = new { IdUsuario = -1 };
+                return Json(IdJugador); }
         }
 
         public void RegistrarIngresoSession(int IdUsuario)
