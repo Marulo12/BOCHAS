@@ -405,10 +405,11 @@ function ComprobarCamposDates() {
     return true;
 }
 function ConsultaParticular() {
+    $("#TablaConPar").empty();
     var Jugador = $("#IdCliente option:selected").val();
     var fechaD = $("#fechaD").val();
     var fechaH = $("#fechaH").val();
-    if (fechaD != "" && fechaH === "") {
+    if (fechaD !== "" && fechaH === "") {
         alertify.error("Complete el intervalo de fechas");
         return;
     } if (fechaD === "" && fechaH != "") {
@@ -419,7 +420,7 @@ function ConsultaParticular() {
         alertify.error("La fecha desde no puede ser mayor que la fecha hasta");
         return;
     }
-        $("#TablaConPar").empty();
+       
         $("#ImgLoad").css("display", "inline-block");
         $.ajax({
             type: "GET",

@@ -1,18 +1,17 @@
-﻿using System;
+﻿using BOCHAS.Hubs;
+using BOCHAS.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using BOCHAS.Models;
-using Microsoft.AspNetCore.SignalR;
-using BOCHAS.Hubs;
 
 namespace BOCHAS.APIS
 {
     [Produces("application/json")]
-    
+
     public class AlquilerCanchasController : Controller
     {
         private readonly BOCHASContext _context;
@@ -113,13 +112,14 @@ namespace BOCHAS.APIS
                         Lcancha.Add(c);
                     }
                 }
-               
+
             }
             return Json(Lcancha);
 
         }
 
-        public class RR {
+        public class RR
+        {
             public string fecR { get; set; }
             public string hd { get; set; }
             public string hh { get; set; }
@@ -172,7 +172,7 @@ namespace BOCHAS.APIS
                     }
                 }
                 var reservaJ = (from a in _context.AlquilerCancha join p in _context.Persona on a.IdCliente equals p.IdUsuario where a.IdEmpleado == null && a.IdEstado == 2 select new { Numero = a.Numero, Nombre = p.Nombre, Apellido = p.Apellido }).ToList();
-              
+
                 _hubContext.Clients.All.ReservasJugador(reservaJ);
                 return Json(Ok());
             }
@@ -195,29 +195,29 @@ namespace BOCHAS.APIS
                 DateTime FechaLimite = DateTime.Now.Date.AddDays((double)Dias);
                 if (Dias > 0)
                 {
-                   
-                  
+
+
                     var alquiler = (from a in _context.AlquilerCancha join u in _context.Usuario on a.IdCliente equals u.Id join e in _context.EstadoAlquiler on a.IdEstado equals e.Id where u.Id == idCliente && a.FechaReserva >= DateTime.Now.Date && a.FechaReserva <= FechaLimite select new { Numero = a.Numero, FechaPedido = a.FechaPedido.Value.Day + "/" + a.FechaPedido.Value.Month + "/" + a.FechaPedido.Value.Year, FechaReserva = a.FechaReserva.Value.Day + "/" + a.FechaReserva.Value.Month + "/" + a.FechaReserva.Value.Year, Estado = e.Nombre, IdEstado = e.Id }).ToListAsync();
                     return Json(await alquiler);
                 }
                 else
                 {
 
-                 
+
                     var alquiler = (from a in _context.AlquilerCancha join u in _context.Usuario on a.IdCliente equals u.Id join e in _context.EstadoAlquiler on a.IdEstado equals e.Id where u.Id == idCliente && a.FechaReserva <= DateTime.Now.Date && a.FechaReserva >= FechaLimite select new { Numero = a.Numero, FechaPedido = a.FechaPedido.Value.Day + "/" + a.FechaPedido.Value.Month + "/" + a.FechaPedido.Value.Year, FechaReserva = a.FechaReserva.Value.Day + "/" + a.FechaReserva.Value.Month + "/" + a.FechaReserva.Value.Year, Estado = e.Nombre, IdEstado = e.Id }).ToListAsync();
                     return Json(await alquiler);
                 }
-                
+
             }
-            
+
         }
-       
+
         [HttpGet("api/AlquilerCanchas/DetalleReserva/{Numero}")]
         public async Task<JsonResult> DetalleReserva([FromRoute] int Numero)
         {
             int num = Numero;
-            
-            var detalle = (from d in _context.DetalleAlquilerCancha join c in _context.Cancha on d.IdCancha equals c.Id join e in _context.EstadoDetalleAlquiler on d.IdEstadoDetalle equals e.Id where d.IdAlquilerCancha == num select new {IdCancha= c.Id , NumCancha = c.Numero , Nombre = c.Nombre , Descripcion = c.Descripcion , HoraDesde = d.HoraReservaDesde , HoraHasta = d.HoraReservaHasta , Estado = e.Nombre , IdEstadoDetalleReserva = e.Id }).ToListAsync();
+
+            var detalle = (from d in _context.DetalleAlquilerCancha join c in _context.Cancha on d.IdCancha equals c.Id join e in _context.EstadoDetalleAlquiler on d.IdEstadoDetalle equals e.Id where d.IdAlquilerCancha == num select new { IdCancha = c.Id, NumCancha = c.Numero, Nombre = c.Nombre, Descripcion = c.Descripcion, HoraDesde = d.HoraReservaDesde, HoraHasta = d.HoraReservaHasta, Estado = e.Nombre, IdEstadoDetalleReserva = e.Id }).ToListAsync();
             return Json(await detalle);
         }
 
@@ -225,8 +225,129 @@ namespace BOCHAS.APIS
         [HttpGet("api/AlquilerCanchas/Noticias")]
         public async Task<JsonResult> Noticias()
         {
-            var noticias = _context.Noticias.Where(n => n.Activo == true).ToListAsync();           
+            var noticias = _context.Noticias.Where(n => n.Activo == true).ToListAsync();
             return Json(await noticias);
         }
+
+
+
+        [HttpGet("api/AlquilerCanchas/sugerirCanchas/{fecR}/{hd}")]
+        public JsonResult sugerirCanchas(string fecR, string hd)
+        {
+            var cancha = (from c in _context.Cancha join e in _context.EstadoCancha on c.IdEstadoCancha equals e.Id where e.Id == 1 || e.Id == 2 select c).ToList();
+
+            List<Sugerencias> SCanchas = new List<Sugerencias>();
+
+            int totalhoras = TimeSpan.Parse(hd).Hours;
+
+
+            foreach (var c in cancha)
+            {
+                TimeSpan horadesde = TimeSpan.Parse(hd);
+                TimeSpan horahasta = new TimeSpan();
+                TimeSpan t2 = new TimeSpan(1, 0, 0);
+                var agenda = _context.Agenda.Where(a => a.Fecha == Convert.ToDateTime(fecR) && a.IdCancha == c.Id).ToList();
+                if (agenda.Count() == 0)
+                {
+                    Sugerencias s = new Sugerencias();
+                    s.id = c.Id;
+                    s.nombre = c.Nombre;
+                    s.numero = c.Numero;
+                    s.descripcion = c.Descripcion;
+                    s.horadesde = horadesde.ToString();
+                    s.horahasta = horadesde.Add(t2).ToString();
+                    SCanchas.Add(s);
+                    continue;
+                }
+                for (int i = 0; i < 24 - totalhoras; i++)
+                {
+                   
+                    horadesde = horadesde.Add(new TimeSpan(i, 0, 0));
+                    horahasta = horadesde.Add(t2);
+
+                    if (horadesde.Hours <= 24 && horadesde.Days == 0 && horahasta.Hours <= 24 && horahasta.Days == 0)
+                    {
+
+                        for (int ag = 0; ag < agenda.Count(); ag++)
+                        {
+                            if (ag == agenda.Count() - 1)
+                            {
+                                if (horadesde >= agenda[ag].HoraHasta)
+                                {
+                                    Sugerencias s = new Sugerencias();
+                                    s.id = c.Id;
+                                    s.nombre = c.Nombre;
+                                    s.numero = c.Numero;
+                                    s.descripcion = c.Descripcion;
+                                    s.horadesde = horadesde.ToString();
+                                    s.horahasta = horahasta.ToString();
+                                    SCanchas.Add(s);
+
+                                }
+                                if (horahasta <= agenda[ag].HoraDesde)
+                                {
+                                    Sugerencias s = new Sugerencias();
+                                    s.id = c.Id;
+                                    s.nombre = c.Nombre;
+                                    s.numero = c.Numero;
+                                    s.descripcion = c.Descripcion;
+                                    s.horadesde = horadesde.ToString();
+                                    s.horahasta = horahasta.ToString();
+                                    SCanchas.Add(s);
+
+
+                                }
+
+                            }
+                            else
+                            {
+
+
+                                if (horadesde >= agenda[ag].HoraDesde && horadesde <= agenda[ag].HoraHasta && horahasta <= agenda[ag + 1].HoraDesde)
+                                {
+                                    Sugerencias s = new Sugerencias();
+                                    s.id = c.Id;
+                                    s.nombre = c.Nombre;
+                                    s.numero = c.Numero;
+                                    s.descripcion = c.Descripcion;
+                                    s.horadesde = horadesde.ToString();
+                                    s.horahasta = horahasta.ToString();
+                                    SCanchas.Add(s);
+                                    break;
+                                }
+
+                            }
+
+
+
+
+
+                        }
+
+                    }
+
+                }
+
+
+
+            }
+
+
+            return Json(SCanchas);
+
+
+
+        }
+
+        public class Sugerencias { public int id { set; get; } public int numero { set; get; } public string nombre { set; get; } public string descripcion { set; get; } public string horadesde { set; get; } public string horahasta { set; get; } }
+
+
+
+
+
+
+
+
+
     }
 }
