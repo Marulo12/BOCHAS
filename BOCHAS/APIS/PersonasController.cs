@@ -216,7 +216,7 @@ namespace BOCHAS.APIS
                 if (usuario != null)
                 {
                     RegistrarIngresoSession(Convert.ToInt32(usuario.IdUsuario));
-                    var IdJugador = new { IdUsuario = usuario.Id };
+                    var IdJugador = new { IdUsuario = usuario.IdUsuario };
                     return Json(IdJugador);
                 }
                 else
