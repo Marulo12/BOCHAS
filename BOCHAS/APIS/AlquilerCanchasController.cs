@@ -231,6 +231,9 @@ namespace BOCHAS.APIS
 
 
 
+       
+
+
         [HttpGet("api/AlquilerCanchas/sugerirCanchas/{fecR}/{hd}")]
         public JsonResult sugerirCanchas(string fecR, string hd)
         {
@@ -246,7 +249,7 @@ namespace BOCHAS.APIS
                 TimeSpan horadesde = TimeSpan.Parse(hd);
                 TimeSpan horahasta = new TimeSpan();
                 TimeSpan t2 = new TimeSpan(1, 0, 0);
-                var agenda = _context.Agenda.Where(a => a.Fecha == Convert.ToDateTime(fecR) && a.IdCancha == c.Id).ToList();
+                var agenda = _context.Agenda.Where(a => a.Fecha == Convert.ToDateTime(fecR) && a.IdCancha == c.Id && a.HoraDesde >= TimeSpan.Parse(hd)).ToList();
                 if (agenda.Count() == 0)
                 {
                     Sugerencias s = new Sugerencias();
@@ -259,70 +262,103 @@ namespace BOCHAS.APIS
                     SCanchas.Add(s);
                     continue;
                 }
-                for (int i = 0; i < 24 - totalhoras; i++)
+                for (int i = 0; i < 25 - totalhoras; i++)
                 {
-                   
+
                     horadesde = horadesde.Add(new TimeSpan(i, 0, 0));
                     horahasta = horadesde.Add(t2);
 
                     if (horadesde.Hours <= 24 && horadesde.Days == 0 && horahasta.Hours <= 24 && horahasta.Days == 0)
                     {
 
-                        for (int ag = 0; ag < agenda.Count(); ag++)
+
+                        if (agenda.Where(a => horadesde >= a.HoraDesde && horahasta <= a.HoraHasta).Count() > 0)
                         {
-                            if (ag == agenda.Count() - 1)
-                            {
-                                if (horadesde >= agenda[ag].HoraHasta)
-                                {
-                                    Sugerencias s = new Sugerencias();
-                                    s.id = c.Id;
-                                    s.nombre = c.Nombre;
-                                    s.numero = c.Numero;
-                                    s.descripcion = c.Descripcion;
-                                    s.horadesde = horadesde.ToString();
-                                    s.horahasta = horahasta.ToString();
-                                    SCanchas.Add(s);
-
-                                }
-                                if (horahasta <= agenda[ag].HoraDesde)
-                                {
-                                    Sugerencias s = new Sugerencias();
-                                    s.id = c.Id;
-                                    s.nombre = c.Nombre;
-                                    s.numero = c.Numero;
-                                    s.descripcion = c.Descripcion;
-                                    s.horadesde = horadesde.ToString();
-                                    s.horahasta = horahasta.ToString();
-                                    SCanchas.Add(s);
-
-
-                                }
-
-                            }
-                            else
-                            {
-
-
-                                if (horadesde >= agenda[ag].HoraDesde && horadesde <= agenda[ag].HoraHasta && horahasta <= agenda[ag + 1].HoraDesde)
-                                {
-                                    Sugerencias s = new Sugerencias();
-                                    s.id = c.Id;
-                                    s.nombre = c.Nombre;
-                                    s.numero = c.Numero;
-                                    s.descripcion = c.Descripcion;
-                                    s.horadesde = horadesde.ToString();
-                                    s.horahasta = horahasta.ToString();
-                                    SCanchas.Add(s);
-                                    break;
-                                }
-
-                            }
-
-
-
-
 
                         }
+
+                        if (agenda.Where(a => horadesde == a.HoraDesde).ToList().Count() > 0)
+                        {
+
+                        }
+                        else
+                        {
+                            if (horadesde < agenda[0].HoraDesde && horahasta <= agenda[0].HoraDesde)
+                            {
+
+                                Sugerencias s = new Sugerencias();
+                                s.id = c.Id;
+                                s.nombre = c.Nombre;
+                                s.numero = c.Numero;
+                                s.descripcion = c.Descripcion;
+                                s.horadesde = horadesde.ToString();
+                                s.horahasta = horahasta.ToString();
+                                SCanchas.Add(s);
+                               continue;
+                            }
+                            if (horadesde >= agenda[agenda.Count() -1].HoraHasta)
+                            {
+                                Sugerencias s = new Sugerencias();
+                                s.id = c.Id;
+                                s.nombre = c.Nombre;
+                                s.numero = c.Numero;
+                                s.descripcion = c.Descripcion;
+                                s.horadesde = horadesde.ToString();
+                                s.horahasta = horahasta.ToString();
+                                SCanchas.Add(s);
+                                continue;
+
+                            }
+                           
+                                for (int ii = 0; ii < agenda.Count(); ii++)
+                                {
+                                    if (horadesde == agenda[ii].HoraHasta)
+                                    {
+
+                                        if (horahasta <= agenda[ii + 1].HoraDesde)
+                                        {
+                                            Sugerencias s = new Sugerencias();
+                                            s.id = c.Id;
+                                            s.nombre = c.Nombre;
+                                            s.numero = c.Numero;
+                                            s.descripcion = c.Descripcion;
+                                            s.horadesde = horadesde.ToString();
+                                            s.horahasta = horahasta.ToString();
+                                            SCanchas.Add(s);
+
+                                              break;
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        try
+                                        {
+                                            if (horadesde >= agenda[ii].HoraHasta && horahasta <= agenda[ii + 1].HoraDesde)
+                                            {
+                                                Sugerencias s = new Sugerencias();
+                                                s.id = c.Id;
+                                                s.nombre = c.Nombre;
+                                                s.numero = c.Numero;
+                                                s.descripcion = c.Descripcion;
+                                                s.horadesde = horadesde.ToString();
+                                                s.horahasta = horahasta.ToString();
+                                                SCanchas.Add(s);
+
+                                                break;
+                                            }
+                                        }
+                                        catch { continue; }
+                                    }
+
+
+                                }
+                            
+
+                         
+
+                        }
+
 
                     }
 
@@ -338,6 +374,18 @@ namespace BOCHAS.APIS
 
 
         }
+
+
+
+
+
+
+
+
+
+
+
+
 
         public class Sugerencias { public int id { set; get; } public int numero { set; get; } public string nombre { set; get; } public string descripcion { set; get; } public string horadesde { set; get; } public string horahasta { set; get; } }
 
