@@ -93,7 +93,7 @@ $(document).ready(function () {
            // Callback after the lightbox is hidden
 		onPrev: function(element){},                // Callback when the lightbox gallery goes to previous item
 		onNext: function(element){},                // Callback when the lightbox gallery goes to next item
-		errorMessage: 'No se puedo cargar las imagenes' // Error message when content can't be loaded
+		errorMessage: 'No se pudo cargar las imagenes' // Error message when content can't be loaded
 	});
 	
 
