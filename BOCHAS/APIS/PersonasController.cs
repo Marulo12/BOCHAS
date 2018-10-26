@@ -237,10 +237,9 @@ namespace BOCHAS.APIS
                Session Entrada = new Session();
             Entrada.IdUsuario = IdUsuario;
             Entrada.FechaInicio = DateTime.Now.Date;
-            Entrada.Origen = 1;
+            Entrada.Origen = 2;
             Entrada.HoraInicio = (TimeSpan)DateTime.Now.TimeOfDay;
-            _context.Add(Entrada);
-           
+            _context.Add(Entrada);           
             _context.SaveChanges();
             NotificarSession();
 

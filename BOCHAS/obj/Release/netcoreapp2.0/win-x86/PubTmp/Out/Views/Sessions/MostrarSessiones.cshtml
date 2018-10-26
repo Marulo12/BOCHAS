@@ -52,27 +52,23 @@
                 
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.HoraInicio.Hours):@Html.DisplayFor(modelItem => item.HoraInicio.Minutes):@Html.DisplayFor(modelItem => item.HoraInicio.Seconds)
+                <label>@item.HoraInicio.ToString(@"hh\:mm")</label>
             </td>
             <td>
                 @{
-                    TimeSpan s = new TimeSpan();
-                    string hora = "";
-                    string minutos = "";
-                    string segundos = "";
-                    string horas = "-";
+                   
                     if (item.HoraFin != null)
                     {
-                        s = (TimeSpan)item.HoraFin;
-                        hora = s.Hours.ToString();
-                        minutos = s.Minutes.ToString();
-                        segundos = s.Seconds.ToString();
-                        horas = hora + ":" + minutos + ":" + segundos;
+                        <label>@item.HoraFin.Value.ToString(@"hh\:mm")</label>
+                    }
+                    else
+                    {
+                        <label>-</label>
                     }
 
 
                 }
-              @horas
+
 
             </td>
             <td>
