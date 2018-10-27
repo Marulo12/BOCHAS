@@ -278,7 +278,7 @@ namespace BOCHAS.Controllers
 
         public async Task<IActionResult> ConsultarReservas()
         { 
-            var alquiler = _context.AlquilerCancha.Include(a => a.IdEstadoNavigation).Include(a => a.IdClienteNavigation.Persona).Include(a=>a.IdEmpleadoNavigation.Persona).Include(a=>a.IdClienteNavigation).Include(a=>a.IdEmpleadoNavigation).Where(a=>a.FechaReserva >= DateTime.Now.Date && a.IdEstado != 5 && a.IdEstado != 4).OrderByDescending(a => a.Numero).ToListAsync();
+            var alquiler = _context.AlquilerCancha.Include(a => a.IdEstadoNavigation).Include(a => a.IdClienteNavigation.Persona).Include(a=>a.IdEmpleadoNavigation.Persona).Include(a=>a.IdClienteNavigation).Include(a=>a.IdEmpleadoNavigation).Where(a=>a.FechaReserva >= DateTime.Now.Date && a.IdEstado != 5 && a.IdEstado != 4).OrderBy(a => a.FechaReserva).ToListAsync();
 
             return View(await alquiler);
         }
